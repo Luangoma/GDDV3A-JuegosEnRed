@@ -51,7 +51,70 @@ El alcance inicial es crear un videojuego de navegador web con Phaser 3 en JavaS
 
 Este juego inicial conformará una base sobre la que crear, en el futuro, diferentes modos de juego y niveles.
 
-# ULTIMA COSA AÑADIDA AQUI /*=========================================================*/
+# Mario AQUI /*=========================================================*/
+# Mecánicas
+## Jugabilidad
+En Burning Village The Dragon's flame destacan varias mecánicas jugables:
+
+
+- **Movilidad:** En Burning Village se controlan dos dragones (uno cada jugador) que sobrevuelan la misma aldea compuesta de varios edificios. 
+
+- **Fuego:** Cada dragón puede escupir fuego una vez cada 3 segundos.
+
+- **Incendios:** Cuando alguno de los dragones incendia alguna de las distintas zonas de la aldea, estas quedan encendidas durante un periodo de tiempo por determinar.
+
+- **Incendiar zonas ya incendiadas (opción 1):** Un dragón no puede incendiar una zona que ya ha sido encendida por su contrincante mientras este siga vivo. Por tanto para invadir la aldea debe asesinar a su contrincante.
+
+- **Incendiar zonas ya incendiadas (opción 2):** Un dragón puede incendiar una zona que ya ha sido encendida por su contrincante mientras este sigue vivo soplando dos veces fuego sobre ella.
+Si se hace mientras el contrincante está muerto, en lugar de dos solo es necesario soplar una vez. 
+(todas estas métricas quedan sujetas a cambios con intención de crear un gameplay lo más divertido posible)
+
+- **Asesinar dragones:** Cada dragón recibe/inflige un punto de vida de daño por cada bocanada de fuego que reciba/suelte.
+Cada dragón cuenta con un número de puntos de vida aún por determinar.
+
+- **Temporizador:** Hay un tiempo limitado para que uno de los dragones consiga quemar la aldea por completo. Si durante este plazo ninguno de los dos dragones ha sido capaz de controlar la aldea, el dragón con más zonas incendiadas al momento de finalizar el contador, será el ganador de la partida.
+
+## Personajes
+El juego consta de dos personajes jugables. Cada jugador controla un dragón de características similares.
+
+Uno de ellos de color azul y otro de color rojo. Esta estética también se ve reflejada en las llamaradas, siendo de color naranja las del dragón de color rojo, y moradas las del de color azul.
+
+## Movimiento y físicas
+El movimiento de ambos dragones es muy simple. Pueden desplazarse por la pantalla sobrevolando la aldea utilizando el teclado (w, a, s, d; o las flechas) 
+		Para disparar una bocanada de fuego se utilizará otra tecla
+		del teclado aún por determinar.
+
+También se está valorando la opción de un movimiento con el ratón, en el que el personaje seguiría constantemente al cursor y expulsaría fuego mediante click.
+
+El juego no cuenta con físicas relevantes. Los dragones solo se mueven en 2D sobrevolando la aldea.
+
+
+## Flujo de una partida
+Durante esta sección se procederá a explicar cuál sería el curso de una partida común de Burning Village The Dragon's flame
+
+Los jugadores inician el juego, lo primero que se les presenta es un menú con varias opciones, de las cuales seleccionarán la opción nueva partida.
+
+Una vez la partida se haya cargado correctamente, tras una cuenta atrás, cada dragón aparece en uno de los extremos de la aldea, teniendo un rango de visión limitado a la zona por la que se desplazan, por lo que no necesariamente pueden conocer sus ubicaciones.
+
+**Ataque a la aldea:** Una vez comienza la partida ambos dragones se desplazan a través de la aldea con la intención de incendiar la mayor parte de la misma. Una vez que todas las zonas han quedado incendiadas por las llamaradas de ambos dragones. 
+
+- **A los jugadores se les presentan tres escenarios:**
+Que las zonas controladas por el oponente sean considerablemente más numerosas que las propias. 
+En este caso la respuesta más lógica será la de encontrar al dragón oponente lo antes posible para eliminarlo y proceder a la reconquista de las zonas que controlaba durante el tiempo de su reaparición aprovechando que durante este tiempo las zonas enemigas se pueden conquistar con menor esfuerzo (un soplido).
+
+- **Que las zonas controladas por el oponente sean exageradamente menos numerosas a las propias.**
+En este caso la opción más lógica será la de reconquistar las zonas opuestas sin ser eliminados por el oponente. A pesar de que las zonas requieren más esfuerzo para ser conquistadas mientras el oponente siga vivo. El riesgo de caer liquidado a manos del oponente y perder gran parte del control provoca que no valga la pena buscar pelea y que salga más a cuenta huir e intentar conquistar las zonas ajenas a pesar de necesitar dos soplidos para su conquista.
+
+- **Que el oponente controle un número de zonas cercano al propio.**
+En este caso la opción más lógica es que ambos dragones busquen eliminarse entre ellos, con la intención de poder aumentar su control de la zona durante el beneficio que aportará una hipotética baja del rival. 
+
+
+Una vez uno de estos escenarios se ha cumplido (aunque variará en función de la forma de jugar de cada jugador) se seguirán cumpliendo escenarios similares contínuamente hasta que uno de los dragones se haga con todas las zonas o de que el temporizador se acabe. En este último caso el dragón que más zonas controle en el momento de finalizar el contador será el que gane la partida.
+
+
+
+
+# Dani AQUI /*=========================================================*/
 
 ## Diseño de producto
 
