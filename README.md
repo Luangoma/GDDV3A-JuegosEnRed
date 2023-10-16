@@ -76,17 +76,17 @@ El estilo visual evoca la sensación de un mundo medieval de fantasía y proporc
 
 
 ### Audio
-Música: El juego contará con una banda sonora medieval que se adapta al ambiente del juego, creando una atmósfera inmersiva. En momentos de calma, la música será ambiental y alegre, contrastando con las músicas más dramáticas que sonarán al comenzar a destrozar las casas y al entrar en combate con otros dragones, siendo claramente diferenciables para que el jugador sepa en qué estado se encuentra. Durante el combate, la música sonará con un ritmo acelerado para incrementar la tensión durante la lucha contra un dragón enemigo.
+- **Música:** El juego contará con una banda sonora medieval que se adapta al ambiente del juego, creando una atmósfera inmersiva. En momentos de calma, la música será ambiental y alegre, contrastando con las músicas más dramáticas que sonarán al comenzar a destrozar las casas y al entrar en combate con otros dragones, siendo claramente diferenciables para que el jugador sepa en qué estado se encuentra. Durante el combate, la música sonará con un ritmo acelerado para incrementar la tensión durante la lucha contra un dragón enemigo.
 
 
-Efectos de sonido: Habrá efectos de sonido para las acciones del dragón, como el rugido, el fuego respirado y las colisiones, al recibir y causar daño. Las casas emitirán sonidos al estar en llamas y al derrumbarse. Todo con el objetivo de mejorar la experiencia auditiva del jugador e incrementar la inmersión en el papel de un dragón que está devastando todo lo que se encuentra a su paso.
+- **Efectos de sonido:** Habrá efectos de sonido para las acciones del dragón, como el rugido, el fuego respirado y las colisiones, al recibir y causar daño. Las casas emitirán sonidos al estar en llamas y al derrumbarse. Todo con el objetivo de mejorar la experiencia auditiva del jugador e incrementar la inmersión en el papel de un dragón que está devastando todo lo que se encuentra a su paso.
 
 
 ### Mundo de ficción
-Descripción del mundo: El juego se desarrolla en un mundo de fantasía medieval donde los dragones compiten por quemar casas y conquistar un castillo, devastando por completo las ciudades humanas.
+- **Descripción del mundo:** El juego se desarrolla en un mundo de fantasía medieval donde los dragones compiten por quemar casas y conquistar un castillo, devastando por completo las ciudades humanas.
 
 
-Narrativa relevante: La narrativa se centra en la rivalidad entre los dragones y su lucha por el control del territorio.
+- **Narrativa relevante:** La narrativa se centra en la rivalidad entre los dragones y su lucha por el control del territorio.
 
 
 ### Monetización
