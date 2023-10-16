@@ -51,7 +51,7 @@ El alcance inicial es crear un videojuego de navegador web con Phaser 3 en JavaS
 
 Este juego inicial conformará una base sobre la que crear, en el futuro, diferentes modos de juego y niveles.
 
-# Mario AQUI /*=========================================================*/
+
 # Mecánicas
 ## Jugabilidad
 En Burning Village The Dragon's flame destacan varias mecánicas jugables:
@@ -112,10 +112,6 @@ En este caso la opción más lógica es que ambos dragones busquen eliminarse en
 Una vez uno de estos escenarios se ha cumplido (aunque variará en función de la forma de jugar de cada jugador) se seguirán cumpliendo escenarios similares contínuamente hasta que uno de los dragones se haga con todas las zonas o de que el temporizador se acabe. En este último caso el dragón que más zonas controle en el momento de finalizar el contador será el que gane la partida.
 
 
-
-
-# Dani AQUI /*=========================================================*/
-
 ## Diseño de producto
 
 ### Experiencia del jugador y POV
@@ -162,6 +158,90 @@ El juego estará disponible como un juego web. Se podrá jugar en cualquier disp
 
 
 Está desarrollado en JavaScript (JS) y permite jugar en multijugador, lo que permite que los jugadores puedan competir entre ellos en línea y en tiempo real.
+
+
+
+# Interfaces
+En este apartado, hablaremos de la importancia de la interfaz de usuario en Burning Village: The Dragon 's Flame, que no solo sea estéticamente atractiva, sino que también permita una experiencia de juego divertida. Desde la disposición de los controles hasta la presentación de información de la partida.
+   
+## Diagrama de flujo
+El mapa de navegación por el menú se aprecian las opciones de búsqueda de partida, ajustes, créditos y salida del juego, es decir las opciones básicas. Se puede expresar visualmente de la siguiente forma:
+
+
+![Figura 1, diagrama de flujo entre menús](./Images/Diagrama.png)
+
+## Menú principal
+A continuación se mostrará un boceto de la sección menú principal.
+
+![Figura 2, boceto de menú principal.](./Images/Menu.png)
+
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Área del título: Área donde se muestra el nombre del juego.
+* Ilustración: Área donde se muestran ilustraciones del juego.
+* Botón Jugar: Dirige a la escena de Búsqueda de partida. También se puede usar el botón Barra espaciadora o Enter del teclado para acceder a la misma opción.
+* Botón Ajustes: Dirige a la escena Ajustes, donde configurar la experiencia jugable.
+* Botón Créditos: Dirige a la escena Créditos.
+* Botón Salir: Permite al jugador salir del juego, después de una confirmación. También se puede usar el botón Escape del teclado para acceder a la misma opción.
+
+## Buscar partida
+A continuación se mostrará un boceto de la escena Buscar partida.
+
+![Figura 3, boceto de Buscar partida](./Images/Busqueda.png)
+
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Estado de búsqueda: Muestra si se está buscando partida. También añade detalles de la búsqueda, como si está en cola, buscando sala etc.
+* Botón Cancelar: Cancela la búsqueda de la partida y devuelve al menú principal. También se puede usar el botón Escape del teclado para acceder a la misma opción.
+
+
+
+## Partida
+A continuación se mostrará un boceto de la escena Partida.
+
+![Figura 4, boceto de Partida.](./Images/Partida.png)
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Marcador: Muestra los puntos ganados de cada jugador
+* Cronómetro: Indica el tiempo restante de la partida. Al llegar a cero, la partida termina y se comparan los puntos de los jugadores para decidir el estado de victoria.
+* Vida: Indica la vida restante del jugador
+* Botón Pausa: Pausa la partida para acceder a un menú rápido de opciones entre las que se encuentran las opciones de ajustes y salir de partida. Si el jugador sale de partida, contará como victoria para el contrincante y derrota para el que la selecciona. Durante la pausa, el juego no se detiene.
+* Corazones: Muestra la vida que le queda al jugador. Al llegar a cero, el jugador muere y no puede jugar durante un periodo corto de tiempo (10 segundos).
+
+
+
+## Final de nivel
+A continuación se mostrará un boceto de la escena Final de nivel.
+
+![Figura 5, boceto de Final de nivel.](./Images/Resultados.png)
+
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Detalles de partida: Muestra datos de la partida de las acciones realizadas por el jugador.
+* Botón Continuar: Vuelve al menú principal. También se puede usar el botón barra espaciadora o Enter del teclado para acceder a la misma opción.
+
+
+## Créditos
+A continuación se mostrará un boceto de la escena Créditos.
+
+![Figura 6, boceto de Créditos.](./Images/Creditos.png)
+
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Créditos: Permite ver quien se ha encargado de los diferentes componentes del juego.
+* Botón Volver: Devuelve al menú principal. También se puede usar el botón Escape del teclado para acceder a la misma opción.
+
+## Ajustes
+A continuación se mostrará un boceto de la escena Ajustes.
+
+![Figura 7, boceto de Ajustes.](./Images/Ajustes.png)
+
+Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
+* Botón General: Despliega las opciones generales como el brillo y el idioma.
+* Botón Gráficos: Despliega los ajustes de gráficos como la resolución.
+* Botón Sonido: Despliega las opciones de sonido como el volumen y el dispositivo de reproducción.
+* Botón Volver: Devuelve al menú principal. También se puede usar el botón Escape del teclado para acceder a la misma opción.
+
 
 ## Bibliografía
 
