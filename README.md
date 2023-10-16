@@ -51,6 +51,55 @@ El alcance inicial es crear un videojuego de navegador web con Phaser 3 en JavaS
 
 Este juego inicial conformará una base sobre la que crear, en el futuro, diferentes modos de juego y niveles.
 
+# ULTIMA COSA AÑADIDA AQUI /*=========================================================*/
+
+## Diseño de producto
+
+### Experiencia del jugador y POV
+El jugador asume el papel de un dragón en un mundo medieval.
+
+
+El juego ofrece una vista reducida desde la perspectiva del dragón, lo que significa que el jugador no puede ver todo el mapa en su totalidad.
+
+
+Los jugadores experimentarán la fantasía de ser un poderoso dragón capaz de volar y quemar casas medievales. La emoción del jugador proviene de descubrir nuevas zonas del mapa que están ocultas a su vista donde hay más territorios para conquistar.
+
+
+Los jugadores sentirán una sensación de emoción, competencia y estrategia mientras compiten contra otro dragón para quemar casas y conquistar el castillo enemigo. La sensación de satisfacción y poder al quemar casas y la tensión de los enfrentamientos con el otro dragón serán fundamentales para la experiencia del jugador, ya que acentúan la sensación de poder y de conquista.
+
+
+### Estilo visual y arte
+El juego presenta una estética visual de mundo medieval con gráficos de pixel art. Las casas y castillos son representativos de esta época, estando hechos con ladrillos de piedra, madera y paja para recrear la estética de las edificaciones medievales.
+
+
+El estilo visual evoca la sensación de un mundo medieval de fantasía y proporciona una experiencia nostálgica y encantadora para los jugadores.
+
+
+### Audio
+Música: El juego contará con una banda sonora medieval que se adapta al ambiente del juego, creando una atmósfera inmersiva. En momentos de calma, la música será ambiental y alegre, contrastando con las músicas más dramáticas que sonarán al comenzar a destrozar las casas y al entrar en combate con otros dragones, siendo claramente diferenciables para que el jugador sepa en qué estado se encuentra. Durante el combate, la música sonará con un ritmo acelerado para incrementar la tensión durante la lucha contra un dragón enemigo.
+
+
+Efectos de sonido: Habrá efectos de sonido para las acciones del dragón, como el rugido, el fuego respirado y las colisiones, al recibir y causar daño. Las casas emitirán sonidos al estar en llamas y al derrumbarse. Todo con el objetivo de mejorar la experiencia auditiva del jugador e incrementar la inmersión en el papel de un dragón que está devastando todo lo que se encuentra a su paso.
+
+
+### Mundo de ficción
+Descripción del mundo: El juego se desarrolla en un mundo de fantasía medieval donde los dragones compiten por quemar casas y conquistar un castillo, devastando por completo las ciudades humanas.
+
+
+Narrativa relevante: La narrativa se centra en la rivalidad entre los dragones y su lucha por el control del territorio.
+
+
+### Monetización
+El modelo de monetización es free to play (F2P). El juego es gratuito para jugar, lo que permite a los jugadores acceder a todas las características y funcionalidades sin costo alguno.
+
+
+El objetivo es poder fidelizar a la mayor cantidad de jugadores posibles para dar a conocer a los desarrolladores del juego.
+### Plataformas y tecnologías
+El juego estará disponible como un juego web. Se podrá jugar en cualquier dispositivo capaz de ejecutar un navegador y conectarse con otros dispositivos.
+
+
+Está desarrollado en JavaScript (JS) y permite jugar en multijugador, lo que permite que los jugadores puedan competir entre ellos en línea y en tiempo real.
+
 ## Bibliografía
 
 BoardgamingParent. (2023, 31 agosto). 7 Strategy games like Risk when you’re ready for more. BoardgamingParent.com. <https://boardgamingparent.com/6-great-games-like-risk-for-something-extra/>
