@@ -1,6 +1,6 @@
 # GDDV3A-JuegosEnRed
 
-# Burning Village: The Dragon's Village
+# Burning Village: The Dragon's Flame
 
 ## Introducción
 
