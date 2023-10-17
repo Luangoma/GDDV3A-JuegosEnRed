@@ -2,6 +2,24 @@
 
 # Burning Village: The Dragon's Flame
 
+**Nombre del juego:** Burning Village: The Dragon's Flame
+
+**Temática del juego:** Juego de estrategia, arcade y acción multijugador de temática fantástica medieval.
+
+**Equipo de desarollo:**
+- Luis Antonio González Martínez.
+	- Correo: la.gonzalez.2021@alumnos.urjc.es
+ 	- Usuario de GitHub: Luangoma
+- Daniel Rodríguez Ariza.
+	- Correo: d.rodrigueza.2021@alumnos.urjc.es
+ 	- Usuario de GitHub: DanielRodriguezAriza
+- Mario López García.
+	- Correo: m.lopezgar.2021@alumnos.urjc.es
+ 	- Usuario de GitHub: mariolopp
+- Juan Alessandro Vázquez Bustos.
+	- Correo: ja.vazquez.2020@alumnos.urjc.es
+ 	- Usuario de GitHub: Sandro808
+
 ## Introducción
 
 Lo siguiente es una propuesta para un juego casual de estrategia, acción y arcade con temática fantástica. ‘Burning Village: The Dragon’s Flame’ coge los elementos fantásticos medievales típicos, tales como dragones y pequeños pueblos, y los une en un videojuego de partidas con extrema rejugabilidad y entretenimiento. Este documento tiene como propósito describir los diversos aspectos que conforman el juego.
