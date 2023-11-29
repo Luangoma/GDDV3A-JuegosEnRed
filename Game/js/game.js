@@ -13,4 +13,4 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-game.scene.start("Map1");
+game.scene.start("MainMenu");
