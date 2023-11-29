@@ -1,0 +1,51 @@
+function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
+	this.scene = new_scene;
+	this.player_id = new_player_id;
+	this.start_x = new_start_x;
+	this.start_y = new_start_y;
+	
+	this.player_velocity = 200;
+	this.player_turn_speed = 0.1;
+
+}
+
+function preloadDragon(scene){
+	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
+};
+
+Dragon.prototype.create = function(){
+	
+	//create the physics sprite for the player
+	this.sprite = this.scene.physics.add.sprite(this.start_x, this.start_y, 'dragon');
+	let player_ref = this.sprite;
+	player_ref.setBounce(0.2);
+	player_ref.setCollideWorldBounds(true);
+	
+	//create the animations for the player... iirc the tutorial mentioned that the creation should be done once, so we should fix this later...
+	this.scene.anims.create({
+		key: 'turn',
+		frames: this.scene.anims.generateFrameNumbers('dragon', { start: 0, end: 2 }),
+		frameRate: 7,
+		repeat: -1
+	});
+	player_ref.anims.play('turn');
+	
+	//add controller support
+	this.cursors = this.scene.input.keyboard.createCursorKeys();
+};
+
+Dragon.prototype.update = function(time, delta){
+	let playerVelocity = this.player_velocity; //something something phaser doesn't handle delta time in velocity and acceleration for some reason :(
+	let playerTurnSpeed = this.player_turn_speed;
+	playerForwardVector = getForwardVector(this.sprite);
+	this.sprite.setVelocityX(playerForwardVector.y*playerVelocity);
+	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
+
+	if (this.cursors.left.isDown) {
+		this.sprite.angle-=playerTurnSpeed * delta;
+	}
+	else if (this.cursors.right.isDown) {
+		this.sprite.angle+=playerTurnSpeed * delta;
+	}
+};
+
