@@ -1,3 +1,5 @@
+//import config from "./game_config.js";
+
 var config = {
 	type: Phaser.AUTO,
 	width: 800,
@@ -29,6 +31,7 @@ var game = new Phaser.Game(config);
 
 function preload() {
 	this.load.image('sky', 'assets/sky.png');
+	this.load.image("fondo","assets/fondo_test.png");
 	this.load.image('ground', 'assets/platform.png');
 	this.load.image('star', 'assets/star.png');
 	this.load.image('bomb', 'assets/bomb.png');
@@ -37,8 +40,13 @@ function preload() {
 }
 
 function create() {
+	
+	this.cameras.main.setBounds(0, 0, 2048, 2048);
+    this.physics.world.setBounds(0, 0, 2048, 2048);
+	
 	//  A simple background for our game
-	this.add.image(400, 300, 'sky');
+	//this.add.image(400, 300, 'sky');
+	this.add.image(0, 0, 'fondo').setOrigin(0,0).setScale(2);
 
 	//  The platforms group contains the ground and the 2 ledges we can jump on
 	platforms = this.physics.add.staticGroup();
@@ -53,7 +61,7 @@ function create() {
 	//platforms.create(750, 220, 'ground');
 
 	// The player and its settings
-	player = this.physics.add.sprite(100, 450, 'dragon');
+	player = this.physics.add.sprite(1024, 1024, 'dragon');
 
 	//  Player physics properties. Give the little guy a slight bounce.
 	player.setBounce(0.2);
@@ -125,7 +133,10 @@ function create() {
 	this.physics.add.overlap(player, stars, collectStar, null, this);
 
 	this.physics.add.collider(player, bombs, hitBomb, null, this);
-
+	
+	
+	this.cameras.main.startFollow(player, true);
+	this.cameras.main.setZoom(1);
 }
 
 var deltaTime = 0;
