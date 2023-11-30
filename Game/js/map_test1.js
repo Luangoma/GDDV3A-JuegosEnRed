@@ -8,7 +8,8 @@ var map_test_1 = {
 var map_test_1_variables = {
 	player1: {},
 	player2: {},
-	houses: []
+	houses: [],
+	tiles: []
 };
 
 function map_test_1_preload() {
@@ -16,6 +17,7 @@ function map_test_1_preload() {
 	this.load.image("world_grass","assets/WorldGrass.png");
 	preloadDragon(this);
 	preloadHouse(this);
+	preloadTile(this);
 }
 
 function map_test_1_create() {
@@ -33,7 +35,9 @@ function map_test_1_create() {
 	map_test_1_variables.house2.create();
 	*/
 	
-	spawnHouses(this, map_test_1_variables.houses, 50, {x: 0, y: 0}, {x: 2048, y: 2048});
+	//spawnHouses(this, map_test_1_variables.houses, 100, {x: 0, y: 0}, {x: 2048, y: 2048});
+	
+	createTiles(this, map_test_1_variables.tiles);
 	
 	map_test_1_variables.player1 = new Dragon(this, 0, 1024, 1024);
 	map_test_1_variables.player1.create();

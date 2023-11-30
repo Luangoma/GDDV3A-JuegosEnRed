@@ -12,3 +12,6 @@ var config = {
 	pixelArt: true,
 	scene : []
 };
+
+var world_width = 2048;
+var world_height = 2048;
