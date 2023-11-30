@@ -28,6 +28,11 @@ function Map1Preload() {
 	//Real assets for the game (some are placeholders)
 	this.load.image("fondo","assets/fondo_test.png");
 	preloadDragon(this);
+
+	//Animación fuego, burning_animation
+	this.load.spritesheet('animacionFuegoStart', 'assets/burning_animation/burning_start_1.png', {frameWidth: 24, frameHeight: 32});
+	this.load.spritesheet('animacionFuegoLoop', 'assets/burning_animation/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
+	this.load.spritesheet('animacionFuegoEnd', 'assets/burning_animation/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
 }
 
 function Map1Create() {
@@ -70,6 +75,66 @@ function Map1Create() {
 	
 	this.cameras.main.startFollow(player1.sprite, true);
 	this.cameras.main.setZoom(1);
+
+
+
+
+
+
+	// ANIMACIÓN FUEGO
+
+	// Añadir objeto a la escena con el sprite animacionFuegoStart.
+	var animacionFuego = this.add.sprite(1000, 1000, 'animacionFuegoStart').setScale(5);
+	
+	animacionFuego.smoothed = false;
+
+	// Crear animaciones fuego, animaciones start, loop y end.
+	//Animación animacionFuegoStart, inicio del fuego, solo reproducir 1 vez.
+	this.anims.create({
+		key: 'animacionFuegoStart',
+		frames: this.anims.generateFrameNumbers('animacionFuegoStart', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+
+	//Animación animacionFuegoLoop, bucle del fuego, reproducir continuamente.
+	this.anims.create({
+		key: 'animacionFuegoLoop',
+		frames: this.anims.generateFrameNumbers('animacionFuegoLoop', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: -1
+	});
+
+	//Animación animacionFuegoEnd, final del fuego, solo reproducir 1 vez al terminar la llama.
+	this.anims.create({
+		key: 'animacionFuegoEnd',
+		frames: this.anims.generateFrameNumbers('animacionFuegoEnd', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+
+	//Reproducir animaciones fuego
+	//animacionFuego.anims.play('animacionFuegoStart');
+	//animacionFuego.anims.play('animacionFuegoLoop');
+	//animacionFuego.anims.play('animacionFuegoEnd');
+
+	// Las animaciones están disponibles globalmente para todos los elementos del juego, no pertenecen
+	// a un elemento en concreto. Puedo decirle al elemento animacionFuego que reproduzca otra animación
+	// aunque sea con otro spritesheet que no sea con el que se creó el elemento.
+
+	// Una vez la animación animacionFuegoStart termine, comienza la animación animacionFuegoLoop.
+	animacionFuego.anims.play("animacionFuegoStart").once('animationcomplete', () => {
+		animacionFuego.anims.play("animacionFuegoLoop");
+	 });
+
+	// Falta implementar que pasado un tiempo la casa deje de quemarse y se reproduzca la animación
+	// animacionFuegoEnd.
+
+
+
+
+
+
 }
 
 function Map1Update(time, delta) {

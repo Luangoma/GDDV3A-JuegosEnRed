@@ -80,6 +80,7 @@ Dragon.prototype.update = function(time, delta){
 	
 };
 
+// Función para lanzar llamas por la boca.
 Dragon.prototype.spawnFlames = function(flame_count){
 	let flames = this.scene.physics.add.group();
 	
