@@ -7,6 +7,7 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.player_velocity = 200;
 	this.player_turn_speed = 0.1;
 
+	this.flames = this.scene.physics.add.group();
 }
 
 function preloadDragon(scene){
@@ -82,14 +83,14 @@ Dragon.prototype.update = function(time, delta){
 
 // Función para lanzar llamas por la boca.
 Dragon.prototype.spawnFlames = function(flame_count){
-	let flames = this.scene.physics.add.group();
+	// let flames = this.scene.physics.add.group();
 	
 	for(let i = 0; i < flame_count; ++i)
 	{
 		let forward_vec = getForwardVector(this.sprite);
 		let spawn_distance = 50;
 		let flame_spawn_point = new Phaser.Math.Vector2(this.sprite.x + forward_vec.y * spawn_distance, this.sprite.y - forward_vec.x * spawn_distance);
-		let current_flame = flames.create(flame_spawn_point.x, flame_spawn_point.y, 'flame');
+		let current_flame = this.flames.create(flame_spawn_point.x, flame_spawn_point.y, 'flame');
 		forward_vec.x /= forward_vec.length();
 		forward_vec.y /= forward_vec.length();
 		

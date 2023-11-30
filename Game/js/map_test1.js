@@ -49,6 +49,13 @@ function map_test_1_create() {
 	
 	this.cameras.add(0,0,config.width,config.height/2).startFollow(map_test_1_variables.player1.sprite,true).setBounds(0,0,world_width, world_height);
 	this.cameras.add(0,config.height/2,config.width,config.height/2).startFollow(map_test_1_variables.player2.sprite,true).setBounds(0,0,world_width, world_height);
+	
+	for (let index = 0; index < map_test_1_variables.houses.length; index++) {	
+		this.physics.add.overlap(map_test_1_variables.player1.flames, map_test_1_variables.houses[index], blazeHouse, null, this);
+		this.physics.add.overlap(map_test_1_variables.player2.flames, map_test_1_variables.houses[index], blazeHouse, null, this);
+	}
+	this.physics.add.overlap(map_test_1_variables.player2.flames, map_test_1_variables.player1.sprite, damageEnemy, null, this);
+	this.physics.add.overlap(map_test_1_variables.player1.flames, map_test_1_variables.player2.sprite, damageEnemy, null, this);
 }
 
 function map_test_1_update(time, delta) {
