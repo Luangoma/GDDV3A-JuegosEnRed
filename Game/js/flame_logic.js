@@ -6,7 +6,7 @@ function blazeHouse(flame, house) {
 // playerSprite: sprite del jugador que recibe llamas, flame: llamas del rival, y player: jugador que recibe llamas
 function damageEnemy(playerSprite, flame, player) { 
     player.health -= 1;
-    console.log("Vida del jugador"+player.life);
+    console.log("Current Player Health: " + player.health);
     flame.disableBody(true, true);
     playerSprite.setTint(0xff0000); // El personaje se pone rojo
     //playerSprite.anims.play('animacionFuegoEnd'); // Esta cosa no funciona
