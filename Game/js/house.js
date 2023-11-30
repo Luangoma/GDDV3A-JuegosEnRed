@@ -28,3 +28,24 @@ function preloadHouse(scene){
 House.prototype.create = function(){
 	this.sprite = this.scene.add.image(this.start_x, this.start_y, house_data[this.house_index].key);
 };
+
+function spawnHouses(scene, house_list, count, mincoords, maxcoords)
+{
+	var current_house;
+	var rand;
+	var coord = {x: 0, y: 0};
+	for(let i = 0; i < count; ++i)
+	{
+		rand = Math.ceil(getRandomInRange(0,house_data.length)) - 1;
+		coord.x = Math.ceil(getRandomInRange(mincoords.x, maxcoords.x));
+		coord.y = Math.ceil(getRandomInRange(mincoords.y, maxcoords.y));
+		current_house = new House(scene, rand, coord.x, coord.y);
+		current_house.create();
+		house_list.push(current_house);
+		//console.log("created a house with index: " + rand);
+	}
+}
+
+
+
+
