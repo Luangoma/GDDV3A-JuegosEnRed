@@ -34,8 +34,8 @@ function map_test_1_create() {
 	
 	//spawnHouses(this, map_test_1_variables.houses, 100, {x: 0, y: 0}, {x: 2048, y: 2048});
 	
-	createTiles(this, map_test_1_variables.tiles);
-	//createTiles(this, map_test_1_variables.houses);
+	createTiles(this, map_test_1_variables.tiles, 'grass_tile_1');
+	createHouses(this, map_test_1_variables.houses, map_test_1_variables.tiles, 60);
 	
 	map_test_1_variables.player1 = new Dragon(this, 0, 1024, 1024);
 	map_test_1_variables.player1.create();
@@ -70,4 +70,10 @@ function map_test_1_create() {
 function map_test_1_update(time, delta) {
 	map_test_1_variables.player1.update(time, delta);
 	map_test_1_variables.player2.update(time, delta);
+	
+	
+	for(let i = 0; i < map_test_1_variables.houses.length; ++i)
+	{
+		map_test_1_variables.houses[i].update(time, delta);
+	}
 }
