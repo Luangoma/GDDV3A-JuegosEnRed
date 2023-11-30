@@ -11,6 +11,7 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 
 function preloadDragon(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
+	scene.load.image('flame', './assets/flame.png');
 };
 
 Dragon.prototype.create = function(){
@@ -47,5 +48,32 @@ Dragon.prototype.update = function(time, delta){
 	else if (this.cursors.right.isDown) {
 		this.sprite.angle+=playerTurnSpeed * delta;
 	}
+	
+	if (this.cursors.up.isDown){
+		this.spawnFlames(1);
+	}
 };
+
+Dragon.prototype.spawnFlames = function(flame_count){
+	let flames = this.scene.physics.add.group();
+	
+	for(let i = 0; i < flame_count; ++i)
+	{
+		let forward_vec = getForwardVector(this.sprite);
+		let spawn_distance = 50;
+		let flame_spawn_point = new Phaser.Math.Vector2(this.sprite.x + forward_vec.y * spawn_distance, this.sprite.y - forward_vec.x * spawn_distance);
+		let current_flame = flames.create(flame_spawn_point.x, flame_spawn_point.y, 'flame');
+		forward_vec.x /= forward_vec.length();
+		forward_vec.y /= forward_vec.length();
+		
+		let rand = getRandomInRange(-15,15);
+		forward_vec.rotate(Phaser.Math.DegToRad(rand));
+		current_flame.setVelocityX(forward_vec.y * this.player_velocity * 2);
+		current_flame.setVelocityY(-forward_vec.x * this.player_velocity * 2);
+		this.scene.time.delayedCall(500 + getRandomInRange(0,200), () => {current_flame.destroy();}, [], this);
+		console.log(forward_vec + ", " + forward_vec.length());
+	}
+	
+	
+}
 
