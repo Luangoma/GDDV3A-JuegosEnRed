@@ -15,6 +15,8 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
+
+
 function Map1Preload() {
 	
 	//Assets for testing (TODO: Remove)
@@ -36,6 +38,8 @@ function Map1Preload() {
 }
 
 function Map1Create() {
+
+	
 	
 	this.cameras.main.setBounds(0, 0, 2048, 2048);
     this.physics.world.setBounds(0, 0, 2048, 2048);
@@ -75,8 +79,6 @@ function Map1Create() {
 	
 	this.cameras.main.startFollow(player1.sprite, true);
 	this.cameras.main.setZoom(1);
-
-
 
 
 
@@ -132,15 +134,26 @@ function Map1Create() {
 
 
 
+	
+	// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
+	// Si se hace launch en game.js no funciona.
+	this.scene.launch("ui");
 
-
+	
 
 }
 
 function Map1Update(time, delta) {
+
 	player1.update(time, delta);
 	player2.update(time, delta);
+
 }
+
+
+
+
+
 
 function collectStar(player, star) {
 	star.disableBody(true, true);
