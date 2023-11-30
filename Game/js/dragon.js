@@ -8,10 +8,12 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.player_turn_speed = 0.1;
 
 }
+
 function preloadDragon(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
 	scene.load.image('flame', './assets/flame.png');
 };
+
 Dragon.prototype.create = function(){
 	
 	//create the physics sprite for the player
@@ -29,46 +31,50 @@ Dragon.prototype.create = function(){
 	});
 	player_ref.anims.play('turn');
 	
-	//add controller support
-	this.cursors = this.scene.input.keyboard.createCursorKeys();
-	
-	// NO se porque no funciona !!!
-	this.left = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-	this.right = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-	this.up = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+	//Player controller:
+	/*
+		-Keyboard support for players 1 and 2
+		TODO: controller and touch screen support, as well as real multiplayer support
+	*/
+	switch(this.player_id)
+	{
+		case 0:
+			this.keyboard_controls = this.scene.input.keyboard.createCursorKeys();
+			break;
+		default:
+			this.keyboard_controls = {
+				left: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+				right: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+				up: this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+			};
+			break;
+	}
 };
 
 	
 	
 Dragon.prototype.update = function(time, delta){
+	
+	//Update player movement
 	let playerVelocity = this.player_velocity; //something something phaser doesn't handle delta time in velocity and acceleration for some reason :(
 	let playerTurnSpeed = this.player_turn_speed;
 	playerForwardVector = getForwardVector(this.sprite);
 	this.sprite.setVelocityX(playerForwardVector.y*playerVelocity);
 	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
 
-
-	// El jugador 1, el que tiene id=0 se mueve con las flechas izq-der y dispara con up
-	if (this.player_id==0 && this.cursors.left.isDown  ) {		
+	//Execute Player Controls
+	if (this.keyboard_controls.left.isDown) //Rotate left
+	{
 		this.sprite.angle-=playerTurnSpeed * delta;
 	}
-	else if (this.player_id==0 && this.cursors.right.isDown) {	
+	else
+	if (this.keyboard_controls.right.isDown) //Rotate right
+	{
 		this.sprite.angle+=playerTurnSpeed * delta;
 	}
 	
-	if (this.player_id==0 && this.cursors.up.isDown){
-		this.spawnFlames(1);
-	}
-	
-	// El jugador 2, el que tiene id=1 se mueve con a-d y dispara con W
-	if (this.player_id==1 && this.left.isDown) {		
-		this.sprite.angle-=playerTurnSpeed * delta;
-	}
-	else if (this.player_id==1 && this.right.isDown) {	
-		this.sprite.angle+=playerTurnSpeed * delta;
-	}
-	
-	if (this.player_id==1 && this.up.isDown){
+	if (this.keyboard_controls.up.isDown) //Shoot flames
+	{
 		this.spawnFlames(1);
 	}
 	

@@ -6,6 +6,7 @@ var Map1 = {
 };
 
 var player1;
+var player2;
 var stars;
 var bombs;
 var platforms;
@@ -15,16 +16,24 @@ var gameOver = false;
 var scoreText;
 
 function Map1Preload() {
-
-	this.load.image("fondo","assets/fondo_test.png");	
+	
+	//Assets for testing (TODO: Remove)
+	this.load.image('sky', 'assets/sky.png');
+	this.load.image("fondo","assets/fondo_test.png");
+	this.load.image('ground', 'assets/platform.png');
+	this.load.image('star', 'assets/star.png');
+	this.load.image('bomb', 'assets/bomb.png');
 	this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+	
+	//Real assets for the game (some are placeholders)
+	this.load.image("fondo","assets/fondo_test.png");
 	preloadDragon(this);
 }
 
 function Map1Create() {
 	
-	this.cameras.main.setBounds(0, 0, 2048, 2048);	
-    this.physics.world.setBounds(0, 0, 2048, 2048);	
+	this.cameras.main.setBounds(0, 0, 2048, 2048);
+    this.physics.world.setBounds(0, 0, 2048, 2048);
 
 	
 	this.add.image(0, 0, 'fondo').setOrigin(0,0).setScale(2);
@@ -62,9 +71,6 @@ function Map1Create() {
 	this.cameras.main.startFollow(player1.sprite, true);
 	this.cameras.main.setZoom(1);
 }
-
-
-var deltaTime = 0;
 
 function Map1Update(time, delta) {
 	player1.update(time, delta);
