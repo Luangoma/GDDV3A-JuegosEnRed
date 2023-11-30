@@ -34,7 +34,8 @@ function map_test_1_create() {
 	
 	//spawnHouses(this, map_test_1_variables.houses, 100, {x: 0, y: 0}, {x: 2048, y: 2048});
 	
-	//createTiles(this, map_test_1_variables.tiles);
+	createTiles(this, map_test_1_variables.tiles);
+	//createTiles(this, map_test_1_variables.houses);
 	
 	map_test_1_variables.player1 = new Dragon(this, 0, 1024, 1024);
 	map_test_1_variables.player1.create();

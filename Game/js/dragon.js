@@ -8,6 +8,11 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.player_turn_speed = 0.1;
 
 	this.flames = this.scene.physics.add.group();
+	
+	this.max_ammo = 60;
+	this.ammo = this.max_ammo; //cantidad de llamas que el dragon puede spawnear en una llamarada
+	this.delay = 3 * 1000; //tiempo entre llamaradas en ms (N sec * 1000 = ms)
+	this.time_elapsed = 0;
 }
 
 function preloadDragon(scene){
@@ -74,16 +79,26 @@ Dragon.prototype.update = function(time, delta){
 		this.sprite.angle+=playerTurnSpeed * delta;
 	}
 	
-	if (this.keyboard_controls.up.isDown) //Shoot flames
+	if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
 	{
 		this.spawnFlames(1);
 	}
 	
+	this.time_elapsed+=delta;
+	if(this.time_elapsed >= this.delay)
+	{
+		this.time_elapsed -= this.delay;
+		this.ammo = this.max_ammo;
+	}
+	
+	console.log(delta);
 };
 
 // Función para lanzar llamas por la boca.
 Dragon.prototype.spawnFlames = function(flame_count){
 	// let flames = this.scene.physics.add.group();
+	
+	this.ammo -= 1;
 	
 	for(let i = 0; i < flame_count; ++i)
 	{
