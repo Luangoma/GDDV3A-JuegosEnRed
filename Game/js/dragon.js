@@ -8,12 +8,10 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.player_turn_speed = 0.1;
 
 }
-
 function preloadDragon(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
 	scene.load.image('flame', './assets/flame.png');
 };
-
 Dragon.prototype.create = function(){
 	
 	//create the physics sprite for the player
@@ -33,8 +31,15 @@ Dragon.prototype.create = function(){
 	
 	//add controller support
 	this.cursors = this.scene.input.keyboard.createCursorKeys();
+	
+	// NO se porque no funciona !!!
+	this.left = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+	this.right = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+	this.up = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 };
 
+	
+	
 Dragon.prototype.update = function(time, delta){
 	let playerVelocity = this.player_velocity; //something something phaser doesn't handle delta time in velocity and acceleration for some reason :(
 	let playerTurnSpeed = this.player_turn_speed;
@@ -42,16 +47,31 @@ Dragon.prototype.update = function(time, delta){
 	this.sprite.setVelocityX(playerForwardVector.y*playerVelocity);
 	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
 
-	if (this.cursors.left.isDown) {
+
+	// El jugador 1, el que tiene id=0 se mueve con las flechas izq-der y dispara con up
+	if (this.player_id==0 && this.cursors.left.isDown  ) {		
 		this.sprite.angle-=playerTurnSpeed * delta;
 	}
-	else if (this.cursors.right.isDown) {
+	else if (this.player_id==0 && this.cursors.right.isDown) {	
 		this.sprite.angle+=playerTurnSpeed * delta;
 	}
 	
-	if (this.cursors.up.isDown){
+	if (this.player_id==0 && this.cursors.up.isDown){
 		this.spawnFlames(1);
 	}
+	
+	// El jugador 2, el que tiene id=1 se mueve con a-d y dispara con W
+	if (this.player_id==1 && this.left.isDown) {		
+		this.sprite.angle-=playerTurnSpeed * delta;
+	}
+	else if (this.player_id==1 && this.right.isDown) {	
+		this.sprite.angle+=playerTurnSpeed * delta;
+	}
+	
+	if (this.player_id==1 && this.up.isDown){
+		this.spawnFlames(1);
+	}
+	
 };
 
 Dragon.prototype.spawnFlames = function(flame_count){
