@@ -13,6 +13,8 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.ammo = this.max_ammo; //cantidad de llamas que el dragon puede spawnear en una llamarada
 	this.delay = 3 * 1000; //tiempo entre llamaradas en ms (N sec * 1000 = ms)
 	this.time_elapsed = 0;
+
+	this.health = 100;	// Vida del dragon
 }
 
 function preloadDragon(scene){
@@ -57,7 +59,7 @@ Dragon.prototype.create = function(){
 	}
 };
 
-	
+
 	
 Dragon.prototype.update = function(time, delta){
 	
@@ -69,21 +71,22 @@ Dragon.prototype.update = function(time, delta){
 	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
 
 	//Execute Player Controls
-	if (this.keyboard_controls.left.isDown) //Rotate left
-	{
-		this.sprite.angle-=playerTurnSpeed * delta;
-	}
-	else
-	if (this.keyboard_controls.right.isDown) //Rotate right
-	{
-		this.sprite.angle+=playerTurnSpeed * delta;
-	}
-	
-	if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
-	{
-		this.spawnFlames(1);
-	}
-	
+	if(this.health>0){
+		if (this.keyboard_controls.left.isDown) //Rotate left
+		{
+			this.sprite.angle-=playerTurnSpeed * delta;
+		}
+		else
+		if (this.keyboard_controls.right.isDown) //Rotate right
+		{
+			this.sprite.angle+=playerTurnSpeed * delta;
+		}
+		
+		if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
+		{
+			this.spawnFlames(1);
+		}
+	}	
 	this.time_elapsed+=delta;
 	if(this.time_elapsed >= this.delay)
 	{
@@ -91,7 +94,7 @@ Dragon.prototype.update = function(time, delta){
 		this.ammo = this.max_ammo;
 	}
 	
-	console.log(delta);
+	//console.log(delta);
 };
 
 // Función para lanzar llamas por la boca.
@@ -114,7 +117,7 @@ Dragon.prototype.spawnFlames = function(flame_count){
 		current_flame.setVelocityX(forward_vec.y * this.player_velocity * 2);
 		current_flame.setVelocityY(-forward_vec.x * this.player_velocity * 2);
 		this.scene.time.delayedCall(500 + getRandomInRange(0,200), () => {current_flame.destroy();}, [], this);
-		console.log(forward_vec + ", " + forward_vec.length());
+		//console.log(forward_vec + ", " + forward_vec.length());
 	}
 	
 	
