@@ -18,6 +18,8 @@ function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flam
 	this.flames = flamesgroup;
 }
 
+var houseList = [];
+
 function preloadTileData(scene)
 {
 	//cargar animaciones del fuego:
@@ -25,26 +27,85 @@ function preloadTileData(scene)
 	scene.load.spritesheet('animacionFuegoLoop', 'assets/burning_animation/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
 	scene.load.spritesheet('animacionFuegoEnd', 'assets/burning_animation/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
 	
-	
+	//cargar imágenes para los tiles por defecto (utilizados con propósito de debuggear y hacer pruebas)
 	scene.load.image('default_tile', './assets/tiles/default_tile.png');
 	scene.load.image('default_tile_small', './assets/tiles/default_tile_small.png');
 	
+	//cargar imágenes para los diferentes tipos de tiles de fondo (grass, ground, road, etc...)
 	scene.load.image('grass_tile_1', './assets/tiles/grass_tile_1.png');
 	scene.load.image('ground_tile_2', './assets/tiles/ground_tile_2.png');
 	
-	//scene.load.spritesheet('house_1_sheet','./assets/house_1_sheet.png', {frameWidth: 126, frameHeight: 126});
-	scene.load.image('house_tile_1_d0', './assets/tiles/house_tile_1_d0.png');
-	scene.load.image('house_tile_1_d1', './assets/tiles/house_tile_1_d1.png');
-	scene.load.image('house_tile_1_d2', './assets/tiles/house_tile_1_d2.png');
-	scene.load.image('house_tile_1_d3', './assets/tiles/house_tile_1_d3.png');
+	//cargar imágenes para los diferentes edificios que pueden spawnear:
 	
-	//scene.load.spritesheet('default_tile_small', './assets/tiles/default_tile_small.png', {frameWidth: 126, frameHeight: 126});
-	
-	
-	scene.load.image('house_tile_2_d0', './assets/tiles/house_tile_2_d0.png');
-	scene.load.image('house_tile_2_d1', './assets/tiles/house_tile_2_d1.png');
-	scene.load.image('house_tile_2_d2', './assets/tiles/house_tile_2_d2.png');
-	scene.load.image('house_tile_2_d3', './assets/tiles/house_tile_2_d3.png');
+		//casa 01:
+			//back
+			scene.load.image('tc_01_b_d0', './assets/tiles/houses/tile_casa_01_back_d0.png');
+			scene.load.image('tc_01_b_d1', './assets/tiles/houses/tile_casa_01_back_d1.png');
+			scene.load.image('tc_01_b_d2', './assets/tiles/houses/tile_casa_01_back_d2.png');
+			scene.load.image('tc_01_b_d3', './assets/tiles/houses/tile_casa_01_back_d3.png');
+			houseList.push(
+			['tc_01_b_d0',
+			 'tc_01_b_d1',
+			 'tc_01_b_d2',
+			 'tc_01_b_d3']
+			);
+			//front
+			scene.load.image('tc_01_f_d0', './assets/tiles/houses/tile_casa_01_front_d0.png');
+			scene.load.image('tc_01_f_d1', './assets/tiles/houses/tile_casa_01_front_d1.png');
+			scene.load.image('tc_01_f_d2', './assets/tiles/houses/tile_casa_01_front_d2.png');
+			scene.load.image('tc_01_f_d3', './assets/tiles/houses/tile_casa_01_front_d3.png');
+			houseList.push(
+			['tc_01_f_d0',
+			 'tc_01_f_d1',
+			 'tc_01_f_d2',
+			 'tc_01_f_d3']
+			);
+			//left
+			scene.load.image('tc_01_l_d0', './assets/tiles/houses/tile_casa_01_left_d0.png');
+			scene.load.image('tc_01_l_d1', './assets/tiles/houses/tile_casa_01_left_d1.png');
+			scene.load.image('tc_01_l_d2', './assets/tiles/houses/tile_casa_01_left_d2.png');
+			scene.load.image('tc_01_l_d3', './assets/tiles/houses/tile_casa_01_left_d3.png');
+			houseList.push(
+			['tc_01_l_d0',
+			 'tc_01_l_d1',
+			 'tc_01_l_d2',
+			 'tc_01_l_d3']
+			);
+			//right
+			scene.load.image('tc_01_r_d0', './assets/tiles/houses/tile_casa_01_right_d0.png');
+			scene.load.image('tc_01_r_d1', './assets/tiles/houses/tile_casa_01_right_d1.png');
+			scene.load.image('tc_01_r_d2', './assets/tiles/houses/tile_casa_01_right_d2.png');
+			scene.load.image('tc_01_r_d3', './assets/tiles/houses/tile_casa_01_right_d3.png');
+			houseList.push(
+			['tc_01_r_d0',
+			 'tc_01_r_d1',
+			 'tc_01_r_d2',
+			 'tc_01_r_d3']
+			);
+		
+		//casa 02:
+			//back
+			/*
+			scene.load.image('tc_01_b_d0', './assets/tiles/houses/tile_casa_01_back_d0.png');
+			scene.load.image('tc_01_b_d1', './assets/tiles/houses/tile_casa_01_back_d1.png');
+			scene.load.image('tc_01_b_d2', './assets/tiles/houses/tile_casa_01_back_d2.png');
+			scene.load.image('tc_01_b_d3', './assets/tiles/houses/tile_casa_01_back_d3.png');
+			//front
+			scene.load.image('tc_01_f_d0', './assets/tiles/houses/tile_casa_01_front_d0.png');
+			scene.load.image('tc_01_f_d1', './assets/tiles/houses/tile_casa_01_front_d1.png');
+			scene.load.image('tc_01_f_d2', './assets/tiles/houses/tile_casa_01_front_d2.png');
+			scene.load.image('tc_01_f_d3', './assets/tiles/houses/tile_casa_01_front_d3.png');
+			//left
+			scene.load.image('tc_01_l_d0', './assets/tiles/houses/tile_casa_01_left_d0.png');
+			scene.load.image('tc_01_l_d1', './assets/tiles/houses/tile_casa_01_left_d1.png');
+			scene.load.image('tc_01_l_d2', './assets/tiles/houses/tile_casa_01_left_d2.png');
+			scene.load.image('tc_01_l_d3', './assets/tiles/houses/tile_casa_01_left_d3.png');
+			//right
+			scene.load.image('tc_01_r_d0', './assets/tiles/houses/tile_casa_01_right_d0.png');
+			scene.load.image('tc_01_r_d1', './assets/tiles/houses/tile_casa_01_right_d1.png');
+			scene.load.image('tc_01_r_d2', './assets/tiles/houses/tile_casa_01_right_d2.png');
+			scene.load.image('tc_01_r_d3', './assets/tiles/houses/tile_casa_01_right_d3.png');
+			*/
 	
 }
 
@@ -144,11 +205,6 @@ function createTiles(scene, tiles, tile_key = 'default_tile_small')
 
 function getRandomHouseTiles()
 {
-	let houseList = [
-		['house_tile_1_d0', 'house_tile_1_d1', 'house_tile_1_d2', 'house_tile_1_d3'],
-		['house_tile_2_d0', 'house_tile_2_d1', 'house_tile_2_d2', 'house_tile_2_d3'],
-	];
-	
 	return houseList[getRandomInRangeInt(0, houseList.length - 1)];
 }
 
