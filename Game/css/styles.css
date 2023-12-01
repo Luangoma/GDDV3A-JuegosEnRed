@@ -1,0 +1,9 @@
+@font-face {
+    font-family: medieval-pixel;
+    src: url('../assets/medieval-pixel/medieval-pixel.ttf');
+}
+
+@font-face {
+    font-family: pixel_sans_serif;
+    src: url('../assets/pixel_sans_serif/pixel_sans_serif.ttf');
+}
