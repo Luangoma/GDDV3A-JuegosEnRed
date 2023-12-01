@@ -22,9 +22,9 @@ function MainMenuCreate()
 	let first_button_height = 60;
 	let button_separation = 60;
 	var botonJugar    = this.add.image(config.width/5, first_button_height + button_separation * 0, 'botonJugar').setScale(0.5);
-	var botonSalir    = this.add.image(config.width/5, first_button_height + button_separation * 1, 'botonSalir').setScale(0.5);
-	var botonAjustes  = this.add.image(config.width/5, first_button_height + button_separation * 2, 'botonAjustes').setScale(0.5);
-	var botonCreditos = this.add.image(config.width/5, first_button_height + button_separation * 3, 'botonCreditos').setScale(0.5);
+	var botonAjustes  = this.add.image(config.width/5, first_button_height + button_separation * 1, 'botonAjustes').setScale(0.5);
+	var botonCreditos = this.add.image(config.width/5, first_button_height + button_separation * 2, 'botonCreditos').setScale(0.5);
+	var botonSalir    = this.add.image(config.width/5, first_button_height + button_separation * 3, 'botonSalir').setScale(0.5);
 
 	//Hacer los botones interactivos.
 	botonJugar.setInteractive();
@@ -35,15 +35,23 @@ function MainMenuCreate()
 	//Interacción con los botones.
 	botonJugar.on('pointerdown', function(pointer){
 		console.log("Botón jugar pulsado");
+		// Cambia la escena actual a la selecionada, en este caso, el mapa 1
+		game.scene.start("map_test_1");
 	});
 	botonCreditos.on('pointerdown', function(pointer){
 		console.log("Botón créditos pulsado");
+		// Cambia la escena actual a la selecionada, en este caso, los creditos
+		game.scene.start("Credits");
 	});
 	botonAjustes.on('pointerdown', function(pointer){
+		// Cambia la escena actual a la selecionada, en este caso, los ajustes (por crear)
 		console.log("Botón ajustes pulsado");
+		game.scene.start("Settings");
 	});
 	botonSalir.on('pointerdown', function(pointer){
 		console.log("Botón salir pulsado");
+		// Salir del juego, en este caso, cerrar la pestaña
+		window.close();
 	});
 }
 

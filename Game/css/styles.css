@@ -7,3 +7,9 @@
     font-family: pixel_sans_serif;
     src: url('../assets/pixel_sans_serif/pixel_sans_serif.ttf');
 }
+
+body {
+    background-color: black;
+    text-align: center;
+    margin: auto;
+}

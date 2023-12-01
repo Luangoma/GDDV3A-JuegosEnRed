@@ -1,5 +1,5 @@
-var credits = {
-	key: 'credits',
+var Credits = {
+	key: 'Credits',
 	preload: creditsPreload,
 	create: creditsCreate,
 	update: creditsUpdate
