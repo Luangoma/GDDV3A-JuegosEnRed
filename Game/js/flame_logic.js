@@ -14,12 +14,11 @@ function damageEnemy(playerSprite, flame, player) {
 	player.scene.time.delayedCall(1000, ()=>{playerSprite.setTint(0xffffff);}); // El sprite deja de estar rojo tras 1 seg
     if(player.health<=0){
         console.log("Killing dragon");
-		playerSprite.disableBody(true, true);
-		if(player.player_id==0) {
-			//map_test_1_variables.player1 = new Dragon(map_test_1, 0, 1024, 1024, map_test_1_variables.flames);
-		} else if(player.player_id==1){
-			//map_test_1_variables.player2 = new Dragon(map_test_1, 1, 800, 800, map_test_1_variables.flames);
-		}
+		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
+		player.scene.time.delayedCall(10000, ()=>{
+			player.health=100;
+			playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
+		});
     }
     
 
