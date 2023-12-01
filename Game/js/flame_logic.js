@@ -14,7 +14,7 @@ function damageEnemy(playerSprite, flame, player) {
 	player.scene.time.delayedCall(1000, ()=>{playerSprite.setTint(0xffffff);}); // El sprite deja de estar rojo tras 1 seg
     if(player.health<=0){
         console.log("Killing dragon");
-		oponent_player = getPlayer(flame.owner_id);
+		let oponent_player = flame.owner;
 		oponent_player.max_ammo = 200;		// El dragón que mató a su oponente tendrá fuego ilimitado mientras este reaparece
 		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
 		player.scene.time.delayedCall(10000, ()=>{

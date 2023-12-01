@@ -1,6 +1,7 @@
 function Flame(scene, owner, x, y, velx, vely){
 	
 	let current_flame = owner.flames.create(x, y, 'flame');
+	current_flame.owner = owner;
 	current_flame.owner_id = owner.player_id;
 	
 	current_flame.setVelocityX(velx);
