@@ -38,6 +38,10 @@ function map_test_1_create() {
 
 	addMainCamera(this, map_test_1_variables.player1);
 	addSplitScreenCamera(this, map_test_1_variables.player1, map_test_1_variables.player2, 0);
+
+	// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
+	// Si se hace launch en game.js no funciona.
+	this.scene.launch("ui");
 }
 
 function map_test_1_update(time, delta) {

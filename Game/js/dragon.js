@@ -12,6 +12,7 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.delay = 3 * 1000; //tiempo entre llamaradas en ms (N sec * 1000 = ms)
 	this.time_elapsed = 0;
 
+
 	this.health = 100;	// Vida del dragon
 	
 	this.createDragon(start_x, start_y);
