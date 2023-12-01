@@ -1,4 +1,4 @@
-function Tile(scene,tilename,x,y, is_destructible = false, health = 100)
+function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flamesgroup = null)
 {
 	this.scene = scene;
 	this.tile = tilename;
@@ -14,6 +14,8 @@ function Tile(scene,tilename,x,y, is_destructible = false, health = 100)
 	this.tiles = [tilename,tilename,tilename,tilename];
 	
 	this.is_on_fire = false;
+	
+	this.flames = flamesgroup;
 }
 
 function preloadTileData(scene)
@@ -76,13 +78,20 @@ function createTileData(scene)
 }
 
 Tile.prototype.create = function(){
-	this.sprite = this.scene.add.image(this.start_x, this.start_y, this.tile).setOrigin(0,0);
+	//this.sprite = this.scene.add.image(this.start_x, this.start_y, this.tile).setOrigin(0,0);
+	this.sprite = this.scene.physics.add.staticImage(this.start_x, this.start_y, this.tile).setOrigin(0,0);
 	
 	if(this.is_destructible === true)
 	{
 		this.fire_sprite = this.scene.add.sprite(this.start_x + (126/2), this.start_y + (126/2) - 50, 'animacionFuegoLoop');
 		this.fire_sprite.setScale(3);
 		this.fire_sprite.play('animacionFuegoLoop');
+		
+		this.scene.physics.add.overlap(this.sprite, this.flames, (tile_sprite, flame) => {
+			// Llamamos a damageTile con el sprite de llama y el tile.
+			damageTile(tile_sprite, flame, this);
+		}, null, this);
+		
 	}
 }
 
@@ -143,7 +152,7 @@ function getRandomHouseTiles()
 	return houseList[getRandomInRangeInt(0, houseList.length - 1)];
 }
 
-function createHouses(scene,tiles,background_tiles,num_houses)
+function createHouses(scene,tiles,background_tiles,num_houses, flamesgroup)
 {
 	//generar una lista aleatoria donde se determina cuantas casas tienen que spawnear en el mundo.
 	//nota: no se hace uso de un rand en el spawneo de casas directamente para garantizar que el numero de casas spawneadas sean exactamente "num_houses".
@@ -169,7 +178,7 @@ function createHouses(scene,tiles,background_tiles,num_houses)
 				continue;
 			}
 			
-			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true);
+			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true, 100 /*TODO: add hp config later*/, flamesgroup);
 			current_tile.tiles = getRandomHouseTiles();
 			current_tile.tile = current_tile.tiles[0];
 			background_tiles[global_index - 1].sprite.setTexture('ground_tile_2');

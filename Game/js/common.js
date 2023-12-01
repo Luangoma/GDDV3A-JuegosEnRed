@@ -29,3 +29,10 @@ function shuffleList(list)
 function createPhysicsGroup(scene){
 	return scene.physics.add.group();
 }
+
+
+function damageTintSprite(scene, sprite, duration = 1000)
+{
+	sprite.setTint(0xff0000); // el sprite se pone rojo al recibir daño.
+	scene.time.delayedCall(duration, ()=>{sprite.setTint(0xffffff);}); // El sprite deja de estar rojo tras haber pasado duration ms (por defecto 1000ms = 1sec).
+}

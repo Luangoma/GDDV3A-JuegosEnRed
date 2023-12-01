@@ -58,7 +58,7 @@ Dragon.prototype.create = function(){
 	}
 	
 	this.scene.physics.add.overlap(this.sprite, this.flames, (player_sprite, flame) => {
-		// Llamamos a damageEnemy con el sprite de llama y el player solo si el las llamas que han colisionado con el player NO pertenecen a dicho player
+		// Llamamos a damageEnemy con el sprite de llama y el player solo si las llamas que han colisionado con el player NO pertenecen a dicho player.
 		if(flame.owner_id != this.player_id)
 		{
 			damageEnemy(player_sprite, flame, this);
