@@ -7,15 +7,23 @@ function Tile(scene,tilename,x,y, is_destructible = false, health = 100)
 	this.start_y = y;
 	
 	this.is_destructible = is_destructible;
-	//this.health = health;
-	this.health = getRandomInRange(0,100);
+	this.health = health;
+	//this.health = getRandomInRange(0,100);
 	
 	
 	this.tiles = [tilename,tilename,tilename,tilename];
+	
+	this.is_on_fire = false;
 }
 
-function preloadTile(scene)
+function preloadTileData(scene)
 {
+	//cargar animaciones del fuego:
+	scene.load.spritesheet('animacionFuegoStart', 'assets/burning_animation/burning_start_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('animacionFuegoLoop', 'assets/burning_animation/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('animacionFuegoEnd', 'assets/burning_animation/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
+	
+	
 	scene.load.image('default_tile', './assets/tiles/default_tile.png');
 	scene.load.image('default_tile_small', './assets/tiles/default_tile_small.png');
 	
@@ -38,8 +46,44 @@ function preloadTile(scene)
 	
 }
 
+function createTileData(scene)
+{
+	// Crear animaciones fuego, animaciones start, loop y end.
+	
+	//Animación animacionFuegoStart, inicio del fuego, solo reproducir 1 vez.
+	scene.anims.create({
+		key: 'animacionFuegoStart',
+		frames: scene.anims.generateFrameNumbers('animacionFuegoStart', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+
+	//Animación animacionFuegoLoop, bucle del fuego, reproducir continuamente.
+	scene.anims.create({
+		key: 'animacionFuegoLoop',
+		frames: scene.anims.generateFrameNumbers('animacionFuegoLoop', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: -1
+	});
+
+	//Animación animacionFuegoEnd, final del fuego, solo reproducir 1 vez al terminar la llama.
+	scene.anims.create({
+		key: 'animacionFuegoEnd',
+		frames: scene.anims.generateFrameNumbers('animacionFuegoEnd', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+}
+
 Tile.prototype.create = function(){
 	this.sprite = this.scene.add.image(this.start_x, this.start_y, this.tile).setOrigin(0,0);
+	
+	if(this.is_destructible === true)
+	{
+		this.fire_sprite = this.scene.add.sprite(this.start_x + (126/2), this.start_y + (126/2) - 50, 'animacionFuegoLoop');
+		this.fire_sprite.setScale(3);
+		this.fire_sprite.play('animacionFuegoLoop');
+	}
 }
 
 Tile.prototype.update = function(time, delta){
@@ -60,6 +104,17 @@ Tile.prototype.update = function(time, delta){
 	else
 	{
 		this.sprite.setTexture(this.tiles[3]);
+	}
+	
+	if(this.is_on_fire)
+	{
+		let damage_over_time = 2; // puntos de daño por segundo
+		this.fire_sprite.setVisible(true);
+		this.health -= (delta/1000) * damage_over_time; // calcular el daño aplicado en un frame 
+	}
+	else
+	{
+		this.fire_sprite.setVisible(false);
 	}
 }
 
@@ -114,7 +169,7 @@ function createHouses(scene,tiles,background_tiles,num_houses)
 				continue;
 			}
 			
-			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i);
+			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true);
 			current_tile.tiles = getRandomHouseTiles();
 			current_tile.tile = current_tile.tiles[0];
 			background_tiles[global_index - 1].sprite.setTexture('ground_tile_2');
@@ -124,3 +179,5 @@ function createHouses(scene,tiles,background_tiles,num_houses)
 		}
 	}
 }
+
+//TODO: Hacer fusionado de tiles del fondo para hacer un sistema de carreteras. Posible implementación con doble pasada (generar casas, marcar tiles de fondo, etc...).

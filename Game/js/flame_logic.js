@@ -1,8 +1,9 @@
-// Poned comentarios !!!
+
 function blazeHouse(flame, house) {
-    flame.disableBody(true, true);
-    house.play.anim("animacionFuegoStart");
+    //flame.disableBody(true, true);
+    //house.play.anim("animacionFuegoStart");
 }
+
 // playerSprite: sprite del jugador que recibe llamas, flame: llamas del rival, y player: jugador que recibe llamas
 function damageEnemy(playerSprite, flame, player) { 
     player.health -= 1;
@@ -17,4 +18,8 @@ function damageEnemy(playerSprite, flame, player) {
     }
     player.scene.time.delayedCall(1000, ()=>{playerSprite.setTint(0xffffff);}); // El sprite deja de estar rojo tras 1 seg
 
+}
+
+function damageHouse(houseSprite, flame, house){
+	
 }

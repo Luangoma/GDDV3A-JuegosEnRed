@@ -17,11 +17,12 @@ function map_test_1_preload() {
 	this.load.image("world_grass","assets/WorldGrass.png");
 	preloadDragon(this);
 	preloadHouse(this);
-	preloadTile(this);
+	preloadTileData(this);
 }
 
 function map_test_1_create() {
 	
+	createTileData(this);
 	this.add.image(0, 0, 'world_grass').setOrigin(0,0).setScale(2);
 	
 	/*
