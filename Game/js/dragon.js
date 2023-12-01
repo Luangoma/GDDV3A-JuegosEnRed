@@ -1,8 +1,6 @@
-function Dragon(new_scene, new_player_id, new_start_x, new_start_y, flames_group){
+function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.scene = new_scene;
 	this.player_id = new_player_id;
-	this.start_x = new_start_x;
-	this.start_y = new_start_y;
 	
 	this.player_velocity = 200;
 	this.player_turn_speed = 0.1;
@@ -15,28 +13,34 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y, flames_group
 	this.time_elapsed = 0;
 
 	this.health = 100;	// Vida del dragon
+	
+	this.createDragon(start_x, start_y);
 }
 
-function preloadDragon(scene){
+function preloadDragonData(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
 };
 
-Dragon.prototype.create = function(){
+function createDragonData(scene){
+	//create the animations for the player (creation should be done once per scene, within the create function of the scene)
+	scene.anims.create({
+		key: 'flyingDragon',
+		frames: scene.anims.generateFrameNumbers('dragon', { start: 0, end: 2 }),
+		frameRate: 7,
+		repeat: -1
+	});
+}
+
+Dragon.prototype.createDragon = function(start_x, start_y){
 	
 	//create the physics sprite for the player
-	this.sprite = this.scene.physics.add.sprite(this.start_x, this.start_y, 'dragon');
+	this.sprite = this.scene.physics.add.sprite(start_x, start_y, 'dragon');
 	let player_ref = this.sprite;
 	player_ref.setBounce(0.2);
 	player_ref.setCollideWorldBounds(true);
 	
-	//create the animations for the player... iirc the tutorial mentioned that the creation should be done once, so we should fix this later...
-	this.scene.anims.create({
-		key: 'turn',
-		frames: this.scene.anims.generateFrameNumbers('dragon', { start: 0, end: 2 }),
-		frameRate: 7,
-		repeat: -1
-	});
-	player_ref.anims.play('turn');
+	//play the flying animation
+	player_ref.anims.play('flyingDragon');
 	
 	//Player controller:
 	/*
