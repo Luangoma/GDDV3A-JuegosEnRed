@@ -96,22 +96,84 @@ function preloadTileData(scene)
 			 'tc_02_b_d3']
 			);
 			//front
-			/*
-			scene.load.image('tc_01_f_d0', './assets/tiles/houses/tile_casa_01_front_d0.png');
-			scene.load.image('tc_01_f_d1', './assets/tiles/houses/tile_casa_01_front_d1.png');
-			scene.load.image('tc_01_f_d2', './assets/tiles/houses/tile_casa_01_front_d2.png');
-			scene.load.image('tc_01_f_d3', './assets/tiles/houses/tile_casa_01_front_d3.png');
+			scene.load.image('tc_02_f_d0', './assets/tiles/houses/tile_casa_02_front_d0.png');
+			scene.load.image('tc_02_f_d1', './assets/tiles/houses/tile_casa_02_front_d1.png');
+			scene.load.image('tc_02_f_d2', './assets/tiles/houses/tile_casa_02_front_d2.png');
+			scene.load.image('tc_02_f_d3', './assets/tiles/houses/tile_casa_02_front_d3.png');
+			houseList.push(
+			['tc_02_f_d0',
+			 'tc_02_f_d1',
+			 'tc_02_f_d2',
+			 'tc_02_f_d3']
+			);
 			//left
-			scene.load.image('tc_01_l_d0', './assets/tiles/houses/tile_casa_01_left_d0.png');
-			scene.load.image('tc_01_l_d1', './assets/tiles/houses/tile_casa_01_left_d1.png');
-			scene.load.image('tc_01_l_d2', './assets/tiles/houses/tile_casa_01_left_d2.png');
-			scene.load.image('tc_01_l_d3', './assets/tiles/houses/tile_casa_01_left_d3.png');
+			scene.load.image('tc_02_l_d0', './assets/tiles/houses/tile_casa_02_left_d0.png');
+			scene.load.image('tc_02_l_d1', './assets/tiles/houses/tile_casa_02_left_d1.png');
+			scene.load.image('tc_02_l_d2', './assets/tiles/houses/tile_casa_02_left_d2.png');
+			scene.load.image('tc_02_l_d3', './assets/tiles/houses/tile_casa_02_left_d3.png');
+			houseList.push(
+			['tc_02_l_d0',
+			 'tc_02_l_d1',
+			 'tc_02_l_d2',
+			 'tc_02_l_d3']
+			);
 			//right
-			scene.load.image('tc_01_r_d0', './assets/tiles/houses/tile_casa_01_right_d0.png');
-			scene.load.image('tc_01_r_d1', './assets/tiles/houses/tile_casa_01_right_d1.png');
-			scene.load.image('tc_01_r_d2', './assets/tiles/houses/tile_casa_01_right_d2.png');
-			scene.load.image('tc_01_r_d3', './assets/tiles/houses/tile_casa_01_right_d3.png');
-			*/
+			scene.load.image('tc_02_r_d0', './assets/tiles/houses/tile_casa_02_right_d0.png');
+			scene.load.image('tc_02_r_d1', './assets/tiles/houses/tile_casa_02_right_d1.png');
+			scene.load.image('tc_02_r_d2', './assets/tiles/houses/tile_casa_02_right_d2.png');
+			scene.load.image('tc_02_r_d3', './assets/tiles/houses/tile_casa_02_right_d3.png');
+			houseList.push(
+			['tc_02_r_d0',
+			 'tc_02_r_d1',
+			 'tc_02_r_d2',
+			 'tc_02_r_d3']
+			);
+		
+		//casa 03:
+			//back
+			scene.load.image('tc_03_b_d0', './assets/tiles/houses/tile_casa_03_back_d0.png');
+			scene.load.image('tc_03_b_d1', './assets/tiles/houses/tile_casa_03_back_d1.png');
+			scene.load.image('tc_03_b_d2', './assets/tiles/houses/tile_casa_03_back_d2.png');
+			scene.load.image('tc_03_b_d3', './assets/tiles/houses/tile_casa_03_back_d3.png');
+			houseList.push(
+			['tc_03_b_d0',
+			 'tc_03_b_d1',
+			 'tc_03_b_d2',
+			 'tc_03_b_d3']
+			);
+			//front
+			scene.load.image('tc_03_f_d0', './assets/tiles/houses/tile_casa_03_front_d0.png');
+			scene.load.image('tc_03_f_d1', './assets/tiles/houses/tile_casa_03_front_d1.png');
+			scene.load.image('tc_03_f_d2', './assets/tiles/houses/tile_casa_03_front_d2.png');
+			scene.load.image('tc_03_f_d3', './assets/tiles/houses/tile_casa_03_front_d3.png');
+			houseList.push(
+			['tc_03_f_d0',
+			 'tc_03_f_d1',
+			 'tc_03_f_d2',
+			 'tc_03_f_d3']
+			);
+			//left
+			scene.load.image('tc_03_l_d0', './assets/tiles/houses/tile_casa_03_left_d0.png');
+			scene.load.image('tc_03_l_d1', './assets/tiles/houses/tile_casa_03_left_d1.png');
+			scene.load.image('tc_03_l_d2', './assets/tiles/houses/tile_casa_03_left_d2.png');
+			scene.load.image('tc_03_l_d3', './assets/tiles/houses/tile_casa_03_left_d3.png');
+			houseList.push(
+			['tc_03_l_d0',
+			 'tc_03_l_d1',
+			 'tc_03_l_d2',
+			 'tc_03_l_d3']
+			);
+			//right
+			scene.load.image('tc_03_r_d0', './assets/tiles/houses/tile_casa_03_right_d0.png');
+			scene.load.image('tc_03_r_d1', './assets/tiles/houses/tile_casa_03_right_d1.png');
+			scene.load.image('tc_03_r_d2', './assets/tiles/houses/tile_casa_03_right_d2.png');
+			scene.load.image('tc_03_r_d3', './assets/tiles/houses/tile_casa_03_right_d3.png');
+			houseList.push(
+			['tc_03_r_d0',
+			 'tc_03_r_d1',
+			 'tc_03_r_d2',
+			 'tc_03_r_d3']
+			);
 	
 }
 
