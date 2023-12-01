@@ -25,3 +25,7 @@ function shuffleList(list)
 		list[rand] = temp;
 	}
 }
+
+function createPhysicsGroup(scene){
+	return scene.physics.add.group();
+}

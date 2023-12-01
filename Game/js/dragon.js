@@ -1,4 +1,4 @@
-function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
+function Dragon(new_scene, new_player_id, new_start_x, new_start_y, flames_group){
 	this.scene = new_scene;
 	this.player_id = new_player_id;
 	this.start_x = new_start_x;
@@ -7,7 +7,7 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 	this.player_velocity = 200;
 	this.player_turn_speed = 0.1;
 
-	this.flames = this.scene.physics.add.group();
+	this.flames = flames_group;	
 	
 	this.max_ammo = 60;
 	this.ammo = this.max_ammo; //cantidad de llamas que el dragon puede spawnear en una llamarada
@@ -19,7 +19,6 @@ function Dragon(new_scene, new_player_id, new_start_x, new_start_y){
 
 function preloadDragon(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
-	scene.load.image('flame', './assets/flame.png');
 };
 
 Dragon.prototype.create = function(){
@@ -57,6 +56,14 @@ Dragon.prototype.create = function(){
 			};
 			break;
 	}
+	
+	this.scene.physics.add.overlap(this.sprite, this.flames, (player_sprite, flame) => {
+		// Llamamos a damageEnemy con el sprite de llama y el player solo si el las llamas que han colisionado con el player NO pertenecen a dicho player
+		if(flame.owner_id != this.player_id)
+		{
+			damageEnemy(player_sprite, flame, this);
+		}
+	}, null, this);
 };
 
 
@@ -94,12 +101,10 @@ Dragon.prototype.update = function(time, delta){
 		this.ammo = this.max_ammo;
 	}
 	
-	//console.log(delta);
 };
 
 // Función para lanzar llamas por la boca.
 Dragon.prototype.spawnFlames = function(flame_count){
-	// let flames = this.scene.physics.add.group();
 	
 	this.ammo -= 1;
 	
@@ -108,18 +113,16 @@ Dragon.prototype.spawnFlames = function(flame_count){
 		let forward_vec = getForwardVector(this.sprite);
 		let spawn_distance = 50;
 		let flame_spawn_point = new Phaser.Math.Vector2(this.sprite.x + forward_vec.y * spawn_distance, this.sprite.y - forward_vec.x * spawn_distance);
-		let current_flame = this.flames.create(flame_spawn_point.x, flame_spawn_point.y, 'flame');
+		
 		forward_vec.x /= forward_vec.length();
 		forward_vec.y /= forward_vec.length();
 		
 		let rand = getRandomInRange(-15,15);
 		forward_vec.rotate(Phaser.Math.DegToRad(rand));
-		current_flame.setVelocityX(forward_vec.y * this.player_velocity * 2);
-		current_flame.setVelocityY(-forward_vec.x * this.player_velocity * 2);
-		this.scene.time.delayedCall(500 + getRandomInRange(0,200), () => {current_flame.destroy();}, [], this);
-		//console.log(forward_vec + ", " + forward_vec.length());
+		let velx = (forward_vec.y * this.player_velocity * 2);
+		let vely = (-forward_vec.x * this.player_velocity * 2);
+		
+		let current_flame = new Flame(this.scene, this, flame_spawn_point.x, flame_spawn_point.y, velx, vely);
 	}
 	
-	
 }
-

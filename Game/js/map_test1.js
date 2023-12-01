@@ -8,6 +8,7 @@ var map_test_1 = {
 var map_test_1_variables = {
 	player1: {},
 	player2: {},
+	flames: {},
 	houses: [],
 	tiles: []
 };
@@ -18,6 +19,7 @@ function map_test_1_preload() {
 	preloadDragon(this);
 	preloadHouse(this);
 	preloadTileData(this);
+	preloadFlameData(this);
 }
 
 function map_test_1_create() {
@@ -35,18 +37,22 @@ function map_test_1_create() {
 	
 	//spawnHouses(this, map_test_1_variables.houses, 100, {x: 0, y: 0}, {x: 2048, y: 2048});
 	
+	map_test_1_variables.flames = createPhysicsGroup(this);
+	
 	createTiles(this, map_test_1_variables.tiles, 'grass_tile_1');
 	createHouses(this, map_test_1_variables.houses, map_test_1_variables.tiles, 60);
 	
-	map_test_1_variables.player1 = new Dragon(this, 0, 1024, 1024);
+	map_test_1_variables.player1 = new Dragon(this, 0, 1024, 1024, map_test_1_variables.flames);
 	map_test_1_variables.player1.create();
 
-	map_test_1_variables.player2 = new Dragon(this, 1, 800, 800);
+	map_test_1_variables.player2 = new Dragon(this, 1, 800, 800, map_test_1_variables.flames);
 	map_test_1_variables.player2.create();
 
 	addMainCamera(this, map_test_1_variables.player1);
 	addSplitScreenCamera(this, map_test_1_variables.player1, map_test_1_variables.player2, 0);
 	
+	
+	/*
 	// Poned comentarios !!!
 	for (let index = 0; index < map_test_1_variables.houses.length; index++) {	
 		this.physics.add.overlap(map_test_1_variables.player1.flames, map_test_1_variables.houses[index], blazeHouse, null, this);
@@ -60,6 +66,7 @@ function map_test_1_create() {
 		// Llamamos a damageEnemy con el sprite de llama y el player
 		damageEnemy(player2_Sprite, flame, map_test_1_variables.player2);
 	}, null, this);
+	*/
 }
 
 function map_test_1_update(time, delta) {
