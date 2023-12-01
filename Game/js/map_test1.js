@@ -44,8 +44,8 @@ function map_test_1_create() {
 	map_test_1_variables.player2 = new Dragon(this, 1, 800, 800);
 	map_test_1_variables.player2.create();
 
-	addMainCamera(this);
-	addSplitScreenCamera(this,1);
+	addMainCamera(this, map_test_1_variables.player1);
+	addSplitScreenCamera(this, map_test_1_variables.player1, map_test_1_variables.player2, 0);
 	
 	// Poned comentarios !!!
 	for (let index = 0; index < map_test_1_variables.houses.length; index++) {	
