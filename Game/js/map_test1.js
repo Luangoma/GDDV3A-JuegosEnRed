@@ -44,14 +44,8 @@ function map_test_1_create() {
 	map_test_1_variables.player2 = new Dragon(this, 1, 800, 800);
 	map_test_1_variables.player2.create();
 
-	this.cameras.main.setBounds(0, 0, 2048, 2048);
-    this.physics.world.setBounds(0, 0, 2048, 2048);
-	this.cameras.main.startFollow(map_test_1_variables.player1.sprite, true);
-	this.cameras.main.setZoom(1);
-	
-	// Poned comentarios !!!
-	this.cameras.add(0,0,config.width,config.height/2).startFollow(map_test_1_variables.player1.sprite,true).setBounds(0,0,world_width, world_height);
-	this.cameras.add(0,config.height/2,config.width,config.height/2).startFollow(map_test_1_variables.player2.sprite,true).setBounds(0,0,world_width, world_height);
+	addMainCamera(this);
+	addSplitScreenCamera(this,1);
 	
 	// Poned comentarios !!!
 	for (let index = 0; index < map_test_1_variables.houses.length; index++) {	
