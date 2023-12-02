@@ -110,7 +110,11 @@ class ui extends Phaser.Scene
 		//Cada 1000 ms, es decir, 1 segundo se llama a la función temporizadorTerminado. Para ello se hace en bucle.
 		this.temporizadorPartida = this.time.addEvent({ delay: 1000, callback: this.temporizadorTerminado, callbackScope: this, loop: true });
 
-		
+		// TEMPORIZADOR PARA NÚMEROS DE RESPAWN 
+
+		// Definimos las posiciones de el contador de respawn para cada uno de los jugadores
+		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, player1.respawnTime, { fontFamily: 'medieval-pixel', fontSize: 30 }).setOrigin(0.5);
+		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, player2.respawnTime, { fontFamily: 'medieval-pixel', fontSize: 30 }).setOrigin(0.5);
 
 		// GRÁFICOS DE LOS DRAGONES
 
@@ -126,6 +130,18 @@ class ui extends Phaser.Scene
 		this.cambiarAnchoBarraAnimado(player2.health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
 		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
 		this.cambiarAnchoBarraAnimado(player1.health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
+		
+		if(player1.health<=0){
+			this.textoTemporizadorRespawnDer.setText(player1.respawnTime.toString().padStart(2,'0'));
+		} else {
+			this.textoTemporizadorRespawnDer.setText('');
+		}
+		if(player2.health<=0){
+			this.textoTemporizadorRespawnIzq.setText(player2.respawnTime.toString().padStart(2,'0'));
+		} else {
+			this.textoTemporizadorRespawnIzq.setText('');
+		}
+		
 	}
 
 	// Esta función cambia el tamaño de la barra de vida, pasándole un número de 0 a 1.
