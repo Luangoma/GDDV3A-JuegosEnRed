@@ -32,17 +32,20 @@ function damageTile(tileSprite, flame, tile){
 	//Aunque este caso no se debería de dar nunca por cómo se añade la detección de colisiones en la clase Tile, la comprobación se mantiene por razones de seguridad (posibles cambios a futuro en la implementación).
 	if(!tile.is_destructible)
 	{
-		//Si la vida es 0 (destruida) y no se visito anteriormente
-		if (tile.health===0 && !tile.visited) {
-			// Se cambia el estado
-			tile.visited = true;
-			console.log('Casilla destruida');
-			//Se incrementa los puntos del jugador cuya llama tenia la casilla
-			let player = flame.owner;
-			player.points = points+1;
-		}
 		return;
 	}
+	
+	if(tile.health <= 0)
+	{
+		return;
+	}
+	
+	if(tile.last_dragon)
+	{
+		tile.last_dragon.points -= 1;
+	}
+	tile.last_dragon = flame.owner;
+	tile.last_dragon.points += 1;
 	
 	tile.is_on_fire = true;
 	
@@ -53,6 +56,8 @@ function damageTile(tileSprite, flame, tile){
 	*/
 	
 	tile.health -= 0.1;
+	
+	
 	
 	damageTintSprite(tile.scene, tileSprite);
 }

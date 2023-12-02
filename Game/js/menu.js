@@ -62,7 +62,7 @@ class MainMenu extends Phaser.Scene
 	
 	update(time,delta)
 	{
-		console.log("menu");
+		//console.log("menu");
 	}
 	
 	shutdown()
