@@ -5,6 +5,9 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.player_velocity = 200;
 	this.player_turn_speed = 0.1;
 
+	// Contador de casas quemadas de cada jugador
+	this.points = 0;
+
 	this.flames = flames_group;	
 	
 	this.max_ammo = 60;

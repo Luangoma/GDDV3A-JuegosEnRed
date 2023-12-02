@@ -10,7 +10,8 @@ function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flam
 	this.health = health;
 	this.max_health = health;
 	//this.health = getRandomInRange(0,100);
-	
+	//Para comprobar si la casilla ha sido visitada anterioremente
+	this.visitited = false;
 	
 	this.tiles = [tilename,tilename,tilename,tilename];
 	
