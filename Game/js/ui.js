@@ -160,8 +160,8 @@ class ui extends Phaser.Scene
 		}
 		
 		// Actualizamos el valor de las puntuaciones 
-		//this.textoPuntuacioAzul.setText(player1.points);
-		//this.textoPuntuacionRoja.setText(player2.points);
+		this.textoPuntuacioAzul.setText(player1.points);
+		this.textoPuntuacionRoja.setText(player2.points);
 	}
 
 	// Esta función cambia el tamaño de la barra de vida, pasándole un número de 0 a 1.

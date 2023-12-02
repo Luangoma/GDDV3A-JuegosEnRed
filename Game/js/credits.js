@@ -52,7 +52,7 @@ class Credits extends Phaser.Scene
 
     update(time, delta) 
     {
-        console.log('Credits');
+        //console.log('Credits');
     }
     /**/
     shutdown() 
