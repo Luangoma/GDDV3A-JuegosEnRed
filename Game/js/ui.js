@@ -4,17 +4,93 @@ class ui extends Phaser.Scene
 	tiempoInicial = {};
 	temporizadorPartida = {};
 
+	barraIzquierdaAzul = {};
+	barraMedioAzul = {};
+	barraDerechaAzul = {};
+
+	barraIzquierdaRoja = {};
+	barraMedioRoja = {};
+	barraDerechaRoja = {};
+
+	init()
+	{
+		// Ancho cuando las barras de vida están al máximo.
+		this.anchoTotal = 100;
+	}
+
 	preload()
 	{
-
+		// Imágenes de los gráficos de los dragones.
 		this.load.svg('dragon1graphic', 'assets/dragon1graphic.svg');
 		this.load.svg('dragon2graphic', 'assets/dragon2graphic.svg');
+
+		// Imagen del gráfico del temporizador.
 		this.load.svg('grafico_temporizador', 'assets/grafico_temporizador.svg');
+
+		// Imágenes de la barra de vida del jugador azul.
+		this.load.image('barraIzquierdaAzul', 'assets/barra_vida/barHorizontal_blue_left.png');
+		this.load.image('barraMedioAzul', 'assets/barra_vida/barHorizontal_blue_mid.png');
+		this.load.image('barraDerechaAzul', 'assets/barra_vida/barHorizontal_blue_right.png');
+
+		// Imágenes de la barra de vida del jugador rojo.
+		this.load.image('barraIzquierdaRoja', 'assets/barra_vida/barHorizontal_red_left.png');
+		this.load.image('barraMedioRoja', 'assets/barra_vida/barHorizontal_red_mid.png');
+		this.load.image('barraDerechaRoja', 'assets/barra_vida/barHorizontal_red_right.png');
+
+		// Las imágenes de sombra son las mismas para ambas barras de vida.
+		this.load.image('barraIzquierdaSombra', 'assets/barra_vida/barHorizontal_shadow_left.png');
+		this.load.image('barraMedioSombra', 'assets/barra_vida/barHorizontal_shadow_mid.png');
+		this.load.image('barraDerechaSombra', 'assets/barra_vida/barHorizontal_shadow_right.png');
 	}
 
 	create()
 	{
+		// BARRAS DE VIDA
+
+		// Posición de la barra del jugador azul.
+		let xBarraAzul = 40;
+		let yBarraAzul = 575;
+
+		// Posición de la barra del jugador rojo.
+		let xBarraRoja = 650;
+		let yBarraRoja = 575;
+
+		// Sombra de la barra del jugador azul.
+		var barraIzquierdaSombra = this.add.image(xBarraAzul, yBarraAzul, 'barraIzquierdaSombra').setOrigin(0, 0.5);
+
+		var barraMedioSombra = this.add.image(barraIzquierdaSombra.x + barraIzquierdaSombra.width, yBarraAzul, 'barraMedioSombra').setOrigin(0, 0.5);
+		barraMedioSombra.displayWidth = this.anchoTotal;
+
+		var barraDerechaSombra = this.add.image(barraMedioSombra.x + barraMedioSombra.displayWidth, yBarraAzul, 'barraDerechaSombra').setOrigin(0, 0.5);
+
+
+		// Sombra de la barra del jugador rojo.
+		var barraIzquierdaSombra2 = this.add.image(xBarraRoja, yBarraRoja, 'barraIzquierdaSombra').setOrigin(0, 0.5);
+
+		var barraMedioSombra2 = this.add.image(barraIzquierdaSombra2.x + barraIzquierdaSombra2.width, yBarraRoja, 'barraMedioSombra').setOrigin(0, 0.5);
+		barraMedioSombra2.displayWidth = this.anchoTotal;
+
+		var barraDerechaSombra2 = this.add.image(barraMedioSombra2.x + barraMedioSombra2.displayWidth, yBarraRoja, 'barraDerechaSombra').setOrigin(0, 0.5);
+
+
+		// Barra de vida azul
+		this.barraIzquierdaAzul = this.add.image(xBarraAzul, yBarraAzul, 'barraIzquierdaAzul').setOrigin(0, 0.5);
+
+		this.barraMedioAzul = this.add.image(this.barraIzquierdaAzul.x + this.barraIzquierdaAzul.width, yBarraAzul, 'barraMedioAzul').setOrigin(0, 0.5);
+
+		this.barraDerechaAzul = this.add.image(this.barraMedioAzul.x + this.barraMedioAzul.displayWidth, yBarraAzul, 'barraDerechaAzul').setOrigin(0, 0.5);
+
+
+		// Barra de vida roja
+		this.barraIzquierdaRoja = this.add.image(xBarraRoja, yBarraRoja, 'barraIzquierdaRoja').setOrigin(0, 0.5);
+
+		this.barraMedioRoja = this.add.image(this.barraIzquierdaRoja.x + this.barraIzquierdaRoja.width, yBarraRoja, 'barraMedioRoja').setOrigin(0, 0.5);
+
+		this.barraDerechaRoja = this.add.image(this.barraMedioRoja.x + this.barraMedioRoja.displayWidth, yBarraRoja, 'barraDerechaRoja').setOrigin(0, 0.5);
 		
+
+
+
 		// TEMPORIZADOR PARTIDA
 
 		// Gráfico del temporizador.
@@ -36,19 +112,64 @@ class ui extends Phaser.Scene
 
 		
 
-
-		
 		// GRÁFICOS DE LOS DRAGONES
 
-		var graficoDragon1 = this.add.image(40, 450, 'dragon1graphic').setOrigin(0,0);
+		var graficoDragon1 = this.add.image(650, 450, 'dragon1graphic').setOrigin(0,0);
 		graficoDragon1.setScale(0.4);
-		var graficoDragon2 = this.add.image(650, 450, 'dragon2graphic').setOrigin(0,0);
+		var graficoDragon2 = this.add.image(40, 450, 'dragon2graphic').setOrigin(0,0);
 		graficoDragon2.setScale(0.4);
 	}
 
 	update(time, delta)
 	{
+		// Cambiar la barra de vida del jugador 2. Se divide entre 100 para que sea del 0 al 1.
+		this.cambiarAnchoBarraAnimado(player2.health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
+		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
+		this.cambiarAnchoBarraAnimado(player1.health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
+	}
 
+	// Esta función cambia el tamaño de la barra de vida, pasándole un número de 0 a 1.
+	cambiarAnchoBarra(porcentaje = 1, barraIzquierdaCambiar, barraMedioCambiar, barraDerechaCambiar)
+	{
+
+		// Calcular el ancho con el porcentaje pasado.
+		let ancho = this.anchoTotal * porcentaje;
+
+		// Actualizar el ancho de la parte media de la barra.
+		barraMedioCambiar.displayWidth = ancho;
+		// Actualizar la posición de la parte derecha de la barra.
+		barraDerechaCambiar.x = barraMedioCambiar.x + barraMedioCambiar.displayWidth;
+
+		// Si el displayWidth de la barra del medio es 0, la barra deja de ser visible
+		// porque el dragón está muerto.
+		barraIzquierdaCambiar.visible = barraMedioCambiar.displayWidth > 0;
+		barraMedioCambiar.visible = barraMedioCambiar.displayWidth > 0;
+		barraDerechaCambiar.visible = barraMedioCambiar.displayWidth > 0;
+	}
+
+	// Usar este código para que tenga una animación más smooth.
+	cambiarAnchoBarraAnimado(porcentaje = 1, barraIzquierdaCambiar, barraMedioCambiar, barraDerechaCambiar,  duracion = 1000)
+	{
+		// Calcular el ancho con el porcentaje pasado.
+		let ancho = this.anchoTotal * porcentaje;
+
+		// Actualizar el ancho de la barra con un Easing.
+		this.tweens.add({
+			targets: barraMedioCambiar,
+			displayWidth: ancho,
+			duracion,
+			ease: Phaser.Math.Easing.Sine.Out,
+			onUpdate: () => {
+				// Actualizar la posición de la parte derecha de la barra.
+				barraDerechaCambiar.x = barraMedioCambiar.x + barraMedioCambiar.displayWidth;
+	
+				// 0.5 porque con el Easing el displayWidth nunca llega a 0, se queda en 0 con algo.
+				barraIzquierdaCambiar.visible = barraMedioCambiar.displayWidth > 0.5;
+				barraMedioCambiar.visible = barraMedioCambiar.displayWidth > 0.5;
+				barraDerechaCambiar.visible = barraMedioCambiar.displayWidth > 0.5;
+
+			}
+		});
 	}
 	
 	// Esta función es llamada cada 1 segundo para actualizar el contador de tiempo restante.
