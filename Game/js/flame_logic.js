@@ -17,11 +17,27 @@ function damageEnemy(playerSprite, flame, player) {
 		let oponent_player = flame.owner;
 		oponent_player.max_ammo = 200;		// El dragón que mató a su oponente tendrá fuego ilimitado mientras este reaparece
 		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
-		player.scene.time.delayedCall(10000, ()=>{
-			player.health=100;
-			playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
-			oponent_player.max_ammo = 60;	// Quitamos el bonus al dragón que lo mató
+
+		player.respawnTime = 10;		// Sirve de contador del tiempo restante para reaparecer
+		deadCountdown = player.scene.time.addEvent({
+			delay: 1000, // Se ejecuta cada segundo
+
+			callback: ()=>{
+				if(player.respawnTime>0){
+					console.log("Tiempo restante: " + player.respawnTime);
+					player.respawnTime--;
+				} else {		// Si se ha acabado el tiempo
+					player.health=100;
+					playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
+					oponent_player.max_ammo = 60;		// Quitamos el bonus al dragón que lo mató
+					deadCountdown.remove();
+				}
+			},
+			callbackScope: this,
+			loop: true // Indica que se repita indefinidamente
 		});
+		
+		
     }
     
 
@@ -61,9 +77,16 @@ function damageTile(tileSprite, flame, tile){
 	flame.disableBody(true, true);
 	*/
 	
-	tile.health -= 0.1;
-	
-	
+	let dt = tile.scene.sys.game.loop.delta / 1000;
+	let dmg = 10 * dt;
+	tile.health -= dmg;
 	
 	damageTintSprite(tile.scene, tileSprite);
+	
+	console.log("hit with dmg: " + dmg);
+
+	if(tile.current_dragon.points >= 60){
+
+		console.log("GAME OVER");
+	}
 }
