@@ -3,6 +3,7 @@ class map_test_1 extends Phaser.Scene
 	flames = {};
 	houses = [];
 	tiles = [];
+	num_houses = 60;
 	
 	preload()
 	{
@@ -22,7 +23,7 @@ class map_test_1 extends Phaser.Scene
 		this.flames = createPhysicsGroup(this);
 		
 		createTiles(this, this.tiles, 'grass_tile_1');
-		createHouses(this, this.houses, this.tiles, 60, this.flames);
+		createHouses(this, this.houses, this.tiles, this.num_houses, this.flames);
 		
 		player1 = new Dragon(this, 0, 1024, 1024, this.flames);
 		player2 = new Dragon(this, 1, 800, 800, this.flames);
