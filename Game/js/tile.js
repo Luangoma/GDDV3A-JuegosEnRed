@@ -8,6 +8,7 @@ function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flam
 	
 	this.is_destructible = is_destructible;
 	this.health = health;
+	this.max_health = health;
 	//this.health = getRandomInRange(0,100);
 	
 	
@@ -36,7 +37,10 @@ function preloadTileData(scene)
 	scene.load.image('ground_tile_2', './assets/tiles/ground_tile_2.png');
 	
 	//cargar imágenes para los diferentes edificios que pueden spawnear:
-	
+		
+		//casa quemada: (utilizada cuando una casa ha sido destruida por completo)
+			scene.load.image('casa_quemada', './assets/tiles/houses/tile_casa_quemada.png');
+		
 		//casa 01:
 			//back
 			scene.load.image('tc_01_b_d0', './assets/tiles/houses/tile_casa_01_back_d0.png');
@@ -225,23 +229,28 @@ Tile.prototype.create = function(){
 }
 
 Tile.prototype.update = function(time, delta){
-	if(this.health >= 100 - 25 * 1)
+	if(this.health >= this.max_health - ((this.max_health/4) * 1))
 	{
 		this.sprite.setTexture(this.tiles[0]);
 	}
 	else
-	if(this.health >= 100 - 25 * 2)
+	if(this.health >= this.max_health - ((this.max_health/4) * 2))
 	{
 		this.sprite.setTexture(this.tiles[1]);
 	}
 	else
-	if(this.health >= 100 - 25 * 3)
+	if(this.health >= this.max_health - ((this.max_health/4) * 3))
 	{
 		this.sprite.setTexture(this.tiles[2]);
 	}
 	else
+	if(this.health > 0)
 	{
 		this.sprite.setTexture(this.tiles[3]);
+	}
+	else
+	{
+		this.sprite.setTexture('casa_quemada');
 	}
 	
 	if(this.is_on_fire)
@@ -302,7 +311,7 @@ function createHouses(scene,tiles,background_tiles,num_houses, flamesgroup)
 				continue;
 			}
 			
-			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true, 100 /*TODO: add hp config later*/, flamesgroup);
+			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true, 300 /*TODO: add hp config later*/, flamesgroup);
 			current_tile.tiles = getRandomHouseTiles();
 			current_tile.tile = current_tile.tiles[0];
 			background_tiles[global_index - 1].sprite.setTexture('ground_tile_2');
