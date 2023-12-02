@@ -48,13 +48,14 @@ class MainMenu extends Phaser.Scene
 		});
 		this.botonAjustes.on('pointerdown', function(pointer){
 			// Cambia la escena actual a la selecionada, en este caso, los ajustes (por crear)
-			console.log("Botón ajustes pulsado");
+			console.log("Botón ajustes pulsado");/**
 			game.scene.stop('MainMenu');
-			game.scene.start("Settings");
+			game.scene.start("Settings");//*/
 		});
 		this.botonSalir.on('pointerdown', function(pointer){
 			console.log("Botón salir pulsado");
 			// Salir del juego, en este caso, cerrar la pestaña
+			window.open('','_parent','');
 			window.close();
 		});
 	}
