@@ -12,6 +12,11 @@ class ui extends Phaser.Scene
 	barraMedioRoja = {};
 	barraDerechaRoja = {};
 
+	textoPuntuacioAzul = {};
+	textoPuntuacionRoja = {};
+	puntuacionAzul = {};
+	puntuacionRoja = {};
+
 	init()
 	{
 		// Ancho cuando las barras de vida están al máximo.
@@ -103,8 +108,7 @@ class ui extends Phaser.Scene
 		// Texto de la interfaz donde aparece el tiempo restante. Llama a formatoTiempo() para poner el tiempo
 		// en minutos y segundos.
 		// setOrigin(0.5) hace que el origen del texto sea su centro en vez de a su izquierda.
-		this.textoTemporizador = this.add.text(config.width/2, 40, this.formatoTiempo(this.tiempoInicial), { fontFamily: 'medieval-pixel', fontSize: 30 }).setOrigin(0.5);
-
+		this.textoTemporizador = this.add.text(config.width/2, 40, this.formatoTiempo(this.tiempoInicial), styleText_MedievalPixel_30).setOrigin(0.5);
 		this.textoTemporizador.setScrollFactor(0);
 
 		//Cada 1000 ms, es decir, 1 segundo se llama a la función temporizadorTerminado. Para ello se hace en bucle.
@@ -113,8 +117,8 @@ class ui extends Phaser.Scene
 		// TEMPORIZADOR PARA NÚMEROS DE RESPAWN 
 
 		// Definimos las posiciones de el contador de respawn para cada uno de los jugadores
-		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, player1.respawnTime, { fontFamily: 'medieval-pixel', fontSize: 30 }).setOrigin(0.5);
-		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, player2.respawnTime, { fontFamily: 'medieval-pixel', fontSize: 30 }).setOrigin(0.5);
+		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, player1.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, player2.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
 
 		// GRÁFICOS DE LOS DRAGONES
 
@@ -122,6 +126,19 @@ class ui extends Phaser.Scene
 		graficoDragon1.setScale(0.4);
 		var graficoDragon2 = this.add.image(40, 450, 'dragon2graphic').setOrigin(0,0);
 		graficoDragon2.setScale(0.4);
+
+
+		// PUNTUACION EN PANTALLA
+		
+		// Margenes para separar el texto de los graficos de los dragones
+		let marginX = 50, marginY = 200;
+		// Inicializamos el valor de los textos que mostraran el valor de la puntuación
+		this.textoPuntuacioAzul = this.add.text(config.width-marginX, config.height-marginY, player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, player2.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		// Puntos del jugador a mostrar en pantalla
+		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:player1.points, callbackScope: this, loop: true });
+		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:player2.points, callbackScope: this, loop: true });
+
 	}
 
 	update(time, delta)
@@ -142,6 +159,9 @@ class ui extends Phaser.Scene
 			this.textoTemporizadorRespawnIzq.setText('');
 		}
 		
+		// Actualizamos el valor de las puntuaciones 
+		//this.textoPuntuacioAzul.setText(player1.points);
+		//this.textoPuntuacionRoja.setText(player2.points);
 	}
 
 	// Esta función cambia el tamaño de la barra de vida, pasándole un número de 0 a 1.
@@ -189,7 +209,8 @@ class ui extends Phaser.Scene
 	}
 	
 	// Esta función es llamada cada 1 segundo para actualizar el contador de tiempo restante.
-	temporizadorTerminado() {
+	temporizadorTerminado()
+	{
 		// Se resta 1 segundo al tiempo inicial.
 		this.tiempoInicial = this.tiempoInicial - 1;
 
@@ -204,10 +225,9 @@ class ui extends Phaser.Scene
 		}
 	}
 
-
-
 	//Esta función coge segundos y lo formatea en minutos y segundos (por ejemplo, 80 -> 1:20)
-	formatoTiempo(segundos) {
+	formatoTiempo(segundos)
+	{
 		// Minutos
 		var minutos = Math.floor(segundos/60);
 		// Segundos
@@ -217,5 +237,4 @@ class ui extends Phaser.Scene
 		// Devolver el tiempo bien formateado.
 		return `${minutos}:${parteEnSegundos}`;
 	}
-	
 };

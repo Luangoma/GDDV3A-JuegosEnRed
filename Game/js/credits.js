@@ -29,13 +29,13 @@ class Credits extends Phaser.Scene
         // setOrigin(1) hace que el origen del texto esté a su derecha, setOrigin(0) a su izquierda.
 
         // Título 'Créditos'
-        this.titulo = this.add.text(xTitulo, yTitulo, 'Creditos', { fontFamily: 'medieval-pixel', fontSize: 90, align: 'left' }).setOrigin(1);
+        this.titulo = this.add.text(xTitulo, yTitulo, 'Creditos', styleText_MedievalPixel_90).setOrigin(1);
 
         // Textos de los nombres.
-        this.nombre1 = this.add.text(xTitulo, yTitulo + separacionTexto * 1, 'Daniel Rodríguez', { fontFamily: 'pixel_sans_serif', fontSize: 18 }).setOrigin(1);
-        this.nombre2 = this.add.text(xTitulo, yTitulo + separacionTexto * 2, 'Juan Alessandro Vázquez Bustos', { fontFamily: 'pixel_sans_serif', fontSize: 18 }).setOrigin(1);
-        this.nombre3 = this.add.text(xTitulo, yTitulo + separacionTexto * 3, 'Mario López García', { fontFamily: 'pixel_sans_serif', fontSize: 18 }).setOrigin(1);
-        this.nombre4 = this.add.text(xTitulo, yTitulo + separacionTexto * 4, 'Luis Antonio González', { fontFamily: 'pixel_sans_serif', fontSize: 18 }).setOrigin(1);
+        this.nombre1 = this.add.text(xTitulo, yTitulo + separacionTexto * 1, 'Mario López García', styleText_PixelSansSerif_18).setOrigin(1);
+        this.nombre2 = this.add.text(xTitulo, yTitulo + separacionTexto * 2, 'Daniel Rodríguez Ariza', styleText_PixelSansSerif_18).setOrigin(1);
+        this.nombre3 = this.add.text(xTitulo, yTitulo + separacionTexto * 3, 'Luis Antonio González Martínez', styleText_PixelSansSerif_18).setOrigin(1);
+        this.nombre4 = this.add.text(xTitulo, yTitulo + separacionTexto * 4, 'Juan Alessandro Vázquez Bustos', styleText_PixelSansSerif_18).setOrigin(1);
 
         // Se coloca el boton en la esquina inferior derecha
         this.botonSalir = this.add.image(config.width - config.width / 5, config.height - 60, 'botonSalir').setScale(0.5);
