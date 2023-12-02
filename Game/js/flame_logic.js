@@ -19,25 +19,45 @@ function damageEnemy(playerSprite, flame, player) {
 		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
 
 		player.respawnTime = 10;		// Sirve de contador del tiempo restante para reaparecer
-		deadCountdown = player.scene.time.addEvent({
-			delay: 1000, // Se ejecuta cada segundo
+		if(player.player_id==0) {
+			deadCountdown0 = player.scene.time.addEvent({
+				delay: 1000, // Se ejecuta cada segundo
 
-			callback: ()=>{
-				if(player.respawnTime>0){
-					console.log("Tiempo restante: " + player.respawnTime);
-					player.respawnTime--;
-				} else {		// Si se ha acabado el tiempo
-					player.health=100;
-					playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
-					oponent_player.max_ammo = 60;		// Quitamos el bonus al dragón que lo mató
-					deadCountdown.remove();
-				}
-			},
-			callbackScope: this,
-			loop: true // Indica que se repita indefinidamente
-		});
-		
-		
+				callback: ()=>{
+					if(player.respawnTime>0){
+						console.log("Tiempo restante: " + player.respawnTime);
+						player.respawnTime--;
+					} else {		// Si se ha acabado el tiempo
+						player.health=100;
+						playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
+						oponent_player.max_ammo = 60;		// Quitamos el bonus al dragón que lo mató
+						deadCountdown0.remove();
+						console.log("Se ha eliminado el deadcount del dragon jugador con id: "+player.player_id);
+					}
+				},
+				callbackScope: this,
+				loop: true // Indica que se repita indefinidamente
+			});
+		} else if(player.player_id==1){
+			deadCountdown1 = player.scene.time.addEvent({
+				delay: 1000, // Se ejecuta cada segundo
+
+				callback: ()=>{
+					if(player.respawnTime>0){
+						console.log("Tiempo restante: " + player.respawnTime);
+						player.respawnTime--;
+					} else {		// Si se ha acabado el tiempo
+						player.health=100;
+						playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
+						oponent_player.max_ammo = 60;		// Quitamos el bonus al dragón que lo mató
+						deadCountdown1.remove();
+						console.log("Se ha eliminado el deadcount del dragon jugador con id: "+player.player_id);
+					}
+				},
+				callbackScope: this,
+				loop: true // Indica que se repita indefinidamente
+			});
+		}
     }
     
 
