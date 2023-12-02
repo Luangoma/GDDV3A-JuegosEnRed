@@ -12,6 +12,9 @@ var temporizadorPartida;
 
 function UIPreload(){
 
+	this.load.svg('dragon1graphic', 'assets/dragon1graphic.svg');
+	this.load.svg('dragon2graphic', 'assets/dragon2graphic.svg');
+
 }
 
 function UICreate(){
@@ -29,6 +32,15 @@ function UICreate(){
 
 	//Cada 1000 ms, es decir, 1 segundo se llama a la función temporizadorTerminado. Para ello se hace en bucle.
 	this.temporizadorPartida = this.time.addEvent({ delay: 1000, callback: temporizadorTerminado, callbackScope: this, loop: true });
+
+
+	
+	// GRÁFICOS DE LOS DRAGONES
+
+	var graficoDragon1 = this.add.image(40, 450, 'dragon1graphic').setOrigin(0,0);
+	graficoDragon1.setScale(0.4);
+	var graficoDragon2 = this.add.image(650, 450, 'dragon2graphic').setOrigin(0,0);
+	graficoDragon2.setScale(0.4);
 }
 
 function UIUpdate(time, delta){
