@@ -1,6 +1,3 @@
-player1 = {};
-player2 = {};
-
 class map_test_1 extends Phaser.Scene
 {
 	flames = {};
