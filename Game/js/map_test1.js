@@ -47,7 +47,7 @@ class map_test_1 extends Phaser.Scene
 			this.houses[i].update(time, delta);
 		}
 		
-		console.log("p1: " + player1.points + ", p2: " + player2.points);
+		//console.log("p1: " + player1.points + ", p2: " + player2.points);
 	}
 	
 	shutdown()

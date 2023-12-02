@@ -18,14 +18,14 @@ function damageEnemy(playerSprite, flame, player) {
 		oponent_player.max_ammo = 200;		// El dragón que mató a su oponente tendrá fuego ilimitado mientras este reaparece
 		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
 
-		var tiempoRestante = 10;		// Sirve de contador del tiempo restante
+		player.respawnTime = 10;		// Sirve de contador del tiempo restante para reaparecer
 		deadCountdown = player.scene.time.addEvent({
 			delay: 1000, // Se ejecuta cada segundo
 
 			callback: ()=>{
-				if(tiempoRestante>0){
-					console.log("Tiempo restante: "+tiempoRestante);
-					tiempoRestante--;
+				if(player.respawnTime>0){
+					console.log("Tiempo restante: " + player.respawnTime);
+					player.respawnTime--;
 				} else {		// Si se ha acabado el tiempo
 					player.health=100;
 					playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
