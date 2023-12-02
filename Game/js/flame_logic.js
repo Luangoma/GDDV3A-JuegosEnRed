@@ -66,4 +66,9 @@ function damageTile(tileSprite, flame, tile){
 	
 	
 	damageTintSprite(tile.scene, tileSprite);
+
+	if(tile.current_dragon.points >=60){
+
+		console.log("GAME OVER");
+	}
 }
