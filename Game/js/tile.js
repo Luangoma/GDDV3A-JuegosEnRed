@@ -15,7 +15,10 @@ function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flam
 	this.is_on_fire = false;
 	
 	this.flames = flamesgroup;
+	
 	this.last_dragon = null;
+	this.current_dragon = null;
+	this.has_to_switch_sprite = false;
 }
 
 var houseList = [];
@@ -23,9 +26,14 @@ var houseList = [];
 function preloadTileData(scene)
 {
 	//cargar animaciones del fuego:
-	scene.load.spritesheet('animacionFuegoStart', 'assets/burning_animation/burning_start_1.png', {frameWidth: 24, frameHeight: 32});
-	scene.load.spritesheet('animacionFuegoLoop', 'assets/burning_animation/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
-	scene.load.spritesheet('animacionFuegoEnd', 'assets/burning_animation/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('FuegoStart', 'assets/burning_animation/burning_start_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('FuegoLoop', 'assets/burning_animation/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('FuegoEnd', 'assets/burning_animation/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
+	
+	//cargar animaciones del fuego azul:
+	scene.load.spritesheet('FuegoStart_blue', 'assets/burning_animation/alt/burning_start_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('FuegoLoop_blue', 'assets/burning_animation/alt/burning_loop_1.png', {frameWidth: 24, frameHeight: 32});
+	scene.load.spritesheet('FuegoEnd_blue', 'assets/burning_animation/alt/burning_end_1.png', {frameWidth: 24, frameHeight: 32});
 	
 	//cargar imágenes para los tiles por defecto (utilizados con propósito de debuggear y hacer pruebas)
 	scene.load.image('default_tile', './assets/tiles/default_tile.png');
@@ -187,7 +195,14 @@ function createTileData(scene)
 	//Animación animacionFuegoStart, inicio del fuego, solo reproducir 1 vez.
 	scene.anims.create({
 		key: 'animacionFuegoStart',
-		frames: scene.anims.generateFrameNumbers('animacionFuegoStart', { start: 0, end: 3 }),
+		frames: scene.anims.generateFrameNumbers('FuegoStart', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+	
+	scene.anims.create({
+		key: 'animacionFuegoStart_blue',
+		frames: scene.anims.generateFrameNumbers('FuegoStart_blue', { start: 0, end: 3 }),
 		frameRate: 7,
 		repeat: 0
 	});
@@ -195,7 +210,14 @@ function createTileData(scene)
 	//Animación animacionFuegoLoop, bucle del fuego, reproducir continuamente.
 	scene.anims.create({
 		key: 'animacionFuegoLoop',
-		frames: scene.anims.generateFrameNumbers('animacionFuegoLoop', { start: 0, end: 3 }),
+		frames: scene.anims.generateFrameNumbers('FuegoLoop', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: -1
+	});
+	
+	scene.anims.create({
+		key: 'animacionFuegoLoop_blue',
+		frames: scene.anims.generateFrameNumbers('FuegoLoop_blue', { start: 0, end: 3 }),
 		frameRate: 7,
 		repeat: -1
 	});
@@ -203,7 +225,14 @@ function createTileData(scene)
 	//Animación animacionFuegoEnd, final del fuego, solo reproducir 1 vez al terminar la llama.
 	scene.anims.create({
 		key: 'animacionFuegoEnd',
-		frames: scene.anims.generateFrameNumbers('animacionFuegoEnd', { start: 0, end: 3 }),
+		frames: scene.anims.generateFrameNumbers('FuegoEnd', { start: 0, end: 3 }),
+		frameRate: 7,
+		repeat: 0
+	});
+	
+	scene.anims.create({
+		key: 'animacionFuegoEnd_blue',
+		frames: scene.anims.generateFrameNumbers('FuegoEnd_blue', { start: 0, end: 3 }),
 		frameRate: 7,
 		repeat: 0
 	});
@@ -256,7 +285,27 @@ Tile.prototype.update = function(time, delta){
 	{
 		let damage_over_time = 2; // puntos de daño por segundo
 		this.fire_sprite.setVisible(true);
-		this.health -= (delta/1000) * damage_over_time; // calcular el daño aplicado en un frame 
+		this.health -= (delta/1000) * damage_over_time; // calcular el daño aplicado en un frame
+		
+		
+		if(this.has_to_switch_sprite)
+		{
+			switch(this.current_dragon.player_id)
+			{
+				case 0:
+					this.fire_sprite.setTexture('FuegoLoop');
+					this.fire_sprite.play('animacionFuegoLoop');
+					break;
+				
+				default:
+					this.fire_sprite.setTexture('FuegoLoop_blue');
+					this.fire_sprite.play('animacionFuegoLoop_blue');
+					break;
+			}
+			this.has_to_switch_sprite = false;
+		}
+		
+		
 	}
 	else
 	{

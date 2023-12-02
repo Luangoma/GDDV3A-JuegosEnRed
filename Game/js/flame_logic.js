@@ -40,12 +40,18 @@ function damageTile(tileSprite, flame, tile){
 		return;
 	}
 	
-	if(tile.last_dragon)
+	if(tile.current_dragon !== tile.last_dragon)
 	{
-		tile.last_dragon.points -= 1;
+		tile.has_to_switch_sprite = true;
 	}
-	tile.last_dragon = flame.owner;
-	tile.last_dragon.points += 1;
+	
+	if(tile.current_dragon)
+	{
+		tile.current_dragon.points -= 1;
+	}
+	tile.last_dragon = tile.current_dragon;
+	tile.current_dragon = flame.owner;
+	tile.current_dragon.points += 1;
 	
 	tile.is_on_fire = true;
 	

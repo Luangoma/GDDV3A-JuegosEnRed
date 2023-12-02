@@ -1,6 +1,6 @@
 function Flame(scene, owner, x, y, velx, vely){
 	
-	let current_flame = owner.flames.create(x, y, 'flame');
+	let current_flame = owner.flames.create(x, y, owner.player_id === 0? 'flame' : 'flame_blue');
 	current_flame.owner = owner;
 	current_flame.owner_id = owner.player_id;
 	
@@ -12,4 +12,5 @@ function Flame(scene, owner, x, y, velx, vely){
 
 function preloadFlameData(scene){
 	scene.load.image('flame', './assets/flame.png');
+	scene.load.image('flame_blue','./assets/flame_blue.png');
 }
