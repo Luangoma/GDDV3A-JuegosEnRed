@@ -77,13 +77,15 @@ function damageTile(tileSprite, flame, tile){
 	flame.disableBody(true, true);
 	*/
 	
-	tile.health -= 0.1;
-	
-	
+	let dt = tile.scene.sys.game.loop.delta / 1000;
+	let dmg = 10 * dt;
+	tile.health -= dmg;
 	
 	damageTintSprite(tile.scene, tileSprite);
+	
+	console.log("hit with dmg: " + dmg);
 
-	if(tile.current_dragon.points >=60){
+	if(tile.current_dragon.points >= 60){
 
 		console.log("GAME OVER");
 	}
