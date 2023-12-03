@@ -3,11 +3,11 @@ class map_test_1 extends Phaser.Scene
 	flames = {};
 	houses = [];
 	tiles = [];
+	decor = [];
 	num_houses = 60;
 	
 	preload()
 	{
-		console.log("preload");
 		this.load.image("world_grass","assets/WorldGrass.png");
 		preloadDragonData(this);
 		preloadTileData(this);
@@ -20,7 +20,6 @@ class map_test_1 extends Phaser.Scene
 		this.tiles = [];
 		this.flames = {};
 		
-		console.log("create");
 		createTileData(this);
 		createDragonData(this);
 		
@@ -28,9 +27,15 @@ class map_test_1 extends Phaser.Scene
 		
 		this.flames = createPhysicsGroup(this);
 		
-		createTiles(this, this.tiles, 'grass_tile_1');
+		createTiles(this, this.tiles, ['grass_tile_1']);
+		//createTiles(this, this.decor, ['decor_stones_01', 'decor_stones_02', 'decor_stones_01']);
+		createDecor(this,this.decor,['decor_stones_01', 'decor_stones_02', 'decor_stones_03'], 30);
 		createHouses(this, this.tiles, this.houses, this.flames, this.num_houses);
-		createCastle(this,this.tiles,this.houses,this.flames,0,0);
+		
+		let castle_x = getRandomInRangeInt(0,world_tiles_width - 6); //take away 6 due to castle lenght
+		let castle_y = getRandomInRangeInt(0,world_tiles_height - 6);
+		createCastle(this,this.tiles,this.houses,this.flames,castle_x,castle_y);
+		console.log("castle spawned at : " + castle_x + "," + castle_y);
 		
 		player1 = new Dragon(this, 0, 1024, 1024, this.flames);
 		player2 = new Dragon(this, 1, 800, 800, this.flames);
@@ -45,7 +50,6 @@ class map_test_1 extends Phaser.Scene
 	
 	update(time, delta)
 	{
-		console.log("update");
 		player1.update(time, delta);
 		player2.update(time, delta);
 		
@@ -60,13 +64,11 @@ class map_test_1 extends Phaser.Scene
 	
 	shutdown()
 	{
-		console.log("shutdown");
 		super.shutdown();
 	}
 	
 	destroy()
 	{
-		console.log("destroy");
 		player1 = null;
 		player2 = null;
 		houses = [];
