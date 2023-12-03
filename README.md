@@ -76,21 +76,28 @@ En Burning Village The Dragon's flame destacan varias mecánicas jugables:
 
 
 - **Movilidad:** En Burning Village se controlan dos dragones (uno cada jugador) que sobrevuelan la misma aldea compuesta de varios edificios. 
+Implementado
 
-- **Fuego:** Cada dragón puede escupir fuego una vez cada 3 segundos.
+- **Fuego:** Cada dragón puede escupir fuego una vez cada 3 segundos. 
+Implementado
 
-- **Incendios:** Cuando alguno de los dragones incendia alguna de las distintas zonas de la aldea, estas quedan encendidas durante un periodo de tiempo por determinar.
+- **Incendios:** Cuando alguno de los dragones incendia alguna de las distintas zonas de la aldea, estas quedan encendidas durante un periodo de tiempo por determinar. 
+Implementado, quedan encendidas hasta que la casa sea destruida.
 
-- **Incendiar zonas ya incendiadas (opción 1):** Un dragón no puede incendiar una zona que ya ha sido encendida por su contrincante mientras este siga vivo. Por tanto para invadir la aldea debe asesinar a su contrincante.
+- **Incendiar zonas ya incendiadas (opción 1):** Un dragón no puede incendiar una zona que ya ha sido encendida por su contrincante mientras este siga vivo. Por tanto para invadir la aldea debe asesinar a su contrincante. 
+No implemendado
 
 - **Incendiar zonas ya incendiadas (opción 2):** Un dragón puede incendiar una zona que ya ha sido encendida por su contrincante mientras este sigue vivo soplando dos veces fuego sobre ella.
 Si se hace mientras el contrincante está muerto, en lugar de dos solo es necesario soplar una vez. 
+Implementado
 (todas estas métricas quedan sujetas a cambios con intención de crear un gameplay lo más divertido posible)
 
-- **Asesinar dragones:** Cada dragón recibe/inflige un punto de vida de daño por cada bocanada de fuego que reciba/suelte.
+- **Asesinar dragones:** Cada dragón recibe/inflige un punto de vida de daño por cada bocanada de fuego que reciba/suelte. 
 Cada dragón cuenta con un número de puntos de vida aún por determinar.
+Implementado, el dragon tiene 100 puntos de vda base.
 
 - **Temporizador:** Hay un tiempo limitado para que uno de los dragones consiga quemar la aldea por completo. Si durante este plazo ninguno de los dos dragones ha sido capaz de controlar la aldea, el dragón con más zonas incendiadas al momento de finalizar el contador, será el ganador de la partida.
+Implementado.
 
 ## Personajes
 El juego consta de dos personajes jugables. Cada jugador controla un dragón de características similares.
@@ -260,6 +267,46 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 * Botón Sonido: Despliega las opciones de sonido como el volumen y el dispositivo de reproducción.
 * Botón Volver: Devuelve al menú principal. También se puede usar el botón Escape del teclado para acceder a la misma opción.
 
+# Fase 2: Estado del desarrollo (03/12/23)
+| Funcion                            | Estado de la implementacion | Fase de finalización | Comentarios |
+| ---------------------------------- | --------------------------- | -------------------- | ----------- |
+| Escenas                            | Implementado                | Fase 2               |             |
+| Menú                               | Implementado                | Fase 2               |             |
+| Nivel                              | Por implementar             | - Fase 3             |             |
+| Buscar partida                     | Por implementar             | - Fase 3             |             |
+| Resultados                         | Implementado                | Fase 2               |             |
+| Creditos                           | Implementado                | Fase 2               |             |
+| Ajustes                            | Por implementar             | - Fase 3             |El botón esta implementado pero no tiene función|
+| Sonidos                            | Por implementar             | - Fase 3             |             |
+| Dragones                           | Implementado                | Fase 2               |             |
+| Llamas                             | Implementado                | Fase 2               |             |
+| Casas                              | Implementado                | Fase 2               |El valor de la casa son de 5 puntos|
+| Sistema de puntuación              | Implementado                | Fase 2               |             |
+| Barra de vida                      | Implementado                | Fase 2               |El dragon tiene 100 puntos de vida base|
+| Matar dragones                     | Implementado                | Fase 2               |             |
+| Respawn de dragones                | Implementado                | Fase 2               |             |
+| Countdown para reaparecer          | Implementado                | Fase 2               |             |
+| Camaras (split)                    | Implementado                | Fase 2               |             |
+| Lógica de juego                    | Implementado                | Fase 2               |             |
+| Lógica de las llamas               | Implementado                | Fase 2               |             |
+| Interfaces                         | Implementado                | Fase 2               |             |
+| Navegación por la UI               | Implementado                | Fase 2               |             |
+| Multijugador local                 | Implementado                | Fase 2               |             |
+| Generación de casas                | Implementado                | Fase 2               |             |
+| Temporizador de partida            | Implementado                | Fase 2               |             |
+| Control de movimiento              | Implementado                | Fase 2               |             |
+| Control de ataque                  | Implementado                | Fase 2               |             |
+| Identificar por el color al jugador| Implementado                | Fase 2               |             |
+
+Se han añadido las escenas al juego, son las siguientes:  
+Menu:  
+![Figura 8, escena in-game del menu.](./Images/Menu_1.png)  
+Craditos:  
+![Figura 9, escena in-game de los creditos.](./Images/Creditos_1.png)  
+Partida:  
+![Figura 10, escena in-game de la partida.](./Images/Partida_1.png)  
+Gameover:  
+![Figura 11, escena in-game al acabar la partida.](./Images/Gameover_1.png)  
 
 ## Bibliografía
 
@@ -275,11 +322,27 @@ Colaboradores de Wikipedia. (2023). Arcade. Wikipedia, la enciclopedia libre. <h
 
 Colaboradores de Wikipedia. (2023). Videojuego casual. Wikipedia, la enciclopedia libre. <https://es.wikipedia.org/wiki/Videojuego_casual>
 
+Countdown timer. (2019, 16 mayo). Phaser. <https://phaser.discourse.group/t/countdown-timer/2471/3>  
+
 ¿Cuántos tipos de videojuegos hay? (2022, 20 julio). IFEMA MADRID. <https://www.ifema.es/noticias/videojuegos/tipos-videojuegos>
+
+Fire Animation - Pixel Art FX Sprites 🔥 by Brullov. (s. f.). itch.io. <https://brullov.itch.io/fire-animation>  
 
 How middle-aged women are turning ‘casual’ gaming into a billion-dollar addiction. (2010, 18 diciembre). BrainStation. <https://brainstation.io/magazine/how-middle-aged-women-are-turning-casual-gaming-into-a-billion-dollar-addiction>
 
+Kenney. (s. f.). UI Pack (Space Expansion) · Kenney. <https://kenney.nl/assets/ui-pack-space-expansion>  
+
+Leung, T. (2020, 12 junio). Create an animated health bar in Phaser 3. Ourcade Blog. <https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/>  
+
+Medieval Pixel. (2014, 10 julio). fontstruct.com. <https://fontstruct.com/fontstructions/show/640368/medieval_pixel>  
+
+Pixel sans serif font | Dafont.com. (s. f.). <https://www.dafont.com/pixel-sans-serif.font>  
+
+Schlitter, R. (2023, 6 junio). Pixelblog - 16 - Medieval Fantasy — SLYNYRD. SLYNYRD. <https://www.slynyrd.com/blog/2019/4/23/pixelblog-16-medieval-fantasy>  
+
 Stalberg, A. (2023). Games to play if you love medieval fantasy. Game Rant. <https://gamerant.com/games-play-love-medieval-fantasy/#divinity-original-sin-2>
+
+Town on Fire, Pablo Gomez. (s. f.). ArtStation. <https://www.artstation.com/artwork/aoXLrk>  
 
 What is the difference between casual and arcade game category? (s. f.). Quora. <https://www.quora.com/What-is-the-difference-between-casual-and-arcade-game-category>
 
