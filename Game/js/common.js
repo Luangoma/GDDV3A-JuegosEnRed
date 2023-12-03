@@ -70,7 +70,7 @@ var styleText_PixelSansSerif = {
 	strokeThickness: 4				// Grosor del contorno
 }
 //*/
-// Estilo de texto para subtitulos (desarrolldores en creditos)
+// Estilo de texto para subtitulos (desarrolladores en creditos)
 var styleText_PixelSansSerif_18 = {
 	fontFamily: 'pixel_sans_serif',	// Tipografia
 	stroke: 0x000,					// Color del contorno

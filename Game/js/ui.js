@@ -221,6 +221,7 @@ class ui extends Phaser.Scene
 		if (this.tiempoInicial === 0){
 			console.log("GAME OVER");
 			game.scene.stop('map_test_1');
+			this.scene.stop("ui");
 			game.scene.start("game_over");
 
 			// Ir a la escena GAME OVER.
