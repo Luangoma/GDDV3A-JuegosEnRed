@@ -8,6 +8,8 @@ class game_over extends Phaser.Scene
 
 	create(){
 
+		game.scene.stop('ui');
+
 		var background = this.add.sprite(0,0, 'town-on-fire').setOrigin(0,0).setDisplaySize(config.width,config.height);
 	
 		this.anims.create({

@@ -220,8 +220,8 @@ class ui extends Phaser.Scene
 		// Si el tiempo inicial es 0, la partida ha terminado.
 		if (this.tiempoInicial === 0){
 			console.log("GAME OVER");
-			game.scene.start("game_over");
 			game.scene.stop('map_test_1');
+			game.scene.start("game_over");
 
 			// Ir a la escena GAME OVER.
 		}
@@ -238,5 +238,27 @@ class ui extends Phaser.Scene
 		parteEnSegundos = parteEnSegundos.toString().padStart(2,'0');
 		// Devolver el tiempo bien formateado.
 		return `${minutos}:${parteEnSegundos}`;
+	}
+
+	destroy()
+	{
+		this.textoTemporizador = {};
+		this.tiempoInicial = {};
+		this.temporizadorPartida = {};
+
+		this.barraIzquierdaAzul = {};
+		this.barraMedioAzul = {};
+		this.barraDerechaAzul = {};
+
+		this.barraIzquierdaRoja = {};
+		this.barraMedioRoja = {};
+		this.barraDerechaRoja = {};
+
+		this.textoPuntuacioAzul = {};
+		this.textoPuntuacionRoja = {};
+		this.puntuacionAzul = {};
+		this.puntuacionRoja = {};
+		super.destroy();
+
 	}
 };
