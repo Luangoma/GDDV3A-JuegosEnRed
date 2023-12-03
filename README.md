@@ -310,12 +310,30 @@ Game Over:
 
 ## Recursos de creación propia
 Se han creado recursos propios como sprites para el desarrollo del juego.
-- **Sprites de casas medievales:**
-Se ha creado una serie de sprites de casas medievales observadas desde diferentes ángulos para poblar el mundo de casas variadas. Cada casa está compuesta por múltiples sprites con diferentes estados de daño.
+- **Sprites de casas medievales:**  
+Se ha creado una serie de sprites de casas medievales observadas desde diferentes ángulos para poblar el mundo de casas variadas.  
+Cada casa está compuesta por múltiples sprites con diferentes estados de daño.  
+Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezAriza  
+
 ![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d0.png)
 ![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d1.png)
 ![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d2.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d3.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d3.png)  
+
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d0.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d1.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d2.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d3.png)  
+
+- **Sprites de castillo medieval:**  
+Se ha creado una serie de sprites para el castillo medieval que aparece en el juego.  
+Cada elemento del castillo está compuesto por una serie de sprites para representar los distintos estados de daño.  
+Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezAriza  
+
+![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d0.png)
+![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d1.png)
+![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d2.png)
+![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d3.png)  
 
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
