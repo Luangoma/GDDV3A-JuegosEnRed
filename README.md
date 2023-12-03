@@ -49,7 +49,7 @@ En ‘Burning Village: The Dragon’s Flame’, el jugador se convierte en un dr
 - **Controles simples y accesibles:** El jugador tan solo debe aprender unos controles muy básicos de movimiento y de disparo de fuego mediante el teclado. Esto hace de ‘Burning Village: The Dragon’s Flame’ un juego con un alto nivel de accesibilidad para nuevos jugadores y con una rápida adquisición de familiaridad.
 - **Una única habilidad que controlar:** A parte del movimiento por el mapa, el dragón tan solo dispone de una herramienta para conseguir posesiones y acabar con el enemigo: la habilidad para escupir fuego por su boca. Esto es en contraposición con los juegos más complejos que ponen decenas de habilidades a disposición del jugador, lo que los convierte en juegos con una curva de aprendizaje más exagerada.
 - **Vista cenital reducida:** El jugador tan solo puede ver cierta parte del mapa, por lo que no conoce las acciones del enemigo si no está próximo a él. Al ignorar estos aspectos, se crea una sensación de misterio y suspense que no habría si el jugador conociera toda la información en todo momento. La vista es cenital y está centrada en el dragón del jugador.
-- **Condición de victoria concisa:** El objetivo del jugador en todo momento es quemar la aldea entera con las llamas de su color. Para ello, debe evitar que el dragón enemigo queme casas, ya que quedarán como sus posesiones y por tanto, el fuego será del color enemigo.
+- **Condición de victoria concisa:** El objetivo del jugador en todo momento es mantener la mayor parte de la aldea con las llamas de su color. Para ello, debe evitar que el dragón enemigo incendie casas, ya que quedarán como sus posesiones y por tanto, el fuego será del color enemigo.
 
 ### Público objetivo
 
@@ -75,29 +75,33 @@ Este juego inicial conformará una base sobre la que crear, en el futuro, difere
 En Burning Village The Dragon's flame destacan varias mecánicas jugables:
 
 
-- **Movilidad:** En Burning Village se controlan dos dragones (uno cada jugador) que sobrevuelan la misma aldea compuesta de varios edificios. 
+- **Movilidad:** En Burning Village se controlan dos dragones (uno cada jugador) que sobrevuelan la misma aldea compuesta de varios edificios.
+  Los dragones no pueden dejar de moverse, pudiendo únicamente modificar la dirección de su movimiento.
 Implementado
 
-- **Fuego:** Cada dragón puede escupir fuego una vez cada 3 segundos. 
+- **Fuego:** Cada dragón recarga sus 60 llamas cada 3 segundos.
 Implementado
 
-- **Incendios:** Cuando alguno de los dragones incendia alguna de las distintas zonas de la aldea, estas quedan encendidas durante un periodo de tiempo por determinar. 
-Implementado, quedan encendidas hasta que la casa sea destruida.
-
-- **Incendiar zonas ya incendiadas (opción 1):** Un dragón no puede incendiar una zona que ya ha sido encendida por su contrincante mientras este siga vivo. Por tanto para invadir la aldea debe asesinar a su contrincante. 
-No implemendado
-
-- **Incendiar zonas ya incendiadas (opción 2):** Un dragón puede incendiar una zona que ya ha sido encendida por su contrincante mientras este sigue vivo soplando dos veces fuego sobre ella.
-Si se hace mientras el contrincante está muerto, en lugar de dos solo es necesario soplar una vez. 
+- **Incendios:** Cuando alguno de los dragones incendia alguna de las distintas zonas de la aldea, estas quedan encendidas durante toda la partida, perdiendo un punto de vida cada segundo desde dicho momento. 
 Implementado
+
+- **Incendiar zonas ya incendiadas (opción 1: no implementada):** Un dragón no puede incendiar una zona que ya ha sido encendida por su contrincante mientras este siga vivo. Por tanto para invadir la aldea debe asesinar a su contrincante.
+
+- **Incendiar zonas ya incendiadas (opción 2: no implementada):** Un dragón puede incendiar una zona que ya ha sido encendida por su contrincante soplando dos veces fuego sobre ella.
+Si se hace mientras el contrincante está muerto, en lugar de dos solo es necesario soplar una vez.
 (todas estas métricas quedan sujetas a cambios con intención de crear un gameplay lo más divertido posible)
 
-- **Asesinar dragones:** Cada dragón recibe/inflige un punto de vida de daño por cada bocanada de fuego que reciba/suelte. 
-Cada dragón cuenta con un número de puntos de vida aún por determinar.
-Implementado, el dragon tiene 100 puntos de vda base.
+- **Incendiar zonas ya incendiadas (opción implementada finalmente):** Un dragón puede incendiar una casa que ya ha sido encendida por su contrincante siempre y cuando esta casa permanezca aún en pie.
+  Si una casa ha sido destruida, queda asignada definitivamente al dragón que la ha destruido. Perdiendo el rival la posibilidad de recuperarla.
 
-- **Temporizador:** Hay un tiempo limitado para que uno de los dragones consiga quemar la aldea por completo. Si durante este plazo ninguno de los dos dragones ha sido capaz de controlar la aldea, el dragón con más zonas incendiadas al momento de finalizar el contador, será el ganador de la partida.
-Implementado.
+
+- **Asesinar dragones:** Cada dragón recibe/inflige un punto de vida de daño por cada llama de fuego que reciba/suelte. 
+Cada dragón cuenta con un número de puntos de vida aún por determinar.
+Implementado, el dragon tiene 100 puntos de vida base.
+
+- **Temporizador:** Hay un tiempo limitado para que uno de los dragones consiga quemar la aldea por completo.
+  Si durante este plazo ninguno de los dos dragones ha sido capaz de controlar la aldea, el dragón con más zonas incendiadas al momento de finalizar el contador, será el ganador de la partida.
+Implementado. Se puede ganar si se controlan mas casas que el rival en el momento en que se acaba el tiempo.
 
 ## Personajes
 El juego consta de dos personajes jugables. Cada jugador controla un dragón de características similares.
@@ -105,13 +109,20 @@ El juego consta de dos personajes jugables. Cada jugador controla un dragón de 
 Uno de ellos de color azul y otro de color rojo. Esta estética también se ve reflejada en las llamaradas, siendo de color naranja las del dragón de color rojo, y moradas las del de color azul.
 
 ## Movimiento y físicas
-El movimiento de ambos dragones es muy simple. Pueden desplazarse por la pantalla sobrevolando la aldea utilizando el teclado (w, a, s, d; o las flechas) 
-		Para disparar una bocanada de fuego se utilizará otra tecla
-		del teclado aún por determinar.
+El movimiento de ambos dragones es muy simple. Pueden desplazarse por la pantalla sobrevolando la aldea utilizando el teclado ('a', 'd'; o las flechas 'izq', 'der') 
+		Para disparar una bocanada de fuego se utilizará la flecha 'arriba' o tecla 'w'.
 
 También se está valorando la opción de un movimiento con el ratón, en el que el personaje seguiría constantemente al cursor y expulsaría fuego mediante click.
 
 El juego no cuenta con físicas relevantes. Los dragones solo se mueven en 2D sobrevolando la aldea.
+
+## Estadísticas del juego actuales
+- Dragón: 100 ps
+- Casa: 300 ps
+- Incendios: 1ps/seg
+- Daño por cada llama: 1 ps
+- Recarga de las llamas: 3 seg/ 60 llamas
+- Tope de llamas acumulable: 60 llamas
 
 
 ## Flujo de una partida
@@ -121,14 +132,14 @@ Los jugadores inician el juego, lo primero que se les presenta es un menú con v
 
 Una vez la partida se haya cargado correctamente, tras una cuenta atrás, cada dragón aparece en uno de los extremos de la aldea, teniendo un rango de visión limitado a la zona por la que se desplazan, por lo que no necesariamente pueden conocer sus ubicaciones.
 
-**Ataque a la aldea:** Una vez comienza la partida ambos dragones se desplazan a través de la aldea con la intención de incendiar la mayor parte de la misma. Una vez que todas las zonas han quedado incendiadas por las llamaradas de ambos dragones. 
+**Ataque a la aldea:** Una vez comienza la partida ambos dragones se desplazan a través de la aldea con la intención de incendiar la mayor parte de la misma. 
 
 - **A los jugadores se les presentan tres escenarios:**
 Que las zonas controladas por el oponente sean considerablemente más numerosas que las propias. 
-En este caso la respuesta más lógica será la de encontrar al dragón oponente lo antes posible para eliminarlo y proceder a la reconquista de las zonas que controlaba durante el tiempo de su reaparición aprovechando que durante este tiempo las zonas enemigas se pueden conquistar con menor esfuerzo (un soplido).
+En este caso la respuesta más lógica será la de encontrar al dragón oponente lo antes posible para eliminarlo y proceder a la reconquista de las zonas que controlaba durante el tiempo de su reaparición aprovechando que durante este tiempo las zonas enemigas se pueden conquistar con menor esfuerzo (se cuenta con fuego ilimitado durante dicho periodo).
 
 - **Que las zonas controladas por el oponente sean exageradamente menos numerosas a las propias.**
-En este caso la opción más lógica será la de reconquistar las zonas opuestas sin ser eliminados por el oponente. A pesar de que las zonas requieren más esfuerzo para ser conquistadas mientras el oponente siga vivo. El riesgo de caer liquidado a manos del oponente y perder gran parte del control provoca que no valga la pena buscar pelea y que salga más a cuenta huir e intentar conquistar las zonas ajenas a pesar de necesitar dos soplidos para su conquista.
+En este caso la opción más lógica será la de reconquistar las zonas opuestas sin ser eliminados por el oponente. A pesar de que las zonas requieren más esfuerzo para ser conquistadas mientras el oponente siga vivo. El riesgo de caer liquidado a manos del oponente y perder gran parte del control provoca que no valga la pena buscar pelea y que salga más a cuenta huir e intentar conquistar las zonas ajenas a pesar de contar con menos llamas para su conquista.
 
 - **Que el oponente controle un número de zonas cercano al propio.**
 En este caso la opción más lógica es que ambos dragones busquen eliminarse entre ellos, con la intención de poder aumentar su control de la zona durante el beneficio que aportará una hipotética baja del rival. 
@@ -161,10 +172,10 @@ El estilo visual evoca la sensación de un mundo medieval de fantasía y proporc
 
 ### Audio
 - **Música:** El juego contará con una banda sonora medieval que se adapta al ambiente del juego, creando una atmósfera inmersiva. En momentos de calma, la música será ambiental y alegre, contrastando con las músicas más dramáticas que sonarán al comenzar a destrozar las casas y al entrar en combate con otros dragones, siendo claramente diferenciables para que el jugador sepa en qué estado se encuentra. Durante el combate, la música sonará con un ritmo acelerado para incrementar la tensión durante la lucha contra un dragón enemigo.
-
+No implementado
 
 - **Efectos de sonido:** Habrá efectos de sonido para las acciones del dragón, como el rugido, el fuego respirado y las colisiones, al recibir y causar daño. Las casas emitirán sonidos al estar en llamas y al derrumbarse. Todo con el objetivo de mejorar la experiencia auditiva del jugador e incrementar la inmersión en el papel de un dragón que está devastando todo lo que se encuentra a su paso.
-
+No implementado
 
 ### Mundo de ficción
 - **Descripción del mundo:** El juego se desarrolla en un mundo de fantasía medieval donde los dragones compiten por quemar casas y conquistar un castillo, devastando por completo las ciudades humanas.
