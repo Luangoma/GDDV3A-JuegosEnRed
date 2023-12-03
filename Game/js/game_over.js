@@ -40,7 +40,7 @@ class game_over extends Phaser.Scene
 
 		var tituloJugador1 = this.add.text(xResultados, yResultados + separacionJugadores, 'Jugador 1:', styleText_MedievalPixel_30).setOrigin(0);
 
-		var casasQuemadasJugador1 = this.add.text(xResultados, yResultados + separacionJugadores*1 + separacionTextoGameOver*1, 'Casas quemadas +' + this.calcularPuntosCasasQuemadas(player1.points), styleText_PixelSansSerif_18).setOrigin(0);
+		var casasQuemadasJugador1 = this.add.text(xResultados, yResultados + separacionJugadores*1 + separacionTextoGameOver*1, 'Casas quemadas : ' + player1.points + " (+" + this.calcularPuntosCasasQuemadas(player1.points) + ")", styleText_PixelSansSerif_18).setOrigin(0);
 
 		//var casasDestruidasJugador1 = this.add.text(xResultados, yResultados + separacionTextoGameOver * 3, 'Casas destruidas +' + this.calcularPuntosCasasQuemadas(player1.points), styleText_PixelSansSerif_18).setOrigin(0);
 
@@ -48,7 +48,7 @@ class game_over extends Phaser.Scene
 	
 		var tituloJugador2 = this.add.text(xResultados, yResultados + separacionJugadores*2 + separacionTextoGameOver*2, 'Jugador 2:', styleText_MedievalPixel_30).setOrigin(0);
 
-		var casasQuemadasJugador2 = this.add.text(xResultados, yResultados + separacionJugadores*2 + separacionTextoGameOver*3, 'Casas quemadas +' + this.calcularPuntosCasasQuemadas(player2.points), styleText_PixelSansSerif_18).setOrigin(0);
+		var casasQuemadasJugador2 = this.add.text(xResultados, yResultados + separacionJugadores*2 + separacionTextoGameOver*3, 'Casas quemadas : ' + player2.points + " (+" + this.calcularPuntosCasasQuemadas(player2.points) + ")", styleText_PixelSansSerif_18).setOrigin(0);
 
 		var totalPuntosJugador2 = this.add.text(xResultados, yResultados + separacionJugadores*2 + separacionTextoGameOver*4, 'Total ' + this.calcularPuntosCasasQuemadas(player2.points), styleText_PixelSansSerif_18).setOrigin(0);
 
