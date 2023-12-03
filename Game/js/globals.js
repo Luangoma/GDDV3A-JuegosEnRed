@@ -1,2 +1,50 @@
-player1 = {};
-player2 = {};
+var player1 = {};
+var player2 = {};
+
+var world_width = 2048;
+var world_height = 2048;
+
+var world_tiles_width = world_width / 128;
+var world_tiles_height = world_height / 128;
+
+
+/**
+var styleText_MedievalPixel = {
+	fontFamily: 'medieval-pixel',	// Tipografia
+	color: '#ffffff',				// Color del texto
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4				// Grosor del contorno
+};
+//*/
+// Estilo de texto para contenidos generales
+var styleText_MedievalPixel_30 = {	
+	fontFamily: 'medieval-pixel',	// Tipografia
+	color: '#ffffff',				// Color del texto
+	fontSize: 30,					// Tamaño del texto
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4				// Grosor del contorno
+}
+// Estilo  de texto para titulos (titulo de créditos)
+var styleText_MedievalPixel_90 = {	
+	fontFamily: 'medieval-pixel',	// Tipografia
+	color: '#ffffff',				// Color del texto
+	fontSize: 90,					// Tamaño del texto
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4,				// Grosor del contorno
+	align: 'left'					// Alineacion a la derecha
+}
+
+/**
+var styleText_PixelSansSerif = { 
+	fontFamily: 'pixel_sans_serif',	// Tipografia
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4				// Grosor del contorno
+}
+//*/
+// Estilo de texto para subtitulos (desarrolladores en creditos)
+var styleText_PixelSansSerif_18 = {
+	fontFamily: 'pixel_sans_serif',	// Tipografia
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4,				// Grosor del contorno
+	fontSize: 18					// Tamaño del texto
+}
