@@ -12,7 +12,7 @@ class ui extends Phaser.Scene
 	barraMedioRoja = {};
 	barraDerechaRoja = {};
 
-	textoPuntuacioAzul = {};
+	textoPuntuacionAzul = {};
 	textoPuntuacionRoja = {};
 	puntuacionAzul = {};
 	puntuacionRoja = {};
@@ -133,7 +133,7 @@ class ui extends Phaser.Scene
 		// Margenes para separar el texto de los graficos de los dragones
 		let marginX = 50, marginY = 200;
 		// Inicializamos el valor de los textos que mostraran el valor de la puntuación
-		this.textoPuntuacioAzul = this.add.text(config.width-marginX, config.height-marginY, player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
 		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, player2.points, styleText_MedievalPixel_30).setOrigin(0.5);
 		// Puntos del jugador a mostrar en pantalla
 		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:player1.points, callbackScope: this, loop: true });
@@ -160,7 +160,7 @@ class ui extends Phaser.Scene
 		}
 		
 		// Actualizamos el valor de las puntuaciones 
-		this.textoPuntuacioAzul.setText(player1.points);
+		this.textoPuntuacionAzul.setText(player1.points);
 		this.textoPuntuacionRoja.setText(player2.points);
 	}
 
@@ -255,7 +255,7 @@ class ui extends Phaser.Scene
 		this.barraMedioRoja = {};
 		this.barraDerechaRoja = {};
 
-		this.textoPuntuacioAzul = {};
+		this.textoPuntuacionAzul = {};
 		this.textoPuntuacionRoja = {};
 		this.puntuacionAzul = {};
 		this.puntuacionRoja = {};
