@@ -299,14 +299,31 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 | Identificar por el color al jugador| Implementado                | Fase 2               |             |
 
 Se han añadido las escenas al juego, son las siguientes:  
-Menu:  
+Menú:  
 ![Figura 8, escena in-game del menu.](./Images/Menu_1.png)  
-Craditos:  
+Créditos:  
 ![Figura 9, escena in-game de los creditos.](./Images/Creditos_1.png)  
 Partida:  
 ![Figura 10, escena in-game de la partida.](./Images/Partida_1.png)  
-Gameover:  
+Game Over:  
 ![Figura 11, escena in-game al acabar la partida.](./Images/Gameover_1.png)  
+
+## Recursos externos utilizados
+Para el desarrollo del juego se han utilizado algunos recursos externos:
+- **Imagen del menú inicial y menú de créditos:**
+Se ha usado el arte de Medieval Fantasy de Slynyrd. Puedes visitarlo aquí: <https://www.slynyrd.com/blog/2019/4/23/pixelblog-16-medieval-fantasy>
+- **Sprites para el fuego pixel:**
+Se han utilizado los sprites Fire Animation de Brullov. Puedes visitarlo aquí: <https://brullov.itch.io/fire-animation>
+- **Fuentes tipográficas:**
+Se han utilizado 2 fuentes tipográficas de estilo pixel art. La primera es Medieval Pixel de Goatmeal (<https://fontstruct.com/fontstructions/show/640368/medieval_pixel>), y la segunda es Pixel Sans Serif de Muhd Rusyaidi (<https://www.dafont.com/pixel-sans-serif.font>).
+- **Imágenes para las barras de vida:**
+Las imágenes que posibilitan las barras de vida de los dragones son parte del pack UI Pack (Space Expansion) de Kenney, puedes visitarlo aquí: <https://kenney.nl/assets/ui-pack-space-expansion>
+- **Imágen animada de Game Over:**
+La imagen de la pantalla de Game Over es un gif llamado Town on fire de Pablo Gómez, puedes visitarlo aquí: <https://www.artstation.com/artwork/aoXLrk>
+- **Tutorial para hacer un Timer en Phaser 3:**
+Se ha seguido el tutorial de la siguiente página del foro de Phaser: <https://phaser.discourse.group/t/countdown-timer/2471>
+- **Tutorial para crear una barra de vida animada:**
+Se ha seguido el siguiente tutorial de la página Ourcade.co: <https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/>
 
 ## Bibliografía
 
