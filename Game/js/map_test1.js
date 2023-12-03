@@ -7,6 +7,7 @@ class map_test_1 extends Phaser.Scene
 	
 	preload()
 	{
+		console.log("preload");
 		this.load.image("world_grass","assets/WorldGrass.png");
 		preloadDragonData(this);
 		preloadTileData(this);
@@ -15,6 +16,11 @@ class map_test_1 extends Phaser.Scene
 	
 	create()
 	{
+		this.houses = [];
+		this.tiles = [];
+		this.flames = {};
+		
+		console.log("create");
 		createTileData(this);
 		createDragonData(this);
 		
@@ -39,6 +45,7 @@ class map_test_1 extends Phaser.Scene
 	
 	update(time, delta)
 	{
+		console.log("update");
 		player1.update(time, delta);
 		player2.update(time, delta);
 		
@@ -53,11 +60,13 @@ class map_test_1 extends Phaser.Scene
 	
 	shutdown()
 	{
+		console.log("shutdown");
 		super.shutdown();
 	}
 	
 	destroy()
 	{
+		console.log("destroy");
 		player1 = null;
 		player2 = null;
 		houses = [];
