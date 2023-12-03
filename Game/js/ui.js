@@ -103,7 +103,7 @@ class ui extends Phaser.Scene
 		graficoTemporizador.setScale(0.4);
 
 		// Tiempo en segundos de la cuenta atrás.
-		this.tiempoInicial = 80;
+		this.tiempoInicial = 8;
 		
 		// Texto de la interfaz donde aparece el tiempo restante. Llama a formatoTiempo() para poner el tiempo
 		// en minutos y segundos.
@@ -220,6 +220,8 @@ class ui extends Phaser.Scene
 		// Si el tiempo inicial es 0, la partida ha terminado.
 		if (this.tiempoInicial === 0){
 			console.log("GAME OVER");
+			game.scene.start("game_over");
+			game.scene.stop('map_test_1');
 
 			// Ir a la escena GAME OVER.
 		}

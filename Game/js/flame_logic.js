@@ -108,5 +108,7 @@ function damageTile(tileSprite, flame, tile){
 	if(tile.current_dragon.points >= 60){
 
 		console.log("GAME OVER");
+		// game.scene.stop('map_test_1');
+		// game.scene.start("game_over");
 	}
 }
