@@ -186,6 +186,38 @@ function preloadTileData(scene)
 			 'tc_03_r_d3']
 			);
 	
+	
+	//cargar las assets del castillo:
+	//front
+	scene.load.image('c_01_f_d0', './assets/tiles/castle/tile_castlewall01_front_d0.png');
+	scene.load.image('c_01_f_d1', './assets/tiles/castle/tile_castlewall01_front_d1.png');
+	scene.load.image('c_01_f_d2', './assets/tiles/castle/tile_castlewall01_front_d2.png');
+	scene.load.image('c_01_f_d3', './assets/tiles/castle/tile_castlewall01_front_d3.png');
+	//side
+	scene.load.image('c_01_s_d0', './assets/tiles/castle/tile_castlewall01_side_d0.png');
+	scene.load.image('c_01_s_d1', './assets/tiles/castle/tile_castlewall01_side_d1.png');
+	scene.load.image('c_01_s_d2', './assets/tiles/castle/tile_castlewall01_side_d2.png');
+	scene.load.image('c_01_s_d3', './assets/tiles/castle/tile_castlewall01_side_d3.png');
+	//corner tl
+	scene.load.image('c_01_ctl_d0', './assets/tiles/castle/tile_castlewall01_corner_tl_d0.png');
+	scene.load.image('c_01_ctl_d1', './assets/tiles/castle/tile_castlewall01_corner_tl_d1.png');
+	scene.load.image('c_01_ctl_d2', './assets/tiles/castle/tile_castlewall01_corner_tl_d2.png');
+	scene.load.image('c_01_ctl_d3', './assets/tiles/castle/tile_castlewall01_corner_tl_d3.png');
+	//corner tr
+	scene.load.image('c_01_ctr_d0', './assets/tiles/castle/tile_castlewall01_corner_tr_d0.png');
+	scene.load.image('c_01_ctr_d1', './assets/tiles/castle/tile_castlewall01_corner_tr_d1.png');
+	scene.load.image('c_01_ctr_d2', './assets/tiles/castle/tile_castlewall01_corner_tr_d2.png');
+	scene.load.image('c_01_ctr_d3', './assets/tiles/castle/tile_castlewall01_corner_tr_d3.png');
+	//corner bl
+	scene.load.image('c_01_cbl_d0', './assets/tiles/castle/tile_castlewall01_corner_bl_d0.png');
+	scene.load.image('c_01_cbl_d1', './assets/tiles/castle/tile_castlewall01_corner_bl_d1.png');
+	scene.load.image('c_01_cbl_d2', './assets/tiles/castle/tile_castlewall01_corner_bl_d2.png');
+	scene.load.image('c_01_cbl_d3', './assets/tiles/castle/tile_castlewall01_corner_bl_d3.png');
+	//corner br
+	scene.load.image('c_01_cbr_d0', './assets/tiles/castle/tile_castlewall01_corner_br_d0.png');
+	scene.load.image('c_01_cbr_d1', './assets/tiles/castle/tile_castlewall01_corner_br_d1.png');
+	scene.load.image('c_01_cbr_d2', './assets/tiles/castle/tile_castlewall01_corner_br_d2.png');
+	scene.load.image('c_01_cbr_d3', './assets/tiles/castle/tile_castlewall01_corner_br_d3.png');
 }
 
 function createTileData(scene)
@@ -333,7 +365,7 @@ function getRandomHouseTiles()
 	return houseList[getRandomInRangeInt(0, houseList.length - 1)];
 }
 
-function createHouses(scene,tiles,background_tiles,num_houses, flamesgroup)
+function createHouses(scene, background_tiles, tiles, flamesgroup, num_houses)
 {
 	//generar una lista aleatoria donde se determina cuantas casas tienen que spawnear en el mundo.
 	//nota: no se hace uso de un rand en el spawneo de casas directamente para garantizar que el numero de casas spawneadas sean exactamente "num_houses".
@@ -359,7 +391,7 @@ function createHouses(scene,tiles,background_tiles,num_houses, flamesgroup)
 				continue;
 			}
 			
-			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, true, 300 /*TODO: add hp config later*/, flamesgroup);
+			let current_tile = new Tile(scene, 'house_tile_1_d0', j, i, flamesgroup ? true : false, 300 /*TODO: add hp config later*/, flamesgroup);
 			current_tile.tiles = getRandomHouseTiles();
 			current_tile.tile = current_tile.tiles[0];
 			background_tiles[global_index - 1].sprite.setTexture('ground_tile_2');
@@ -370,4 +402,75 @@ function createHouses(scene,tiles,background_tiles,num_houses, flamesgroup)
 	}
 }
 
+//WARN: Only use after having generated the world. Either that or change world gen to use index assigments instead of pushing back, or use a rectangle fill internally for the create tiles fn.
+function rectangleFill(scene, btiles, htiles, fgroup, btiletype, htiletypes, xmin, ymin, xmax, ymax)
+{
+	let total_tiles = (xmax - xmin) * (ymax - ymin);
+	for(let i = ymin; i <= ymax; ++i)
+	{
+		for(let j = xmin; j <= xmax; ++j)
+		{
+			let pos = j + i * (xmax - xmin);
+			btiles[pos] = new Tile(scene, btiletype, j*128, i*128, false, 300, fgroup);
+			btiles[pos].create();
+			
+			//this method gives error when using push in the other side. Not using push would make the array larger than it has to be tho...
+			//but now we need to perform a linear search to find the house tile at a certain position. Instead of using pos, we need to find the position x,y (j,i)
+			//htiles[pos] = new Tile(scene, htiletypes[0], j*128, i*128, fgroup ? true : false, 300, fgroup);
+			//htiles[pos].create();
+			//htiles[pos].tiles = htiletypes;
+			
+			let current_htile = new Tile(scene, htiletypes[0], j*128, i*128, fgroup ? true : false, 300, fgroup);
+			current_htile.create();
+			current_htile.tiles = htiletypes;
+			htiles.push(current_htile);
+		}
+	}
+}
+
+function createCastle(scene, btiles, htiles, flames, x, y)
+{
+	let castle_front = ['c_01_f_d0','c_01_f_d1','c_01_f_d2','c_01_f_d3'];
+	let castle_side = ['c_01_s_d0','c_01_s_d1','c_01_s_d2','c_01_s_d3'];
+	
+	let castle_corner_tl = ['c_01_ctl_d0','c_01_ctl_d1','c_01_ctl_d2','c_01_ctl_d3'];
+	let castle_corner_tr = ['c_01_ctr_d0','c_01_ctr_d1','c_01_ctr_d2','c_01_ctr_d3'];
+	let castle_corner_bl = ['c_01_cbl_d0','c_01_cbl_d1','c_01_cbl_d2','c_01_cbl_d3'];
+	let castle_corner_br = ['c_01_cbr_d0','c_01_cbr_d1','c_01_cbr_d2','c_01_cbr_d3'];
+	
+	
+	//corner top left
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_corner_tl, x, y, x, y);
+	//corner top right
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_corner_tr, x+3, y, x+3, y);
+	//corner bottom left
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_corner_bl, x, y+3, x, y+3);
+	//corner bottom right
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_corner_br, x+3, y+3, x+3, y+3);
+	
+	//side top
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_front, x+1, y, x+2, y);
+	//side right
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_side, x+3, y+1, x+3, y+2);
+	//side bottom
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_front, x+1, y+3, x+2, y+3);
+	//side left
+	rectangleFill(scene, btiles, htiles, flames, 'grass_tile_1', castle_side, x, y+1, x, y+2);
+	
+	
+	//inner parts (placeholder, will be its own castle components in the future)
+	//corner top left
+	rectangleFill(scene, btiles, htiles, flames, 'ground_tile_2', getRandomHouseTiles(), x+1, y+1, x+1, y+1);
+	//corner top right
+	rectangleFill(scene, btiles, htiles, flames, 'ground_tile_2', getRandomHouseTiles(), x+2, y+1, x+2, y+1);
+	//corner bottom left
+	rectangleFill(scene, btiles, htiles, flames, 'ground_tile_2', getRandomHouseTiles(), x+1, y+2, x+1, y+2);
+	//corner bottom right
+	rectangleFill(scene, btiles, htiles, flames, 'ground_tile_2', getRandomHouseTiles(), x+2, y+2, x+2, y+2);
+
+	
+
+}
+
 //TODO: Hacer fusionado de tiles del fondo para hacer un sistema de carreteras. Posible implementación con doble pasada (generar casas, marcar tiles de fondo, etc...).
+//TODO: Fix problem with passing null for flames. Pass null to see the problem. Passing null exists only for the purpose of using rectangle fill without passing flames.
