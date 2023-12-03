@@ -23,6 +23,8 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 
 function preloadDragonData(scene){
 	scene.load.spritesheet('dragon','./assets/dragon.png', {frameWidth: 144, frameHeight: 125});
+	scene.load.spritesheet('dragon_red','./assets/dragon_red.png', {frameWidth: 144, frameHeight: 125});
+	scene.load.spritesheet('dragon_blue','./assets/dragon_blue.png', {frameWidth: 144, frameHeight: 125});
 };
 
 function createDragonData(scene){
@@ -33,18 +35,47 @@ function createDragonData(scene){
 		frameRate: 7,
 		repeat: -1
 	});
+	
+	scene.anims.create({
+		key: 'flyingDragon_red',
+		frames: scene.anims.generateFrameNumbers('dragon_red', { start: 0, end: 2 }),
+		frameRate: 7,
+		repeat: -1
+	});
+	
+	scene.anims.create({
+		key: 'flyingDragon_blue',
+		frames: scene.anims.generateFrameNumbers('dragon_blue', { start: 0, end: 2 }),
+		frameRate: 7,
+		repeat: -1
+	});
 }
 
 Dragon.prototype.createDragon = function(start_x, start_y){
 	
-	//create the physics sprite for the player
-	this.sprite = this.scene.physics.add.sprite(start_x, start_y, 'dragon');
+	//create the physics sprite for the player and play the flying animation
+	switch(this.player_id)
+	{
+		case 0:
+			console.log("dragon is red");
+			this.sprite = this.scene.physics.add.sprite(start_x, start_y, 'dragon_red');
+			this.sprite.anims.play('flyingDragon_red');
+			break;
+		case 1:
+			console.log("dragon is blue");
+			this.sprite = this.scene.physics.add.sprite(start_x, start_y, 'dragon_blue');
+			this.sprite.anims.play('flyingDragon_blue');
+			break;
+		default:
+			console.log("dragon is other.");
+			this.sprite = this.scene.physics.add.sprite(start_x, start_y, 'dragon');
+			this.sprite.anims.play('flyingDragon');
+			break;
+	}
+	
 	let player_ref = this.sprite;
 	player_ref.setBounce(0.2);
 	player_ref.setCollideWorldBounds(true);
-	
-	//play the flying animation
-	player_ref.anims.play('flyingDragon');
 	
 	//Player controller:
 	/*
