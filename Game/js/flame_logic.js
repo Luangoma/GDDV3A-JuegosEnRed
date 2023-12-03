@@ -71,25 +71,40 @@ function damageTile(tileSprite, flame, tile){
 		return;
 	}
 	
+	//do not process tile damage anymore once the tile has been fully destroyed (hp = 0).
 	if(tile.health <= 0)
 	{
 		return;
 	}
+	
+	//if the current dragon is not null, then take away their score by 1
+	if(tile.current_dragon)
+	{
+		tile.current_dragon.points -= 1;
+	}
+	
+	tile.last_dragon = tile.current_dragon;
+	tile.current_dragon = flame.owner;
 	
 	if(tile.current_dragon !== tile.last_dragon)
 	{
 		tile.has_to_switch_sprite = true;
 	}
 	
+	//if the current dragon is not null, then add 1 point to their score.
 	if(tile.current_dragon)
 	{
-		tile.current_dragon.points -= 1;
+		tile.current_dragon.points += 1;
 	}
-	tile.last_dragon = tile.current_dragon;
-	tile.current_dragon = flame.owner;
-	tile.current_dragon.points += 1;
 	
 	tile.is_on_fire = true;
+	
+	//possible fix for race condition with flame coloring. Need to rework.
+	/*
+	tile.fire_sprite.setTexture(flame.owner.player_id === 0 ? 'FuegoLoop' : 'FuegoLoop_blue');
+	if(tile.current_dragon !== tile.last_dragon)
+		tile.fire_sprite.play(flame.owner.player_id === 0 ? 'animacionFuegoLoop' : 'animacionFuegoLoop_blue');
+	*/
 	
 	//disabling the flame ensures that no more than one collision is detected per hit, but allowing the flames to keep existing and hitting the houses on the other side is far more epic looking.
 	/*
