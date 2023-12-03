@@ -308,6 +308,15 @@ Partida:
 Game Over:  
 ![Figura 11, escena in-game al acabar la partida.](./Images/Gameover_1.png)  
 
+## Recursos de creación propia
+Se han creado recursos propios como sprites para el desarrollo del juego.
+- **Sprites de casas medievales:**
+Se ha creado una serie de sprites de casas medievales observadas desde diferentes ángulos para poblar el mundo de casas variadas. Cada casa está compuesta por múltiples sprites con diferentes estados de daño.
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d0.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d1.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d2.png)
+![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d3.png)
+
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
 - **Imagen del menú inicial y menú de créditos:**
