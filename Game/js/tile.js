@@ -41,6 +41,7 @@ function preloadTileData(scene)
 	
 	//cargar imágenes para los diferentes tipos de tiles de fondo (grass, ground, road, etc...)
 	scene.load.image('grass_tile_1', './assets/tiles/grass_tile_1.png');
+	scene.load.image('grass_tile_2', './assets/tiles/grass_tile_2.png');
 	scene.load.image('ground_tile_2', './assets/tiles/ground_tile_2.png');
 	
 	//cargar imágenes para los diferentes edificios que pueden spawnear:
@@ -218,6 +219,13 @@ function preloadTileData(scene)
 	scene.load.image('c_01_cbr_d1', './assets/tiles/castle/tile_castlewall01_corner_br_d1.png');
 	scene.load.image('c_01_cbr_d2', './assets/tiles/castle/tile_castlewall01_corner_br_d2.png');
 	scene.load.image('c_01_cbr_d3', './assets/tiles/castle/tile_castlewall01_corner_br_d3.png');
+	
+	
+	
+	//cargar las assets de decoración:
+	scene.load.image('decor_stones_01', 'assets/tiles/decor/tile_some_stones_01.png');
+	scene.load.image('decor_stones_02', 'assets/tiles/decor/tile_some_stones_02.png');
+	scene.load.image('decor_stones_03', 'assets/tiles/decor/tile_some_stones_03.png');
 }
 
 function createTileData(scene)
@@ -345,13 +353,15 @@ Tile.prototype.update = function(time, delta){
 	}
 }
 
-function createTiles(scene, tiles, tile_key = 'default_tile_small')
+function createTiles(scene, tiles, tile_keys = ['default_tile_small'])
 {
 	//let num_tiles = (config.width / 256) * (config.height / 256);
 	for(let i = 0; i < world_height ; i+=128)
 	{
 		for(let j = 0; j < world_width; j+=128)
 		{
+			let rand = getRandomInRangeInt(0, tile_keys.length - 1);
+			let tile_key = tile_keys[rand];
 			let current_tile = new Tile(scene, tile_key, j, i);
 			tiles.push(current_tile);
 			current_tile.create();
@@ -363,6 +373,38 @@ function createTiles(scene, tiles, tile_key = 'default_tile_small')
 function getRandomHouseTiles()
 {
 	return houseList[getRandomInRangeInt(0, houseList.length - 1)];
+}
+
+function createDecor(scene, decor, chosen_decor, num_decor)
+{
+	let spawn_location_list = [];
+	let num_tiles = (world_height / 128) * (world_width / 128);
+	for(let i = 0; i < num_decor; ++i){
+		spawn_location_list.push(true);
+	}
+	for(let i = 0; i < num_tiles - num_decor; ++i){
+		spawn_location_list.push(false);
+	}
+	shuffleList(spawn_location_list);
+	
+	let global_index = 0;
+	for(let i = 0; i < world_height ; i+=128)
+	{
+		for(let j = 0; j < world_width; j+=128)
+		{
+			let should_spawn = spawn_location_list[global_index]; //utilizar el índice global de la casilla en la lista donde está en memoria para determinar si debe de spawnear una casa o no.
+			++global_index;
+			if(!should_spawn)
+			{
+				continue;
+			}
+			
+			let rand = getRandomInRangeInt(0, chosen_decor.length - 1);
+			let current_decor = new Tile(scene, chosen_decor[rand], j, i);
+			current_decor.create();
+			decor.push(current_decor);
+		}
+	}
 }
 
 function createHouses(scene, background_tiles, tiles, flamesgroup, num_houses)
