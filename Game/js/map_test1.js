@@ -13,7 +13,7 @@ class map_test_1 extends Phaser.Scene
 	
 	create()
 	{
-		setWorldBounds(this,0,0,2048,2048);
+		setWorldBounds(this,0,0,world_width,world_height);
 		
 		this.houses = [];
 		this.tiles = [];
@@ -36,7 +36,7 @@ class map_test_1 extends Phaser.Scene
 		player1 = new Dragon(this, 0, 1024, 1024, this.flames);
 		player2 = new Dragon(this, 1, 800, 800, this.flames);
 		
-		addCamera(this,player1,player2);
+		addCamera(this,player1,player2,gameConfig.multiplayerType, gameConfig.screenSplitType);
 		
 		// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
 		// Si se hace launch en game.js no funciona.

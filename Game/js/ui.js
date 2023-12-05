@@ -46,10 +46,36 @@ class ui extends Phaser.Scene
 		this.load.image('barraIzquierdaSombra', 'assets/barra_vida/barHorizontal_shadow_left.png');
 		this.load.image('barraMedioSombra', 'assets/barra_vida/barHorizontal_shadow_mid.png');
 		this.load.image('barraDerechaSombra', 'assets/barra_vida/barHorizontal_shadow_right.png');
+		
+		// imágenes de los bordes de la pantalla
+		this.load.image('border_camera_single', './assets/ui_border01.png'); // online
+		this.load.image('border_camera_vertical', './assets/ui_border02.png'); // local (split screen vertical)
+		this.load.image('border_camera_horizontal', './assets/ui_border03.png'); // local (split screen horizontal)
 	}
 
 	create()
-	{
+	{	
+	
+		//BORDES DE LA PANTALLA Y CAMARA:
+		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
+		{
+			this.add.image(0,0,'border_camera_single').setOrigin(0,0);
+		}
+		else
+		{
+			switch(gameConfig.screenSplitType)
+			{
+				case CAMERA_SPLIT_TYPE.VERTICAL:
+					this.add.image(0,0,'border_camera_vertical').setOrigin(0,0);
+					break;
+				case CAMERA_SPLIT_TYPE.HORIZONTAL:
+					this.add.image(0,0,'border_camera_horizontal').setOrigin(0,0);
+					break;
+			}
+		}
+		
+	
+	
 		// BARRAS DE VIDA
 
 		// Posición de la barra del jugador azul.

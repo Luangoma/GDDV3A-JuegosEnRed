@@ -1,11 +1,19 @@
 var player1 = {};
 var player2 = {};
 
+var world_tiles_width = 20;
+var world_tiles_height = 20;
+
+var world_width = 128 * world_tiles_width;
+var world_height = 128 * world_tiles_height;
+
+/*
 var world_width = 2048;
 var world_height = 2048;
 
 var world_tiles_width = world_width / 128;
 var world_tiles_height = world_height / 128;
+*/
 
 var gameTime = 90; // each game will have a total time of 90 seconds
 
