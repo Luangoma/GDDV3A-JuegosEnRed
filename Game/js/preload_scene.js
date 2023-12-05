@@ -10,6 +10,9 @@ class PreloadScene extends Phaser.Scene
 {
 	preload()
 	{
+		//preload cursor image
+		this.load.image('cursor02', './assets/cursor02.png');
+		
 		//preload heavy assets and commonly used assets
 		preloadGameOverData(this);
 		preloadDragonData(this);
@@ -19,6 +22,9 @@ class PreloadScene extends Phaser.Scene
 	
 	create()
 	{
+		//set the cursor image
+		this.input.setDefaultCursor('url(assets/cursor02.png), pointer');
+		
 		//create data and anims
 		createGameOverData(this);
 		createTileData(this);
