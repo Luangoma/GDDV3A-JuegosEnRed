@@ -10,7 +10,8 @@ class PreloadScene extends Phaser.Scene
 {
 	preload()
 	{
-		this.load.spritesheet('town-on-fire', 'assets/town_on_fire_reduced.png', { frameWidth: 1200, frameHeight: 730 });
+		//preload heavy assets and commonly used assets
+		preloadGameOverData(this);
 		preloadDragonData(this);
 		preloadTileData(this);
 		preloadFlameData(this);
@@ -18,6 +19,12 @@ class PreloadScene extends Phaser.Scene
 	
 	create()
 	{
+		//create data and anims
+		createGameOverData(this);
+		createTileData(this);
+		createDragonData(this);
+		
+		//start the main menu scene as soon as the preloading and creation processes are finished
 		this.scene.start("MainMenu");
 	}
 }

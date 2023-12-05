@@ -17,9 +17,6 @@ class map_test_1 extends Phaser.Scene
 		this.tiles = [];
 		this.flames = {};
 		
-		createTileData(this);
-		createDragonData(this);
-		
 		this.add.image(0, 0, 'world_grass').setOrigin(0,0).setScale(2);
 		
 		this.flames = createPhysicsGroup(this);

@@ -1,27 +1,15 @@
 class game_over extends Phaser.Scene 
 {
 	preload(){
-
-		//this.load.spritesheet('town-on-fire', 'assets/town-on-fire-spritesheet.png', { frameWidth: 1200, frameHeight: 730 });
 		this.load.svg('botonContinuar', 'assets/botonContinuar.svg');
-	
 	}
 
 	create(){
-
+		console.log("create");
 		//game.scene.stop('ui');
 
 		// BACKGROUND
-
 		var background = this.add.sprite(0,0, 'town-on-fire').setOrigin(0,0).setDisplaySize(config.width,config.height);
-	
-		this.anims.create({
-			key: 'animacionBackground',
-			frames: this.anims.generateFrameNumbers('town-on-fire', { start: 0, end: /*64*/ 3 }),
-			frameRate: 7,
-			repeat: -1
-		});
-	
 		background.anims.play("animacionBackground");
 
 		// TÍTULO
@@ -72,11 +60,13 @@ class game_over extends Phaser.Scene
 
 	shutdown()
 	{
+		console.log("shutdown");
 		super.shutdown();
 	}
 
 	destroy()
 	{
+		console.log("destroy");
 		super.destroy();
 	}
 
@@ -89,3 +79,18 @@ class game_over extends Phaser.Scene
 	}
 
 };
+
+function preloadGameOverData(scene)
+{
+	scene.load.spritesheet('town-on-fire', 'assets/town_on_fire_reduced.png', { frameWidth: 1200, frameHeight: 730 });
+}
+
+function createGameOverData(scene)
+{
+	scene.anims.create({
+		key: 'animacionBackground',
+		frames: scene.anims.generateFrameNumbers('town-on-fire', { start: 0, end: 2 }),
+		frameRate: 7,
+		repeat: -1
+	});
+}
