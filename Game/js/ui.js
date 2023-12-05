@@ -103,7 +103,7 @@ class ui extends Phaser.Scene
 		graficoTemporizador.setScale(0.4);
 
 		// Tiempo en segundos de la cuenta atrás.
-		this.tiempoInicial = /*90*/ 1;
+		this.tiempoInicial = gameTime;
 		
 		// Texto de la interfaz donde aparece el tiempo restante. Llama a formatoTiempo() para poner el tiempo
 		// en minutos y segundos.

@@ -37,3 +37,8 @@ function damageTintSprite(scene, sprite, duration = 1000)
 	scene.time.delayedCall(duration, ()=>{sprite.setTint(0xffffff);}); // El sprite deja de estar rojo tras haber pasado duration ms (por defecto 1000ms = 1sec).
 }
 
+function setWorldBounds(scene, min_x, min_y, max_x, max_y)
+{
+	scene.physics.world.setBounds(min_x, min_y, max_x, max_y);
+}
+
