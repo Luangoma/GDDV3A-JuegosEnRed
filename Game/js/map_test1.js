@@ -5,6 +5,7 @@ class map_test_1 extends Phaser.Scene
 	tiles = [];
 	decor = [];
 	num_houses = 60;
+	bar;
 	
 	preload()
 	{
@@ -41,6 +42,9 @@ class map_test_1 extends Phaser.Scene
 		// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
 		// Si se hace launch en game.js no funciona.
 		this.scene.launch("ui");
+		
+		this.bar = new ProgressBar(this,1024,1024,0,100,20);
+		this.bar.setColor(0xFF0000);
 	}
 	
 	update(time, delta)
@@ -53,6 +57,9 @@ class map_test_1 extends Phaser.Scene
 		{
 			this.houses[i].update(time, delta);
 		}
+		
+		this.bar.setValue(this.bar.value - delta/1000 * 0.1);
+		console.log(this.bar.value);
 		
 		//console.log("p1: " + player1.points + ", p2: " + player2.points);
 	}

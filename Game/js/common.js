@@ -42,3 +42,14 @@ function setWorldBounds(scene, min_x, min_y, max_x, max_y)
 	scene.physics.world.setBounds(min_x, min_y, max_x, max_y);
 }
 
+function clampValue(value, min = 0, max = 1){
+	ans = value;
+	ans = ans < min ? min : ans;
+	ans = ans > max ? max : ans;
+	return ans;
+}
+
+function lerpValue(a,b,t = 0.5){
+	return (1 - t) * a + b * t;
+}
+

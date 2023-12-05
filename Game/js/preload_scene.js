@@ -18,6 +18,8 @@ class PreloadScene extends Phaser.Scene
 		preloadDragonData(this);
 		preloadTileData(this);
 		preloadFlameData(this);
+		
+		preloadProgressBarData(this);
 	}
 	
 	create()
