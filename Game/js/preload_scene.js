@@ -18,8 +18,6 @@ class PreloadScene extends Phaser.Scene
 		preloadDragonData(this);
 		preloadTileData(this);
 		preloadFlameData(this);
-		
-		preloadProgressBarData(this);
 	}
 	
 	create()
@@ -33,6 +31,6 @@ class PreloadScene extends Phaser.Scene
 		createDragonData(this);
 		
 		//start the main menu scene as soon as the preloading and creation processes are finished
-		this.scene.start("MainMenu");
+		//this.scene.start("MainMenu");
 	}
 }

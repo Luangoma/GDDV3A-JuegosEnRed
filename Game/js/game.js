@@ -6,6 +6,9 @@ game.scene.add("ui",ui);
 game.scene.add("game_over", game_over);
 game.scene.add("Credits", Credits);
 game.scene.add("PreloadScene", PreloadScene);
+game.scene.add("LoadingScreenScene",LoadingScreenScene);
 
 //game.scene.start("MainMenu");
-game.scene.start("PreloadScene");
+//game.scene.start("PreloadScene");
+game.scene.start("LoadingScreenScene");
+//game.scene.launch("PreloadScene");

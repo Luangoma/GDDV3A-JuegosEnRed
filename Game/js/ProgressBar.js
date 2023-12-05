@@ -20,6 +20,7 @@ function ProgressBar(scene, x, y, color = 0xFFFFFF, width = 50, height = 10, ima
 }
 
 function preloadProgressBarData(scene){
+	//preload default progress bar segments
 	scene.load.image('progress_bar_default_left', './assets/progress_bar/progress_bar_default_left.png');
 	scene.load.image('progress_bar_default_middle', './assets/progress_bar/progress_bar_default_middle.png');
 	scene.load.image('progress_bar_default_right', './assets/progress_bar/progress_bar_default_right.png');
