@@ -13,3 +13,14 @@ body {
     text-align: center;
     margin: auto;
 }
+
+.center_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the container height to fill the viewport */
+}
+
+.center_element {
+	padding: 20px;
+}

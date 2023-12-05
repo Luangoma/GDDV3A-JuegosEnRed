@@ -10,5 +10,6 @@ var config = {
 		}
 	},
 	pixelArt: true,
-	scene : []
+	scene : [],
+	parent:"GameBox"
 };
