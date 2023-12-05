@@ -2,7 +2,7 @@ class game_over extends Phaser.Scene
 {
 	preload(){
 
-		this.load.spritesheet('town-on-fire', 'assets/town-on-fire-spritesheet.png', { frameWidth: 1200, frameHeight: 730 });
+		//this.load.spritesheet('town-on-fire', 'assets/town-on-fire-spritesheet.png', { frameWidth: 1200, frameHeight: 730 });
 		this.load.svg('botonContinuar', 'assets/botonContinuar.svg');
 	
 	}
@@ -17,7 +17,7 @@ class game_over extends Phaser.Scene
 	
 		this.anims.create({
 			key: 'animacionBackground',
-			frames: this.anims.generateFrameNumbers('town-on-fire', { start: 0, end: 64 }),
+			frames: this.anims.generateFrameNumbers('town-on-fire', { start: 0, end: /*64*/ 3 }),
 			frameRate: 7,
 			repeat: -1
 		});

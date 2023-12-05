@@ -9,9 +9,6 @@ class map_test_1 extends Phaser.Scene
 	preload()
 	{
 		this.load.image("world_grass","assets/WorldGrass.png");
-		preloadDragonData(this);
-		preloadTileData(this);
-		preloadFlameData(this);
 	}
 	
 	create()

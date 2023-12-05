@@ -5,5 +5,7 @@ game.scene.add("map_test_1",map_test_1);
 game.scene.add("ui",ui);
 game.scene.add("game_over", game_over);
 game.scene.add("Credits", Credits);
+game.scene.add("PreloadScene", PreloadScene);
 
-game.scene.start("MainMenu");
+//game.scene.start("MainMenu");
+game.scene.start("PreloadScene");
