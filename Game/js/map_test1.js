@@ -53,7 +53,6 @@ class map_test_1 extends DragonScene
 		player1.update(time, delta);
 		player2.update(time, delta);
 		
-		
 		for(let i = 0; i < this.houses.length; ++i)
 		{
 			this.houses[i].update(time, delta);
