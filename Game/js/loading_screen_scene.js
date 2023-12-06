@@ -3,7 +3,15 @@ class LoadingScreenScene extends DragonScene
 	progressBar;
 	progressText;
 	
-	//sceneToLoad = "PreloadScene";
+	sceneToLoad;
+	sceneToEnter;
+	
+	constructor()
+	{
+		super({});
+		this.sceneToLoad = "PreloadScene";
+		this.sceneToEnter = "MainMenu";
+	}
 	
 	preload()
 	{
@@ -22,7 +30,7 @@ class LoadingScreenScene extends DragonScene
 		this.progressBar = new DragonProgressBar(this, config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 0xFF0000, x_len, y_len);
 		this.progressBar.setValue(0);
 		this.progressText = this.add.text(config.width/2-x_len/4, config.height/2-100, "x", styleText_MedievalPixel_30).setOrigin(0,0);
-		this.scene.launch("PreloadScene");
+		this.scene.launch(this.sceneToLoad);
 	}
 	
 	update(time,delta)
@@ -32,14 +40,14 @@ class LoadingScreenScene extends DragonScene
 		this.progressText.setText("Cargando: " + Math.floor(this.progressBar.getValue() * 100) + "%");
 		
 		//note: this.scene.get(key) is the same as this.scene.manager.getScene(key)
-		if(this.scene.get("PreloadScene").getFinishedLoading() && this.progressBar.getValue() < 0.9)
+		if(this.scene.get(this.sceneToLoad).getFinishedLoading() && this.progressBar.getValue() < 0.9)
 		{
 			this.progressBar.setValue(0.9);
 		}
 		
 		if(this.progressBar.getValue() >= 1)
 		{
-			this.scene.start("MainMenu");
+			this.scene.start(this.sceneToEnter);
 		}
 	}
 }
