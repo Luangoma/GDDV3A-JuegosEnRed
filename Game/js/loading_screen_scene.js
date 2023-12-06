@@ -4,6 +4,7 @@ class LoadingScreenScene extends Phaser.Scene
 	leftCover;
 	rightCover;
 	middleCover;
+	progressIndicator;
 	
 	preload()
 	{
@@ -11,6 +12,7 @@ class LoadingScreenScene extends Phaser.Scene
 		this.load.image('progress_bar_cover_left',   './assets/progress_bar/progress_bar_cover_segment_left.png');
 		this.load.image('progress_bar_cover_middle', './assets/progress_bar/progress_bar_cover_segment_middle.png');
 		this.load.image('progress_bar_cover_right',  './assets/progress_bar/progress_bar_cover_segment_right.png');
+		this.load.image('dragon_head_progress_indicator', './assets/progress_bar/dragon_head_progress_indicator.png');
 	}
 	
 	create()
@@ -34,6 +36,9 @@ class LoadingScreenScene extends Phaser.Scene
 		y_len = 10;
 		this.loadingBar = new ProgressBar(this, config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 0xFF0000, x_len, y_len);
 		this.loadingBar.setValue(0);
+		
+		this.progressIndicator = this.add.image(0, config.height / 2, 'dragon_head_progress_indicator');
+		
 		this.scene.launch("PreloadScene");
 	}
 	
@@ -41,6 +46,7 @@ class LoadingScreenScene extends Phaser.Scene
 	{
 		let inc = getRandomInRange(0,0.5);
 		this.loadingBar.setValue(this.loadingBar.value + delta/1000 * inc);
+		this.progressIndicator.x = config.width / 2 - (config.width/2) / 2 + (config.width/2) * this.loadingBar.value;
 		if(this.loadingBar.value >= 1)
 		{
 			this.scene.start("MainMenu");
