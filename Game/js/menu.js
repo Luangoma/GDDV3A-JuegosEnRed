@@ -1,4 +1,4 @@
-class MainMenu extends Phaser.Scene
+class MainMenu extends DragonScene
 {
 	menuBackground = {};
 	botonJugar = {};
@@ -18,6 +18,8 @@ class MainMenu extends Phaser.Scene
 	
 	create()
 	{
+		this.setFinishedLoading(false);
+		
 		//Creación imagen background y botones svg.
 		this.menuBackground = this.add.image(0,0, 'menuBackground').setOrigin(0,0).setDisplaySize(config.width,config.height);
 		let first_button_height = 60;
@@ -58,6 +60,8 @@ class MainMenu extends Phaser.Scene
 			window.open('','_parent','');
 			window.close();
 		});
+		
+		this.setFinishedLoading(true);
 	}
 	
 	update(time,delta)
