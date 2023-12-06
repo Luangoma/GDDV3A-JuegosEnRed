@@ -5,6 +5,7 @@ class LoadingScreenScene extends Phaser.Scene
 	rightCover;
 	middleCover;
 	progressIndicator;
+	thingy;
 	
 	preload()
 	{
@@ -17,6 +18,17 @@ class LoadingScreenScene extends Phaser.Scene
 	
 	create()
 	{
+		//this.thingy = new CappedProgressBar(this,10,10,0xFF0000,
+		//100,10,'progress_bar_default_middle',
+		//10,20,'progress_bar_cover_left',
+		//10,20, 'progress_bar_cover_right',
+		//100,20, 'progress_bar_cover_middle',
+		//0,0,'dragon_head_progress_indicator'
+		//
+		//);
+		
+		this.thingy.setValue(0);
+		
 		let x_len = config.width / 2;
 		let y_len = 20;
 		
@@ -47,6 +59,7 @@ class LoadingScreenScene extends Phaser.Scene
 		let inc = getRandomInRange(0,0.5);
 		this.loadingBar.setValue(this.loadingBar.value + delta/1000 * inc);
 		this.progressIndicator.x = config.width / 2 - (config.width/2) / 2 + (config.width/2) * this.loadingBar.value;
+		//this.thingy.setValue(this.thingy.getValue() + delta/1000 * inc);
 		if(this.loadingBar.value >= 1)
 		{
 			this.scene.start("MainMenu");

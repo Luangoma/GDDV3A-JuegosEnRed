@@ -1,4 +1,4 @@
-function ProgressBar(scene, x, y, color = 0xFFFFFF, width = 50, height = 10, image_left = 'progress_bar_default_left', image_middle = 'progress_bar_default_middle', image_right = 'progress_bar_default_right'){
+function ProgressBar(scene, x, y, color = 0xFFFFFF, width = 50, height = 10, image_middle = 'progress_bar_default_middle'){
 	//set properties
 	this.scene = scene;
 	this.x = x;
