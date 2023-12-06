@@ -29,6 +29,7 @@ class MainMenu extends DragonScene
 		this.botonAjustes  = this.add.image(config.width/5, first_button_height + button_separation * 1, 'botonAjustes').setScale(0.5);
 		this.botonCreditos = this.add.image(config.width/5, first_button_height + button_separation * 2, 'botonCreditos').setScale(0.5);
 		this.botonSalir    = this.add.image(config.width/5, first_button_height + button_separation * 3, 'botonSalir').setScale(0.5);
+		var cosamierda = this.add.image(config.width/5, first_button_height + button_separation * 4, 'botonSalir').setScale(0.5);
 
 		//Hacer los botones interactivos.
 		this.botonJugar.setInteractive();
@@ -36,7 +37,7 @@ class MainMenu extends DragonScene
 		this.botonSalir.setInteractive();
 		this.botonAjustes.setInteractive();
 
-		//Interacción con los botones.
+		//Interacción con los botones. //TODO: Add a custom button class with a generic background image and a "can be pressed / interacted" property that will be set to true once the scene has finished loading (set at the end of create) and then set to false again when going to another scene (maybe looping through some kind of button list? or simply keeping the scene disabling system we currently have, only that this time it would use something like this.scene.key to get the key of the this.scene scene from the button class object... etc etc...).
 		this.botonJugar.on('pointerdown', function(pointer){
 			console.log("Botón jugar pulsado");
 			// Cambia la escena actual a la selecionada, en este caso, el mapa 1
@@ -63,7 +64,15 @@ class MainMenu extends DragonScene
 			window.close();
 		});
 		
+		cosamierda.on('pointerdown', function(pointer){
+			console.log("Botón cosamierda pulsado");
+			
+		});
+		
 		this.setFinishedLoading(true);
+		
+		var button_test = new Button(this,400,200);
+		button_test.setCanBePressed(true);
 	}
 	
 	update(time,delta)
