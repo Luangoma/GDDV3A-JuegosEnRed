@@ -6,9 +6,8 @@
 	The class can also be abused to preload literally all assets if the game is small enough, making it so that there would be no need to load any resources during the rest of the execution.
 */
 
-class PreloadScene extends Phaser.Scene
+class PreloadScene extends DragonScene
 {
-	hasFinishedLoading = false;
 	preload()
 	{
 		//preload cursor image
@@ -23,6 +22,7 @@ class PreloadScene extends Phaser.Scene
 	
 	create()
 	{
+		this.setFinishedLoading(false);
 		//set the cursor image
 		this.input.setDefaultCursor('url(assets/cursor02.png), pointer');
 		
@@ -33,6 +33,6 @@ class PreloadScene extends Phaser.Scene
 		
 		//start the main menu scene as soon as the preloading and creation processes are finished
 		//this.scene.start("MainMenu");
-		this.hasFinishedLoading = true;
+		this.setFinishedLoading(true);
 	}
 }

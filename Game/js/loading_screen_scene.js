@@ -1,4 +1,4 @@
-class LoadingScreenScene extends Phaser.Scene
+class LoadingScreenScene extends DragonScene
 {
 	progressBar;
 	progressText;
@@ -31,7 +31,8 @@ class LoadingScreenScene extends Phaser.Scene
 		this.progressBar.setValue(this.progressBar.getValue() + delta/1000 * inc);
 		this.progressText.setText("Cargando: " + Math.floor(this.progressBar.getValue() * 100) + "%");
 		
-		if(this.scene.manager.getScene("PreloadScene").hasFinishedLoading && this.progressBar.getValue() < 0.9)
+		//note: this.scene.get(key) is the same as this.scene.manager.getScene(key)
+		if(this.scene.get("PreloadScene").getFinishedLoading() && this.progressBar.getValue() < 0.9)
 		{
 			this.progressBar.setValue(0.9);
 		}
