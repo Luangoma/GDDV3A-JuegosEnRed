@@ -8,6 +8,7 @@
 
 class PreloadScene extends Phaser.Scene
 {
+	hasFinishedLoading = false;
 	preload()
 	{
 		//preload cursor image
@@ -32,5 +33,6 @@ class PreloadScene extends Phaser.Scene
 		
 		//start the main menu scene as soon as the preloading and creation processes are finished
 		//this.scene.start("MainMenu");
+		this.hasFinishedLoading = true;
 	}
 }

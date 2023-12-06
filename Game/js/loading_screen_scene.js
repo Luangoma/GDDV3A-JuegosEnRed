@@ -3,6 +3,8 @@ class LoadingScreenScene extends Phaser.Scene
 	progressBar;
 	progressText;
 	
+	//sceneToLoad = "PreloadScene";
+	
 	preload()
 	{
 		preloadProgressBarData(this);
@@ -28,6 +30,11 @@ class LoadingScreenScene extends Phaser.Scene
 		let inc = getRandomInRange(0,0.5);
 		this.progressBar.setValue(this.progressBar.getValue() + delta/1000 * inc);
 		this.progressText.setText("Cargando: " + Math.floor(this.progressBar.getValue() * 100) + "%");
+		
+		if(this.scene.manager.getScene("PreloadScene").hasFinishedLoading && this.progressBar.getValue() < 0.9)
+		{
+			this.progressBar.setValue(0.9);
+		}
 		
 		if(this.progressBar.getValue() >= 1)
 		{
