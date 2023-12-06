@@ -6,6 +6,16 @@ class LoadingScreenScene extends DragonScene
 	scenesToLoad;
 	sceneToEnter;
 	
+	setScenesToLoad(scenes)
+	{
+		this.scenesToLoad = scenes;
+	}
+	
+	setSceneToEnter(scene)
+	{
+		this.sceneToEnter = scene;
+	}
+	
 	constructor()
 	{
 		super({});
@@ -59,7 +69,6 @@ class LoadingScreenScene extends DragonScene
 		{
 			if(this.scene.get(this.scenesToLoad[i]).getFinishedLoading())
 			{
-				console.log("scene is loaded: " + i );
 				loaded_scenes++;
 			}
 		}
@@ -72,6 +81,7 @@ class LoadingScreenScene extends DragonScene
 		
 		if(this.progressBar.getValue() >= 0.99 && finished_loading_scenes)
 		{
+			console.log("Entering scene : " + this.sceneToEnter);
 			this.scene.start(this.sceneToEnter);
 		}
 	}

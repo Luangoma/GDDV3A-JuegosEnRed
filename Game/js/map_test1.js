@@ -1,4 +1,4 @@
-class map_test_1 extends Phaser.Scene
+class map_test_1 extends DragonScene
 {
 	flames = {};
 	houses = [];
@@ -14,6 +14,8 @@ class map_test_1 extends Phaser.Scene
 	
 	create()
 	{
+		this.setFinishedLoading(false);
+		
 		setWorldBounds(this,0,0,world_width,world_height);
 		
 		this.houses = [];
@@ -43,8 +45,7 @@ class map_test_1 extends Phaser.Scene
 		// Si se hace launch en game.js no funciona.
 		this.scene.launch("ui");
 		
-		this.bar = new ProgressBar(this,1024,1024,0,100,20);
-		this.bar.setColor(0xFF0000);
+		this.setFinishedLoading(true);
 	}
 	
 	update(time, delta)
@@ -57,9 +58,6 @@ class map_test_1 extends Phaser.Scene
 		{
 			this.houses[i].update(time, delta);
 		}
-		
-		this.bar.setValue(this.bar.value - delta/1000 * 0.1);
-		console.log(this.bar.value);
 		
 		//console.log("p1: " + player1.points + ", p2: " + player2.points);
 	}

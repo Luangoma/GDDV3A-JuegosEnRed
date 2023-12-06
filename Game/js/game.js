@@ -8,6 +8,8 @@ game.scene.add("Credits", Credits);
 game.scene.add("PreloadScene", PreloadScene);
 game.scene.add("LoadingScreenScene",LoadingScreenScene);
 
+game.scene.add("LoadMap1",LoadMap1);
+
 //game.scene.start("MainMenu");
 //game.scene.start("PreloadScene");
 game.scene.start("LoadingScreenScene");

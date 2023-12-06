@@ -18,8 +18,9 @@ class MainMenu extends DragonScene
 	
 	create()
 	{
+		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!
 		this.setFinishedLoading(false);
-		
+		console.log("MENU HAS BEEN LOADED");
 		//Creación imagen background y botones svg.
 		this.menuBackground = this.add.image(0,0, 'menuBackground').setOrigin(0,0).setDisplaySize(config.width,config.height);
 		let first_button_height = 60;
@@ -40,7 +41,8 @@ class MainMenu extends DragonScene
 			console.log("Botón jugar pulsado");
 			// Cambia la escena actual a la selecionada, en este caso, el mapa 1
 			game.scene.stop('MainMenu');
-			game.scene.start("map_test_1");
+			//game.scene.start("map_test_1");
+			game.scene.start("LoadMap1");
 		});
 		this.botonCreditos.on('pointerdown', function(pointer){
 			console.log("Botón créditos pulsado");
