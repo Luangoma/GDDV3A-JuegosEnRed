@@ -5,7 +5,8 @@ class LoadingScreenScene extends Phaser.Scene
 	rightCover;
 	middleCover;
 	progressIndicator;
-	thingy;
+	//thingy;
+	progressText;
 	
 	preload()
 	{
@@ -27,7 +28,7 @@ class LoadingScreenScene extends Phaser.Scene
 		//
 		//);
 		
-		this.thingy.setValue(0);
+		//this.thingy.setValue(0);
 		
 		let x_len = config.width / 2;
 		let y_len = 20;
@@ -51,6 +52,8 @@ class LoadingScreenScene extends Phaser.Scene
 		
 		this.progressIndicator = this.add.image(0, config.height / 2, 'dragon_head_progress_indicator');
 		
+		this.progressText = this.add.text(config.width/2-x_len/4, config.height/2-100, "x", styleText_MedievalPixel_30).setOrigin(0,0);
+		
 		this.scene.launch("PreloadScene");
 	}
 	
@@ -60,6 +63,7 @@ class LoadingScreenScene extends Phaser.Scene
 		this.loadingBar.setValue(this.loadingBar.value + delta/1000 * inc);
 		this.progressIndicator.x = config.width / 2 - (config.width/2) / 2 + (config.width/2) * this.loadingBar.value;
 		//this.thingy.setValue(this.thingy.getValue() + delta/1000 * inc);
+		this.progressText.setText("Cargando: " + Math.floor(this.loadingBar.value * 100) + "%");
 		if(this.loadingBar.value >= 1)
 		{
 			this.scene.start("MainMenu");
