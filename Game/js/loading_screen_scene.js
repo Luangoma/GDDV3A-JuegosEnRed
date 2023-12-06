@@ -1,11 +1,6 @@
 class LoadingScreenScene extends Phaser.Scene
 {
-	loadingBar;
-	leftCover;
-	rightCover;
-	middleCover;
-	progressIndicator;
-	//thingy;
+	progressBar;
 	progressText;
 	
 	preload()
@@ -19,52 +14,22 @@ class LoadingScreenScene extends Phaser.Scene
 	
 	create()
 	{
-		//this.thingy = new CappedProgressBar(this,10,10,0xFF0000,
-		//100,10,'progress_bar_default_middle',
-		//10,20,'progress_bar_cover_left',
-		//10,20, 'progress_bar_cover_right',
-		//100,20, 'progress_bar_cover_middle',
-		//0,0,'dragon_head_progress_indicator'
-		//
-		//);
-		
-		//this.thingy.setValue(0);
-		
 		let x_len = config.width / 2;
 		let y_len = 20;
 		
-		this.leftCover = this.add.image(config.width / 2 - x_len/2 - x_len / 20, config.height / 2 - y_len / 2, 'progress_bar_cover_left').setOrigin(0,0);
-		this.leftCover.displayHeight = y_len;
-		this.leftCover.displayWidth = x_len / 20;
-		
-		this.middleCover = this.add.image(config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 'progress_bar_cover_middle').setOrigin(0,0);
-		this.middleCover.displayHeight = y_len;
-		this.middleCover.displayWidth = x_len;
-		
-		this.rightCover = this.add.image(config.width / 2 + x_len/2, config.height / 2 - y_len / 2, 'progress_bar_cover_right').setOrigin(0,0);
-		this.rightCover.displayHeight = y_len;
-		this.rightCover.displayWidth = x_len / 20;
-		
-		
-		y_len = 10;
-		this.loadingBar = new ProgressBar(this, config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 0xFF0000, x_len, y_len);
-		this.loadingBar.setValue(0);
-		
-		this.progressIndicator = this.add.image(0, config.height / 2, 'dragon_head_progress_indicator');
-		
+		this.progressBar = new DragonProgressBar(this, config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 0xFF0000, x_len, y_len);
+		this.progressBar.setValue(0);
 		this.progressText = this.add.text(config.width/2-x_len/4, config.height/2-100, "x", styleText_MedievalPixel_30).setOrigin(0,0);
-		
 		this.scene.launch("PreloadScene");
 	}
 	
 	update(time,delta)
 	{
 		let inc = getRandomInRange(0,0.5);
-		this.loadingBar.setValue(this.loadingBar.value + delta/1000 * inc);
-		this.progressIndicator.x = config.width / 2 - (config.width/2) / 2 + (config.width/2) * this.loadingBar.value;
-		//this.thingy.setValue(this.thingy.getValue() + delta/1000 * inc);
-		this.progressText.setText("Cargando: " + Math.floor(this.loadingBar.value * 100) + "%");
-		if(this.loadingBar.value >= 1)
+		this.progressBar.setValue(this.progressBar.getValue() + delta/1000 * inc);
+		this.progressText.setText("Cargando: " + Math.floor(this.progressBar.getValue() * 100) + "%");
+		
+		if(this.progressBar.getValue() >= 1)
 		{
 			this.scene.start("MainMenu");
 		}

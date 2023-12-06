@@ -4,7 +4,7 @@ function CappedProgressBar(
 	width_left = 50, height_left = 10, image_left = 'progress_bar_default_left',
 	width_right = 50, height_right = 10, image_right = 'progress_bar_default_right',
 	width_background = 50, height_background = 10, image_background = 'progress_bar_default_middle',
-	width_slider = 50, height_slider = 10, image_slider = null,
+	width_slider = 50, height_slider = 10, image_slider = null, //width and height for the slider are unused variables as of now.
 	center_progress_bar = true
 )
 {
