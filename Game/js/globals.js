@@ -33,6 +33,14 @@ var styleText_MedievalPixel_30 = {
 	stroke: 0x000,					// Color del contorno
 	strokeThickness: 4				// Grosor del contorno
 }
+
+// Estilo de texto para botones 1
+var styleText_button_1 = {	
+	fontFamily: 'ancient-font',	// Tipografia
+	color: '#000000',				// Color del texto
+	fontSize: 72					// Tamaño del texto
+}
+
 // Estilo  de texto para titulos (titulo de créditos)
 var styleText_MedievalPixel_90 = {	
 	fontFamily: 'medieval-pixel',	// Tipografia
@@ -56,4 +64,13 @@ var styleText_PixelSansSerif_18 = {
 	stroke: 0x000,					// Color del contorno
 	strokeThickness: 4,				// Grosor del contorno
 	fontSize: 18					// Tamaño del texto
+}
+
+//Estilo para botones 2
+var styleText_AncientFont_30 = {	
+	fontFamily: 'ancient-font',	// Tipografia
+	color: '#ffffff',				// Color del texto
+	fontSize: 30,					// Tamaño del texto
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4				// Grosor del contorno
 }

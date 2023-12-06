@@ -1,7 +1,6 @@
 class game_over extends Phaser.Scene 
 {
 	preload(){
-		this.load.svg('botonContinuar', 'assets/botonContinuar.svg');
 	}
 
 	create(){

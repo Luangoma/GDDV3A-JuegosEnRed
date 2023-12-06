@@ -10,10 +10,7 @@ class MainMenu extends DragonScene
 	{
 		//Precarga imagen background y botones svg.
 		this.load.image('menuBackground', 'assets/menu_background.png');
-		this.load.svg('botonJugar', 'assets/botonJugar.svg');
-		this.load.svg('botonSalir', 'assets/botonSalir.svg');
-		this.load.svg('botonAjustes', 'assets/botonAjustes.svg');
-		this.load.svg('botonCreditos', 'assets/botonCreditos.svg');
+		preloadButtonData(this);
 	}
 	
 	create()
@@ -71,7 +68,8 @@ class MainMenu extends DragonScene
 		
 		this.setFinishedLoading(true);
 		
-		var button_test = new Button(this,400,200);
+		var button_test = new Button(this,400,200,"x");
+		button_test.setText("Una cosa");
 		button_test.setCanBePressed(true);
 	}
 	

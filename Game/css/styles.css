@@ -8,6 +8,11 @@
     src: url('../assets/pixel_sans_serif/pixel_sans_serif.ttf');
 }
 
+@font-face {
+	font-family: ancient-font;
+	src: url('../assets/ancient-font/ancient_medium.ttf');
+}
+
 body {
     background-color: black;
     text-align: center;
