@@ -15,7 +15,7 @@ var world_tiles_width = world_width / 128;
 var world_tiles_height = world_height / 128;
 */
 
-var gameTime = 5; // each game will have a total time of 90 seconds
+var gameTime = 90; // each game will have a total time of 90 seconds
 
 /**
 var styleText_MedievalPixel = {
