@@ -16,7 +16,12 @@
 body {
     background-color: black;
     text-align: center;
-    margin: auto;
+    /*margin: auto;*/
+	margin: 0;
+	padding: 0;
+	background-image: url('../assets/background/background_dragon_01.png');
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 .center_container {
@@ -28,4 +33,14 @@ body {
 
 .center_element {
 	padding: 20px;
+}
+
+.dragon_border {
+	/*width: 200px;*/
+	background-color: #ffa;
+	border: 100% solid orange;
+	/*margin: 30px;*/
+	/*padding: 10px;*/
+
+	border-image: url("../assets/background/border2.png") 27 / 36px 36px 36px 36px / 0px 0px 0px 0px round;
 }

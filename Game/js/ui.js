@@ -48,9 +48,9 @@ class ui extends Phaser.Scene
 		this.load.image('barraDerechaSombra', 'assets/barra_vida/barHorizontal_shadow_right.png');
 		
 		// imágenes de los bordes de la pantalla
-		this.load.image('border_camera_single', './assets/ui_border01.png'); // online
-		this.load.image('border_camera_vertical', './assets/ui_border02.png'); // local (split screen vertical)
-		this.load.image('border_camera_horizontal', './assets/ui_border03.png'); // local (split screen horizontal)
+		//this.load.image('border_camera_single', './assets/ui_border01.png'); // online
+		this.load.image('border_camera_vertical', './assets/ui_border_vertical.png'); // local (split screen vertical)
+		this.load.image('border_camera_horizontal', './assets/ui_border_horizontal.png'); // local (split screen horizontal)
 	}
 
 	create()
@@ -59,7 +59,7 @@ class ui extends Phaser.Scene
 		//BORDES DE LA PANTALLA Y CAMARA:
 		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
 		{
-			this.add.image(0,0,'border_camera_single').setOrigin(0,0);
+			//this.add.image(0,0,'border_camera_single').setOrigin(0,0);
 		}
 		else
 		{
