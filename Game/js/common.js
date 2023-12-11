@@ -53,3 +53,8 @@ function lerpValue(a,b,t = 0.5){
 	return (1 - t) * a + b * t;
 }
 
+function enableSound(scene){
+	if (game.sound.context.state === 'suspended') {
+		game.sound.context.resume();
+	}
+}

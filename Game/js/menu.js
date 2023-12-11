@@ -15,6 +15,8 @@ class MainMenu extends DragonScene
 	
 	create()
 	{
+		enableSound(this);
+		
 		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!
 		this.setFinishedLoading(false);
 		console.log("MENU HAS BEEN LOADED");

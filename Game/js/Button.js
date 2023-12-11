@@ -11,11 +11,17 @@ function Button(scene, x, y, text = "Button Text", scale = 0.5, text_scale = 0.5
 	this.can_be_pressed = false;
 	this.buttonFunction = fn;
 	
+	//add sounds to the scene.
+	this.sound_click = this.scene.sound.add("sound_ui_click",{loop: false});
+	this.sound_hover = this.scene.sound.add("sound_ui_hover",{loop: false});
+	
+	//button actions (start hover, end hover, click...)
 	let that = this; //good old ES5 hack...
 	this.ButtonImage.on('pointerdown', function(pointer){
 		console.log("Botón presionado");
 		if(that.can_be_pressed)
 		{
+			that.sound_click.play();
 			that.buttonFunction();
 		}
 	});
@@ -23,6 +29,7 @@ function Button(scene, x, y, text = "Button Text", scale = 0.5, text_scale = 0.5
 		console.log("El puntero está encima del botón");
 		that.ButtonImage.setScale(that.scale + 0.1);
 		that.ButtonText.setScale(that.text_scale + 0.1);
+		that.sound_hover.play();
 	});
 	this.ButtonImage.on('pointerout', function(pointer){
 		console.log("El puntero ya no está encima del botón");
@@ -38,6 +45,9 @@ function preloadButtonData(scene){
 	scene.load.svg('botonCreditos', 'assets/botonCreditos.svg');
 	scene.load.svg('botonContinuar', 'assets/botonContinuar.svg');
 	scene.load.svg('boton_vacio', './assets/boton_vacio.svg');
+	
+	scene.load.audio("sound_ui_hover", ["./sounds/menu/sound_ui_hover.wav"]);
+	scene.load.audio("sound_ui_click", ["./sounds/menu/sound_ui_click.wav"]);
 }
 
 Button.prototype.setButtonFunction = function(fn){
