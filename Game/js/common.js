@@ -54,7 +54,17 @@ function lerpValue(a,b,t = 0.5){
 }
 
 function enableSound(scene){
+	game.sound.stopAll();
+	scene.sound.removeAll();
 	if (game.sound.context.state === 'suspended') {
 		game.sound.context.resume();
 	}
+}
+
+function distanceBetweenPoints2D(point1, point2){
+	let dist_x = point1.x - point2.x;
+	let dist_y = point1.y - point2.y;
+	let delta = dist_x * dist_x + dist_y * dist_y;
+	let len = Math.sqrt(delta);
+	return len;
 }

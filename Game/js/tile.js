@@ -19,6 +19,11 @@ function Tile(scene, tilename, x, y, is_destructible = false, health = 100, flam
 	this.last_dragon = null;
 	this.current_dragon = null;
 	this.has_to_switch_sprite = false;
+	
+	this.fire_sound = this.scene.sound.add("sound_fire_loop", {loop: true});
+	this.destruction_sound = this.scene.sound.add("sound_destruction", {loop: false});
+	
+	this.has_been_destroyed = false;
 }
 
 var houseList = [];
@@ -226,6 +231,11 @@ function preloadTileData(scene)
 	scene.load.image('decor_stones_01', 'assets/tiles/decor/tile_some_stones_01.png');
 	scene.load.image('decor_stones_02', 'assets/tiles/decor/tile_some_stones_02.png');
 	scene.load.image('decor_stones_03', 'assets/tiles/decor/tile_some_stones_03.png');
+	
+	
+	//preload tile sounds:
+	scene.load.audio("sound_fire_loop", ["./sounds/sound_fire_loop.wav"]);
+	scene.load.audio("sound_destruction", ["./sounds/sound_destruction.wav"]);
 }
 
 function createTileData(scene)
@@ -317,8 +327,11 @@ Tile.prototype.update = function(time, delta){
 		this.sprite.setTexture(this.tiles[3]);
 	}
 	else
+	if(!this.has_been_destroyed)
 	{
 		this.sprite.setTexture('casa_quemada');
+		this.destruction_sound.play();
+		this.has_been_destroyed = true;
 	}
 	
 	if(this.is_on_fire)
@@ -343,8 +356,14 @@ Tile.prototype.update = function(time, delta){
 					break;
 			}
 			this.has_to_switch_sprite = false;
+			this.fire_sound.stop();
+			this.fire_sound.play();
 		}
 		
+		//replace the constant "1" with the ambient audio volume setting.
+		let distance = distanceBetweenPoints2D({x: player1.sprite.x, y: player1.sprite.y}, {x: this.sprite.x, y: this.sprite.y});
+		let distance_factor = lerpValue(1 , 0, clampValue(distance, 0, 300) / 300); //300 is some arbitrary attenuation and max audio distance value
+		this.fire_sound.setVolume(1 * distance_factor);
 		
 	}
 	else

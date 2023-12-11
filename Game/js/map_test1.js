@@ -14,6 +14,8 @@ class map_test_1 extends DragonScene
 	
 	create()
 	{
+		enableSound(this);
+		
 		this.setFinishedLoading(false);
 		
 		setWorldBounds(this,0,0,world_width,world_height);
