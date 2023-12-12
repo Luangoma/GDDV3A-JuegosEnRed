@@ -43,7 +43,7 @@ class Tutorial extends DragonScene
 	
 	//TODO: When controls customization is finally implemented, it would be nice to replace the default controls images used here with the current controls. Also, possibly add a restore settings to default option in the settings menu.
 	addControls(x,y, playerid, playercolortext){
-		let txt_player_controls = this.add.text( x + 10, y + 50, 'Controles para el Dragon ' + playercolortext + ' (jugador ' + (playerid+1) + '):', styleText_PixelSansSerif_18).setOrigin(0);
+		let txt_player_controls = this.add.text( x + 10, y + 50, 'Controles para el Dragón ' + playercolortext + ' (jugador ' + (playerid+1) + '):', styleText_PixelSansSerif_18).setOrigin(0);
 			
 			let img_move_l = this.add.image( x + 20, y + 100, playerid == 0 ? 'left_arrow' : 'a_key').setOrigin(0,0);
 			let txt_move_l = this.add.text( x + 100, y + 100, 'Rotar hacia la izquierda', styleText_PixelSansSerif_18).setOrigin(0);
