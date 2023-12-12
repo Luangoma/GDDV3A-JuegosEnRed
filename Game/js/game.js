@@ -8,7 +8,10 @@ game.scene.add("Credits", Credits);
 game.scene.add("PreloadScene", PreloadScene);
 game.scene.add("LoadingScreenScene",LoadingScreenScene);
 
-game.scene.add("LoadMap1",LoadMap1);
+game.scene.add("LoadMap1",LoadMap1); //TODO... maybe remove?
+
+
+game.scene.add("Tutorial",Tutorial);
 
 //game.scene.start("MainMenu");
 //game.scene.start("PreloadScene");

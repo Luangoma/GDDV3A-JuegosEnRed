@@ -1,6 +1,9 @@
 class MainMenu extends DragonScene
 {
 	menuBackground = {};
+	menuTitleCard = {};
+	
+	botonTutorial = {};
 	botonJugar = {};
 	botonAjustes = {};
 	botonCreditos = {};
@@ -10,6 +13,7 @@ class MainMenu extends DragonScene
 	{
 		//Precarga imagen background y botones svg.
 		this.load.image('menuBackground', 'assets/menu_background.png');
+		this.load.image('game_title', './assets/GameTitle.png');
 		preloadButtonData(this);
 	}
 	
@@ -20,21 +24,28 @@ class MainMenu extends DragonScene
 		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!
 		this.setFinishedLoading(false);
 		console.log("MENU HAS BEEN LOADED");
-		//Creación imagen background y botones svg.
+		//Creación imagen background
 		this.menuBackground = this.add.image(0,0, 'menuBackground').setOrigin(0,0).setDisplaySize(config.width,config.height);
-		let first_button_height = 60;
+		let first_button_height = 200;
 		let button_separation = 60;
-		//this.botonJugar    = this.add.image(config.width/5, first_button_height + button_separation * 0, 'botonJugar').setScale(0.5);
-		//this.botonAjustes  = this.add.image(config.width/5, first_button_height + button_separation * 1, 'botonAjustes').setScale(0.5);
-		//this.botonCreditos = this.add.image(config.width/5, first_button_height + button_separation * 2, 'botonCreditos').setScale(0.5);
-		//this.botonSalir    = this.add.image(config.width/5, first_button_height + button_separation * 3, 'botonSalir').setScale(0.5);
 		
-		this.botonJugar    = new Button(this,config.width/5, first_button_height + button_separation * 0, "Jugar");
-		this.botonAjustes  = new Button(this,config.width/5, first_button_height + button_separation * 1, "Ajustes");
-		this.botonCreditos = new Button(this,config.width/5, first_button_height + button_separation * 2, "Créditos");
-		this.botonSalir    = new Button(this,config.width/5, first_button_height + button_separation * 3, "Salir");
+		//Create the title card
+		this.menuTitleCard = this.add.image(config.width/2, first_button_height/2, 'game_title');
+		
+		//Create buttons
+		this.botonTutorial = new Button(this,config.width/2, first_button_height + button_separation * 0, "Tutorial");
+		this.botonJugar    = new Button(this,config.width/2, first_button_height + button_separation * 1, "Jugar");
+		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 2, "Ajustes");
+		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 3, "Créditos");
+		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 4, "Salir");
 		
 		//Interacción con los botones.
+		this.botonTutorial.setButtonFunction(function(){
+			console.log("Botón tutorial pulsado");
+			game.scene.stop('MainMenu');
+			game.scene.start("Tutorial");
+		});
+		
 		this.botonJugar.setButtonFunction(function(){
 			console.log("Botón jugar pulsado");
 			game.scene.stop('MainMenu');
@@ -60,6 +71,7 @@ class MainMenu extends DragonScene
 		this.setFinishedLoading(true);
 		
 		
+		this.botonTutorial.setCanBePressed(true);
 		this.botonJugar.setCanBePressed(true);
 		this.botonAjustes.setCanBePressed(true);
 		this.botonCreditos.setCanBePressed(true);

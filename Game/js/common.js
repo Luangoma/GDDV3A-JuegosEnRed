@@ -54,11 +54,14 @@ function lerpValue(a,b,t = 0.5){
 }
 
 function enableSound(scene){
-	game.sound.stopAll();
-	scene.sound.removeAll();
 	if (game.sound.context.state === 'suspended') {
 		game.sound.context.resume();
 	}
+}
+
+function stopSound(scene){
+	game.sound.stopAll();
+	scene.sound.removeAll();
 }
 
 function distanceBetweenPoints2D(point1, point2){
