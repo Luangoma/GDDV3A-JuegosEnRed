@@ -29,7 +29,7 @@ class Credits extends Phaser.Scene
         // setOrigin(1) hace que el origen del texto esté a su derecha, setOrigin(0) a su izquierda.
 
         // Título 'Créditos'
-        this.titulo = this.add.text(xTitulo, yTitulo, 'Creditos', styleText_MedievalPixel_90).setOrigin(1);
+        this.titulo = this.add.text(xTitulo, yTitulo, 'Créditos', styleText_AncientFont_90).setOrigin(1).setScale(1);
 
         // Textos de los nombres.
         this.nombre1 = this.add.text(xTitulo, yTitulo + separacionTexto * 1, 'Mario López García', styleText_PixelSansSerif_18).setOrigin(1);

@@ -74,3 +74,12 @@ var styleText_AncientFont_30 = {
 	stroke: 0x000,					// Color del contorno
 	strokeThickness: 4				// Grosor del contorno
 }
+
+//Estilo para los créditos
+var styleText_AncientFont_90 = {	
+	fontFamily: 'ancient-font',	// Tipografia
+	color: '#ffffff',				// Color del texto
+	fontSize: 90,					// Tamaño del texto
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4				// Grosor del contorno
+}
