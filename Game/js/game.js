@@ -12,6 +12,7 @@ game.scene.add("LoadMap1",LoadMap1); //TODO... maybe remove?
 
 
 game.scene.add("Tutorial",Tutorial);
+game.scene.add("PlayMenu",PlayMenu);
 
 //game.scene.start("MainMenu");
 //game.scene.start("PreloadScene");

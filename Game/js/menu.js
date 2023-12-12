@@ -49,7 +49,7 @@ class MainMenu extends DragonScene
 		this.botonJugar.setButtonFunction(function(){
 			console.log("Botón jugar pulsado");
 			game.scene.stop('MainMenu');
-			game.scene.start("LoadMap1");
+			game.scene.start("PlayMenu");
 		});
 		
 		this.botonCreditos.setButtonFunction(function(){
