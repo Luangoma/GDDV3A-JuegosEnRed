@@ -64,8 +64,8 @@ class MainMenu extends DragonScene
 		
 		this.botonSalir.setButtonFunction(function(){
 			console.log("Botón salir pulsado");
-			window.open('','_parent','');
-			window.close();
+			//window.open('','_parent','');
+			//window.close();
 		});
 		
 		this.setFinishedLoading(true);

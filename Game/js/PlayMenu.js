@@ -15,6 +15,7 @@ class PlayMenu extends DragonScene
 		
 		this.button_play_sp = new Button(this, config.width/2, config.height/5 + 100 * 0, "Local");
 		this.button_play_sp.setButtonFunction(function(){
+			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
 			game.scene.stop('PlayMenu');
 			game.scene.start("LoadMap1");
 		});
@@ -22,6 +23,7 @@ class PlayMenu extends DragonScene
 		
 		this.button_play_sp = new Button(this, config.width/2, config.height/5 + 100 * 1, "Online");
 		this.button_play_sp.setButtonFunction(function(){
+			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");
 			game.scene.start("MainMenu");
 		});
