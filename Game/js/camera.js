@@ -2,7 +2,7 @@
 //note: still requires being used even in local multiplayer before being able to add the split screen cameras.
 function addMainCamera(scene, player)
 {
-	scene.cameras.main.setBounds(0, 0, 2048, 2048);
+	scene.cameras.main.setBounds(0, 0, world_width, world_height);
 	scene.cameras.main.startFollow(player.sprite, true);
 	scene.cameras.main.setZoom(1);
 }
