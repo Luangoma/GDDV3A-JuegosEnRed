@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,24 +15,37 @@ import org.json.simple.parser.ParseException;
 
 public class UserService {
 	
-	private final Map<Long, User> users = new HashMap<>();
+	private final Map<Long, User> users = new ConcurrentHashMap<>();
 	private Long currentId;
+	private String jsonFile;
 	
 	//Constructor:
 	UserService(){
 		this.currentId = 0L;
+		this.jsonFile = "./default.json";
 	}
 	
 	UserService(String filename){
-		//cargar archivo
+		this.currentId = 0L;
+		this.jsonFile = filename;
+		this.loadUsersFromFile(this.jsonFile);
 	}
 	
 	//implement all of the basic functionality for a REST API:
 	//GET (all), GET (one), POST, PUT, DELETE
 	
 	//GET (all)
-	public List<User> getAllUsers(){
-		return new ArrayList<>(users.values()); //the list can be empty if there are no users, but will always return.
+	public List<User> getAllUsers(boolean displayPasswords){
+		ArrayList<User> data = new ArrayList<>(users.values()); //the list can be empty if there are no users, but will always return.
+		if(!displayPasswords) {
+			ArrayList<User> ans = new ArrayList<>();
+			for(User u : data) {
+				User new_user = new User(u.getId(), u.getUsername(), "***");
+				ans.add(new_user);
+			}
+			return ans;
+		}
+		return data;
 	}
 	
 	//GET (one)
