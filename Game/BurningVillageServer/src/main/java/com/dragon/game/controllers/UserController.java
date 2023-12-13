@@ -1,5 +1,8 @@
 package com.dragon.game.controllers;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 	
-	private final UserService userService = new UserService();
+	private final UserService userService = new UserService("./some_file.json");
+	private final String password = "173467321476-C-32789777643-T-732-V-73117888732476789764376-LOCK";
 	
 	@GetMapping(value = "/users")
 	public List<User>getAllUsers() {
@@ -18,8 +22,28 @@ public class UserController {
 	
 	@GetMapping(value = "/ADMIN/users/{pwd}")
 	public List<User>getAllUsersAdmin(@PathVariable String pwd) {
-		String password = "173467321476-C-32789777643-T-732-V-73117888732476789764376-LOCK";
-		return this.userService.getAllUsers(pwd.equals(password));
+		return this.userService.getAllUsers(pwd.equals(this.password));
+	}
+	
+	@GetMapping(value = "/ADMIN/write/{pwd}")
+	public void performTestWrite(@PathVariable String pwd) {
+		if(pwd.equals(this.password)) {
+			System.out.println("The password matches.");
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter("./EXPERIMENTAL_FILE.txt"))){
+				String content = "Experimental text to be written to the file.";
+				writer.write(content);
+				System.out.println("The file has been written.");
+			} catch (IOException e) {
+				System.err.println("ERROR: Could not write file.");
+			}
+		}
+	}
+	
+	@GetMapping(value = "/ADMIN/save/{pwd}")
+	public void performTestSave(@PathVariable String pwd) {
+		if(pwd.equals(this.password)) {
+			this.userService.writeUsersToFile();
+		}
 	}
 	
 	@GetMapping(value = "/TEST/create_test_users")

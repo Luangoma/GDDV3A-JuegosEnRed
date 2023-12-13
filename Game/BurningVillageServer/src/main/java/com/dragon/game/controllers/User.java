@@ -37,7 +37,7 @@ public class User {
 	}
 	
 	public String serializeUser() {
-		String ans = "{id: " + this.id + ", username: " + this.username + ", password: " + this.password + "}";
+		String ans = "{\"id\": " + this.id + ", \"username\": \"" + this.username + "\", \"password\": \"" + this.password + "\"}";
 		return ans;
 	}
 	

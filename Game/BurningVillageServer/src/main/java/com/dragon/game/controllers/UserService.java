@@ -1,9 +1,11 @@
 package com.dragon.game.controllers;
 
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,9 +28,9 @@ public class UserService {
 	}
 	
 	UserService(String filename){
-		this.currentId = 0L;
+		this.currentId = -1L;
 		this.jsonFile = filename;
-		this.loadUsersFromFile(this.jsonFile);
+		this.readUsersFromFile();
 	}
 	
 	//implement all of the basic functionality for a REST API:
@@ -67,6 +69,11 @@ public class UserService {
 		return user;
 	}
 	
+	//Auxiliary function to add users to the array list (does not necessarily create a new user. Used when loading existing users from file.)
+	public void addUser(User user) {
+		this.users.put(user.getId(), user);
+	}
+	
 	//PUT
 	public User updateUser(Long id, User updatedUser) {
 		if(users.containsKey(id)) {
@@ -86,24 +93,51 @@ public class UserService {
 		this.users.clear();
 	}
 	
-	public void loadUsersFromFile(String filename) {
+	public void writeUsersToFile() {
+		ArrayList<User> users_list= new ArrayList<>(users.values());
+		
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.jsonFile))){
+			
+			writer.write("[\n");
+			for(int i = 0; i < users_list.size(); ++i) {
+				User current_user = users_list.get(i);
+				String content = "    " + current_user.serializeUser();
+				writer.write(content);
+				if(i < users_list.size() - 1) {
+					writer.write(",");
+				}
+				writer.write("\n");
+			}
+			writer.write("]\n");
+			
+			System.out.println("SUCCESS: User data was saved successfully to " + this.jsonFile);
+		} catch (IOException e) {
+			System.err.println("ERROR: Could not write user data to " + this.jsonFile);
+		}
+	}
+	
+	public void readUsersFromFile() {
+		System.out.println("Reading existing user data.");
 		JSONParser parser = new JSONParser();
         try {
-            JSONArray a = (JSONArray) parser.parse(new FileReader(filename));
-
+            JSONArray a = (JSONArray) parser.parse(new FileReader(this.jsonFile));
             for (Object o : a) {
                 JSONObject person = (JSONObject) o;
 
                 Long id = (Long) person.get("id");
-                String name = (String) person.get("name");
+                String name = (String) person.get("username");
                 String password = (String) person.get("password");
                 
                 User user = new User(id, name, password);
-                this.createUser(user);
+                this.addUser(user);
+                
+                this.currentId = Math.max(this.currentId, id);
             }
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+        	System.err.println("The specified file does not exist. Could not read existing user data.");
         }
+        ++this.currentId;
 	}
 	
 }
