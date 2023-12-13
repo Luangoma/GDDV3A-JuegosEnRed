@@ -1,9 +1,16 @@
 package com.dragon.game.controllers;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class UserService {
 	
@@ -13,6 +20,10 @@ public class UserService {
 	//Constructor:
 	UserService(){
 		this.currentId = 0L;
+	}
+	
+	UserService(String filename){
+		//cargar archivo
 	}
 	
 	//implement all of the basic functionality for a REST API:
@@ -45,7 +56,7 @@ public class UserService {
 	//PUT
 	public User updateUser(Long id, User updatedUser) {
 		if(users.containsKey(id)) {
-			updatedUser.setId(id);;
+			updatedUser.setId(id);
 			users.put(id, updatedUser);
 			return updatedUser;
 		}
@@ -55,6 +66,30 @@ public class UserService {
 	//DELETE
 	public void deleteUser(Long id) {
 		users.remove(id);
+	}
+	
+	public void clearUsers() {
+		this.users.clear();
+	}
+	
+	public void loadUsersFromFile(String filename) {
+		JSONParser parser = new JSONParser();
+        try {
+            JSONArray a = (JSONArray) parser.parse(new FileReader(filename));
+
+            for (Object o : a) {
+                JSONObject person = (JSONObject) o;
+
+                Long id = (Long) person.get("id");
+                String name = (String) person.get("name");
+                String password = (String) person.get("password");
+                
+                User user = new User(id, name, password);
+                this.createUser(user);
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
 	}
 	
 }

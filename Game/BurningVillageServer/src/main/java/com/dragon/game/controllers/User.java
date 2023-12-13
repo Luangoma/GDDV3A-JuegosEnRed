@@ -1,14 +1,15 @@
 package com.dragon.game.controllers;
 
 public class User {
+	
 	private Long id;
 	private String username;
-	private String email;
+	private String password;
 	
-	public User(Long id, String name, String email) {
+	public User(Long id, String name, String password) {
 		this.id = id;
 		this.username = name;
-		this.email = email;
+		this.password = password;
 	}
 	
 	public Long getId() {
@@ -19,8 +20,8 @@ public class User {
 		return this.username;
 	}
 	
-	public String getEmail() {
-		return this.email;
+	public String getPassword() {
+		return this.password;
 	}
 	
 	public void setId(Long id) {
@@ -31,7 +32,13 @@ public class User {
 		this.username = name;
 	}
 	
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+	
+	public String serializeUser() {
+		String ans = "{id: " + this.id + ", username: " + this.username + ", password: " + this.password + "}";
+		return ans;
+	}
+	
 }
