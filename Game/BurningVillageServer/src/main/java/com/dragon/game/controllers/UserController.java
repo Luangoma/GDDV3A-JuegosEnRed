@@ -5,9 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -60,6 +63,21 @@ public class UserController {
 	public boolean crearUsuario() {
 		this.userService.createUser(new User(1L, "crearUsuarioTest", "1234567890"));
 		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@PostMapping(value = "/users/login")
+	public ResponseEntity<User> loginRequest(@RequestBody User userData) {
+		ResponseEntity<User> ans = new ResponseEntity<>(HttpStatus.OK);
+		//TODO
+		return ans;
 	}
 	
 }
