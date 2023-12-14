@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
@@ -67,9 +68,16 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/users")
-	public boolean crearUsuario() {
-		this.userService.createUser(new User(1L, "crearUsuarioTest", "1234567890"));
-		return true;
+	@ResponseStatus(HttpStatus.CREATED)
+	public User crearUsuario(@RequestBody User nuevoUsuario) {
+		//Comprobar si ya existe el usuario.
+		if(userService.getUserByName(nuevoUsuario.getUsername()) == null) {
+			//El usuario no existe y se puede proceder a crear el usuario.
+			this.userService.createUser(nuevoUsuario);
+			this.userService.writeUsersToFile();
+		}
+		
+		return nuevoUsuario;
 	}
 	
 	

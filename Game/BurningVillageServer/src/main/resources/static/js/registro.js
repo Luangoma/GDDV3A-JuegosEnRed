@@ -49,18 +49,18 @@ class Registro extends DragonScene
 
                     $(document).ready(function(){
                         console.log("DOM cargado.");
-                        console.log(ip.http + "/usuarios");
+                        console.log(ip.http + "/users");
                         
                         $.ajax({
                             method: "POST",
-                            url: ip.http + "/usuarios",
-                            data: JSON.stringify({id:0, name: "Soso43", password: "1234567890"}),
+                            url: ip.http + "/users",
+                            data: JSON.stringify({id:0, username: "Soso43", password: "1234567890"}),
                             processData: false,
                             headers: {
-                                "Content-type": "appication/json"
+                                "Content-type": "application/json"
                             }
                         }).done(function(data, textStatus, jqXHR) {
-
+                            console.log("ajax done");
                         }).fail(function(data, textStatus, jqXHR) {
                         });
 
