@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 @RestController
 public class UserController {
@@ -58,19 +59,18 @@ public class UserController {
 		this.userService.createUser(new User(0L, "Alfredo", "@AlFreditoMio69"));
 	}
 	
+	@DeleteMapping(value = "/delete")
+	public void deleteUsers(){
+		
+		this.userService.deleteUser(1L);
+		//this.userService.clearUsers();
+	}
 	
 	@PostMapping(value = "/users")
 	public boolean crearUsuario() {
 		this.userService.createUser(new User(1L, "crearUsuarioTest", "1234567890"));
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@PostMapping(value = "/users/login")
