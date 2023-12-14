@@ -44,6 +44,8 @@ class Registro extends DragonScene
                         }
                     });
 
+                    //Hacer un POST a la API REST /usuarios.
+
                     //  Populate the text with whatever they typed in as the username!
                     //text.setText(`Welcome ${inputUsername.value}`);
                 }
