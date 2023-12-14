@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -52,6 +53,13 @@ public class UserController {
 		this.userService.createUser(new User(0L, "Manolo", "Manolipassword"));
 		this.userService.createUser(new User(0L, "Juanjo", "password"));
 		this.userService.createUser(new User(0L, "Alfredo", "@AlFreditoMio69"));
+	}
+	
+	
+	@PostMapping(value = "/users")
+	public boolean crearUsuario() {
+		this.userService.createUser(new User(1L, "crearUsuarioTest", "1234567890"));
+		return true;
 	}
 	
 }

@@ -1,0 +1,46 @@
+@font-face {
+    font-family: medieval-pixel;
+    src: url('../assets/medieval-pixel/medieval-pixel.ttf');
+}
+
+@font-face {
+    font-family: pixel_sans_serif;
+    src: url('../assets/pixel_sans_serif/pixel_sans_serif.ttf');
+}
+
+@font-face {
+	font-family: ancient-font;
+	src: url('../assets/ancient-font/ancient_medium.ttf');
+}
+
+body {
+    background-color: black;
+    text-align: center;
+    /*margin: auto;*/
+	margin: 0;
+	padding: 0;
+	background-image: url('../assets/background/background_dragon_01.png');
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.center_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the container height to fill the viewport */
+}
+
+.center_element {
+	padding: 20px;
+}
+
+.dragon_border {
+	/*width: 200px;*/
+	background-color: #ffa;
+	border: 100% solid orange;
+	/*margin: 30px;*/
+	/*padding: 10px;*/
+
+	border-image: url("../assets/background/border2.png") 27 / 36px 36px 36px 36px / 0px 0px 0px 0px round;
+}
