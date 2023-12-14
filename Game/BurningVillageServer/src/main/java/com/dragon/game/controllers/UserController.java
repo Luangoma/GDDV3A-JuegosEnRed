@@ -60,11 +60,16 @@ public class UserController {
 		this.userService.createUser(new User(0L, "Alfredo", "@AlFreditoMio69"));
 	}
 	
-	@DeleteMapping(value = "/delete")
-	public void deleteUsers(){
-		
-		this.userService.deleteUser(1L);
-		//this.userService.clearUsers();
+	@DeleteMapping(value = "/users/delete/{id}/{pwd}")
+	public ResponseEntity<User> deleteUsers(@PathVariable Long id, @PathVariable String pwd){
+		User user = this.userService.getUserById(id);
+		if(!checkUserCredentials(user, pwd)) {
+			System.out.println("User " + user.getUsername() + " tried to delete the account but used the wrong credentials.");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		System.out.println("User " + user.getUsername() + " successfully deleted their account.");
+		this.userService.deleteUser(id);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/users")
@@ -85,12 +90,31 @@ public class UserController {
 	@GetMapping(value = "/users/login/{usr}/{pwd}") //This really should be a POST to hide the login data from the URL, but bureaucracy wins...
 	public ResponseEntity<User> loginRequest(@PathVariable String usr, @PathVariable String pwd) {
 		User user = this.userService.getUserByName(usr);
-		if(user == null || !user.getPassword().equals(pwd)) {
-			System.out.println("User " + user + " tried to log in but put the wrong password.");
+		if(!checkUserCredentials(user, pwd)) {
+			System.out.println("User " + usr + " tried to log in but used the wrong credentials.");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		System.out.println("User " + usr + " logged in.");
+		System.out.println("User " + usr + " successfully logged in.");
 		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	/*
+	 * overly complicated valid user check... because SpringBoot does not allow java to short-circuit so expressions
+	 * like if(user == null || !user.getPassword().equals(password)){...} will throw a null pointer exception
+	 * and an extremely large stack trace...
+	*/
+	private boolean checkUserCredentials(User user, String pwd) {
+		if(user == null) {
+			return false;
+		}
+		if(!pwd.equals(user.getPassword())) {
+			return false;
+		}
+		return true;
 	}
 	
 }
