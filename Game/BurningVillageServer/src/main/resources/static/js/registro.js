@@ -1,4 +1,4 @@
-class Registro extends Phaser.Scene
+class Registro extends DragonScene
 {
     preload() {
         this.load.html('formularioRegistro', 'assets/formularioRegistro.html');

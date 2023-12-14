@@ -4,6 +4,7 @@ class MainMenu extends DragonScene
 	menuTitleCard = {};
 	
 	botonTutorial = {};
+	botonCuenta = {};
 	botonJugar = {};
 	botonAjustes = {};
 	botonCreditos = {};
@@ -34,16 +35,23 @@ class MainMenu extends DragonScene
 		
 		//Create buttons
 		this.botonTutorial = new Button(this,config.width/2, first_button_height + button_separation * 0, "Tutorial");
-		this.botonJugar    = new Button(this,config.width/2, first_button_height + button_separation * 1, "Jugar");
-		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 2, "Ajustes");
-		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 3, "Créditos");
-		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 4, "Salir");
+		this.botonCuenta   = new Button(this,config.width/2, first_button_height + button_separation * 1, "Cuenta");
+		this.botonJugar    = new Button(this,config.width/2, first_button_height + button_separation * 2, "Jugar");
+		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 3, "Ajustes");
+		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 4, "Créditos");
+		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 5, "Salir");
 		
 		//Interacción con los botones.
 		this.botonTutorial.setButtonFunction(function(){
 			console.log("Botón tutorial pulsado");
 			game.scene.stop('MainMenu');
 			game.scene.start("Tutorial");
+		});
+		
+		this.botonCuenta.setButtonFunction(function(){
+			console.log("Botón cuenta pulsado");
+			game.scene.stop('MainMenu');
+			game.scene.start("Registro");
 		});
 		
 		this.botonJugar.setButtonFunction(function(){
@@ -72,6 +80,7 @@ class MainMenu extends DragonScene
 		
 		
 		this.botonTutorial.setCanBePressed(true);
+		this.botonCuenta.setCanBePressed(true);
 		this.botonJugar.setCanBePressed(true);
 		this.botonAjustes.setCanBePressed(true);
 		this.botonCreditos.setCanBePressed(true);

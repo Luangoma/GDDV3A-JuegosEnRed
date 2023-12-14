@@ -17,6 +17,6 @@ game.scene.add("PlayMenu",PlayMenu);
 
 //game.scene.start("MainMenu");
 //game.scene.start("PreloadScene");
-//game.scene.start("LoadingScreenScene");
-game.scene.start("Registro"); //Implementar que del registro vaya a LoadingScreenScene.
+game.scene.start("LoadingScreenScene");
+//game.scene.start("Registro"); //Implementar que del registro vaya a LoadingScreenScene.
 //game.scene.launch("PreloadScene");
