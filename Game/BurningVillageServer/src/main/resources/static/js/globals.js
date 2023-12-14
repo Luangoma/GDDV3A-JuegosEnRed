@@ -7,6 +7,12 @@ var world_tiles_height = 20;
 var world_width = 128 * world_tiles_width;
 var world_height = 128 * world_tiles_height;
 
+//IP del servidor.
+let ip = {
+	http: "http://" + location.host,
+	ws: "ws://" + location.host
+};
+
 /*
 var world_width = 2048;
 var world_height = 2048;
