@@ -63,7 +63,7 @@ public class UserController {
 	public ResponseEntity<User> deleteUsers(@PathVariable Long id, @PathVariable String pwd){
 		User user = this.userService.getUserById(id);
 		if(!checkUserCredentials(user, pwd)) {
-			System.out.println("User " + user.getUsername() + " tried to delete the account but used the wrong credentials.");
+			System.out.println("User UNKOWN with wrong id " + id + " tried to delete the account but used the wrong credentials.");
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		System.out.println("User " + user.getUsername() + " successfully deleted their account.");
@@ -94,16 +94,9 @@ public class UserController {
 	
 	
 	
-	/*
-	 * overly complicated valid user check... because SpringBoot does not allow java to short-circuit so expressions
-	 * like if(user == null || !user.getPassword().equals(password)){...} will throw a null pointer exception
-	 * and an extremely large stack trace...
-	*/
+	//checks if an user is null and if the credentials are valid.
 	private boolean checkUserCredentials(User user, String pwd) {
-		if(user == null) {
-			return false;
-		}
-		if(!pwd.equals(user.getPassword())) {
+		if(user == null || !user.getPassword().equals(pwd)) {
 			return false;
 		}
 		return true;
