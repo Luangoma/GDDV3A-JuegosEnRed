@@ -5,6 +5,7 @@ class MainMenu extends DragonScene
 	
 	botonTutorial = {};
 	botonCuenta = {};
+	botonSocial = {};
 	botonJugar = {};
 	botonAjustes = {};
 	botonCreditos = {};
@@ -36,10 +37,11 @@ class MainMenu extends DragonScene
 		//Create buttons
 		this.botonTutorial = new Button(this,config.width/2, first_button_height + button_separation * 0, "Tutorial");
 		this.botonCuenta   = new Button(this,config.width/2, first_button_height + button_separation * 1, "Cuenta");
-		this.botonJugar    = new Button(this,config.width/2, first_button_height + button_separation * 2, "Jugar");
-		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 3, "Ajustes");
-		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 4, "Créditos");
-		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 5, "Salir");
+		this.botonSocial   = new Button(this,config.width/2, first_button_height + button_separation * 2, "Social");
+		this.botonJugar    = new Button(this,config.width/2, first_button_height + button_separation * 3, "Jugar");
+		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 4, "Ajustes");
+		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 5, "Créditos");
+		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 6, "Salir");
 		
 		//Interacción con los botones.
 		this.botonTutorial.setButtonFunction(function(){
@@ -52,6 +54,12 @@ class MainMenu extends DragonScene
 			console.log("Botón cuenta pulsado");
 			game.scene.stop('MainMenu');
 			game.scene.start("Registro");
+		});
+		
+		this.botonSocial.setButtonFunction(function(){
+			console.log("Botón comunidad pulsado");
+			//game.scene.stop('MainMenu');
+			//game.scene.start("Community"); //maybe rename to UsersMenu?
 		});
 		
 		this.botonJugar.setButtonFunction(function(){
@@ -81,6 +89,7 @@ class MainMenu extends DragonScene
 		
 		this.botonTutorial.setCanBePressed(true);
 		this.botonCuenta.setCanBePressed(true);
+		this.botonSocial.setCanBePressed(true);
 		this.botonJugar.setCanBePressed(true);
 		this.botonAjustes.setCanBePressed(true);
 		this.botonCreditos.setCanBePressed(true);
