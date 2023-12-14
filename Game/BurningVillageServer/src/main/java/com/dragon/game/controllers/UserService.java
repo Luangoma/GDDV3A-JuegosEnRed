@@ -33,6 +33,13 @@ public class UserService {
 		this.readUsersFromFile();
 	}
 	
+	
+	//getters and setters
+	public Long getCurrentId() {
+		return this.currentId;
+	}
+	
+	
 	//implement all of the basic functionality for a REST API:
 	//GET (all), GET (one), POST, PUT, DELETE
 	
@@ -57,6 +64,15 @@ public class UserService {
 			return users.get(id);
 		}
 		return null; //check for null in the REST API and return 404.
+	}
+	
+	public User getUserByName(String name) {
+		for(Map.Entry<Long, User> entry : this.users.entrySet()) {
+			if(entry.getValue().getUsername().equals(name)) {
+				return entry.getValue();
+			}
+		}
+		return null;
 	}
 	
 	//POST

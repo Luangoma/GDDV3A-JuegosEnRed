@@ -73,11 +73,16 @@ public class UserController {
 	}
 	
 	
-	@PostMapping(value = "/users/login")
-	public ResponseEntity<User> loginRequest(@RequestBody User userData) {
-		ResponseEntity<User> ans = new ResponseEntity<>(HttpStatus.OK);
-		//TODO
-		return ans;
+	
+	@GetMapping(value = "/users/login/{usr}/{pwd}") //This really should be a POST to hide the login data from the URL, but bureaucracy wins...
+	public ResponseEntity<User> loginRequest(@PathVariable String usr, @PathVariable String pwd) {
+		User user = this.userService.getUserByName(usr);
+		if(user == null || !user.getPassword().equals(pwd)) {
+			System.out.println("User " + user + " tried to log in but put the wrong password.");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		System.out.println("User " + usr + " logged in.");
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 }
