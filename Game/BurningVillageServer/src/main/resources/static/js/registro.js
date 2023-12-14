@@ -2,6 +2,7 @@ class Registro extends DragonScene
 {
     background = {};
 	loginBox = {};
+	botonSalir = {};
 	
     preload() {
 		this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
@@ -65,6 +66,13 @@ class Registro extends DragonScene
             duration: 3000,
             ease: 'Power3'
         });
+		
+		this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+		this.botonSalir.setButtonFunction(function(){
+			game.scene.stop("Registro");
+			game.scene.start("MainMenu");
+		});
+		this.botonSalir.setCanBePressed(true);
 
     }
 
