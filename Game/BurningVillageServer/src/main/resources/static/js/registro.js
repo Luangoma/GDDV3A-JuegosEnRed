@@ -1,12 +1,20 @@
 class Registro extends DragonScene
 {
+    background = {};
+	loginBox = {};
+	
     preload() {
+		this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
         this.load.html('formularioRegistro', 'assets/formularioRegistro.html');
     }
 
     create() {
+		
+		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
+		
         const element = this.add.dom(config.width/2, config.height/2).createFromCache('formularioRegistro');
-
+		this.loginBox = element;
+		
         element.setPerspective(800);
 
         element.addListener('click');
@@ -37,7 +45,7 @@ class Registro extends DragonScene
                     });
 
                     //  Populate the text with whatever they typed in as the username!
-                    text.setText(`Welcome ${inputUsername.value}`);
+                    //text.setText(`Welcome ${inputUsername.value}`);
                 }
                 else
                 {
