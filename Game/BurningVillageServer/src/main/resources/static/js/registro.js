@@ -47,6 +47,25 @@ class Registro extends DragonScene
 
                     //Hacer un POST a la API REST /usuarios.
 
+                    $(document).ready(function(){
+                        console.log("DOM cargado.");
+                        console.log(ip.http + "/usuarios");
+                        
+                        $.ajax({
+                            method: "POST",
+                            url: ip.http + "/usuarios",
+                            data: JSON.stringify({id:0, name: "Soso43", password: "1234567890"}),
+                            processData: false,
+                            headers: {
+                                "Content-type": "appication/json"
+                            }
+                        }).done(function(data, textStatus, jqXHR) {
+
+                        }).fail(function(data, textStatus, jqXHR) {
+                        });
+
+                    });
+
                     //  Populate the text with whatever they typed in as the username!
                     //text.setText(`Welcome ${inputUsername.value}`);
                 }
