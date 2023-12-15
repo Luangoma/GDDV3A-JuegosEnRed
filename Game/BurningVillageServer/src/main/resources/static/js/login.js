@@ -34,6 +34,13 @@ class Login extends DragonScene
 				}
 			}).done(function(data, textStatus, jqXHR) {
 				console.log("user has successfully logged in.");
+				
+				//login:
+				localUser.logIn(data);
+				//exit the scene after logging in:
+				game.scene.stop("Login");
+				game.scene.start("AccountMenu");
+				
 			}).fail(function(data, textStatus, jqXHR) {
 				console.log("the credentials given are not valid. Could not log in.");
 			});
@@ -41,7 +48,7 @@ class Login extends DragonScene
 		
 		this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
 		this.botonSalir.setButtonFunction(function(){
-			game.scene.stop("Registro");
+			game.scene.stop("Login");
 			game.scene.start("AccountMenu");
 		});
 		this.botonSalir.setCanBePressed(true);

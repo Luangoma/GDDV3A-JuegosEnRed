@@ -35,6 +35,13 @@ class Registro extends DragonScene
 				}
 			}).done(function(data, textStatus, jqXHR) {
 				console.log("user was successfully added to the database.");
+				
+				//login after registering:
+				localUser.logIn(data);
+				//exit the scene after registering:
+				game.scene.stop("Registro");
+				game.scene.start("AccountMenu");
+				
 			}).fail(function(data, textStatus, jqXHR) {
 				console.log("there was an error, could not add user to db.");
 			});

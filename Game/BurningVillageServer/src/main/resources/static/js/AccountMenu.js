@@ -13,6 +13,13 @@ class AccountMenu extends DragonScene
 	
 	create()
 	{
+		//log the local user data for debug purposes (TODO: remove in prod)
+		localUser.log();
+		
+		if(localUser.isLogged()){
+			console.log("TODO: Load the user profile menu scene automatically...");
+		}
+		
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
 		this.button_createAccount = new Button(this, config.width/2, config.height/5 + 100 * 0, "Crear Cuenta", 'boton_vacio_largo');
