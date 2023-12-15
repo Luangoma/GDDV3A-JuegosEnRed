@@ -59,8 +59,8 @@ class MainMenu extends DragonScene
 		
 		this.botonSocial.setButtonFunction(function(){
 			console.log("Botón comunidad pulsado");
-			//game.scene.stop('MainMenu');
-			//game.scene.start("Community"); //maybe rename to UsersMenu?
+			game.scene.stop('MainMenu');
+			game.scene.start("SocialMenu");
 		});
 		
 		this.botonJugar.setButtonFunction(function(){

@@ -5,6 +5,11 @@ game.scene.add("Login",Login);
 game.scene.add("DeleteAccount",DeleteAccount);
 
 
+game.scene.add("PlayerListScene", PlayerListScene);
+game.scene.add("ForumScene", ForumScene);
+game.scene.add("SocialMenu", SocialMenu);
+
+
 game.scene.add("MainMenu",MainMenu);
 game.scene.add("Map1",Map1);
 game.scene.add("map_test_1",map_test_1);
