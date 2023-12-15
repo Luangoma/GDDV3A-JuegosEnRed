@@ -16,8 +16,10 @@ class AccountMenu extends DragonScene
 		//log the local user data for debug purposes (TODO: remove in prod)
 		localUser.log();
 		
+		//jump to user profile menu scene if the user is already logged in.
 		if(localUser.isLogged()){
-			console.log("TODO: Load the user profile menu scene automatically...");
+			game.scene.stop("AccountMenu");
+			game.scene.start("UserProfile");
 		}
 		
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
