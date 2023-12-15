@@ -13,7 +13,7 @@ function CredentialsBox(scene, isShort = false){
 	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache(this.isShort ? 'formularioRegistroCorto' : 'formularioRegistro');
 	this.credentialsBox = element;
 	
-	this.errorText = this.scene.add.text(config.width/2, config.height/2 + element.displayHeight/2, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
+	this.errorText = this.scene.add.text(config.width/2, config.height/2 + 210, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
 	this.errorText.visible = false;
 	
 	let that = this;
