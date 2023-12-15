@@ -74,16 +74,16 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/users")
-	@ResponseStatus(HttpStatus.CREATED)
-	public User crearUsuario(@RequestBody User nuevoUsuario) {
+	//@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<User> crearUsuario(@RequestBody User nuevoUsuario) {
 		//Comprobar si ya existe el usuario.
 		if(userService.getUserByName(nuevoUsuario.getUsername()) == null) {
 			//El usuario no existe y se puede proceder a crear el usuario.
-			this.userService.createUser(nuevoUsuario);
+			User created_user = this.userService.createUser(nuevoUsuario);
 			this.userService.writeUsersToFile();
+			return new ResponseEntity<>(created_user, HttpStatus.CREATED);
 		}
-		
-		return nuevoUsuario;
+		return new ResponseEntity<>(HttpStatus.CONFLICT);
 	}
 	
 	
