@@ -71,3 +71,13 @@ function distanceBetweenPoints2D(point1, point2){
 	let len = Math.sqrt(delta);
 	return len;
 }
+
+
+function stringContains(str, arr){
+	for(let i = 0; i < arr.length; ++i){
+		if(str.includes(arr[i])){
+			return true;
+		}
+	}
+	return false;
+}
