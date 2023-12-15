@@ -10,6 +10,9 @@ function CredentialsBox(scene, isShort = false){
 	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache(this.isShort ? 'formularioRegistroCorto' : 'formularioRegistro');
 	this.credentialsBox = element;
 	
+	this.errorText = this.scene.add.text(config.width/2, config.height/2 + element.displayHeight/2, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
+	this.errorText.visible = false;
+	
 	let that = this;
 	element.setPerspective(800);
 	element.addListener('click');
@@ -30,38 +33,24 @@ function CredentialsBox(scene, isShort = false){
 			//1-The text boxes are not empty
 			//TODO: Prevent weird special characters such as '/'
 			//TODO: Don't close the box unless the request returned an OK status, aka in case of error keep the box open and notify the user of the error somehow (user already exists, invalid input, etc...)
+			
+			if(inputUsername.value === '' || inputPassword.value === '')
+			{
+				that.displayError("Los campos tienen que contener un valor.");
+			}
+			else
+			if(inputUsername.value.includes('/') || inputPassword.value.includes('/'))
+			{
+				that.displayError("Los campos contienen caracteres no válidos.");
+			}
+			else
 			if (inputUsername.value !== '' && inputPassword.value !== '')
 			{
-				//Disable click events from the form so that it can't be interacted during the animation.
-				this.removeListener('click');
-
-				//Use the tween to move the form out of view (the animation).
-				this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' });
-				this.scene.tweens.add({
-					targets: element, scaleX: 2, scaleY: 2, y: 700, duration: 3000, ease: 'Power3',
-					onComplete: function ()
-					{
-						element.setVisible(false);
-					}
-				});
-
 				//Make a request (most likely through ajax, but could be anything, even fully clientside dependant operations). The request is configured by the caller code.
 				that.requestFunction();
 			}
-			else
-			{
-				//Display some kind of error when the text is not valid (empty, already existing user, lacking info, net error, "some unknown error ocurred", internal server error, etc...)
-			}
 		}
 
-	});
-	
-	//Add a tween for the form to move (the animation).
-	this.scene.tweens.add({
-		targets: element,
-		y: 300,
-		duration: 3000,
-		ease: 'Power3'
 	});
 	
 }
@@ -84,4 +73,9 @@ CredentialsBox.prototype.getUsernameText = function() {
 
 CredentialsBox.prototype.getPasswordText = function() {
 	return this.credentialsBox.getChildByName('password').value;
+}
+
+CredentialsBox.prototype.displayError = function(errormsg) {
+	this.errorText.visible = true;
+	this.errorText.setText("ERROR: " + errormsg);
 }

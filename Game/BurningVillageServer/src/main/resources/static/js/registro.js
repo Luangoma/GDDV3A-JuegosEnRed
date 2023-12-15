@@ -44,6 +44,7 @@ class Registro extends DragonScene
 				
 			}).fail(function(data, textStatus, jqXHR) {
 				console.log("there was an error, could not add user to db.");
+				that.loginBox.displayError("No se ha podido crear la cuenta.");
 			});
 		});
 		

@@ -42,6 +42,7 @@ class DeleteAccount extends DragonScene
 				
 			}).fail(function(data, textStatus, jqXHR) {
 				console.log("the credentials given are not valid. Could not delete the account.");
+				that.loginBox.displayError("No se ha podido eliminar la cuenta.");
 			});
 		});
 		

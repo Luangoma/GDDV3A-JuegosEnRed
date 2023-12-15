@@ -89,3 +89,12 @@ var styleText_AncientFont_90 = {
 	stroke: 0x000,					// Color del contorno
 	strokeThickness: 4				// Grosor del contorno
 }
+
+var styleText_Generic_Text = {
+	fontFamily:'Arial',
+	fontSize:20,
+	fontWeight:'bold',
+	color:'#A00',
+	stroke: '#000',
+	strokeThickness:4
+};
