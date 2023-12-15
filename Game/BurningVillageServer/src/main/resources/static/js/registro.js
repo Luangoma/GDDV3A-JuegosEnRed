@@ -4,6 +4,8 @@ class Registro extends DragonScene
 	loginBox = {};
 	botonSalir = {};
 	
+	titulo = {};
+	
     preload() {
 		this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
         this.load.html('formularioRegistro', 'assets/formularioRegistro.html');
@@ -12,6 +14,7 @@ class Registro extends DragonScene
     create() {
 		
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
+		this.titulo = this.add.text(config.width/2, 40, 'Crear Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
 		
         const element = this.add.dom(config.width/2, config.height/2).createFromCache('formularioRegistro');
 		this.loginBox = element;
