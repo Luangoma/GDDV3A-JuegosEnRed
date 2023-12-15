@@ -92,9 +92,9 @@ var styleText_AncientFont_90 = {
 
 var styleText_Generic_Text = {
 	fontFamily:'Arial',
-	fontSize:20,
+	fontSize:16,
 	fontWeight:'bold',
-	color:'#A00',
+	color:'#FF2400',
 	stroke: '#000',
 	strokeThickness:4
 };
