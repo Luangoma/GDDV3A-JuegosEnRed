@@ -69,6 +69,7 @@ public class UserController {
 		}
 		System.out.println("User " + user.getUsername() + " successfully deleted their account.");
 		this.userService.deleteUser(id);
+		this.userService.writeUsersToFile();
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	

@@ -2,6 +2,7 @@ var game = new Phaser.Game(config);
 
 game.scene.add("Registro",Registro);
 game.scene.add("Login",Login);
+game.scene.add("DeleteAccount",DeleteAccount);
 
 
 game.scene.add("MainMenu",MainMenu);

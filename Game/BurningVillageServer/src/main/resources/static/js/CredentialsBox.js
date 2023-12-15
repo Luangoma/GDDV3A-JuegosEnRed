@@ -1,12 +1,13 @@
-function CredentialsBox(scene){
+function CredentialsBox(scene, isShort = false){
 	
 	this.scene = scene;
+	this.isShort = isShort;
 	this.credentialsBox = {};
 	this.requestFunction = function(){
 		console.log("NO REQUEST WAS CONFIGURED YET.");
 	};
 	
-	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache('formularioRegistro');
+	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache(this.isShort ? 'formularioRegistroCorto' : 'formularioRegistro');
 	this.credentialsBox = element;
 	
 	let that = this;
@@ -18,8 +19,12 @@ function CredentialsBox(scene){
 		//If the login button was pressed, process the user input and return it.
 		if (event.target.name === 'loginButton')
 		{
-			const inputUsername = this.getChildByName('username');
-			const inputPassword = this.getChildByName('password');
+			let inputUsername;
+			let inputPassword = this.getChildByName('password');
+			if(that.isShort){
+				inputUsername = {value: "nothing"};
+			}
+			inputUsername = this.getChildByName('password');
 
 			//Check if the user input is valid. Conditions for validity are:
 			//1-The text boxes are not empty
@@ -62,7 +67,8 @@ function CredentialsBox(scene){
 }
 
 function preloadCredentialsBoxData(scene){
-	scene.load.html('formularioRegistro', 'assets/formularioRegistro.html');
+	scene.load.html('formularioRegistro', './assets/formularioRegistro.html');
+	scene.load.html('formularioRegistroCorto', './assets/formularioRegistroCorto.html');
 }
 
 CredentialsBox.prototype.setRequest = function(request_fn){
@@ -70,6 +76,9 @@ CredentialsBox.prototype.setRequest = function(request_fn){
 }
 
 CredentialsBox.prototype.getUsernameText = function() {
+	if(this.isShort){
+		return "NO USERNAME";
+	}
 	return this.credentialsBox.getChildByName('username').value;
 }
 
