@@ -1,5 +1,8 @@
 function CredentialsBox(scene, isShort = false){
 	
+	this.illegalCharactersUsername = ['/', ' '];
+	this.illegalCharactersPassword = ['/', ' '];
+	
 	this.scene = scene;
 	this.isShort = isShort;
 	this.credentialsBox = {};
@@ -39,7 +42,7 @@ function CredentialsBox(scene, isShort = false){
 				that.displayError("Los campos tienen que contener un valor.");
 			}
 			else
-			if(inputUsername.value.includes('/') || inputPassword.value.includes('/'))
+			if(stringContains(inputUsername.value, that.illegalCharactersUsername) || stringContains(inputPassword.value, that.illegalCharactersPassword))
 			{
 				that.displayError("Los campos contienen caracteres no válidos.");
 			}
