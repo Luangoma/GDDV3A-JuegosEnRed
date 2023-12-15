@@ -89,7 +89,7 @@ class Registro extends DragonScene
 		this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
 		this.botonSalir.setButtonFunction(function(){
 			game.scene.stop("Registro");
-			game.scene.start("MainMenu");
+			game.scene.start("AccountMenu");
 		});
 		this.botonSalir.setCanBePressed(true);
 

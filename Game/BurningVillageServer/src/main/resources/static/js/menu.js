@@ -53,7 +53,7 @@ class MainMenu extends DragonScene
 		this.botonCuenta.setButtonFunction(function(){
 			console.log("Botón cuenta pulsado");
 			game.scene.stop('MainMenu');
-			game.scene.start("Registro");
+			game.scene.start("AccountMenu");
 		});
 		
 		this.botonSocial.setButtonFunction(function(){
