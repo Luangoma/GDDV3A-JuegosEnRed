@@ -21,6 +21,7 @@ class MainMenu extends DragonScene
 	
 	create()
 	{
+		stopSound(this);
 		enableSound(this);
 		
 		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!
