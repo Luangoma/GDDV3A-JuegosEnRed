@@ -1,4 +1,4 @@
-class Registro extends DragonScene
+class Login extends DragonScene
 {
     background = {};
 	loginBox = {};
@@ -15,7 +15,7 @@ class Registro extends DragonScene
     create() {
 		
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
-		this.titulo = this.add.text(config.width/2, 40, 'Crear Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
+		this.titulo = this.add.text(config.width/2, 40, 'Acceder a una Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
 		
 		this.loginBox = new CredentialsBox(this);
 		let that = this;
@@ -23,20 +23,19 @@ class Registro extends DragonScene
 			let usr = that.loginBox.getUsernameText();
 			let pwd = that.loginBox.getPasswordText();
 			//TODO: Remove this log in prod.
-			console.log("Created a new user: usr= " + usr + ", pwd= " + pwd);
+			console.log("Trying to log in with user credentials: usr= " + usr + ", pwd= " + pwd);
 			
 			$.ajax({
-				method: "POST",
-				url: ip.http + "/users",
-				data: JSON.stringify({username: usr, password: pwd}),
+				method: "GET",
+				url: ip.http + "/users/login/" + usr + "/" + pwd,
 				processData: false,
 				headers: {
 					"Content-type": "application/json"
 				}
 			}).done(function(data, textStatus, jqXHR) {
-				console.log("user was successfully added to the database.");
+				console.log("user has successfully logged in.");
 			}).fail(function(data, textStatus, jqXHR) {
-				console.log("there was an error, could not add user to db.");
+				console.log("the credentials given are not valid. Could not log in.");
 			});
 		});
 		

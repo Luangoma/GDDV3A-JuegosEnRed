@@ -27,7 +27,7 @@ class AccountMenu extends DragonScene
 		this.button_loginAccount.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("AccountMenu");
-			game.scene.start("MainMenu");
+			game.scene.start("Login");
 		});
 		this.button_loginAccount.setCanBePressed(true);
 		
