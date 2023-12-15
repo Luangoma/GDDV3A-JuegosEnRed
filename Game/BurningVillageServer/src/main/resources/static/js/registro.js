@@ -18,18 +18,25 @@ class Registro extends DragonScene
 		this.titulo = this.add.text(config.width/2, 40, 'Crear Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
 		
 		this.loginBox = new CredentialsBox(this);
+		let that = this;
 		this.loginBox.setRequest(function(){
+			let usr = that.loginBox.getUsernameText();
+			let pwd = that.loginBox.getPasswordText();
+			
+			console.log("Created a new user: usr= " + usr + ", pwd= " + pwd);
+			
 			$.ajax({
 				method: "POST",
 				url: ip.http + "/users",
-				data: JSON.stringify({id:0, username: "Soso43", password: "1234567890"}),
+				data: JSON.stringify({username: usr, password: pwd}),
 				processData: false,
 				headers: {
 					"Content-type": "application/json"
 				}
 			}).done(function(data, textStatus, jqXHR) {
-				console.log("ajax done");
+				console.log("user was successfully added to the database.");
 			}).fail(function(data, textStatus, jqXHR) {
+				console.log("there was an error, could not add user to db.");
 			});
 		});
 		
