@@ -27,7 +27,7 @@ function CredentialsBox(scene, isShort = false){
 			if(that.isShort){
 				inputUsername = {value: "nothing"};
 			}
-			inputUsername = this.getChildByName('password');
+			inputUsername = this.getChildByName('username');
 
 			//Check if the user input is valid. Conditions for validity are:
 			//1-The text boxes are not empty
