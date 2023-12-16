@@ -1,9 +1,15 @@
 package com.dragon.game.controllers;
 
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 public class PostService {		// PostService contiene 
@@ -12,17 +18,42 @@ public class PostService {		// PostService contiene
 	private String jsonFile;	// El fichero con los posts
 	private Long currentId = 0L;
 	
+	PostService(){	
+		this.jsonFile = "./default.json";	// Si no se da nombre de archivo utiliza un fichero generico que se asume vacío
+	}
 	PostService(String filename){
 		this.jsonFile = filename;
-		//this.readPostsFromFile();
+		this.readPostsFromFile();	// El objeto contendrá todos los post del archivo guardado en filename
 	}
 
 	public void addPost(Post post) {
-		//this.posts.add(post);			// Añade el post al final del arraylist
+		this.posts.add(post);			// Añade el post al final del arraylist
 	}
 	public void readPostsFromFile() {
-		// Implementar aquí como va a leer los posts del fichero
+		System.out.println("Reading existing posts data.");
+		JSONParser parser = new JSONParser();
+        try {
+            JSONArray a = (JSONArray) parser.parse(new FileReader(this.jsonFile));
+            for (Object o : a) {
+                JSONObject post_info = (JSONObject) o;
+
+                Long id = (Long) post_info.get("postId");
+                Long authorId = (Long) post_info.get("authorId");
+                String content = (String) post_info.get("postContent");
+                
+                Post post = new Post(id, authorId, content);
+                this.addPost(post);	// Añade el post al objeto postService
+                
+                this.currentId = Math.max(this.currentId, id);	
+                // nos quedamos con el id mas alto para seguir añadiendo posts en dicho orden de id
+            }
+        } catch (IOException | ParseException e) {
+            //e.printStackTrace();
+        	System.err.println("The specified file does not exist. Could not read existing post data.");
+        }
+        ++this.currentId;
 	}
+	
 	public void writePostsToFile() {
 		
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.jsonFile))){
@@ -39,9 +70,9 @@ public class PostService {		// PostService contiene
 			}
 			writer.write("]\n");
 			
-			System.out.println("SUCCESS: User data was saved successfully to " + this.jsonFile);
+			System.out.println("SUCCESS: Posts data was saved successfully to " + this.jsonFile);
 		} catch (IOException e) {
-			System.err.println("ERROR: Could not write user data to " + this.jsonFile);
+			System.err.println("ERROR: Could not write posts data to " + this.jsonFile);
 		}
 	}
 	public Post createPost(Post post) {
@@ -51,6 +82,9 @@ public class PostService {		// PostService contiene
 		++currentId;
 		
 		return post;
+	}
+	public void clearPosts() {
+		this.posts.clear();	// Borra todos los posts del arraylist
 	}
 	public ArrayList<Post> getAllPosts(){
 		//ArrayList<Post> data = new ArrayList<>(posts.size()); //arraylist can be empty if there are no users, but will always return.
