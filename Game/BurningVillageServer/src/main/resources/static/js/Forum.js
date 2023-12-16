@@ -100,7 +100,10 @@ class ForumScene extends DragonScene
 	
 	
 	getMessageString(id, name, msg){
-		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message';
+		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message'; //the class for the message div
+		if(id === -1){
+			chat_msg_type += " anonymous-message";
+		}
 		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + name + '</div><div class=\"text\">' + msg + '</div></div></div>';
 		return str;
 	}
@@ -231,7 +234,7 @@ class ForumScene extends DragonScene
 				return list[i].username;
 			}
 		}
-		return "/*UNKNOWN USER*/";
+		return "/*anonymous user*/";
 	}
 	
 }
