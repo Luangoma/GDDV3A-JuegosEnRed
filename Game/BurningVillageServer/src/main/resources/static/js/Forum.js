@@ -60,7 +60,7 @@ class ForumScene extends DragonScene
 						}
 					}).done(function(data, textStatus, jqXHR) {
 						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
-						that.addMessage(that.getMessageString(localUser.user.username, mensaje));
+						that.addMessage(that.getMessageString(localUser.user.id, localUser.user.username, mensaje));
 						that.scrollChat(); //always scroll to the bottom when the user sends a message.
 						
 						
@@ -99,8 +99,9 @@ class ForumScene extends DragonScene
 	}
 	
 	
-	getMessageString(name, msg){
-		let str = '<div class=\"message other-message\"><div><div class=\"name\">' + name + '</div><div class=\"text\">' + msg + '</div></div></div>';
+	getMessageString(id, name, msg){
+		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message';
+		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + name + '</div><div class=\"text\">' + msg + '</div></div></div>';
 		return str;
 	}
 	
@@ -185,7 +186,7 @@ class ForumScene extends DragonScene
 				let full_messages_str = "";
 				
 				for(let i = 0; i < data.length; ++i){
-					full_messages_str += that.getMessageString(that.getUsernameByIdFromList(obtained_users, data[i].authorId), data[i].postContent);
+					full_messages_str += that.getMessageString(data[i].authorId, that.getUsernameByIdFromList(obtained_users, data[i].authorId), data[i].postContent);
 				}
 				console.log(full_messages_str);
 				that.setMessages(full_messages_str);
