@@ -30,7 +30,8 @@ public class PostController {
 	@PostMapping(value = "/posts/new")
 	public void createPost(@RequestBody Post post) {
 		// El id enviado es irrelevante porque se genera en orden de llegada
-		this.postService.createPost(new Post(post.getPostId(),post.getAuthorId(), post.getPostContent()));
+		this.postService.createPost(post);
+		this.postService.writePostsToFile();
 	}
 	@GetMapping(value = "/posts/save")
 	public void PostWrite() {

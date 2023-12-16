@@ -25,15 +25,40 @@ class ForumScene extends DragonScene
 		element.on('click', function (event)
 		{
 
-			//If the login button was pressed, process the user input and return it.
-			if (event.target.name === 'loginButton')
+			//Botón de Enviar pulsado.
+			if (event.target.name === 'send-message')
 			{
-				let inputUsername = this.getChildByName('password');
+				console.log("Botón enviar pulsado.");
 
-				if (inputUsername.value !== '')
+				let mensaje = this.getChildByName('message-input').value;
+				console.log(mensaje);
+				console.log(localUser.user.id);
+				/*let inputUsername = this.getChildByName('password');*/
+
+				if (mensaje !== '')
 				{
-					//Make a request (most likely through ajax, but could be anything, even fully clientside dependant operations). The request is configured by the caller code.
-					that.requestFunction();
+					//Si hay mensaje, enviarlo por petición AJAX.
+					$.ajax({
+						method: "POST",
+						url: ip.http + "/posts/new",
+						data: JSON.stringify({postId: 1, authorId: 1, postContent: mensaje}),
+						processData: false,
+						headers: {
+							"Content-type": "application/json"
+						}
+					}).done(function(data, textStatus, jqXHR) {
+						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
+						/*
+						//login after registering:
+						localUser.logIn(data);
+						//exit the scene after registering:
+						game.scene.stop("Registro");
+						game.scene.start("AccountMenu");*/
+						
+					}).fail(function(data, textStatus, jqXHR) {
+						console.log("Error, no se ha añadido el mensaje al servidor.");
+						//that.loginBox.displayError("No se ha podido crear la cuenta.");
+					});
 				}
 			}
 
