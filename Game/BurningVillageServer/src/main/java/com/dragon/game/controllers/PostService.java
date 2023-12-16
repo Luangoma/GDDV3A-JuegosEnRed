@@ -10,17 +10,18 @@ public class PostService {		// PostService contiene
 	
 	private final ArrayList<Post> posts = new ArrayList<Post>();
 	private String jsonFile;	// El fichero con los posts
+	private Long currentId = 0L;
 	
 	PostService(String filename){
 		this.jsonFile = filename;
-		this.readPostsFromFile();
+		//this.readPostsFromFile();
 	}
 
 	public void addPost(Post post) {
-		this.posts.add(post);			// Añade el post al final del arraylist
+		//this.posts.add(post);			// Añade el post al final del arraylist
 	}
 	public void readPostsFromFile() {
-		
+		// Implementar aquí como va a leer los posts del fichero
 	}
 	public void writePostsToFile() {
 		
@@ -43,6 +44,14 @@ public class PostService {		// PostService contiene
 			System.err.println("ERROR: Could not write user data to " + this.jsonFile);
 		}
 	}
+	public Post createPost(Post post) {
+		post.setPostId(currentId);
+		this.posts.add(new Post(post.getPostId(), post.getAuthorId(), post.getPostContent()));
+		
+		++currentId;
+		
+		return post;
+	}
 	public ArrayList<Post> getAllPosts(){
 		//ArrayList<Post> data = new ArrayList<>(posts.size()); //arraylist can be empty if there are no users, but will always return.
 			//for(Post u : posts) {
@@ -50,6 +59,6 @@ public class PostService {		// PostService contiene
 			//	data.add(new_post);
 			//}
 			//return data;
-		return posts;	// Devuelve una copia del array de usuarios
+		return this.posts;	// Devuelve una copia del array de usuarios
 	}
 }

@@ -2,16 +2,26 @@ package com.dragon.game.controllers;
 
 public class Post {
 	
+	private Long postId;
 	private Long authorId;	// Id del autor del post
 	private String content;	// Contenido del post
 	
-	public Post(Long id, String content) {
-		this.authorId = id;		
+	public Post(Long postId, Long authorId, String content) {
+		this.postId = postId;
+		this.authorId = authorId;		
 		this.content = content;	
 	}
+	//public Post(Long authorId, String content) {	// Si no se quiere usar id en el post
+	//	this.authorId = authorId;		
+	//	this.content = content;	
+	//}
 	
-	public Long getId() {
+	public Long getAuthorId() {
 		return this.authorId;
+	}
+	
+	public Long getPostId() {
+		return this.postId;
 	}
 	
 	public String getPostContent() {
@@ -19,8 +29,12 @@ public class Post {
 	}
 	
 	
-	public void setId(Long id) {
+	public void setAuthorId(Long id) {
 		this.authorId = id;
+	}
+	
+	public void setPostId(Long id) {
+		this.postId = id;
 	}
 	
 	public void setPostContent(String content) {
@@ -29,7 +43,7 @@ public class Post {
 	
 	
 	public String serializePost() {
-		String ans = "{\"authorId\": " + this.authorId + ", \"post\": \"" + this.content + "\"}";
+		String ans = "{\"postId\": " + this.postId + ", \"authorId\": \"" + this.authorId + ", \"post\": \"" + this.content + "\"}";
 		return ans;
 	}
 	

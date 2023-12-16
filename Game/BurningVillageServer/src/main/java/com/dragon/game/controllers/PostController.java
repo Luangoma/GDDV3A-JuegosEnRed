@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PostController {
 	
-	private final PostService postService = new PostService("./posts.json");
+	private final PostService postService = new PostService("./posteos.json");
 	
 	@GetMapping(value = "/posts")
 	public ArrayList<Post>getAllPosts() {
 		return this.postService.getAllPosts();
 	}
-	
+	@GetMapping(value = "/testPosts")
+	public void createTestPosts() {
+		this.postService.createPost(new Post(0L,0L, "Pepito"));
+	}
 	
 }
