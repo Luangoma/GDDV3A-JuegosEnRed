@@ -32,7 +32,7 @@ public class PostController {
 		// El id enviado es irrelevante porque se genera en orden de llegada
 		this.postService.createPost(new Post(post.getPostId(),post.getAuthorId(), post.getPostContent()));
 	}
-	@GetMapping(value = "/savePosts")
+	@GetMapping(value = "/posts/save")
 	public void PostWrite() {
 		this.postService.writePostsToFile();	// Escribe todos los datos al fichero permanentemente
 	}
