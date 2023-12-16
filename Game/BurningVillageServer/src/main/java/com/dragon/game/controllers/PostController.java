@@ -17,23 +17,46 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 	
 	// El objeto postService leerá en su constructor el fichero que indicamos en forma de string
-	private final PostService postService = new PostService("./posteos.json");	
+	private final PostService postService = new PostService("./posteos.json");
 	private final String password = "173467321476-C-32789777643-T-732-V-73117888732476789764376-LOCK";
 	
+	//Obtener todos los posts
 	@GetMapping(value = "/posts")
 	public ArrayList<Post>getAllPosts() {
 		return this.postService.getAllPosts();
 	}
+	
+	//Subir un post
+	@PostMapping(value = "/posts/new")
+	public ResponseEntity<Post> createPost(@RequestBody Post post) {
+		// El id enviado es irrelevante porque se genera en orden de llegada
+		this.postService.createPost(post);
+		this.postService.writePostsToFile();
+		return new ResponseEntity<>(post, HttpStatus.CREATED);
+	}
+	
+	//Obtener un post
+	@GetMapping(value = "/posts/{id}")
+	public ResponseEntity<Post> getPost(@PathVariable Long id) {
+		Post p = this.postService.getPostById(id);
+		if(p == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(p, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	//TESTING AND ADMIN CONTROLS:
+	
 	@GetMapping(value = "/testPosts")
 	public void createTestPosts() {
 		this.postService.createPost(new Post(0L,0L, "Nuevo titulo"));
 	}
-	@PostMapping(value = "/posts/new")
-	public void createPost(@RequestBody Post post) {
-		// El id enviado es irrelevante porque se genera en orden de llegada
-		this.postService.createPost(post);
-		this.postService.writePostsToFile();
-	}
+	
 	@GetMapping(value = "/posts/save")
 	public void PostWrite() {
 		this.postService.writePostsToFile();	// Escribe todos los datos al fichero permanentemente

@@ -100,12 +100,11 @@ public class PostService {		// PostService contiene
 	
 	public Post createPost(Post post) {
 		post.setPostId(currentId);
-		this.posts.add(new Post(post.getPostId(), post.getAuthorId(), post.getPostContent()));
-		
+		this.posts.add(post);
 		++currentId;
-		
 		return post;
 	}
+	
 	public void clearPosts() {
 		this.posts.clear();	// Borra todos los posts del arraylist
 	}
