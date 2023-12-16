@@ -1,0 +1,190 @@
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'pixel_sans_serif';
+        color: #162938;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .app {
+        position: relative;
+        width: 600px;
+        height: 350px;
+        max-width: 600px;
+        background: transparent;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+        border: 2px solid rgba(255, 255, 255, .5);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .app>.screen.active {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .chat-screen .header {
+        background: transparent;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px 20px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .chat-screen .header .logo {
+        font-size: 2em;
+        font-family: 'medieval-pixel';
+        color: #162938;
+        font-weight: 600;
+    }
+
+    .chat-screen .messages {
+        width: 100%;
+        height: calc(100% - 100px);
+        background: transparent;
+        overflow: auto;
+    }
+
+    .chat-screen .messages .message {
+        display: flex;
+        padding: 10px;
+    }
+
+    .chat-screen .messages .message>div {
+        max-width: 80%;
+        background: #fff;
+        box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+    }
+
+    .chat-screen .messages .message.my-message {
+        justify-content: flex-end;
+    }
+
+    .chat-screen .messages .message.other-message {
+        justify-content: flex-start;
+    }
+
+    .chat-screen .messages .message .name {
+        font-size: 9px;
+        color: #555;
+        margin-bottom: 5px;
+    }
+
+    .chat-screen .messages .message .text {
+        word-wrap: break-word;
+    }
+
+    .chat-screen .messages .update {
+        text-align: center;
+        padding: 10px;
+        font-style: italic;
+    }
+
+    .chat-screen .typebox {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        padding: 10px;
+    }
+
+    .chat-screen .typebox input {
+        flex: 1;
+        height: 100%;
+        font-size: 18px;
+        /*border-radius: 0 0 0 20px;*/
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #162938;
+        font-family: 'pixel_sans_serif';
+        padding: 0 5px 0 5px;
+    }
+
+    .chat-screen .typebox button {
+        width: 80px;
+        height: 100%;
+        background: #162938;
+        color: #eee;
+        font-family: 'pixel_sans_serif';
+        font-size: 12px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        margin-left: 5px;
+        transition: 0.3s;
+    }
+
+    .chat-screen .typebox button:hover {
+        border: 8px solid transparent;
+        background: red url(/assets/efectoboton.png);
+        transition-delay: 0.8s;
+        background-size: 100%;
+        -webkit-animation: animate 0.8s steps(8) forwards;
+        animation: animate 0.8s steps(8) forwards;
+    }
+
+    @keyframes animate {
+        0% {
+            background-position-y: 0;
+        }
+
+        100% {
+            background-position-y: -200px;
+        }
+    }
+
+    @-webkit-keyframes animate {
+        0% {
+            background-position-y: 0;
+        }
+
+        100% {
+            background-position-y: -200px;
+        }
+    }
+</style>
+
+<div class="app">
+    <div class="screen chat-screen active">
+        <div class="header">
+            <div class="logo">Chat</div>
+        </div>
+        <div class="messages">
+            <!--Mensajes de prueba-->
+            <div class="message my-message">
+                <div>
+                    <div class="name">You</div>
+                    <div class="text">Hi</div>
+                </div>
+            </div>
+            <div class="update">
+                Abc se ha unido a la conversación
+            </div>
+            <div class="message other-message">
+                <div>
+                    <div class="name">Abc</div>
+                    <div class="text">Hi</div>
+                </div>
+            </div>
+        </div>
+        <div class="typebox">
+            <input type="text" id="message-input">
+            <button id="send-message">Enviar</button>
+        </div>
+    </div>
+</div>
