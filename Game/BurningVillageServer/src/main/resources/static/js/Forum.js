@@ -7,7 +7,7 @@ class ForumScene extends DragonScene
     preload() {
         // Precarga del background con efecto de blur.
         this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
-		this.load.html('cajaForo', './assets/cajaForo.html');
+		this.load.html('cajaForo', './assets/foro.html');
     }
 
     create() {
