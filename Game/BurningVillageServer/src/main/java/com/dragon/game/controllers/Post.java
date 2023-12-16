@@ -43,7 +43,7 @@ public class Post {
 	
 	
 	public String serializePost() {
-		String ans = "{\"postId\": " + this.postId + ", \"authorId\": \"" + this.authorId + ", \"post\": \"" + this.content + "\"}";
+		String ans = "{\"postId\": " + this.postId + ", \"authorId\": " + this.authorId + ", \"postContent\": \"" + this.content + "\"}";
 		return ans;
 	}
 	
