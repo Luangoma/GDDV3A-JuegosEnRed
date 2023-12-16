@@ -1,6 +1,6 @@
 function CredentialsBox(scene, isShort = false){
 	
-	this.illegalCharactersUsername = ['/', ' '];
+	this.illegalCharactersUsername = ['/', ' ', '<', '>', '&'];
 	this.illegalCharactersPassword = ['/', ' '];
 	
 	this.scene = scene;
