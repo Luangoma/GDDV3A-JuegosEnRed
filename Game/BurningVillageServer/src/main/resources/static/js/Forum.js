@@ -6,6 +6,7 @@ class ForumScene extends DragonScene
 	messages_box_div = null;
 	
 	accumulated_time = 0;
+	seconds_per_petition = 2; //makes the petitions every N seconds.
 
     preload() {
         // Precarga del background con efecto de blur.
@@ -20,6 +21,7 @@ class ForumScene extends DragonScene
 		//reset the timer to 0:
 		this.accumulated_time = 0;
 		
+		//setup the chat element:
 		const element = this.add.dom(config.width/2, config.height/2).createFromCache('cajaForo');
 		this.ForumChat = element;
 		
@@ -39,7 +41,7 @@ class ForumScene extends DragonScene
 				
 				let msg_input_box = this.getChildByName('message-input');
 				let mensaje = msg_input_box.value;
-				msg_input_box.value = "";
+				msg_input_box.value = ""; //empty the user's text prompt when they send a message.
 				
 				
 				console.log(mensaje);
@@ -59,7 +61,7 @@ class ForumScene extends DragonScene
 					}).done(function(data, textStatus, jqXHR) {
 						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
 						that.addMessage(that.getMessageString(localUser.user.username, mensaje));
-						that.scrollChat();
+						that.scrollChat(); //always scroll to the bottom when the user sends a message.
 						
 						
 					}).fail(function(data, textStatus, jqXHR) {
@@ -70,6 +72,11 @@ class ForumScene extends DragonScene
 			}
 
 		});
+		
+		
+		//get the chat list a first time and force a scroll to the bottom:
+		this.getMessagesFromServer(true);
+		
 		
         // Botón para volver al menu anterior.
         this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
@@ -83,31 +90,9 @@ class ForumScene extends DragonScene
 	update(time, delta)
 	{
 		let that = this;
-		let N_sec = 2; //makes the petitions every N seconds.
-		//if the accumulated wait time is greater than 1000 * N seconds, make a petition to get all of the new messages that were not on screen, just in case other users have sent messages.
-		if(this.accumulated_time > 1000 * N_sec){
-			$.ajax({
-				url: ip.http + '/posts',
-				method: 'GET',
-				processData: false,
-				headers: {
-					"Content-type": "application/json"
-				}
-			}).done(function(data, status, xhr){
-				console.log(data);
-				let full_messages_str = "";
-				
-				for(let i = 0; i < data.length; ++i){
-					full_messages_str += that.getMessageString("user", data[i].postContent);
-				}
-				console.log(full_messages_str);
-				that.setMessages(full_messages_str);
-				that.scrollChat();
-				
-			}).fail(function(xhr, status, error){
-				//do nothing for now...
-			});
-			
+		//if the accumulated wait time is greater than N seconds, make a petition to get all of the new messages that were not on screen, just in case other users have sent messages.
+		if(this.accumulated_time > 1000 * this.seconds_per_petition){
+			this.getMessagesFromServer(this.shouldScroll());
 			this.accumulated_time = 0;
 		}
 		this.accumulated_time += delta;
@@ -130,4 +115,44 @@ class ForumScene extends DragonScene
 	scrollChat(){
 		this.messages_box_div.scrollTop = this.messages_box_div.scrollHeight;
 	}
+	
+	shouldScroll(){
+		//threshold space for auto scrolling.
+		const threshold = 150;
+		//Remaining space from the bottom.
+		let remainingSpace = this.messages_box_div.scrollHeight - this.messages_box_div.scrollTop - this.messages_box_div.clientHeight;
+		//Check if the remaining space is within the threshold, so that we can determine whether the user wants to auto scroll to the bottom or not (they might not want to auto scroll if they are reading old posts for example).
+		console.log("the remaining space is : " + remainingSpace);
+		return remainingSpace < threshold;
+	}
+	
+	getMessagesFromServer(should_scroll){
+		let that = this;
+		$.ajax({
+			url: ip.http + '/posts',
+			method: 'GET',
+			processData: false,
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).done(function(data, status, xhr){
+			console.log(data);
+			let full_messages_str = "";
+			
+			for(let i = 0; i < data.length; ++i){
+				full_messages_str += that.getMessageString("user", data[i].postContent);
+			}
+			console.log(full_messages_str);
+			that.setMessages(full_messages_str);
+			//scroll to the bottom only if the user is within the scrolling threshold (aka, they are near the bottom of the chat)
+			if(should_scroll){
+				that.scrollChat();
+			}
+			
+		}).fail(function(xhr, status, error){
+			//do nothing for now...
+		});
+	}
+	
+
 }
