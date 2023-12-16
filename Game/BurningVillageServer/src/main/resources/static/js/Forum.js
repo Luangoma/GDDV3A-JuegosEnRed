@@ -19,6 +19,9 @@ class ForumScene extends DragonScene
 		const element = this.add.dom(config.width/2, config.height/2).createFromCache('cajaForo');
 		this.credentialsBox = element;
 		
+		let messages_box_div = element.node.querySelector('#forum-messages-box');
+		console.log(messages_box_div);
+		
 		let that = this;
 		element.setPerspective(800);
 		element.addListener('click');
@@ -29,11 +32,14 @@ class ForumScene extends DragonScene
 			if (event.target.name === 'send-message')
 			{
 				console.log("Botón enviar pulsado.");
-
-				let mensaje = this.getChildByName('message-input').value;
+				
+				let msg_input_box = this.getChildByName('message-input');
+				let mensaje = msg_input_box.value;
+				msg_input_box.value = "";
+				
+				
 				console.log(mensaje);
 				console.log(localUser.user.id);
-				/*let inputUsername = this.getChildByName('password');*/
 
 				if (mensaje !== '')
 				{
@@ -48,12 +54,7 @@ class ForumScene extends DragonScene
 						}
 					}).done(function(data, textStatus, jqXHR) {
 						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
-						/*
-						//login after registering:
-						localUser.logIn(data);
-						//exit the scene after registering:
-						game.scene.stop("Registro");
-						game.scene.start("AccountMenu");*/
+						messages_box_div.innerHTML += that.getMessageString(localUser.user.username, mensaje);
 						
 					}).fail(function(data, textStatus, jqXHR) {
 						console.log("Error, no se ha añadido el mensaje al servidor.");
@@ -72,4 +73,11 @@ class ForumScene extends DragonScene
 		});
 		this.botonSalir.setCanBePressed(true);
     }
+	
+	
+	getMessageString(name, msg){
+		let str = '<div class=\"message other-message\"><div><div class=\"name\">' + name + '</div><div class=\"text\">' + msg + '</div></div></div>';
+		return str;
+	}
+	
 }
