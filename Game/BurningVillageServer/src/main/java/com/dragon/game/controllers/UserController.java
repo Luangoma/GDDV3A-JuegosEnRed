@@ -21,9 +21,21 @@ public class UserController {
 	private final UserService userService = new UserService("./some_file.json");
 	private final String password = "173467321476-C-32789777643-T-732-V-73117888732476789764376-LOCK";
 	
+	//Get list of all users
 	@GetMapping(value = "/users")
 	public List<User>getAllUsers() {
 		return this.userService.getAllUsers(false);
+	}
+	
+	//Get a single user by id
+	@GetMapping(value = "/users/{id}")
+	public ResponseEntity<User>getAllUsers(@PathVariable Long id) {
+		User ans = this.userService.getUserById(id);
+		if(ans == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		ans = new User(ans.getId(), ans.getUsername(), "***");
+		return new ResponseEntity<>(ans, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/ADMIN/users/{pwd}")

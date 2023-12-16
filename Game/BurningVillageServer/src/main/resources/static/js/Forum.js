@@ -53,7 +53,7 @@ class ForumScene extends DragonScene
 					$.ajax({
 						method: "POST",
 						url: ip.http + "/posts/new",
-						data: JSON.stringify({postId: 1, authorId: 1, postContent: mensaje}),
+						data: JSON.stringify({postId: 1, authorId: localUser.user.id, postContent: mensaje}),
 						processData: false,
 						headers: {
 							"Content-type": "application/json"
@@ -126,6 +126,7 @@ class ForumScene extends DragonScene
 		return remainingSpace < threshold;
 	}
 	
+	/*
 	getMessagesFromServer(should_scroll){
 		let that = this;
 		$.ajax({
@@ -140,7 +141,7 @@ class ForumScene extends DragonScene
 			let full_messages_str = "";
 			
 			for(let i = 0; i < data.length; ++i){
-				full_messages_str += that.getMessageString("user", data[i].postContent);
+				full_messages_str += that.getMessageString(that.getUsernameById(data[i].authorId), data[i].postContent);
 			}
 			console.log(full_messages_str);
 			that.setMessages(full_messages_str);
@@ -153,6 +154,83 @@ class ForumScene extends DragonScene
 			//do nothing for now...
 		});
 	}
+	*/
 	
-
+	
+	getMessagesFromServer(should_scroll){
+		let that = this;
+		
+		//obtain all the users
+		$.ajax({
+			url: ip.http + '/users',
+			method: 'GET',
+			processData: false,
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).done(function(users_data, status, xhr){
+			
+			let obtained_users = users_data;
+			
+			//obtain all the messages
+			$.ajax({
+				url: ip.http + '/posts',
+				method: 'GET',
+				processData: false,
+				headers: {
+					"Content-type": "application/json"
+				}
+			}).done(function(data, status, xhr){
+				console.log(data);
+				let full_messages_str = "";
+				
+				for(let i = 0; i < data.length; ++i){
+					full_messages_str += that.getMessageString(that.getUsernameByIdFromList(obtained_users, data[i].authorId), data[i].postContent);
+				}
+				console.log(full_messages_str);
+				that.setMessages(full_messages_str);
+				//scroll to the bottom only if the user is within the scrolling threshold (aka, they are near the bottom of the chat)
+				if(should_scroll){
+					that.scrollChat();
+				}
+				
+			}).fail(function(xhr, status, error){
+				//do nothing for now...
+			});
+			
+			
+		}).fail(function(xhr, status, error){
+			//do nothing for now...
+		});
+		
+		
+		
+	}
+	
+	
+	getUsernameById(id){
+		$.ajax({
+			url: ip.http + '/users/' + id,
+			method: 'GET',
+			processData: false,
+			headers: {
+				"Content-type": "application/json"
+			}
+		}).done(function(data, status, xhr){
+			console.log("the user is : " + data.username);
+			return data.username;
+		}).fail(function(xhr, status, error){
+			return 'UNKNOWN_USERNAME';
+		});
+	}
+	
+	getUsernameByIdFromList(list, id){
+		for(let i = 0; i < list.length; ++i){
+			if(list[i].id === id){
+				return list[i].username;
+			}
+		}
+		return "/*UNKNOWN USER*/";
+	}
+	
 }
