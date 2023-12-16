@@ -75,6 +75,29 @@ public class PostService {		// PostService contiene
 			System.err.println("ERROR: Could not write posts data to " + this.jsonFile);
 		}
 	}
+	
+	public Post getPostById(Long id) {		// Devuelve un post en función de su id
+		for (Post post : posts) {		// Muy ineficiente porque recorre todos los posts pero sirve
+	        if (post.getPostId().equals(id)) {
+	            return post;
+	        }
+	    }
+		return null; //check for null in the REST API and return 404.
+	}
+	
+	public Boolean deletePostById(Long id) {		// Devuelve un post en función de su id
+		int index=0;
+		for (Post post : posts) {		
+	        if (post.getPostId().equals(id)) {
+	        	posts.remove(index);	// Eliminamos el post eliminando del array el bloque que usa el indice calculado
+	            return true;
+	        }
+	        index++;	// Llevamos la cuenta de la posición del arraylist por la que vamos para eliminarla si se requiere
+	    }
+		return false; //check for null in the REST API and return 404.
+	}
+	
+	
 	public Post createPost(Post post) {
 		post.setPostId(currentId);
 		this.posts.add(new Post(post.getPostId(), post.getAuthorId(), post.getPostContent()));
