@@ -8,6 +8,7 @@ class PlayerListScene extends DragonScene
 	playersList = [];
 	playersTextList = [];
 	playersLeftSqureList = [];
+	playersBackgroundsList = [];
 	users_per_page = 10;
 	
 	botonSalir = {};
@@ -27,6 +28,8 @@ class PlayerListScene extends DragonScene
 		this.load.image('stone_button', './assets/StoneButton01.png');
 		this.load.image('stone_button_right', './assets/StoneButton02.png');
 		this.load.image('stone_button_left', './assets/StoneButton03.png');
+		
+		this.load.image('background_slice', './assets/progress_bar/progress_bar_default_middle.png');
 	}
 	
 	create()
@@ -35,6 +38,7 @@ class PlayerListScene extends DragonScene
 		this.playersList = [];
 		this.playersTextList = [];
 		this.playersLeftSqureList = [];
+		this.playersBackgroundsList = [];
 		this.currentPage = 0;
 		this.obtained_any_users = false;
 		
@@ -48,7 +52,7 @@ class PlayerListScene extends DragonScene
 		//get all the users on the server and update the text list.
 		this.getAllUsers();
 		
-		this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+		this.botonSalir = new Button(this, /*config.width - 150*/ config.width/2, config.height - 50, "Volver");
 		this.botonSalir.setButtonFunction(function(){
 			game.scene.stop("PlayerListScene");
 			game.scene.start("SocialMenu");
@@ -118,9 +122,19 @@ class PlayerListScene extends DragonScene
 	{
 		for(let i = 0; i < this.users_per_page; ++i)
 		{
+			//create the users backgrounds
+			let currentBg = this.add.image(200,170 + 30 * i, 'background_slice').setOrigin(0,0);
+			currentBg.displayHeight = 25;
+			currentBg.displayWidth = 400;
+			currentBg.setTint(i % 2 === 0 ? 0xFFFFFF : 0xAAAAAA);
+			currentBg.visible = false;
+			this.playersBackgroundsList.push(currentBg);
+			
+			//create the user texts
 			let currentText = this.add.text(250, 170 + 30 * i, " ", styleText_MedievalPixel_30).setOrigin(0,0);
 			this.playersTextList.push(currentText);
 			
+			//create the user left side interact squares
 			let currentImage = this.add.image(200,170 + 30 * i, 'stone_button').setOrigin(0,0).setScale(0.5);
 			currentImage.visible = false;
 			this.playersLeftSqureList.push(currentImage);
@@ -141,6 +155,7 @@ class PlayerListScene extends DragonScene
 		{
 			this.playersTextList[i].setText(" ");
 			this.playersLeftSqureList[i].visible = false;
+			this.playersBackgroundsList[i].visible = false;
 		}
 	}
 	
@@ -156,6 +171,7 @@ class PlayerListScene extends DragonScene
 		{
 			this.playersTextList[i].setText(this.playersList[i + this.users_per_page * this.currentPage].username);
 			this.playersLeftSqureList[i].visible = true;
+			this.playersBackgroundsList[i].visible = true;
 		}
 	}
 }
