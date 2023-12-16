@@ -59,6 +59,7 @@ class ForumScene extends DragonScene
 					}).done(function(data, textStatus, jqXHR) {
 						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
 						that.addMessage(that.getMessageString(localUser.user.username, mensaje));
+						that.scrollChat();
 						
 						
 					}).fail(function(data, textStatus, jqXHR) {
@@ -101,6 +102,7 @@ class ForumScene extends DragonScene
 				}
 				console.log(full_messages_str);
 				that.setMessages(full_messages_str);
+				that.scrollChat();
 				
 			}).fail(function(xhr, status, error){
 				//do nothing for now...
@@ -125,4 +127,7 @@ class ForumScene extends DragonScene
 		this.messages_box_div.innerHTML += message_string;
 	}
 	
+	scrollChat(){
+		this.messages_box_div.scrollTop = this.messages_box_div.scrollHeight;
+	}
 }
