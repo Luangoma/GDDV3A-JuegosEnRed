@@ -100,8 +100,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "/users/{id}/{pwd}")
-	public ResponseEntity<User> changePassword(@PathVariable Long id, @PathVariable String pwd, 
-			@RequestBody String newPwd) {
+	public ResponseEntity<User> changePassword(@PathVariable Long id, @PathVariable String pwd, @RequestBody String newPwd) {
 		User user = this.userService.getUserById(id);
 		if (!checkUserCredentials(user, pwd)) {
 			System.out.println("User " + user + " has tried to change the password (fail)");
@@ -110,6 +109,7 @@ public class UserController {
 		user.setPassword(newPwd);
 		this.userService.updateUser(user.getId(), user);
 		System.out.println("User " + user + " has changed the password (succesfully)");
+		this.userService.writeUsersToFile();
 		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 	
