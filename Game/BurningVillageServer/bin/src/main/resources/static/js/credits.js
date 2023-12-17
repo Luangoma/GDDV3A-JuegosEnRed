@@ -26,8 +26,6 @@ class Credits extends Phaser.Scene
         // Píxeles de separación entre cada texto.
         let separacionTexto = 60;
 
-        // setOrigin(1) hace que el origen del texto esté a su derecha, setOrigin(0) a su izquierda.
-
         // Título 'Créditos'
         this.titulo = this.add.text(xTitulo, yTitulo, 'Créditos', styleText_AncientFont_90).setOrigin(1).setScale(1);
 
@@ -37,24 +35,20 @@ class Credits extends Phaser.Scene
         this.nombre3 = this.add.text(xTitulo, yTitulo + separacionTexto * 3, 'Luis Antonio González Martínez', styleText_PixelSansSerif_18).setOrigin(1);
         this.nombre4 = this.add.text(xTitulo, yTitulo + separacionTexto * 4, 'Juan Alessandro Vázquez Bustos', styleText_PixelSansSerif_18).setOrigin(1);
 
-        // Se coloca el boton en la esquina inferior derecha
-        this.botonSalir = this.add.image(config.width - config.width / 5, config.height - 60, 'botonSalir').setScale(0.5);
-        // Hacemos el boton interactivo
-        this.botonSalir.setInteractive();
-        // Al pulsar el boton salir, se vuelve al menu principal
-        this.botonSalir.on('pointerdown', function (pointer) {
-            console.log("Botón salir pulsado");
-            // Salir del juego, en este caso, cerrar la pestaña
-            game.scene.stop('Credits');
-            game.scene.start("MainMenu");
-        });
+        // Botón para volver al menu principal.
+        this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+		this.botonSalir.setButtonFunction(function(){
+			game.scene.stop("Credits");
+			game.scene.start("MainMenu");
+		});
+		this.botonSalir.setCanBePressed(true);
     }
 
     update(time, delta) 
     {
         //console.log('Credits');
     }
-    /**/
+	
     shutdown() 
     {
         super.shutdown();
@@ -69,5 +63,5 @@ class Credits extends Phaser.Scene
         this.nombre4 = {};
         this.botonSalir = {};
         super.destroy();
-    }//*/
+    }
 }   

@@ -7,6 +7,12 @@ var world_tiles_height = 20;
 var world_width = 128 * world_tiles_width;
 var world_height = 128 * world_tiles_height;
 
+//IP del servidor.
+let ip = {
+	http: "http://" + location.host,
+	ws: "ws://" + location.host
+};
+
 /*
 var world_width = 2048;
 var world_height = 2048;
@@ -83,3 +89,12 @@ var styleText_AncientFont_90 = {
 	stroke: 0x000,					// Color del contorno
 	strokeThickness: 4				// Grosor del contorno
 }
+
+var styleText_Generic_Text = {
+	fontFamily:'Arial',
+	fontSize:16,
+	fontWeight:'bold',
+	color:'#FF2400',
+	stroke: '#000',
+	strokeThickness:4
+};

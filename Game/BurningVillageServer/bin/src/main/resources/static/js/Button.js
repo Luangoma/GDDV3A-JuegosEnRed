@@ -1,4 +1,4 @@
-function Button(scene, x, y, text = "Button Text", scale = 0.5, text_scale = 0.5, image = 'boton_vacio', fn = function() {console.log("Acción por defecto...");}){
+function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale = 0.5, text_scale = 0.5, fn = function() {console.log("Acción por defecto...");}){
 	this.scene = scene;
 	this.x = x;
 	this.y = y;
@@ -44,7 +44,9 @@ function preloadButtonData(scene){
 	scene.load.svg('botonAjustes', 'assets/botonAjustes.svg');
 	scene.load.svg('botonCreditos', 'assets/botonCreditos.svg');
 	scene.load.svg('botonContinuar', 'assets/botonContinuar.svg');
+	
 	scene.load.svg('boton_vacio', './assets/boton_vacio.svg');
+	scene.load.svg('boton_vacio_largo', './assets/boton_vacio_largo.svg');
 	
 	scene.load.audio("sound_ui_hover", ["./sounds/menu/sound_ui_hover.wav"]);
 	scene.load.audio("sound_ui_click", ["./sounds/menu/sound_ui_click.wav"]);

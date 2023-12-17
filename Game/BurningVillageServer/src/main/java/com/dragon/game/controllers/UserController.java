@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -98,7 +99,19 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.CONFLICT);
 	}
 	
-	
+	@PutMapping(value = "/users/{id}/{pwd}")
+	public ResponseEntity<User> changePassword(@PathVariable Long id, @PathVariable String pwd, 
+			@RequestBody String newPwd) {
+		User user = this.userService.getUserById(id);
+		if (!checkUserCredentials(user, pwd)) {
+			System.out.println("User " + user + " has tried to change the password (fail)");
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+		}
+		user.setPassword(newPwd);
+		this.userService.updateUser(user.getId(), user);
+		System.out.println("User " + user + " has changed the password (succesfully)");
+		return new ResponseEntity<>(user,HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/users/login/{usr}/{pwd}") //This really should be a POST to hide the login data from the URL, but bureaucracy wins...
 	public ResponseEntity<User> loginRequest(@PathVariable String usr, @PathVariable String pwd) {

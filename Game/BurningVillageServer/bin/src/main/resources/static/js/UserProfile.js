@@ -1,6 +1,5 @@
 class UserProfile extends DragonScene
 {
-	button_change_password = {};
 	button_delete_account = {};
 	button_log_out = {};
 	button_back = {};
@@ -19,13 +18,6 @@ class UserProfile extends DragonScene
 		
 		this.titulo = this.add.text(config.width/2, 40, 'Cuenta: ' + localUser.user.username, styleText_AncientFont_90).setOrigin(.5,0).setScale(0.5);
 		
-		this.button_change_password = new Button(this, config.width/2, config.height/5 + 100 * 1 , "Cambiar contraseña",);
-		this.button_change_password.setButtonFunction(function(){
-			game.scene.stop("UserProfile");
-			game.scene.start("UpdateUser");
-		});
-		this.button_change_password.setCanBePressed(true);
-
 		this.button_delete_account = new Button(this, config.width/2, config.height/5 + 100 * 2 , "Eliminar");
 		this.button_delete_account.setButtonFunction(function(){
 			game.scene.stop("UserProfile");

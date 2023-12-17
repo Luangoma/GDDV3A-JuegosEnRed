@@ -1,17 +1,16 @@
-function CredentialsBox(scene, isShort = false, onlyPasswords = false){
+function CredentialsBox(scene, isShort = false){
 	
-	this.illegalCharactersUsername = ['/', ' ', '<', '>', '&'];
+	this.illegalCharactersUsername = ['/', ' '];
 	this.illegalCharactersPassword = ['/', ' '];
 	
 	this.scene = scene;
 	this.isShort = isShort;
-	this.onlyPasswords = onlyPasswords
 	this.credentialsBox = {};
 	this.requestFunction = function(){
 		console.log("NO REQUEST WAS CONFIGURED YET.");
 	};
 	
-	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache(this.onlyPasswords ? 'formularioContraseña' : (this.isShort ? 'formularioRegistroCorto' : 'formularioRegistro'));
+	const element = this.scene.add.dom(config.width/2, config.height/2).createFromCache(this.isShort ? 'formularioRegistroCorto' : 'formularioRegistro');
 	this.credentialsBox = element;
 	
 	this.errorText = this.scene.add.text(config.width/2, config.height/2 + 210, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
@@ -26,11 +25,12 @@ function CredentialsBox(scene, isShort = false, onlyPasswords = false){
 		//If the login button was pressed, process the user input and return it.
 		if (event.target.name === 'loginButton')
 		{
-			let inputUsername = that.onlyPasswords ? this.getChildByName('oldPassword') : this.getChildByName('username');
+			let inputUsername;
 			let inputPassword = this.getChildByName('password');
 			if(that.isShort){
 				inputUsername = {value: "nothing"};
 			}
+			inputUsername = this.getChildByName('username');
 
 			//Check if the user input is valid. Conditions for validity are:
 			//1-The text boxes are not empty
@@ -61,7 +61,6 @@ function CredentialsBox(scene, isShort = false, onlyPasswords = false){
 function preloadCredentialsBoxData(scene){
 	scene.load.html('formularioRegistro', './assets/formularioRegistro.html');
 	scene.load.html('formularioRegistroCorto', './assets/formularioRegistroCorto.html');
-	scene.load.html('formularioContraseña', './assets/formularioContraseña.html');
 }
 
 CredentialsBox.prototype.setRequest = function(request_fn){
@@ -77,10 +76,6 @@ CredentialsBox.prototype.getUsernameText = function() {
 
 CredentialsBox.prototype.getPasswordText = function() {
 	return this.credentialsBox.getChildByName('password').value;
-}
-
-CredentialsBox.prototype.getOldPasswordText = function() {
-	return this.credentialsBox.getChildByName('oldPassword').value;
 }
 
 CredentialsBox.prototype.displayError = function(errormsg) {

@@ -27,6 +27,7 @@ game.scene.add("PlayMenu",PlayMenu);
 
 game.scene.add("AccountMenu",AccountMenu);
 game.scene.add("UserProfile",UserProfile);
+game.scene.add("UpdateUser",UpdateUser);
 
 //game.scene.start("MainMenu");
 //game.scene.start("PreloadScene");

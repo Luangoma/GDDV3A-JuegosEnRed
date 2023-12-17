@@ -1,7 +1,7 @@
-class PlayMenu extends DragonScene
+class SocialMenu extends DragonScene
 {
-	button_play_sp = {};
-	button_play_mp = {};
+	button_Forum = {};
+	button_Users = {};
 	button_back = {};
 	
 	background = {};
@@ -15,25 +15,25 @@ class PlayMenu extends DragonScene
 	{
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
-		this.button_play_sp = new Button(this, config.width/2, config.height/5 + 100 * 0, "Local");
-		this.button_play_sp.setButtonFunction(function(){
+		this.button_Forum = new Button(this, config.width/2, config.height/5 + 100 * 0, "Foro");
+		this.button_Forum.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
-			game.scene.stop('PlayMenu');
-			game.scene.start("LoadMap1");
+			game.scene.stop('SocialMenu');
+			game.scene.start("ForumScene");
 		});
-		this.button_play_sp.setCanBePressed(true);
+		this.button_Forum.setCanBePressed(true);
 		
-		this.button_play_mp = new Button(this, config.width/2, config.height/5 + 100 * 1, "Online");
-		this.button_play_mp.setButtonFunction(function(){
+		this.button_Users = new Button(this, config.width/2, config.height/5 + 100 * 1, "Usuarios");
+		this.button_Users.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
-			game.scene.stop("PlayMenu");
-			game.scene.start("MainMenu");
+			game.scene.stop("SocialMenu");
+			game.scene.start("PlayerListScene");
 		});
-		this.button_play_mp.setCanBePressed(true);
+		this.button_Users.setCanBePressed(true);
 		
 		this.button_back = new Button(this, config.width/2, config.height/5 + 100 * 2 , "Volver");
 		this.button_back.setButtonFunction(function(){
-			game.scene.stop("PlayMenu");
+			game.scene.stop("SocialMenu");
 			game.scene.start("MainMenu");
 		});
 		this.button_back.setCanBePressed(true);
