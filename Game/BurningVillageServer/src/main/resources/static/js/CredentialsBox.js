@@ -61,7 +61,7 @@ function CredentialsBox(scene, isShort = false, onlyPasswords = false){
 function preloadCredentialsBoxData(scene){
 	scene.load.html('formularioRegistro', './assets/formularioRegistro.html');
 	scene.load.html('formularioRegistroCorto', './assets/formularioRegistroCorto.html');
-	scene.load.html('formularioContraseña', './assets/formularioContraseña.html');
+	scene.load.html('formularioContraseña', './assets/formularioPassword.html');
 }
 
 CredentialsBox.prototype.setRequest = function(request_fn){
