@@ -104,7 +104,7 @@ class ForumScene extends DragonScene
 		if(id === -1){
 			chat_msg_type += " anonymous-message";
 		}
-		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + name + '</div><div class=\"text\">' + msg + '</div></div></div>';
+		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + stringReplaceHTMLSymbols(msg) + '</div></div></div>';
 		return str;
 	}
 	

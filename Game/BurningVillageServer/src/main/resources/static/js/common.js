@@ -81,3 +81,11 @@ function stringContains(str, arr){
 	}
 	return false;
 }
+
+function stringReplaceHTMLSymbols(str){
+	let ans = str;
+	ans = ans.split('&').join('&amp');
+	ans = ans.split('<').join('&lt');
+	ans = ans.split('>').join('&gt');
+	return ans;
+}
