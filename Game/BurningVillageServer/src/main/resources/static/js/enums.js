@@ -12,3 +12,10 @@ const LANGUAGE = Object.freeze({
 	SPANISH: 0,
 	ENGLISH: 1
 });
+
+const FORM_TYPE = Object.freeze({
+	DEFAULT: 0,
+	PASSWORD_ONLY: 1,
+	PASSWORD_DOUBLE: 2,
+	FULL: 3
+});

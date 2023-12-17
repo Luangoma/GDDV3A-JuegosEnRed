@@ -17,7 +17,7 @@ class DeleteAccount extends DragonScene
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
 		this.titulo = this.add.text(config.width/2, 40, 'Eliminar Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
 		
-		this.loginBox = new CredentialsBox(this, true);
+		this.loginBox = new CredentialsBox(this, FORM_TYPE.PASSWORD_ONLY);
 		let that = this;
 		this.loginBox.setRequest(function(){
 			let pwd = that.loginBox.getPasswordText();
