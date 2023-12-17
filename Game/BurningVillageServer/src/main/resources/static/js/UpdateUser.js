@@ -22,7 +22,7 @@ class UpdateUser extends DragonScene
             //TODO: Remove this log in prod.
             console.log("Trying to log in with user credentials: oldPassword = " + oldPassword + ", newPasswword = " + newPasswword);
 
-            $.ajax({ // vale, no estaba entendiendo, si, te enseño 
+            $.ajax({
                 method: "PUT",
                 url: ip.http + "/users/" + localUser.user.id + "/" + localUser.user.password,
                 data: newPasswword, //DO NOT STRINGIFY because it is already a string, we do not want JSON.stringify would be converting a string into a string, thus, adding \" to the string.
@@ -37,22 +37,6 @@ class UpdateUser extends DragonScene
                 console.log("Error al cambiar la contraseña del usuario");
                 that.passwordBox.displayError("No se ha modificado la contraseña.");
             });
-			/*
-			$.ajax({
-				method:'PUT',
-				url: ip.http + '/users/' + localUser.user.id + '/' + localUser.user.password,
-				data: JSON.stringify(newPassword),
-				contentType: 'application/json',
-				success:function(data){
-					console.log(data);
-				
-				},
-				error: function(xhr, status, error){
-					console.log("Error al cambiar la contraseña del usuario" + error);
-					that.passwordBox.displayError("No se ha modificado la contraseña.");
-				}
-			})
-			*/
         });
 
         this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
