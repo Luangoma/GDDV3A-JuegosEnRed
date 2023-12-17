@@ -9,6 +9,7 @@ class PlayerListScene extends DragonScene
 	playersTextList = [];
 	playersLeftSqureList = [];
 	playersBackgroundsList = [];
+	playersAliveStatusList = [];
 	users_per_page = 10;
 	
 	botonSalir = {};
@@ -34,11 +35,15 @@ class PlayerListScene extends DragonScene
 	
 	create()
 	{
+		//good old javascript hack, episode 2.
+		let that = this;
+		
 		//TODO: Add this starter initialization to a function that is ALSO called when quitting the scene. Should also do this in all other scenes that use lists and variables that must be killed.
 		this.playersList = [];
 		this.playersTextList = [];
 		this.playersLeftSqureList = [];
 		this.playersBackgroundsList = [];
+		this.playersAliveStatusList = [];
 		this.currentPage = 0;
 		this.obtained_any_users = false;
 		
@@ -52,14 +57,22 @@ class PlayerListScene extends DragonScene
 		//get all the users on the server and update the text list.
 		this.getAllUsers();
 		
+		
+		
+		//while we are in this page, check periodically if the users are online or not.
+		var check_alive_users_interval = setInterval(function(){that.updateAliveUsers();}, 1000 * 0.5); //check every half a second.
+		
+		//Button to exit this scene menu
 		this.botonSalir = new Button(this, /*config.width - 150*/ config.width/2, config.height - 50, "Volver");
 		this.botonSalir.setButtonFunction(function(){
+			//stop the interval
+			clearInterval(check_alive_users_interval);
+			//change the scene
 			game.scene.stop("PlayerListScene");
 			game.scene.start("SocialMenu");
 		});
 		this.botonSalir.setCanBePressed(true);
 		
-		let that = this;
 		//move one page to the left
 		this.button_left = new Button(this, 64, config.height/2, "", 'stone_button_left');
 		this.button_left.setButtonFunction(function(){
@@ -157,6 +170,15 @@ class PlayerListScene extends DragonScene
 			this.playersLeftSqureList[i].visible = false;
 			this.playersBackgroundsList[i].visible = false;
 		}
+		
+		//also reset the active users list to prevent carrying on the status colors from one page to the next for a split second.
+		this.playersAliveStatusList = [];
+	}
+	
+	getUsersToDisplay()
+	{
+		let users_to_display = this.currentPage === this.total_pages - 1 ? Math.floor(this.playersList.length % this.users_per_page) : this.users_per_page;
+		return users_to_display;
 	}
 	
 	updateUsersObjects()
@@ -165,13 +187,51 @@ class PlayerListScene extends DragonScene
 		if(!this.obtained_any_users || this.playersList.length === 0){
 			return;
 		}
-		let users_to_display = this.currentPage === this.total_pages - 1 ? Math.floor(this.playersList.length % this.users_per_page) : this.users_per_page;
+		let users_to_display = this.getUsersToDisplay();
 		console.log("-------Displaying " + users_to_display + " users on page " + this.currentPage + " (there are " + this.total_pages + " in total)");
 		for(let i = 0; i < users_to_display; ++i)
 		{
 			this.playersTextList[i].setText(this.playersList[i + this.users_per_page * this.currentPage].username);
 			this.playersLeftSqureList[i].visible = true;
 			this.playersBackgroundsList[i].visible = true;
+			this.playersLeftSqureList[i].setTint(0xFFFFFF);
 		}
 	}
+	
+	//TODO: change this from being called for every single user to being called only for the 10 users in the page we're looking at currently... just need to modify the first for and only store 10 entries in the array, which means also modifying the second for's access to elements from using the calculation i + users_per_page * currentPage to simply using i. Also, add a setTint white in the updateUsersObjects function
+	updateAliveUsers()
+	{
+		let that = this;
+		let users_to_display = this.getUsersToDisplay();
+		
+		//check all the users through GET petitions and see if they are connected ("alive") or not.
+		for(let i = 0; i < users_to_display; ++i){
+			let idx = i;
+			//let id = this.playersList[i].id;
+			let id = this.playersList[i + this.users_per_page * this.currentPage].id;
+			$.ajax({
+				url: ip.http + '/is_alive/' + id,
+				method: 'GET',
+				contentType: 'application/json',
+				success: function(data){
+					console.log("user is alive? " + data);
+					that.playersAliveStatusList[idx] = data;
+				},
+				error: function(xhr,status,error){}
+			});
+		}
+		
+		//early return if the list has been reset to prevent displaying the wrong colors.
+		if(this.playersAliveStatusList.length === 0){
+			return;
+		}
+		//update the squares with a green color if the user is connected.
+		for(let i = 0; i < users_to_display; ++i){
+			let chosen_color = this.playersAliveStatusList[i] ? 0x00FF00 : 0xFFFFFF;
+			console.log(chosen_color);
+			//let chosen_color = 0x00FF00;
+			this.playersLeftSqureList[i].setTint(chosen_color);
+		}
+	}
+	
 }
