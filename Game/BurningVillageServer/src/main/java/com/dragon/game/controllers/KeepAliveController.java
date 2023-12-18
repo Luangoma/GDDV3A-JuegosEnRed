@@ -31,7 +31,7 @@ public class KeepAliveController {
 	//every 20 seconds set the users to appear to be offline. Then, the users will reset themselves to online shortly after. Gypsy solution but the constraints on this project forced us down this path of Doom and mediocrity.
 	@Scheduled(fixedRate = 1000 * 10) //Do not confuse fixedDelay with fixedRate... this will make you lose hours of debugging on end.
 	public void checkUserActivity() {
-		System.out.println("Routing user check for connectivity...");
+		System.out.println("Routine user check for connectivity...");
 		Long current_user_count = 0L;
 		for(Map.Entry<Long, Boolean> entry : this.has_messaged_list.entrySet()) {
 			//entry.setValue(false); //does not work because we are changing a temporary copy instead of the original.
