@@ -4,6 +4,7 @@ class PlayerListScene extends DragonScene
 	background2 = {};
 	
 	titulo = {};
+	subtitulo = {};
 	
 	playersList = [];
 	playersTextList = [];
@@ -11,6 +12,8 @@ class PlayerListScene extends DragonScene
 	playersBackgroundsList = [];
 	playersAliveStatusList = [];
 	users_per_page = 10;
+	
+	total_number_of_connected_users = 0;
 	
 	botonSalir = {};
 	
@@ -50,7 +53,8 @@ class PlayerListScene extends DragonScene
 		this.background1 = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
 		this.background2 = this.add.image(config.width/2, config.height/2, 'pergamino').setDisplaySize(config.width - config.width/10, config.height - config.height/10);
 		
-		this.titulo = this.add.text(config.width/2, 80, 'Lista de Usuarios', styleText_AncientFont_90).setOrigin(.5,0).setScale(0.7);
+		this.titulo = this.add.text(config.width/2, 60, 'Lista de Usuarios', styleText_AncientFont_90).setOrigin(.5,0).setScale(0.7);
+		this.subtitulo = this.add.text(config.width/2, 120, "...", styleText_MedievalPixel_30).setOrigin(.5,0).setScale(1); //update the text in the set interval.
 		
 		//spawn the user text list on screen.
 		this.makeUsersObjects();
@@ -198,11 +202,31 @@ class PlayerListScene extends DragonScene
 		}
 	}
 	
-	//TODO: change this from being called for every single user to being called only for the 10 users in the page we're looking at currently... just need to modify the first for and only store 10 entries in the array, which means also modifying the second for's access to elements from using the calculation i + users_per_page * currentPage to simply using i. Also, add a setTint white in the updateUsersObjects function
+	
+	updatePlayerCountText()
+	{
+		let str = '| usuarios totales: ' + this.playersList.length + ' | usuarios conectados: ' + this.total_number_of_connected_users + ' | ';
+		this.subtitulo.setText(str);
+	}
+	
 	updateAliveUsers()
 	{
+		
+		this.updatePlayerCountText();
+		
 		let that = this;
 		let users_to_display = this.getUsersToDisplay();
+		
+		//get the total amount of currently connected users in the server:
+		$.ajax({
+			url: ip.http + "/get_alive_count",
+			method: 'GET',
+			contentType: 'application/json',
+			success: function(data){
+				that.total_number_of_connected_users = data;
+			},
+			error: function(xhr, status, error){}
+		});
 		
 		//check all the users through GET petitions and see if they are connected ("alive") or not.
 		for(let i = 0; i < users_to_display; ++i){
