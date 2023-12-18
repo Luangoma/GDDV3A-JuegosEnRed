@@ -181,8 +181,22 @@ class PlayerListScene extends DragonScene
 	
 	getUsersToDisplay()
 	{
-		let users_to_display = this.currentPage === this.total_pages - 1 ? Math.floor(this.playersList.length % this.users_per_page) : this.users_per_page;
-		return users_to_display;
+		//if the list is empty, then we cannot display any users.
+		if(this.playersList.length === 0)
+		{
+			return 0;
+		}
+		
+		//if the current page is the last page, then we need to display however many users are there on the last page.
+		let users_on_last_page = Math.floor(this.playersList.length % this.users_per_page);
+		if(this.currentPage === this.total_pages - 1 && users_on_last_page !== 0) //makes sure that it will properly display in the case that the last page is filled.
+		{
+			//number of users on last page
+			return users_on_last_page;
+		}
+		
+		//else, just return the total amount of users available per page.
+		return this.users_per_page;
 	}
 	
 	updateUsersObjects()
