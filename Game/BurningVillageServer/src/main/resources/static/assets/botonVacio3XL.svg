@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="307.72427mm"
+   height="29.850344mm"
+   viewBox="0 0 307.72427 29.850344"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(48.947915,-133.61459)">
+    <g
+       id="g38"
+       inkscape:label="Ajustes"
+       style="display:inline;stroke-width:0.996014"
+       transform="matrix(0.2653252,0,0,0.26595927,-67.576139,-30.491117)"
+       inkscape:export-filename="g38.png"
+       inkscape:export-xdpi="533.64"
+       inkscape:export-ydpi="533.64">
+      <path
+         id="path20"
+         style="display:inline;opacity:1;fill:#fbffff;fill-opacity:1;stroke:#000000;stroke-width:3.22011;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="m 258.23121,626.76404 -63.86002,45.98535 63.86002,46.7895 h 783.75619 l 63.8582,-46.7895 -63.8582,-45.98535 z m -20.53485,-8.12707 c 0,0 -55.63468,45.07669 -89.16923,54.51537 33.53455,9.43867 89.16923,54.51362 89.16923,54.51362 l -63.86001,-54.51362 z m -89.16923,54.51537 c -24.61324,-6.92767 -76.709112,0 -76.709112,0 0,0 52.095872,6.92768 76.709112,0 z m 913.99507,-54.51537 63.8583,54.51537 -63.8583,54.51362 c 0,0 55.6347,-45.07495 89.1692,-54.51362 -33.5345,-9.43868 -89.1692,-54.51537 -89.1692,-54.51537 z m 89.1692,54.51537 c 24.6133,6.92768 76.7091,0 76.7091,0 0,0 -52.0958,-6.92767 -76.7091,0 z"
+         sodipodi:nodetypes="ccccccccccccccccccccccc"
+         inkscape:label="Selector" />
+    </g>
+  </g>
+</svg>

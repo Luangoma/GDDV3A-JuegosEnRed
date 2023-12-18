@@ -46,7 +46,8 @@ function preloadButtonData(scene){
 	scene.load.svg('botonContinuar', 'assets/botonContinuar.svg');
 	
 	scene.load.svg('boton_vacio', './assets/boton_vacio.svg');
-	scene.load.svg('boton_vacio_largo', './assets/boton_vacio_largo.svg');
+	//scene.load.svg('boton_vacio_largo', './assets/boton_vacio_largo.svg');
+	scene.load.svg('boton_vacio_largo', './assets/botonVacioXL.svg');
 	
 	scene.load.audio("sound_ui_hover", ["./sounds/menu/sound_ui_hover.wav"]);
 	scene.load.audio("sound_ui_click", ["./sounds/menu/sound_ui_click.wav"]);
