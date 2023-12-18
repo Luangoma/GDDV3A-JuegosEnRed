@@ -9,7 +9,7 @@ class MainMenu extends DragonScene
 	botonJugar = {};
 	botonAjustes = {};
 	botonCreditos = {};
-	botonSalir = {};
+	//botonSalir = {}; //deprecated because modern browsers don't let us close the current tab with in page scripts due to security reasons...
 	
 	preload()
 	{
@@ -23,6 +23,7 @@ class MainMenu extends DragonScene
 	{
 		stopSound(this);
 		enableSound(this);
+		let that = this;
 		
 		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!
 		this.setFinishedLoading(false);
@@ -36,6 +37,7 @@ class MainMenu extends DragonScene
 		this.menuTitleCard = this.add.image(config.width/2, first_button_height/2, 'game_title');
 		
 		//Create buttons
+		/* old button coords (single column menu)
 		this.botonTutorial = new Button(this,config.width/2, first_button_height + button_separation * 0, "Tutorial");
 		this.botonCuenta   = new Button(this,config.width/2, first_button_height + button_separation * 1, "Cuenta");
 		this.botonSocial   = new Button(this,config.width/2, first_button_height + button_separation * 2, "Social");
@@ -43,6 +45,17 @@ class MainMenu extends DragonScene
 		this.botonAjustes  = new Button(this,config.width/2, first_button_height + button_separation * 4, "Ajustes");
 		this.botonCreditos = new Button(this,config.width/2, first_button_height + button_separation * 5, "Créditos");
 		this.botonSalir    = new Button(this,config.width/2, first_button_height + button_separation * 6, "Salir");
+		*/
+		
+		//Left button Col (gameplay related)
+		this.botonTutorial = new Button(this,config.width/4, first_button_height + button_separation * 1, "Tutorial");
+		this.botonJugar    = new Button(this,config.width/4, first_button_height + button_separation * 2, "Jugar");
+		this.botonAjustes  = new Button(this,config.width/4, first_button_height + button_separation * 3, "Ajustes");
+		
+		//Right button Col (account/social related)
+		this.botonCuenta   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 1, "Cuenta");
+		this.botonSocial   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 2, "Social");
+		this.botonCreditos = new Button(this, config.width - config.width/4, first_button_height + button_separation * 3, "Créditos");
 		
 		//Interacción con los botones.
 		this.botonTutorial.setButtonFunction(function(){
@@ -78,14 +91,14 @@ class MainMenu extends DragonScene
 		this.botonAjustes.setButtonFunction(function(){
 			console.log("Botón ajustes pulsado");
 		});
-		let that = this;
+		/*
 		this.botonSalir.setButtonFunction(function(){
 			console.log("Botón salir pulsado");
 			//window.open('','_parent','');
 			//window.close();
 			//toggleFullScreen(that);
 		});
-		
+		*/
 		this.setFinishedLoading(true);
 		
 		
@@ -95,7 +108,7 @@ class MainMenu extends DragonScene
 		this.botonJugar.setCanBePressed(true);
 		this.botonAjustes.setCanBePressed(true);
 		this.botonCreditos.setCanBePressed(true);
-		this.botonSalir.setCanBePressed(true);
+		//this.botonSalir.setCanBePressed(true);
 		
 		
 	}
