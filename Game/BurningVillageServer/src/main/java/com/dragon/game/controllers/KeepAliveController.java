@@ -48,6 +48,27 @@ public class KeepAliveController {
 			if(this.user_status_list.get(entry.getKey())) {
 				current_user_count += 1; //the count increases by 1 for every single connected user that was found.
 			}
+			
+			/* EXPLANATION FOR HOW THIS LOCK SYSTEM WORKS:
+			 * I have gotten some comments that this system is a bit confusing. It is not the best implementation, but it does the job
+			 * (specially considering the fact that we were railroaded by the project requierements into using only REST API)
+			 * 
+			 * The way this "lock" system works is by making a check that sees if the user has not replied on time.
+			 * If that is the case, then instead of automatically setting the user to offline,
+			 * it goes "nahhh, I'll way one more loop, just to be sure...", and sets the lock off, allowing the server to
+			 * "kill" the connection status of the user in the next iteration of the schedule.
+			 * After that, if the user has sent a message in between, then the lock will be enabled again, forever delaying the kill
+			 * to the next iteration.
+			 * If the user has actually been disconnected, then the server will take 2 iterations to actually determine that the user is gone.
+			 * One to turn off the lock, and the next to set the status to disconnected.
+			 * The reason this is done like this is to prevent the user list from blinking the user status from time to time, because, since
+			 * this is all completely asynchronous, the users might notify through a PUT request that they are still connected just a bit too
+			 * late, and the server will have already set their status to offline, meaning that the users screen will blink for a split second.
+			 * This is the best approach to get a timeout system that I could come up with.
+			 * 
+			 * -Dani
+			 * @ me if you have any questions.
+			 */
 		}
 		
 		this.aliveCount = current_user_count;
