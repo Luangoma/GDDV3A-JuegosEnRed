@@ -1,8 +1,11 @@
 //Phaser Config
+
+var default_game_resolution = {width: 800, height: 600};
+
 var config = {
 	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
+	width: default_game_resolution.width,
+	height: default_game_resolution.height,
 	dom: {
         createContainer: true
     },

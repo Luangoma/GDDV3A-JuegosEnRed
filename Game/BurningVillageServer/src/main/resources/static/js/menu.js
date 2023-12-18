@@ -21,6 +21,8 @@ class MainMenu extends DragonScene
 	
 	create()
 	{
+		//toggleFullScreen(this);
+		
 		stopSound(this);
 		enableSound(this);
 		
@@ -78,11 +80,12 @@ class MainMenu extends DragonScene
 		this.botonAjustes.setButtonFunction(function(){
 			console.log("Botón ajustes pulsado");
 		});
-		
+		let that = this;
 		this.botonSalir.setButtonFunction(function(){
 			console.log("Botón salir pulsado");
 			//window.open('','_parent','');
 			//window.close();
+			toggleFullScreen(that);
 		});
 		
 		this.setFinishedLoading(true);

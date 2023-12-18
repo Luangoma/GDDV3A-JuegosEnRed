@@ -89,3 +89,14 @@ function stringReplaceHTMLSymbols(str){
 	ans = ans.split('>').join('&gt');
 	return ans;
 }
+
+function toggleFullScreen() {
+    if (game.scale.isFullscreen) {
+        game.scale.stopFullscreen();
+		game.scale.resize(default_game_resolution.width,default_game_resolution.height); //remember to change this to whatever default size you choose for the window size of the game in phaser config.
+    } else {
+        game.scale.startFullscreen();
+		game.scale.resize(window.innerWidth, window.innerHeight);
+		game.scale.refresh();
+    }
+}
