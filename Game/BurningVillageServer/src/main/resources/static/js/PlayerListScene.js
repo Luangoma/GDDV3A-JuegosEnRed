@@ -80,25 +80,39 @@ class PlayerListScene extends DragonScene
 		});
 		this.botonSalir.setCanBePressed(true);
 		
-		//move one page to the left
-		this.button_left = new Button(this, 64, config.height/2, "", 'stone_button_left');
-		this.button_left.setButtonFunction(function(){
+		
+		//this is currently a lambda, but it could very well be transformed into a member function of this class...
+		//direction: +1 is right, -1 is left
+		let change_page_function = function(direction){
+			//early return
 			if(!that.obtained_any_users){
 				return;
 			}
-			that.currentPage = clampValue(that.currentPage - 1, 0, that.total_pages - 1);
-			that.updateUsersObjects();
+			
+			//store the old page and calculate the new page
+			let old_page = that.currentPage;
+			let new_page = clampValue(that.currentPage + direction, 0, that.total_pages - 1);
+			
+			//update the current page
+			that.currentPage = new_page;
+			
+			//if the new page is different from the old one, update the players list objects (displayed names, status, bg, etc..). Otherwise (if it's the same page, aka we're on the edge of the players list), keep them the same to prevent status flickering.
+			if(old_page !== new_page){
+				that.updateUsersObjects();
+			}
+		}
+		
+		//move one page to the left
+		this.button_left = new Button(this, 64, config.height/2, "", 'stone_button_left');
+		this.button_left.setButtonFunction(function(){
+			change_page_function(-1);
 		});
 		this.button_left.setCanBePressed(true);
 		
 		//move one page to the right
 		this.button_right = new Button(this, config.width - 64, config.height/2, "", 'stone_button_right');
 		this.button_right.setButtonFunction(function(){
-			if(!that.obtained_any_users){
-				return;
-			}
-			that.currentPage = clampValue(that.currentPage + 1, 0, that.total_pages - 1);
-			that.updateUsersObjects();
+			change_page_function(1);
 		});
 		this.button_right.setCanBePressed(true);
 	}
@@ -216,7 +230,7 @@ class PlayerListScene extends DragonScene
 			this.playersTextList[i].setText(this.playersList[i + this.users_per_page * this.currentPage].username);
 			this.playersLeftSqureList[i].visible = true;
 			this.playersBackgroundsList[i].visible = true;
-			//this.playersLeftSqureList[i].setTint(0xFFFFFF);
+			//this.playersLeftSqureList[i].setTint(0xFFFFFF); //old system, not canvas compatible.
 			this.playersLeftSqureList[i].setTexture('status_offline');
 		}
 	}
@@ -283,3 +297,6 @@ class PlayerListScene extends DragonScene
 	}
 	
 }
+
+
+//TODO: support for refreshing the players list in real time? maybe? For now, it needs to exit and enter the list menu again to reload the list, but the status is properly updated in real time.
