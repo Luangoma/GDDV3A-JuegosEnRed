@@ -34,6 +34,9 @@ class PlayerListScene extends DragonScene
 		this.load.image('stone_button_left', './assets/StoneButton03.png');
 		
 		this.load.image('background_slice', './assets/progress_bar/progress_bar_default_middle.png');
+		
+		this.load.image('status_offline', './assets/online_status_square_offline.png');
+		this.load.image('status_online', './assets/online_status_square_online.png');
 	}
 	
 	create()
@@ -152,12 +155,13 @@ class PlayerListScene extends DragonScene
 			this.playersTextList.push(currentText);
 			
 			//create the user left side interact squares
-			let currentImage = this.add.image(200,170 + 30 * i, 'stone_button').setOrigin(0,0).setScale(0.5);
+			let currentImage = this.add.image(200,170 + 30 * i, /*'stone_button'*/ 'status_offline').setOrigin(0,0).setScale(0.5);
 			currentImage.visible = false;
 			this.playersLeftSqureList.push(currentImage);
 		}
 	}
 	
+	//completely unused, remove plz lol
 	makeUsersDots()
 	{
 		for(let i = 0; i < this.users_per_page; ++i)
@@ -212,7 +216,8 @@ class PlayerListScene extends DragonScene
 			this.playersTextList[i].setText(this.playersList[i + this.users_per_page * this.currentPage].username);
 			this.playersLeftSqureList[i].visible = true;
 			this.playersBackgroundsList[i].visible = true;
-			this.playersLeftSqureList[i].setTint(0xFFFFFF);
+			//this.playersLeftSqureList[i].setTint(0xFFFFFF);
+			this.playersLeftSqureList[i].setTexture('status_offline');
 		}
 	}
 	
@@ -265,10 +270,15 @@ class PlayerListScene extends DragonScene
 		}
 		//update the squares with a green color if the user is connected.
 		for(let i = 0; i < users_to_display; ++i){
-			let chosen_color = this.playersAliveStatusList[i] ? 0x00FF00 : 0xFFFFFF;
-			console.log(chosen_color);
-			//let chosen_color = 0x00FF00;
-			this.playersLeftSqureList[i].setTint(chosen_color);
+			//old system that used tints
+			//let chosen_color = this.playersAliveStatusList[i] ? 0x00FF00 : 0xFFFFFF;
+			//console.log(chosen_color);
+			//this.playersLeftSqureList[i].setTint(chosen_color);
+			
+			//current system uses textures
+			let chosen_status_image = this.playersAliveStatusList[i] ? 'status_online' : 'status_offline';
+			this.playersLeftSqureList[i].setTexture(chosen_status_image);
+			
 		}
 	}
 	
