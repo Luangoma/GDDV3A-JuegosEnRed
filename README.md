@@ -431,13 +431,33 @@ Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezA
 | Ajustes                            | Por implementar             | - Fase 4             |El botón esta implementado pero no tiene función|
 | Sonidos                            | Por implementar             | - Fase 4             |             |
 
-## Foro/ Chat
+
+## Gestión de usuarios
+
+- Se pueden **crear usuarios** desde: Cuenta -> crear cuenta -> 'escribes usuario y contraseña' -> continuar
+- Si se quiere **acceder desde una cuenta ya creada** se puede hacer desde: Cuenta -> Acceder a cuenta -> 'escribes usuario y contraseña' -> continuar
+  - Automáticamente queda la sesión de dicho usuario iniciada, si escribe en el chat los mensajes llevarán su nombre, y si se mira el 
+   libro de usuarios su nombre aparecerá con un cuadrado verde que indica que está en linea. 
+
+- Si el usuario se **desconecta** desde: Cuenta -> Salir de la cuenta 
+Automáticamente dicho usuario cierra su sesión, y si escribe en el chat será un usuario anónimo.
+
+- El usuario puede **cambiar su contraseña** desde: Cuenta -> Editar Cuenta -> 'escribir su contraseña antigua y debajo la nueva'
+
+- El usuario puede **eliminar su cuenta** desde: Cuenta > Eliminar cuenta > 'Introduce la contraseña' > Continuar
+  Dicho usuario desaparecerá del libro de usuarios. Y del registro de cuentas.
+  
+- Para acceder al **libro de usuarios registrados y en linea**: Social -> Usuarios
+  Aparecerá un libro en el que los usuarios activos tienen un cuadrado de color verde, y los inactivos gris
+
+
+## Foro / Chat
 - El foro permite enviar objetos JSON al servidor para que este los comparta con el resto de usuarios en el chat de forma casi instantánea.
 - La estructura de estos objetos es siempre la misma: {"postId": 0, "authorId": 0, "postContent": "Contenido del mensaje"}
   - Guardando estos un id único para el post, el cual se puede utilizar para buscar un post determinado y se elige automáticamente al 
     momento de crear el objeto post, no se puede elegir como tal.
   - Un id del autor que lo ha escrito para que si se quisiera sea posible implementar una busqueda de posts por nombre de usuario.
-  - El contenido del post que simplemente es la cadena de texto ... 
+  - El contenido del post que simplemente es la cadena de texto en la que se puede embeber codigo html incluyendo imágenes. 
   - Si se envía un post sin tener una sesión activa, el id de su autor será -1 y se mostrará como mensaje de un usuario anónimo.
 
 
