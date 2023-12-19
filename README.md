@@ -346,35 +346,42 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 | Control de ataque                  | Implementado                | Fase 2               |             |
 | Identificar por el color al jugador| Implementado                | Fase 2               |             |
 
+## Diagrama de flujo y UML del servidor
+El mapa de navegación por el juego ha sido actualizado. Acontinuación se mostrará el nuevo flujo:
+![Figura 8, diagrama de flujo actualizado (19/12/23)](./Designs/NavigationDiagram/InterfaceNavigation2.png)  
+
+Se ha diseñado el UML del servidor, encargado de organizar y gestionar las acciones relacionadas con los usuarios y el foro.
+![Figura 9, escena in-game del menú.](./Designs/UML/APIRest_UML2.png)  
+
 Se han añadido las escenas al juego, son las siguientes:  
 Menú Principal:  
-![Figura 8, escena in-game del menú.](./Designs/Screenshots/1-menu.png)  
+![Figura 10, escena in-game del menú.](./Designs/Screenshots/1-menu.png)  
 Créditos:  
-![Figura 9, escena in-game de los creditos.](./Designs/Screenshots/14-creditos.png)  
+![Figura 11, escena in-game de los creditos.](./Designs/Screenshots/14-creditos.png)  
 Partida:  
-![Figura 10, escena in-game de la partida.](./Designs/Screenshots/12-partida.png)  
+![Figura 12, escena in-game de la partida.](./Designs/Screenshots/12-partida.png)  
 Game Over:  
-![Figura 11, escena in-game al acabar la partida.](./Designs/Screenshots/13-gameover.png)  
+![Figura 13, escena in-game al acabar la partida.](./Designs/Screenshots/13-gameover.png)  
 Tutorial:  
-![Figura 12, escena in-game del menú del tutorial.](./Designs/Screenshots/2-tutorial.png)  
+![Figura 14, escena in-game del menú del tutorial.](./Designs/Screenshots/2-tutorial.png)  
 Menú de acciones de cuenta:  
-![Figura 13, escena in-game del menú de cuenta (cuando el usuario no ha accedido a una cuenta).](./Designs/Screenshots/3-cuentabotones.png)  
+![Figura 15, escena in-game del menú de cuenta (cuando el usuario no ha accedido a una cuenta).](./Designs/Screenshots/3-cuentabotones.png)  
 Creación de cuenta:  
-![Figura 14, escena in-game del menú de creación de cuenta.](./Designs/Screenshots/4-crearcuenta.png)  
+![Figura 16, escena in-game del menú de creación de cuenta.](./Designs/Screenshots/4-crearcuenta.png)  
 Acceso a cuenta:  
-![Figura 15, escena in-game del menú de acceso a cuenta.](./Designs/Screenshots/5-login.png)  
+![Figura 17, escena in-game del menú de acceso a cuenta.](./Designs/Screenshots/5-login.png)  
 Menú de cuenta de usuario:  
-![Figura 16, escena in-game del menú de cuenta (cuando el usuario ha accedido a una cuenta).](./Designs/Screenshots/6-menucuenta.png)  
+![Figura 18, escena in-game del menú de cuenta (cuando el usuario ha accedido a una cuenta).](./Designs/Screenshots/6-menucuenta.png)  
 Cambiar contraseña:  
-![Figura 17, escena in-game del menú para cambiar la contraseña.](./Designs/Screenshots/7-cambiarpass.png)  
+![Figura 19, escena in-game del menú para cambiar la contraseña.](./Designs/Screenshots/7-cambiarpass.png)  
 Borrar cuenta:  
-![Figura 18, escena in-game del menú para borrar la cuenta.](./Designs/Screenshots/8-borrarcuenta.png)  
+![Figura 20, escena in-game del menú para borrar la cuenta.](./Designs/Screenshots/8-borrarcuenta.png)  
 Menú Social:  
-![Figura 19, escena in-game del menú Social.](./Designs/Screenshots/9-social.png)  
+![Figura 21, escena in-game del menú Social.](./Designs/Screenshots/9-social.png)  
 Chat del Foro de usuarios:  
-![Figura 20, escena in-game del chat del foro de usuarios.](./Designs/Screenshots/10-chat.png)  
+![Figura 22, escena in-game del chat del foro de usuarios.](./Designs/Screenshots/10-chat.png)  
 Tabla de Usuarios:  
-![Figura 21, escena in-game de la lista de usuarios registrados en el servidor.](./Designs/Screenshots/11-tablausers.png)  
+![Figura 23, escena in-game de la lista de usuarios registrados en el servidor.](./Designs/Screenshots/11-tablausers.png)  
 
 ## Recursos de creación propia
 Se han creado recursos propios como sprites para el desarrollo del juego.
