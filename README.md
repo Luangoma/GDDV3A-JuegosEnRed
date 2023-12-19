@@ -472,12 +472,16 @@ Se han utilizado los sprites Fire Animation de Brullov. Puedes visitarlo aquí: 
 Se han utilizado 2 fuentes tipográficas de estilo pixel art. La primera es Medieval Pixel de Goatmeal (<https://fontstruct.com/fontstructions/show/640368/medieval_pixel>), y la segunda es Pixel Sans Serif de Muhd Rusyaidi (<https://www.dafont.com/pixel-sans-serif.font>).
 - **Imágenes para las barras de vida:**
 Las imágenes que posibilitan las barras de vida de los dragones son parte del pack UI Pack (Space Expansion) de Kenney, puedes visitarlo aquí: <https://kenney.nl/assets/ui-pack-space-expansion>
-- **Imágen animada de Game Over:**
+- **Imagen animada de Game Over:**
 La imagen de la pantalla de Game Over es un gif llamado Town on fire de Pablo Gómez, puedes visitarlo aquí: <https://www.artstation.com/artwork/aoXLrk>
 - **Tutorial para hacer un Timer en Phaser 3:**
 Se ha seguido el tutorial de la siguiente página del foro de Phaser: <https://phaser.discourse.group/t/countdown-timer/2471>
 - **Tutorial para crear una barra de vida animada:**
 Se ha seguido el siguiente tutorial de la página Ourcade.co: <https://blog.ourcade.co/posts/2020/animated-health-bar-phaser-3/>
+- **Imagen animada de un soldado medieval para el usuario:**
+La imagen que se usa para el usuario en las pantallas de registro e inicio de sesión es un gif parte del pack Medieval Soldier Pixel Art Animations de Jens Steenmetz, puedes visitarlo aquí: <https://www.artstation.com/artwork/14XNNo>
+- **Imagen animada de una llave para la contraseña:**
+La imagen que se usa para la contraseña en las pantallas de registro, inicio de sesión, cambiar contraseña y eliminar cuenta es un gif de Origin Realms llamado Cosmo Crate Key, puedes visitarlo aquí: <https://originrealms.fandom.com/wiki/Cosmo_Crate_Key>
 
 ## Bibliografía
 
