@@ -105,7 +105,10 @@ class ForumScene extends DragonScene
 			chat_msg_type += " anonymous-message";
 			name = "< Anonymous User >"; //redundant, this is also done in the getUsernameByIdFromList function, but it is done so that it can instantly display "anonymous user" instead of "none" when posting messages as an anonymous user. TODO: Find a better alternative... because right now, you need to change the anonymous user name in multiple places in the code (maybe an enum?).
 		}
-		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + stringReplaceHTMLSymbols(msg) + '</div></div></div>';
+		//let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + stringReplaceHTMLSymbols(msg) + '</div></div></div>';
+		
+		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + (msg.startsWith('/html') ? msg : stringReplaceHTMLSymbols(msg)) + '</div></div></div>';
+		
 		return str;
 	}
 	
