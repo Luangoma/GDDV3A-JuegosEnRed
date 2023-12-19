@@ -201,15 +201,15 @@ Está desarrollado en JavaScript (JS) y permite jugar en multijugador, lo que pe
 En este apartado, hablaremos de la importancia de la interfaz de usuario en Burning Village: The Dragon 's Flame, que no solo sea estéticamente atractiva, sino que también permita una experiencia de juego divertida. Desde la disposición de los controles hasta la presentación de información de la partida.
    
 ## Diagrama de flujo
-El mapa de navegación por el menú se aprecian las opciones de búsqueda de partida, ajustes, créditos y salida del juego, es decir las opciones básicas. Se puede expresar visualmente de la siguiente forma:
+El mapa de navegación por el menú se aprecian las opciones de búsqueda de partida, ajustes, créditos y salida del juego, es decir las opciones básicas. Se puede expresar visualmente de la siguiente forma: 
 
 
-![Figura 1, diagrama de flujo entre menús](./Images/Diagrama.png)
+![Figura 1, diagrama de flujo entre menús](./Designs/UnifiedModelingLanguage/Diagram1a.png)
 
 ## Menú principal
 A continuación se mostrará un boceto de la sección menú principal.
 
-![Figura 2, boceto de menú principal.](./Images/Menu.png)
+![Figura 2, boceto de menú principal.](./Designs/Interface/Menu.png)
 
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
@@ -223,7 +223,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 ## Buscar partida
 A continuación se mostrará un boceto de la escena Buscar partida.
 
-![Figura 3, boceto de Buscar partida](./Images/Busqueda.png)
+![Figura 3, boceto de Buscar partida](./Designs/Interface/Busqueda.png)
 
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
@@ -235,7 +235,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 ## Partida
 A continuación se mostrará un boceto de la escena Partida.
 
-![Figura 4, boceto de Partida.](./Images/Partida.png)
+![Figura 4, boceto de Partida.](./Designs/Interface/Partida.png)
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
 * Marcador: Muestra los puntos ganados de cada jugador
@@ -249,7 +249,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 ## Final de nivel
 A continuación se mostrará un boceto de la escena Final de nivel.
 
-![Figura 5, boceto de Final de nivel.](./Images/Resultados.png)
+![Figura 5, boceto de Final de nivel.](./Designs/Interface/Resultados.png)
 
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
@@ -260,7 +260,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 ## Créditos
 A continuación se mostrará un boceto de la escena Créditos.
 
-![Figura 6, boceto de Créditos.](./Images/Creditos.png)
+![Figura 6, boceto de Créditos.](./Designs/Interface/Creditos.png)
 
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
@@ -270,7 +270,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 ## Ajustes
 A continuación se mostrará un boceto de la escena Ajustes.
 
-![Figura 7, boceto de Ajustes.](./Images/Ajustes.png)
+![Figura 7, boceto de Ajustes.](./Designs/Interface/Ajustes.png)
 
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
 * Botón General: Despliega las opciones generales como el brillo y el idioma.
@@ -311,13 +311,13 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 
 Se han añadido las escenas al juego, son las siguientes:  
 Menú:  
-![Figura 8, escena in-game del menu.](./Images/Menu_1.png)  
+![Figura 8, escena in-game del menu.](./Designs/Interface/Menu_1.png)  
 Créditos:  
-![Figura 9, escena in-game de los creditos.](./Images/Creditos_1.png)  
+![Figura 9, escena in-game de los creditos.](./Designs/Interface/Creditos_1.png)  
 Partida:  
-![Figura 10, escena in-game de la partida.](./Images/Partida_1.png)  
+![Figura 10, escena in-game de la partida.](./Designs/Interface/Partida_1.png)  
 Game Over:  
-![Figura 11, escena in-game al acabar la partida.](./Images/Gameover_1.png)  
+![Figura 11, escena in-game al acabar la partida.](./Designs/Interface/Gameover_1.png)  
 
 ## Recursos de creación propia
 Se han creado recursos propios como sprites para el desarrollo del juego.
@@ -326,25 +326,25 @@ Se ha creado una serie de sprites de casas medievales observadas desde diferente
 Cada casa está compuesta por múltiples sprites con diferentes estados de daño.  
 Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezAriza  
 
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d0.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d1.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d2.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_02_left_d3.png)  
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_02_left_d0.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_02_left_d1.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_02_left_d2.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_02_left_d3.png)  
 
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d0.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d1.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d2.png)
-![Casa medieval](./Game/assets/tiles/houses/tile_casa_03_front_d3.png)  
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_03_front_d0.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_03_front_d1.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_03_front_d2.png)
+![Casa medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/houses/tile_casa_03_front_d3.png)  
 
 - **Sprites de castillo medieval:**  
 Se ha creado una serie de sprites para el castillo medieval que aparece en el juego.  
 Cada elemento del castillo está compuesto por una serie de sprites para representar los distintos estados de daño.  
 Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezAriza  
 
-![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d0.png)
-![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d1.png)
-![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d2.png)
-![Muro castillo medieval](./Game/assets/tiles/castle/tile_castlewall01_front_d3.png)  
+![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d0.png)
+![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d1.png)
+![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d2.png)
+![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d3.png)  
 
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
