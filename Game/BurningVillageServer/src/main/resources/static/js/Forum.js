@@ -109,8 +109,10 @@ class ForumScene extends DragonScene
 		
 		//pattern match for commands.
 		//TODO: Replace with proper pattern matching. In C or C++, we would make an scanner class and parse this, tokenize it and match patterns for commands. In JS, we can just convert these strings and treat them as JSON so the language will do the work for us. Bu that's a story for another day, cause we're running out of time now.
+		//TODO: Add command chaining within the same message. Something like making it so that commands take text as an argument and multiple commands can be written in the same message separated by semicolons.
+		//TODO ASAP: Fix the HTML command so that it is not as destructive as it currently is. The quotation marks bug is now fixed, but this still can break the styling of the entire chat!
 		let final_msg_str = "";
-		if(msg.startsWith('/html')){ //this one is dangerous af lol, right now it does not filter quotation marks, thus meaning that in the JSON file stored in the server, everything goes fucky-wucky.
+		if(msg.startsWith('/html')){ //this one is dangerous af lol
 			final_msg_str = msg;
 		}
 		else
@@ -132,6 +134,16 @@ class ForumScene extends DragonScene
 		if(msg.startsWith('/color(blue)')){
 			let tmp_str = msg.split('/color(blue)').join('');
 			final_msg_str = "<p style='color:blue'>" + tmp_str + "</p>"; 
+		}
+		else
+		if(msg.startsWith('/color(purple)')){
+			let tmp_str = msg.split('/color(purple)').join('');
+			final_msg_str = "<p style='color:purple'>" + tmp_str + "</p>"; 
+		}
+		else
+		if(msg.startsWith('/color(cyan)')){
+			let tmp_str = msg.split('/color(cyan)').join('');
+			final_msg_str = "<p style='color:cyan'>" + tmp_str + "</p>"; 
 		}
 		else
 		{
