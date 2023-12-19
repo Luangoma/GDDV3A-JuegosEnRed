@@ -350,11 +350,11 @@ Se han añadido las escenas al juego, son las siguientes:
 Menú Principal:  
 ![Figura 8, escena in-game del menú.](./Designs/Screenshots/1-menu.png)  
 Créditos:  
-![Figura 9, escena in-game de los creditos.](./Designs/Interface/Creditos_1.png)  
+![Figura 9, escena in-game de los creditos.](./Designs/Screenshots/14-creditos.png)  
 Partida:  
 ![Figura 10, escena in-game de la partida.](./Designs/Screenshots/12-partida.png)  
 Game Over:  
-![Figura 11, escena in-game al acabar la partida.](./Designs/Interface/Gameover_1.png)  
+![Figura 11, escena in-game al acabar la partida.](./Designs/Screenshots/13-gameover.png)  
 Tutorial:  
 ![Figura 12, escena in-game del menú del tutorial.](./Designs/Screenshots/2-tutorial.png)  
 Menú de acciones de cuenta:  
