@@ -437,7 +437,7 @@ Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezA
   - Guardando estos un id único para el post, el cual se puede utilizar para buscar un post determinado y se elige automáticamente al 
     momento de crear el objeto post, no se puede elegir como tal.
   - Un id del autor que lo ha escrito para que si se quisiera sea posible implementar una busqueda de posts por nombre de usuario.
-  - El contenido del post que simplemente es la cadena de texto ... 
+  - El contenido del post que simplemente es la cadena de texto en la que se puede emebeber codigo html incluyendo imágenes. 
   - Si se envía un post sin tener una sesión activa, el id de su autor será -1 y se mostrará como mensaje de un usuario anónimo.
 
 
