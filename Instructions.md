@@ -14,11 +14,24 @@ Especificado el área, los archivos del proyecto deben de estar en el interior d
 Abre el proyecto desde el sistema de archivos y seleccionas la carpeta del proyecto.  
 _(File >> Open Proyects from File system)_
 ## Paso 5: Ejecución del proyecto
+Para ejecutar el proyecto, se puede proceder de 2 formas:  
+
+**Ejecución desde la interfaz de STS:**  
 Para su ejecución, deberemos abrir los difrentes desplegables hasta llegar a la aplicación java. 
 _(BurningVillageServer > src/main/java > com.dragon.game >> BurningVillageServerApplication.java)_
-Luego, debemos hacer doble click sobre _BurningVillageServerApplication.java_ y ejecutarlo como una aplicacion de JAVA.  
+Luego, debemos hacer click derecho sobre _BurningVillageServerApplication.java_ y ejecutarlo como una aplicacion de JAVA.  
 _(Run As >> Java Application)_
-## Paso 6: URL local
-Por defecto, la aplicación se cargará en localhost (127.0.0.1) y en el puerto 8080. También se deberá indicar que archivo abrir en la barra de direcciones.  
-_http://127.0.0.1:8080/index.html | http://127.0.0.1:8080 | http://localhost:8080_  
-Listo para usar.
+
+**Ejecución desde la línea de comandos:**  
+En Eclipse STS, se selecciona el proyecto _BurningVillageServer_ en el explorador de paquetes. Se selecciona la opción _Run > Run As > Maven Build_ y se configura el Goal _package_.
+Se busca el directorio en el que se encuentra el archivo .jar resultante y se abre un terminal. Se ejecuta el con el comando `java -jar BurningVillageServer-0.0.1-SNAPSHOT.jar`, especificando opcionalmente otros parámetros de configuración del servidor (eg: cambiar el puerto `--server.port=27015`).
+Para facilitar la ejecución por línea de comandos, se ha creado una serie de scripts (_run_server.bat_ y _run_server.sh_) que ejecutan el comando automáticamente.
+## Paso 6: Conexión al servidor
+Se puede acceder al servidor por medio de un navegador accediendo al URL correspondiente (_http://ip:puerto_). El archivo encargado de cargar el juego en el lado del cliente es _index.html_, por lo que no es necesario especificar ningún archivo en la ruta al acceder al servidor.  
+
+**Acceso por dirección local:**  
+Por defecto, la aplicación se cargará en localhost (127.0.0.1) y en el puerto 8080.  
+_http://localhost:8080 | http://127.0.0.1:8080 | http://[::1]:8080_  
+
+**Acceso por dirección pública:**  
+En caso de haber abierto el puerto en el que reside el servidor, se puede acceder por medio de la IP pública, permitiendo así el acceso de otros clientes agenos a la red local al servidor.
