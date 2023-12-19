@@ -107,7 +107,38 @@ class ForumScene extends DragonScene
 		}
 		//let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + stringReplaceHTMLSymbols(msg) + '</div></div></div>';
 		
-		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + (msg.startsWith('/html') ? msg : stringReplaceHTMLSymbols(msg)) + '</div></div></div>';
+		//pattern match for commands.
+		//TODO: Replace with proper pattern matching. In C or C++, we would make an scanner class and parse this, tokenize it and match patterns for commands. In JS, we can just convert these strings and treat them as JSON so the language will do the work for us. Bu that's a story for another day, cause we're running out of time now.
+		let final_msg_str = "";
+		if(msg.startsWith('/html')){ //this one is dangerous af lol, right now it does not filter quotation marks, thus meaning that in the JSON file stored in the server, everything goes fucky-wucky.
+			final_msg_str = msg;
+		}
+		else
+		if(msg.startsWith('/img')){
+			let tmp_str = msg.split('/img').join('');
+			final_msg_str = "<img src=\"" + tmp_str + "\"/>";
+		}
+		else
+		if(msg.startsWith('/color(red)')){
+			let tmp_str = msg.split('/color(red)').join('');
+			final_msg_str = "<p style='color:red'>" + tmp_str + "</p>"; 
+		}
+		else
+		if(msg.startsWith('/color(green)')){
+			let tmp_str = msg.split('/color(green)').join('');
+			final_msg_str = "<p style='color:green'>" + tmp_str + "</p>"; 
+		}
+		else
+		if(msg.startsWith('/color(blue)')){
+			let tmp_str = msg.split('/color(blue)').join('');
+			final_msg_str = "<p style='color:blue'>" + tmp_str + "</p>"; 
+		}
+		else
+		{
+			final_msg_str = stringReplaceHTMLSymbols(msg);
+		}
+		
+		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + final_msg_str + '</div></div></div>';
 		
 		return str;
 	}
