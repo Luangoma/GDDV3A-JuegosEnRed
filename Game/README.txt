@@ -3,3 +3,6 @@ FOLDER FOR SERVER CODE:
 
 FOLDER FOR CLIENT CODE AND ASSETS:
 ./Game/BurningVillageServer/src/main/resources
+
+FOLDER WITH BOOT SCRIPTS:
+./Game/scripts
