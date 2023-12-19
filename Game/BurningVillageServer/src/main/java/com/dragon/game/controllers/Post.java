@@ -43,7 +43,8 @@ public class Post {
 	
 	
 	public String serializePost() {
-		String ans = "{\"postId\": " + this.postId + ", \"authorId\": " + this.authorId + ", \"postContent\": \"" + this.content + "\"}";
+		String post_content = this.content.replace("\"", "\\\"");
+		String ans = "{\"postId\": " + this.postId + ", \"authorId\": " + this.authorId + ", \"postContent\": \"" + post_content + "\"}";
 		return ans;
 	}
 	
