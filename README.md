@@ -204,7 +204,7 @@ En este apartado, hablaremos de la importancia de la interfaz de usuario en Burn
 El mapa de navegación por el menú se aprecian las opciones de búsqueda de partida, ajustes, créditos y salida del juego, es decir las opciones básicas. Se puede expresar visualmente de la siguiente forma: 
 
 
-![Figura 1, diagrama de flujo entre menús](./Designs/UnifiedModelingLanguage/Diagram1a.png)
+![Figura 1, diagrama de flujo entre menús](./Designs/NavigationDiagram/Diagram1a.png)
 
 ## Menú principal
 A continuación se mostrará un boceto de la sección menú principal.
