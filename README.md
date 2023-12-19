@@ -320,12 +320,12 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 | ---------------------------------- | --------------------------- | -------------------- | ----------- |
 | Escenas                            | Implementado                | Fase 2               |             |
 | Menú                               | Implementado                | Fase 2               |             |
-| Nivel                              | Por implementar             | - Fase 3             |             |
-| Buscar partida                     | Por implementar             | - Fase 3             |             |
+| Nivel                              | Implementado                | Fase 2               |             |
+| Buscar partida                     | Por implementar             | - Fase 4             |             |
 | Resultados                         | Implementado                | Fase 2               |             |
 | Creditos                           | Implementado                | Fase 2               |             |
-| Ajustes                            | Por implementar             | - Fase 3             |El botón esta implementado pero no tiene función|
-| Sonidos                            | Por implementar             | - Fase 3             |             |
+| Ajustes                            | Por implementar             | - Fase 4             |El botón esta implementado pero no tiene función|
+| Sonidos                            | Por implementar             | - Fase 4             |             |
 | Dragones                           | Implementado                | Fase 2               |             |
 | Llamas                             | Implementado                | Fase 2               |             |
 | Casas                              | Implementado                | Fase 2               |El valor de la casa son de 5 puntos|
@@ -402,6 +402,37 @@ Sprites creados por Daniel Rodríguez Ariza: https://github.com/DanielRodriguezA
 ![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d1.png)
 ![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d2.png)
 ![Muro castillo medieval](./Game/BurningVillageServer/src/main/resources/static/assets/tiles/castle/tile_castlewall01_front_d3.png)  
+
+
+# Fase 3: Estado del desarrollo (19/12/23)
+| Funcion                            | Estado de la implementacion | Fase de finalización | Comentarios |
+| ---------------------------------- | --------------------------- | -------------------- | ----------- |
+| Controlador API REST usuarios	     | Implementado                |  Fase 3              |             |
+| Servicio API REST usuarios         | Implementado                |  Fase 3              |             |
+| Creación de usuarios (sign up)     | Implementado                |  Fase 3              |             |
+| Acceso a cuenta (login)            | Implementado                |  Fase 3              |             |
+| Edición de contraseña              | Implementado                |  Fase 3              |             |
+| Eliminación de usuarios            | Implementado                |  Fase 3              |             |
+| Controlador API REST mensajes      | Implementado                |  Fase 3              |             |
+| Servicio API REST mensajes         | Implementado                |  Fase 3              |             |
+| Foro/chat                          | Implementado                |  Fase 3              |             |
+| Controlador API REST status        | Implementado                |  Fase 3              |             |
+| Estado de conexión usuarios        | Implementado                |  Fase 3              |             |
+| Lista de usuarios                  | Implementado                |  Fase 3              |             |
+| Nivel                              | Implementado                | - Fase 4             |             |
+| Buscar partida                     | Por implementar             | - Fase 4             |             |
+| Ajustes                            | Por implementar             | - Fase 4             |El botón esta implementado pero no tiene función|
+| Sonidos                            | Por implementar             | - Fase 4             |             |
+
+## Foro/ Chat
+- El foro permite enviar objetos JSON al servidor para que este los comparta con el resto de usuarios en el chat de forma casi instantánea.
+- La estructura de estos objetos es siempre la misma: {"postId": 0, "authorId": 0, "postContent": "Contenido del mensaje"}
+  - Guardando estos un id único para el post, el cual se puede utilizar para buscar un post determinado y se elige automáticamente al 
+    momento de crear el objeto post, no se puede elegir como tal.
+  - Un id del autor que lo ha escrito para que si se quisiera sea posible implementar una busqueda de posts por nombre de usuario.
+  - El contenido del post que simplemente es la cadena de texto ... 
+  - Si se envía un post sin tener una sesión activa, el id de su autor será -1 y se mostrará como mensaje de un usuario anónimo.
+
 
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
