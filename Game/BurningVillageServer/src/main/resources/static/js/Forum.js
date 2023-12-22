@@ -120,9 +120,8 @@ class ForumScene extends DragonScene
 		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message'; //the class for the message div
 		if(id === -1){
 			chat_msg_type += " anonymous-message";
-			name = "< Anonymous User >"; //redundant, this is also done in the getUsernameByIdFromList function, but it is done so that it can instantly display "anonymous user" instead of "none" when posting messages as an anonymous user. TODO: Find a better alternative... because right now, you need to change the anonymous user name in multiple places in the code (maybe an enum?).
+			name = "< Anonymous User >";
 		}
-		//let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + stringReplaceHTMLSymbols(msg) + '</div></div></div>';
 		
 		//pattern match for commands.
 		//TODO: Replace with proper pattern matching. In C or C++, we would make an scanner class and parse this, tokenize it and match patterns for commands. In JS, we can just convert these strings and treat them as JSON so the language will do the work for us. Bu that's a story for another day, cause we're running out of time now.
@@ -275,7 +274,7 @@ class ForumScene extends DragonScene
 		
 	}
 	
-	
+	//this one is completely unused due to the need for an async nature, could be used if we fix the system in the future, so we'll keep it around for now.
 	getUsernameById(id){
 		$.ajax({
 			url: ip.http + '/users/' + id,
@@ -298,7 +297,7 @@ class ForumScene extends DragonScene
 				return list[i].username;
 			}
 		}
-		return "< Anonymous User >";
+		return "< Deleted User >";
 	}
 	
 }
