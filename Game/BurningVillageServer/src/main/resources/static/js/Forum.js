@@ -3,7 +3,10 @@ class ForumScene extends DragonScene
 	menuBackground = {};
     botonSalir = {};
 	ForumChat = {};
-	messages_box_div = null;
+	
+	//elements from the document that represents the chat
+	messages_box_div = null; //the div where messages are displayed
+	msg_input_box = null; //the text box where the user can write messages
 	
 	accumulated_time = 0;
 	seconds_per_petition = 2; //makes the petitions every N seconds.
@@ -13,9 +16,40 @@ class ForumScene extends DragonScene
         this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
 		this.load.html('cajaForo', './assets/foro.html');
     }
+	
+	sendMessage(){
+		let that = this; //Good old JS hack, Episode IV, A New Hope (not).
+		let mensaje = this.msg_input_box.value;
+		this.msg_input_box.value = '';
+		if (mensaje !== '')
+		{
+			//Si hay mensaje, enviarlo por petición AJAX.
+			$.ajax({
+				method: "POST",
+				url: ip.http + "/posts/new",
+				data: JSON.stringify({postId: 1, authorId: localUser.user.id, postContent: mensaje}),
+				processData: false,
+				headers: {
+					"Content-type": "application/json"
+				}
+			}).done(function(data, textStatus, jqXHR) {
+				console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
+				that.addMessage(that.getMessageString(localUser.user.id, localUser.user.username, mensaje));
+				that.scrollChat(); //always scroll to the bottom when the user sends a message.
+				
+				
+			}).fail(function(data, textStatus, jqXHR) {
+				console.log("Error, no se ha añadido el mensaje al servidor.");
+				//that.loginBox.displayError("No se ha podido crear la cuenta.");
+			});
+		}
+	}
 
     create() {
-        // Añadir el background a la escena.
+        //Good old JS hack, the third...
+		let that = this;
+		
+		// Añadir el background a la escena.
         this.menuBackground = this.add.image(0, 0, 'menuBackgroundBlurry').setOrigin(0, 0).setDisplaySize(config.width, config.height);
 		
 		//reset the timer to 0:
@@ -25,10 +59,15 @@ class ForumScene extends DragonScene
 		const element = this.add.dom(config.width/2, config.height/2).createFromCache('cajaForo');
 		this.ForumChat = element;
 		
+		//get the forum message box, which is the div where all the chat messages will be displayed:
 		this.messages_box_div = element.node.querySelector('#forum-messages-box');
-		console.log(this.messages_box_div);
+			//console.log(this.messages_box_div);
 		
-		let that = this;
+		//obtain the message input box:
+		this.msg_input_box = element.getChildByName('message-input');
+			//console.log(this.msg_input_box);
+		
+		//add the event listener for clicks to the send msg button: (note: this really could be simplified down to look like the onkeypress event but whatever, it's fucking Christmas and I shouldn't be doing this at almost 1AM, someone else added the complexity here and now it's going to stay until the change is really needed...)
 		element.setPerspective(800);
 		element.addListener('click');
 		element.on('click', function (event)
@@ -38,40 +77,18 @@ class ForumScene extends DragonScene
 			if (event.target.name === 'send-message')
 			{
 				console.log("Botón enviar pulsado.");
-				
-				let msg_input_box = this.getChildByName('message-input');
-				let mensaje = msg_input_box.value;
-				msg_input_box.value = ""; //empty the user's text prompt when they send a message.
-				
-				
-				console.log(mensaje);
-				console.log(localUser.user.id);
-
-				if (mensaje !== '')
-				{
-					//Si hay mensaje, enviarlo por petición AJAX.
-					$.ajax({
-						method: "POST",
-						url: ip.http + "/posts/new",
-						data: JSON.stringify({postId: 1, authorId: localUser.user.id, postContent: mensaje}),
-						processData: false,
-						headers: {
-							"Content-type": "application/json"
-						}
-					}).done(function(data, textStatus, jqXHR) {
-						console.log("El mensaje se ha añadido satisfactoriamente al servidor.");
-						that.addMessage(that.getMessageString(localUser.user.id, localUser.user.username, mensaje));
-						that.scrollChat(); //always scroll to the bottom when the user sends a message.
-						
-						
-					}).fail(function(data, textStatus, jqXHR) {
-						console.log("Error, no se ha añadido el mensaje al servidor.");
-						//that.loginBox.displayError("No se ha podido crear la cuenta.");
-					});
-				}
+				that.sendMessage();
 			}
 
 		});
+		
+		//add the event to the message text box so that the enter key will also act as a way to send messages:
+		this.msg_input_box.onkeypress = function(e){
+			//if the key code is equals to the ENTER key, send the message
+			if(e.keyCode === 13){
+				that.sendMessage();
+			}
+		};
 		
 		
 		//get the chat list a first time and force a scroll to the bottom:
