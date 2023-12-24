@@ -115,6 +115,23 @@ class ForumScene extends DragonScene
 		this.accumulated_time += delta;
 	}
 	
+	//maybe this should be a function external to the forum scene class if we ever intend to add support for console commands.
+	parse_message_command(msg){
+		if(!msg.startsWith('/command.')){
+			return stringReplaceHTMLSymbols(msg);
+		}
+		
+		let command_string = msg.replace('/',''); //removes only the first slash in the command string
+		console.log("Running command: " + command_string);
+		
+		//eval is dangerous because it evaluates any command that is valid JS. This is why we make it so that it can only run commands from the command list, by enforcing that all valid commands start with "/command."
+		try{
+			return eval(command_string);
+		} catch(e) {
+			console.log("an error has happened. Could not evaluate and run the command.");
+			return command_string;
+		}
+	}
 	
 	getMessageString(id, name, msg){
 		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message'; //the class for the message div
@@ -123,50 +140,7 @@ class ForumScene extends DragonScene
 			name = "< Anonymous User >";
 		}
 		
-		//pattern match for commands.
-		//TODO: Replace with proper pattern matching. In C or C++, we would make an scanner class and parse this, tokenize it and match patterns for commands. In JS, we can just convert these strings and treat them as JSON so the language will do the work for us. Bu that's a story for another day, cause we're running out of time now.
-		//TODO: Add command chaining within the same message. Something like making it so that commands take text as an argument and multiple commands can be written in the same message separated by semicolons.
-		//TODO ASAP: Fix the HTML command so that it is not as destructive as it currently is. The quotation marks bug is now fixed, but this still can break the styling of the entire chat!
-		let final_msg_str = "";
-		if(msg.startsWith('/html')){ //this one is dangerous af lol
-			final_msg_str = msg;
-		}
-		else
-		if(msg.startsWith('/img')){
-			let tmp_str = msg.split('/img').join('');
-			final_msg_str = "<img src=\"" + tmp_str + "\"/>";
-		}
-		else
-		if(msg.startsWith('/color(red)')){
-			let tmp_str = msg.split('/color(red)').join('');
-			final_msg_str = "<p style='color:red'>" + tmp_str + "</p>"; 
-		}
-		else
-		if(msg.startsWith('/color(green)')){
-			let tmp_str = msg.split('/color(green)').join('');
-			final_msg_str = "<p style='color:green'>" + tmp_str + "</p>"; 
-		}
-		else
-		if(msg.startsWith('/color(blue)')){
-			let tmp_str = msg.split('/color(blue)').join('');
-			final_msg_str = "<p style='color:blue'>" + tmp_str + "</p>"; 
-		}
-		else
-		if(msg.startsWith('/color(purple)')){
-			let tmp_str = msg.split('/color(purple)').join('');
-			final_msg_str = "<p style='color:purple'>" + tmp_str + "</p>"; 
-		}
-		else
-		if(msg.startsWith('/color(cyan)')){
-			let tmp_str = msg.split('/color(cyan)').join('');
-			final_msg_str = "<p style='color:cyan'>" + tmp_str + "</p>"; 
-		}
-		else
-		{
-			final_msg_str = stringReplaceHTMLSymbols(msg);
-		}
-		
-		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + final_msg_str + '</div></div></div>';
+		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + this.parse_message_command(msg) + '</div></div></div>';
 		
 		return str;
 	}
