@@ -43,7 +43,8 @@ public class Post {
 	
 	
 	public String serializePost() {
-		String post_content = this.content.replace("\"", "\\\"");
+		//replace first all backslashes with double backslashes, and then replace all quotation marks with backslash quotation mark.
+		String post_content = this.content.replace("\\", "\\\\").replace("\"", "\\\"");
 		String ans = "{\"postId\": " + this.postId + ", \"authorId\": " + this.authorId + ", \"postContent\": \"" + post_content + "\"}";
 		return ans;
 	}
