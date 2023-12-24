@@ -7,7 +7,7 @@ var command = {
 		return ans;
 	},
 	color: function(color, msg){
-		let ans = "<p style='color:" + color + "'>" + msg + "</p>";
+		let ans = "<span style='color:" + color + "'>" + msg + "</span>";
 		return ans;
 	}
 };
