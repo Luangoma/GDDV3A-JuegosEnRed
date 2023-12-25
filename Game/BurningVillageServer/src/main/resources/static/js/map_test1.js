@@ -15,6 +15,7 @@ class map_test_1 extends DragonScene
 	create()
 	{
 		enableSound(this);
+		enableInput(this);
 		
 		this.setFinishedLoading(false);
 		
@@ -65,7 +66,8 @@ class map_test_1 extends DragonScene
 	
 	shutdown()
 	{
-		super.shutdown();
+		console.log("THE SCENE HAS BEEN SHUT DOWN!!!");
+		//super.shutdown(); //this crashes because the parent actually does not have such a function... and Phaser.Scene apparently doesn't have one of these either...? ok, thanks for the faulty documentation? good old phaser and their crappy docs that contain information that is wrong (for example the false promise that shutdown is meant to be called automatically, despite the years worth of reports saying that it doesn't work for shit...) So basically, once we implement our own loadScene and stopScene functions, be careful when calling shutdown and destroy. Make sure they exist with a check, something like if(target_scene.shutdown){target_scene.shutdown();} etc...
 	}
 	
 	destroy()

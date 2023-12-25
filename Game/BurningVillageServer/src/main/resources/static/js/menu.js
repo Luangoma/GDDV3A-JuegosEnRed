@@ -23,6 +23,9 @@ class MainMenu extends DragonScene
 	{
 		stopSound(this);
 		enableSound(this);
+		disableInput(this);
+		
+		//Good old JS hack, I lost the count...
 		let that = this;
 		
 		//VERY IMPORTANT TODO: Fix the buttons being clickable during loading screen!

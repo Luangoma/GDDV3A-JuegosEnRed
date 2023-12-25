@@ -102,3 +102,15 @@ function toggleFullScreen() {
 		game.scale.refresh();
     }
 }
+
+function setInputEnabled(scene, enabled_value = true){
+	scene.input.keyboard.manager.enabled = enabled_value;
+}
+
+function enableInput(scene) {
+	setInputEnabled(scene,true);
+}
+
+function disableInput(scene) {
+	setInputEnabled(scene,false);
+}

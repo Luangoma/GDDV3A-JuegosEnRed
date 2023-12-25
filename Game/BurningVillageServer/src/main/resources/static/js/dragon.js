@@ -106,7 +106,6 @@ Dragon.prototype.createDragon = function(start_x, start_y){
 };
 
 
-	
 Dragon.prototype.update = function(time, delta){
 	
 	//Update player movement

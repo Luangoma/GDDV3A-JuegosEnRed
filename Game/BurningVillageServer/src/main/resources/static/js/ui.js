@@ -245,7 +245,11 @@ class ui extends Phaser.Scene
 
 		// Si el tiempo inicial es 0, la partida ha terminado.
 		if (this.tiempoInicial === 0){
+			//this game over and timer logic really should be in the game itself and not the UI...
 			console.log("GAME OVER");
+			
+			//stop the game scene and ui scene and then load the game over scene
+			game.scene.getScene('map_test_1').shutdown(); //need to change this as it does not do anything as of now lol.
 			game.scene.stop('map_test_1');
 			this.scene.stop("ui");
 			game.scene.start("game_over");
