@@ -89,8 +89,14 @@ public class UserController {
 	@PostMapping(value = "/users")
 	//@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<User> crearUsuario(@RequestBody User nuevoUsuario) {
+		//Check if the user contains illegal characters in the name. This should only happen if someone tries to manually make an AJAX petition from the console or modifies the game's source, so we need this fallback security.
+		boolean username_is_valid = !this.userService.containsIllegalCharacters(nuevoUsuario.getUsername());
+		
 		//Comprobar si ya existe el usuario.
-		if(userService.getUserByName(nuevoUsuario.getUsername()) == null) {
+		boolean username_is_unique = this.userService.getUserByName(nuevoUsuario.getUsername()) == null;
+		
+		//Create the user only if the user's chosen name is completely valid (contains no illegal characters and no other user has said name)
+		if(username_is_valid && username_is_unique) {
 			//El usuario no existe y se puede proceder a crear el usuario.
 			User created_user = this.userService.createUser(nuevoUsuario);
 			this.userService.writeUsersToFile();

@@ -20,6 +20,7 @@ public class UserService {
 	private final Map<Long, User> users = new ConcurrentHashMap<>();
 	private Long currentId;
 	private String jsonFile;
+	private final String[] illegalCharacters = new String[]{"/", " ", "<", ">", "&", "\"", "\'"};
 	
 	//Constructor:
 	UserService(){
@@ -154,6 +155,15 @@ public class UserService {
         	System.err.println("The specified file does not exist. Could not read existing user data.");
         }
         ++this.currentId;
+	}
+	
+	public boolean containsIllegalCharacters(String name) {
+		for(String s : this.illegalCharacters) {
+			if(name.contains(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }
