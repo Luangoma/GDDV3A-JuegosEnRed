@@ -1,6 +1,6 @@
 function CredentialsBox(scene, form_type = FORM_TYPE.DEFAULT){
 	
-	this.illegalCharacters = ['/', ' ', '<', '>', '&', '\"', '\''];
+	this.illegalCharacters = ['/', ' ', '<', '>', '&', '\"', '\'', '\\'];
 	
 	this.scene = scene;
 	this.form_enum_type = form_type;

@@ -20,7 +20,7 @@ public class UserService {
 	private final Map<Long, User> users = new ConcurrentHashMap<>();
 	private Long currentId;
 	private String jsonFile;
-	private final String[] illegalCharacters = new String[]{"/", " ", "<", ">", "&", "\"", "\'"};
+	private final String[] illegalCharacters = new String[]{"/", " ", "<", ">", "&", "\"", "\'", "\\"};
 	
 	//Constructor:
 	UserService(){
