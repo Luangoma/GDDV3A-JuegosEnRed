@@ -92,11 +92,14 @@ public class UserController {
 		//Check if the user contains illegal characters in the name. This should only happen if someone tries to manually make an AJAX petition from the console or modifies the game's source, so we need this fallback security.
 		boolean username_is_valid = !this.userService.containsIllegalCharacters(nuevoUsuario.getUsername());
 		
+		//Make the same check for the password
+		boolean password_is_valid = !this.userService.containsIllegalCharacters(nuevoUsuario.getPassword());
+		
 		//Comprobar si ya existe el usuario.
 		boolean username_is_unique = this.userService.getUserByName(nuevoUsuario.getUsername()) == null;
 		
-		//Create the user only if the user's chosen name is completely valid (contains no illegal characters and no other user has said name)
-		if(username_is_valid && username_is_unique) {
+		//Create the user only if the user's chosen name and password are completely valid (contains no illegal characters in the name and the password and no other user has the same name)
+		if(username_is_valid && password_is_valid && username_is_unique) {
 			//El usuario no existe y se puede proceder a crear el usuario.
 			User created_user = this.userService.createUser(nuevoUsuario);
 			this.userService.writeUsersToFile();
