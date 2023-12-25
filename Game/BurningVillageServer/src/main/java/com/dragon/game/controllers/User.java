@@ -37,7 +37,9 @@ public class User {
 	}
 	
 	public String serializeUser() {
-		String ans = "{\"id\": " + this.id + ", \"username\": \"" + this.username + "\", \"password\": \"" + this.password + "\"}";
+		String filtered_username = this.username.replace("\\", "\\\\").replace("\"", "\\\"");
+		String filtered_password = this.password.replace("\\", "\\\\").replace("\"", "\\\"");
+		String ans = "{\"id\": " + this.id + ", \"username\": \"" + filtered_username + "\", \"password\": \"" + filtered_password + "\"}";
 		return ans;
 	}
 	
