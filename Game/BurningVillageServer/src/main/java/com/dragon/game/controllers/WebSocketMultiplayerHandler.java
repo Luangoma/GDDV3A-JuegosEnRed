@@ -26,10 +26,13 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 	private final Map<Long, Lobby> lobbies = new ConcurrentHashMap<>(); //each "lobby" is a container where we allow 2 (or more) players to meet so that they can decide if they want to play together or not. Once they play, the game match takes place between players within a certain lobby. For now, lobbies are a list of 2 players because only 2 players are allowed in this game, but internally, they support a growable list of any number of players.
 	private final ObjectMapper mapper = new ObjectMapper(); //a mapper object to do some JSON parsing, because we can't have free functions in Java for some reason. Long live 21st century software development.
 	
+	private Long currentLobbyId = 0L;
 	
 	private long getNumberOfLobbies() {
 		return lobbies.size();
 	}
+	
+	//TODO: (This one is a maybe, it is not mandatory, we could instead just get the last used lobby ID and be done with it.) Make a function to get a good free lobby ID so that we can keep running without exausting our lobby ID numbers during runtime (which I doubt would ever happen, but it is possible...)
 	
 	public WebSocketMultiplayerHandler(){}
 	
@@ -47,6 +50,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		sessions.remove(session.getId());
 		Long lobby_id = this.getLobbyWithPlayer(session.getId());
 		
+		//if the lobby exists (the id is not -1), then remove the player from the lobby. Then, if the lobby is empty, remove it from the lobbies list, because the lobby no longer needs to exist.
 		if(lobby_id >= 0) {
 			Lobby current_lobby = this.lobbies.get(lobby_id);
 			current_lobby.removePlayerByString(session.getId());
@@ -56,6 +60,49 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		}
 		
 		System.out.println("A connection was closed (" + sessions.size() + " connections in total).");
+	}
+	
+	public void createLobby(WebSocketSession session) {
+		Lobby new_lobby = new Lobby();
+		new_lobby.setLobbyId(this.currentLobbyId);
+		new_lobby.setMaxPlayers(2);
+		new_lobby.addPlayerByString(session.getId());
+		
+		this.lobbies.put(this.currentLobbyId, new_lobby);
+		
+		System.out.println("The player tried to create a lobby.");
+		
+		++this.currentLobbyId;
+	}
+	
+	public void joinLobby(WebSocketSession session, Long lobby_id) {
+		//join the player to a lobby through the lobby ID:
+		Lobby current_lobby = this.lobbies.get(lobby_id);
+		current_lobby.addPlayerByString(session.getId());
+		
+		//notify all the other players in the lobby (if they exist) that this player is ready.
+		
+		System.out.println("Player joined a lobby!");
+	}
+	
+	public void matchMaking(WebSocketSession session) {
+		
+		System.out.println("A player wants to perform automatic match making.");
+		
+		//loop through all existing lobbies (if there are any) and join the player to the first lobby with an empty slot.
+		for(Map.Entry<Long, Lobby> entry : this.lobbies.entrySet()) {
+			Lobby current_lobby = entry.getValue();
+			Long current_key = entry.getKey();
+			if(current_lobby.getConnectedPlayers() < current_lobby.getMaxPlayers() && current_lobby.getConnectedPlayers() != 0) { //The last part of the check after the AND is completely unnecessary, but it exists in the case that the server has a hiccup and an empty lobby that is about to get deleted for being empty is somehow registered within this loop during player matchmaking, which would lead to a broken connection.
+				//current_lobby.addPlayerByString(session.getId());
+				this.joinLobby(session, current_key);
+				return;
+			}
+		}
+		
+		//if no lobbies exist currently, then create a new one and wait afk.
+		this.createLobby(session);
+		return;
 	}
 	
 	//Handle the received messages from the client.
@@ -78,28 +125,12 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		//TODO: add null checks to all the strings down there. Just in case someone sends a hand crafted packet and everything breaks.
 		switch(action) {
 		case "create-lobby":{
-			
-			Lobby new_lobby = new Lobby();
-			new_lobby.setLobbyId(this.getNumberOfLobbies());
-			new_lobby.setMaxPlayers(2);
-			new_lobby.addPlayerByString(session.getId());
-			
-			this.lobbies.put(this.getNumberOfLobbies(), new_lobby);
-			
-			System.out.println("The player tried to create a lobby.");
+			this.createLobby(session);
 			break;
 		}
 		case "join-lobby":{
-			//String lobby_id_str = subtree.get("lobby-id").asText();
-			//System.out.println("The connection joined the lobby: " + lobby_id_str);
-			
-			String player_id_str = node.get("playerId").asText();
-			String lobby_id_str = node.get("lobbyId").asText(); //if ID == -1, then create a new lobby and send the ID to the player.
-			
-			Long player_id = Long.getLong(player_id_str);
-			Long lobby_id = Long.getLong(lobby_id_str);
-			
-			System.out.println("Player joined lobby! Player ID: " + player_id_str + ", lobby ID: " + lobby_id_str);
+			Long lobby_id = node.get("lobbyId").asLong();
+			this.joinLobby(session, lobby_id);
 			break;
 		}
 		case "send-data":{
@@ -115,7 +146,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			break;
 		}
 		case "match-making":{
-			System.out.println("A player wants to perform automatic match making. Sadly, none of this has been implemented yet, lol.");
+			this.matchMaking(session);
 			break;
 		}
 		case "get-server-info":{
@@ -156,6 +187,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		return -1L;
 	}
 	
+	//old unused method to remove unused lobbies. Do not use anymore.
 	/*
 	@Scheduled(fixedRate = 1000 * 10)
 	public void checkActiveLobbies() {
@@ -166,6 +198,17 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 				lobbies.remove(current_key);
 			}
 		}
+	}
+	*/
+	
+	//Every N seconds, send each connected player an updated list of the lobbies that are currently open.
+	/*
+	@Scheduled(fixedRate = 1000 * 2) //2 seconds
+	public void sendActiveLobbies() {
+		//serialize all lobbies into a JSON list
+		//loop through all sessions in the sessions list.
+			//if the current session is of a player that is not in game
+				//send the list of lobbies to the current session.
 	}
 	*/
 	

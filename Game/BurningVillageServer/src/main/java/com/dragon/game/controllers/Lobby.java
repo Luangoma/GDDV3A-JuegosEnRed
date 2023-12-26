@@ -95,7 +95,7 @@ public class Lobby {
 	
 	//Add a player connection to the lobby if the player is not already connected to the lobby.
 	public boolean addPlayerByString(String s) {
-		if(!this.hasPlayerByString(s)) {
+		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
 			this.playerSlots.add(s);
 			return true;
 		}
