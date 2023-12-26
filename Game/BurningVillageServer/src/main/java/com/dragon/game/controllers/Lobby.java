@@ -1,0 +1,130 @@
+package com.dragon.game.controllers;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//NOTE: A null string signifies that said player slot in the lobby is not occupied, thus, no player is connected on said slot, which means that it is free to use by another user.
+public class Lobby {
+	
+	private Long lobbyId;
+	private final List<String> playerSlots = new ArrayList<>();
+	private long maxPlayers;
+	
+	
+	public Lobby() {
+		
+	}
+	
+	public void setMaxPlayers(long value) {
+		this.maxPlayers = value;
+	}
+	
+	public long getMaxPlayers() {
+		return this.maxPlayers;
+	}
+	
+	public long getConnectedPlayers() {
+		return this.playerSlots.size();
+	}
+	
+	//Determine if the index is out of range or not. Returns true if the given input index is valid for the lobby's player slots list. This is done because, even if we know in most cases that we want a limit of players, we still give support for a growable player list, which is why we use an ArrayList.
+	private boolean isValidIndex(int idx) {
+		return (idx >= 0 || idx < this.getConnectedPlayers()) && idx < this.getMaxPlayers();
+	}
+	
+	//Get the ID of this lobby.
+	public Long getLobbyId() {
+		return this.lobbyId;
+	}
+	
+	//Set the ID of this lobby.
+	public void setLobbyId(Long id) {
+		this.lobbyId = id;
+	}
+	
+	//Get the player session string for the player in the slot with index "idx" within this lobby. If the index is not in use by this lobby, return null so that we can tell that no player is connected in said slot.
+	public String getPlayerByIndex(int idx) {
+		if(this.isValidIndex(idx)) {
+			return this.playerSlots.get(idx);
+		}
+		return null;
+	}
+	
+	//Set the player session string for the player in the slot with index "idx" within this lobby with the chosen value string. If the index is out of bounds, then nothing happens. Maybe in the future change this to a boolean function so that it can return a result to confirm wether it has worked or not.
+	public void setPlayerByIndex(int idx, String value) {
+		if(this.isValidIndex(idx)) {
+			this.playerSlots.set(idx, value);
+		}
+	}
+	
+	//Remove the chosen player from the list. Uses a list index.
+	public void removePlayerByIndex(int idx) {
+		if(this.isValidIndex(idx)) {
+			this.playerSlots.remove(idx);
+		}
+	}
+	
+	
+	//Check if a player is connected in the lobby through their lobby index.
+	public boolean hasPlayerByIndex(int idx) {
+		return isValidIndex(idx);
+	}
+	
+	//Check if a certain player is inside of this lobby through their connection string.
+	public boolean hasPlayerByString(String pid) {
+		for(String s : this.playerSlots) {
+			if(s.equals(pid)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	//Get the lobby index of a given player by their player ID string. If the player is not in the list, it will return -1.
+	private int getPlayerIndexByString(String pid) {
+		int i = 0;
+		for(String s : this.playerSlots) {
+			if(s.equals(pid)) {
+				return i;
+			}
+			++i;
+		}
+		return -1;
+	}
+	
+	
+	//Add a player connection to the lobby if the player is not already connected to the lobby.
+	public boolean addPlayerByString(String s) {
+		if(!this.hasPlayerByString(s)) {
+			this.playerSlots.add(s);
+			return true;
+		}
+		return false;
+	}
+	
+	//Remove the chosen player from the list. Uses a connection string.
+	public boolean removePlayerByString(String s) {
+		int idx = this.getPlayerIndexByString(s);
+		if(this.isValidIndex(idx)) {
+			this.removePlayerByIndex(idx);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public String serializeLobby() {
+		String player_slots_str = "";
+		
+		for(int i = 0; i < this.getConnectedPlayers(); ++i) {
+			player_slots_str += "\"" + this.getPlayerByIndex(i) + "\"";
+			if(i < this.getConnectedPlayers() - 1) {
+				player_slots_str += ", ";
+			}
+		}
+		
+		String ans = "{\"lobbyId\": " + this.getLobbyId() + ", \"maxPlayers\": " + this.getMaxPlayers() + ", \"playerCount\": " + this.getConnectedPlayers() + ", \"playerSlots\": [" + player_slots_str + "]}";
+		return ans;
+	}
+	
+}
