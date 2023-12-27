@@ -1,5 +1,6 @@
 //TODO: Refactor this to use some kind of "display list in groups of N elements with M pages" class or whatever because we now have a second place where this kind of behavior is needed...
 //or change it to use HTML stuff and display the whole list of users because all of this manual labour is not really worth it to be done multiple times.
+//Even the tutorial menu could benefit from having a list of multiple switchable pages just like this one...
 class PlayerListScene extends DragonScene
 {
 	background1 = {};
@@ -174,15 +175,6 @@ class PlayerListScene extends DragonScene
 			let currentImage = this.add.image(200,170 + 30 * i, /*'stone_button'*/ 'status_offline').setOrigin(0,0).setScale(0.5);
 			currentImage.visible = false;
 			this.playersLeftSqureList.push(currentImage);
-		}
-	}
-	
-	//completely unused, remove plz lol
-	makeUsersDots()
-	{
-		for(let i = 0; i < this.users_per_page; ++i)
-		{
-			let currentImage = this.add.image(200,170 + 30 * i, 'stone_button').setOrigin(0,0).setScale(0.5);
 		}
 	}
 	
