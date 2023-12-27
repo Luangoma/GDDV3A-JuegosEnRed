@@ -7,7 +7,7 @@ import java.util.List;
 public class Lobby {
 	
 	private Long lobbyId;
-	private final List<String> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
+	private final List<Player> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
 	private long maxPlayers;
 	
 	
@@ -45,7 +45,7 @@ public class Lobby {
 	//Get the player session string for the player in the slot with index "idx" within this lobby. If the index is not in use by this lobby, return null so that we can tell that no player is connected in said slot.
 	public String getPlayerByIndex(int idx) {
 		if(this.isValidIndex(idx)) {
-			return this.playerSlots.get(idx);
+			return this.playerSlots.get(idx).getSessionId();
 		}
 		return null;
 	}
@@ -53,7 +53,8 @@ public class Lobby {
 	//Set the player session string for the player in the slot with index "idx" within this lobby with the chosen value string. If the index is out of bounds, then nothing happens. Maybe in the future change this to a boolean function so that it can return a result to confirm wether it has worked or not.
 	public void setPlayerByIndex(int idx, String value) {
 		if(this.isValidIndex(idx)) {
-			this.playerSlots.set(idx, value);
+			//this.playerSlots.set(idx, value);
+			this.playerSlots.get(idx).setSessionId(value);
 		}
 	}
 	
@@ -71,9 +72,10 @@ public class Lobby {
 	}
 	
 	//Check if a certain player is inside of this lobby through their connection string.
-	public boolean hasPlayerByString(String pid) {
-		for(String s : this.playerSlots) {
-			if(s.equals(pid)) {
+	public boolean hasPlayerByString(String target_player_id) {
+		for(Player p : this.playerSlots) {
+			String s = p.getSessionId();
+			if(s.equals(target_player_id)) {
 				return true;
 			}
 		}
@@ -81,10 +83,11 @@ public class Lobby {
 	}
 	
 	//Get the lobby index of a given player by their player ID string. If the player is not in the list, it will return -1.
-	private int getPlayerIndexByString(String pid) {
+	private int getPlayerIndexByString(String target_player_id) {
 		int i = 0;
-		for(String s : this.playerSlots) {
-			if(s.equals(pid)) {
+		for(Player p : this.playerSlots) {
+			String s = p.getSessionId();
+			if(s.equals(target_player_id)) {
 				return i;
 			}
 			++i;
@@ -96,7 +99,9 @@ public class Lobby {
 	//Add a player connection to the lobby if the player is not already connected to the lobby.
 	public boolean addPlayerByString(String s) {
 		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
-			this.playerSlots.add(s);
+			Player p = new Player();
+			p.setSessionId(s);
+			this.playerSlots.add(p);
 			return true;
 		}
 		return false;
@@ -112,7 +117,8 @@ public class Lobby {
 		return false;
 	}
 	
-	
+	//Simple function to serialize the lobby into a JSON string.
+	//TODO: Use jackson instead of doing this by hand.
 	public String serializeLobby() {
 		String player_slots_str = "";
 		
