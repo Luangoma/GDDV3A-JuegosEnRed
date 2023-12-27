@@ -3,8 +3,8 @@ var connection = {
 	socket: null, //this is what we usually call "var connection" in the JS world
 	is_connected: false,
 	isConnected: function(){
-		//this function is kinda dumb and redundant, but other people are used to using isWhatever() as a function (thanks Java...), so yeah. It is what it is.
-		return connection.socket.is_connected;
+		//Devuelve true si el socket pasa al estado de OPEN.
+		return connection.socket.readyState === WebSocket.OPEN;
 	},
 	connect: function(){
 		//This could take an address as an input argument, but since we always connect to the same place, and this is an object and not a class, then we don't need an address
