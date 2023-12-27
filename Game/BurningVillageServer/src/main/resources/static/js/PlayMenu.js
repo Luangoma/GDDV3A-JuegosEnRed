@@ -28,7 +28,7 @@ class PlayMenu extends DragonScene
 		this.button_play_mp_matchmaking.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");
-			game.scene.start("MainMenu"); //TODO: Implement matchmaking lol
+			game.scene.start("map_test_multiplayer"); //TODO: Implement matchmaking lol
 		});
 		this.button_play_mp_matchmaking.setCanBePressed(true);
 		
