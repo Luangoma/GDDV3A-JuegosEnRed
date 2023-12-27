@@ -135,6 +135,10 @@ class PagedMenu
 	{
 		this.elements_list = list;
 		this.update_total_pages();
+		
+		//make sure to clamp the current page so that we don't find ourselves in the wrong page if the update contains less pages than what we had previously.
+		this.current_page = clampValue(this.current_page, 0, this.total_pages - 1);
+		
 		this.update_objects();
 	}
 	
