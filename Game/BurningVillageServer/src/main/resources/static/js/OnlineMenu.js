@@ -1,3 +1,4 @@
+//The name of this class maybe isn't the best to reflect what it exactly does. This is the class responsible for displaying the serverbrowser, aka, display the lobbies from the server.
 class OnlineMenu extends DragonScene
 {
 	button_create_lobby = {};
@@ -5,6 +6,8 @@ class OnlineMenu extends DragonScene
 	button_back = {};
 	
 	background = {};
+	
+	lobbies = [];
 	
 	preload()
 	{
@@ -14,6 +17,8 @@ class OnlineMenu extends DragonScene
 	create()
 	{
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
+		
+		this.startConnection();
 		
 		this.button_create_lobby = new Button(this, config.width/4 - 50, config.height - 50, "Crear");
 		this.button_create_lobby.setButtonFunction(function(){
@@ -35,5 +40,23 @@ class OnlineMenu extends DragonScene
 			game.scene.start("PlayMenu");
 		});
 		this.button_back.setCanBePressed(true);
+	}
+	
+	getLobbiesList()
+	{
+		
+	}
+	
+	startConnection()
+	{
+		/*
+		localUser.connection = new WebSocket(ip.ws + "/multiplayer");
+		localUser.connection.onopen = function(){
+			this.getLobbiesList();
+		};
+		localUser.connection.onclose = function(){
+			this.lobbies = [];
+		};
+		*/
 	}
 }
