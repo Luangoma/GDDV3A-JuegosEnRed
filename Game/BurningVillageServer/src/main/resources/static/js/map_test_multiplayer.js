@@ -65,6 +65,10 @@ class map_test_multiplayer extends DragonScene
 		}
 
 		//MANDAR INFORMACIÓN POR WEBSOCKET
+		if(connection.isConnected()){
+			console.log("Mensaje enviado desde el update()");
+			connection.send("HI");
+		}
 		
 		//console.log("p1: " + player1.points + ", p2: " + player2.points);
 	}
