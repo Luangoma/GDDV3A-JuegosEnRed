@@ -26,7 +26,6 @@ class AccountMenu extends DragonScene
 		
 		this.button_createAccount = new Button(this, config.width/2, config.height/5 + 100 * 0, "Crear Cuenta", 'boton_vacio_largo');
 		this.button_createAccount.setButtonFunction(function(){
-			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
 			game.scene.stop('AccountMenu');
 			game.scene.start("Registro");
 		});
@@ -34,7 +33,6 @@ class AccountMenu extends DragonScene
 		
 		this.button_loginAccount = new Button(this, config.width/2, config.height/5 + 100 * 1, "Acceder a Cuenta", 'boton_vacio_largo');
 		this.button_loginAccount.setButtonFunction(function(){
-			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("AccountMenu");
 			game.scene.start("Login");
 		});
