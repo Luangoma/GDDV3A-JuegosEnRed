@@ -12,10 +12,13 @@ class OnlineMenu extends DragonScene
 	
 	lobbies = [];
 	
+	paged_menu = {};
+	
 	preload()
 	{
 		this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
 		this.load.image('lobby_list_background', "./assets/LobbyListBackground.png");
+		preloadPagedMenuData(this);
 	}
 	
 	create()
@@ -26,18 +29,41 @@ class OnlineMenu extends DragonScene
 		//reset lobbies list when the scene is started.
 		this.lobbies = [];
 		
-		//get a list of the lobbies as soon as the "serverbrowser" scene is loaded.
-		this.getLobbies();
-		
-		
 		//background images
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
-		this.background = this.add.image(config.width/2,config.height/2,'lobby_list_background').setDisplaySize(config.width - config.width/10, config.height - config.height/4);
 		
 		//title text
 		this.title = this.add.text(config.width/2, 5, 'Lista de Salas', styleText_AncientFont_90).setOrigin(.5,0).setScale(0.8);
 		
 		
+		//paged menu for displaying lobbies.
+		this.paged_menu = new PagedMenu(this,config.width/2,config.height/2,10,'lobby_list_background');
+		this.paged_menu.background_image.displayHeight -= 100;
+		
+		this.paged_menu.object_creation_function = function(scene, data_list, obj_list, index, global_index){
+			
+			let current_obj = {
+				text: scene.add.text(250, 170 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0,0)
+			};
+			
+			obj_list.push(current_obj);
+		};
+		
+		this.paged_menu.object_reset_function = function(scene, data_list, obj_list, index, global_index){
+			obj_list[index].text.setText(" ");
+		};
+		
+		this.paged_menu.object_update_function = function(scene, data_list, obj_list, index, global_index){
+			
+			console.log("updating the element: " + index);
+			obj_list[index].text.setText("lobby: " + data_list[global_index].lobbyId /*+ " [" + data_list[global_index].playerSlots[0] + "] | [" + data_list[global_index].playerSlots[1] + "]"*/);
+		};
+		
+		this.paged_menu.create_objects();
+		
+		
+		//get a list of the lobbies as soon as the "serverbrowser" scene is loaded.
+		this.getLobbies();
 		
 		
 		//buttons
@@ -64,20 +90,6 @@ class OnlineMenu extends DragonScene
 		});
 		this.button_back.setCanBePressed(true);
 		
-		//move one page to the left
-		this.button_left = new Button(this, 64, config.height/2, "", 'stone_button_left');
-		this.button_left.setButtonFunction(function(){
-			change_page_function(-1);
-		});
-		this.button_left.setCanBePressed(true);
-		
-		//move one page to the right
-		this.button_right = new Button(this, config.width - 64, config.height/2, "", 'stone_button_right');
-		this.button_right.setButtonFunction(function(){
-			change_page_function(1);
-		});
-		this.button_right.setCanBePressed(true);
-		
 	}
 	
 	getLobbies()
@@ -89,10 +101,12 @@ class OnlineMenu extends DragonScene
 			contentType: 'application/json',
 			success: function(data){
 				that.lobbies = data;
+				that.paged_menu.update_info(that.lobbies);
 			},
 			error: function(xhr, status, error){
 				console.log("Error happened when trying to obtain list of lobbies!");
 				that.lobbies = [];
+				that.paged_menu.update_info(that.lobbies);
 			}
 		});
 	}

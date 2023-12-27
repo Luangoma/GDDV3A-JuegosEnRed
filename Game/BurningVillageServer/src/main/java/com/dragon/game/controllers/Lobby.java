@@ -7,7 +7,7 @@ import java.util.List;
 public class Lobby {
 	
 	private Long lobbyId;
-	private final List<String> playerSlots = new ArrayList<>();
+	private final List<String> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
 	private long maxPlayers;
 	
 	
