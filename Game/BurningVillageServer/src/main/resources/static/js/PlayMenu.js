@@ -32,7 +32,7 @@ class PlayMenu extends DragonScene
 		});
 		this.button_play_mp_matchmaking.setCanBePressed(true);
 		
-		this.button_play_mp = new Button(this, config.width/2, config.height/5 + 100 * 2, "Lista de Servidores", 'boton_vacio_largo'); //Online Serverbrowser
+		this.button_play_mp = new Button(this, config.width/2, config.height/5 + 100 * 2, "Lista de Salas", 'boton_vacio_largo'); //Online Serverbrowser. Old name was "Lista de Servidores" but it was misleading due to the fact that it actually displays lobbies ("rooms") instead of servers. We could actually implement a real server list some other time.
 		this.button_play_mp.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");

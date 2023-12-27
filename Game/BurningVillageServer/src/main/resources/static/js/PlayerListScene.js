@@ -1,3 +1,5 @@
+//TODO: Refactor this to use some kind of "display list in groups of N elements with M pages" class or whatever because we now have a second place where this kind of behavior is needed...
+//or change it to use HTML stuff and display the whole list of users because all of this manual labour is not really worth it to be done multiple times.
 class PlayerListScene extends DragonScene
 {
 	background1 = {};
