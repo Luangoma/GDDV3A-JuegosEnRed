@@ -37,5 +37,7 @@ public class BurningVillageServerApplication implements WebSocketConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(BurningVillageServerApplication.class, args);
 	}
+	
+	//as a note for the future, all services should be obtained through beans and autowires and be initialized and generated here so that we could share them between different controllers. Would have made a lot of things orders of magnitude easier if we had known this sooner. Or if we had been allowed to use globals, but Java enforces classes like it's a religion.
 
 }

@@ -212,4 +212,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 	}
 	*/
 	
+	//some featrues such as this one really belong in some kind of lobby service class...
+	public List<Lobby> getAllLobbies() {
+		ArrayList<Lobby> ans = new ArrayList<>(this.lobbies.values());
+		return ans;
+	}
+	
 }
