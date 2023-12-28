@@ -89,6 +89,9 @@ class LobbyScene extends DragonScene
 			//close connection with the server when leaving the lobby. The server handles the rest (removing player from lobby, removing lobby if it is left empty, etc...)
 			connection.disconnect();
 			
+			//clean up when disconnecting by setting the scene specific callbacks to null
+			connection.removeCallbacks();
+			
 			//go back to the play menu
 			game.scene.stop("LobbyScene");
 			game.scene.start("PlayMenu");
@@ -98,9 +101,11 @@ class LobbyScene extends DragonScene
 		
 		
 		
-		//Establish connection with the server and start match making.
-		//All of this is done after the entire UI has been drawn so that any error that happens during this process will be handled accordingly without breaking the UI.
-		connection.connect(
+		//WebSocket stuff:
+		//NOTE: All of this is done after the entire UI has been drawn so that any error that happens during this process will be handled accordingly without breaking the UI.
+		
+		//Set scene specific callbacks for this client's conneciton:
+		connection.setCallbacks(
 			function(){ //open
 				connection.matchMaking();
 			},
@@ -132,12 +137,18 @@ class LobbyScene extends DragonScene
 						});
 					}
 				}
+				
+				//TODO: Move the name reset loop after the petition so that it can reset the names of the remaining clients (2 - players.length clients in a loop...), which will prevent the already correct names from blinking.
+				
 			},
 			function(e){ //error
 				that.errorText.setText("No se ha podido establecer conexión con el servidor.");
 				that.errorText.visible = true;
 			}
 		);
+		
+		//Establish connection with the server and start match making.
+		connection.connect();
 		
 		
 	}

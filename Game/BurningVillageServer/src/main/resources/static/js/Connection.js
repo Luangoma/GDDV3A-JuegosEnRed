@@ -6,25 +6,45 @@ var connection = {
 		//Devuelve true si el socket pasa al estado de OPEN.
 		return connection.socket.readyState === WebSocket.OPEN;
 	},
-	connect: function(onopenfn = null, onclosefn = null, onmsgfn = null, onerrorfn = null){
+	//These callbacks are configurable on each scene. Remember to set them to whatever scene specific functionality you want to execute. These callbacks exist as scene specific functionality that executes AFTER the baseline connection and socket functionality is executed.
+	event_on_open: null,
+	event_on_close: null,
+	event_on_message: null, //this callback receives as an input parameter an already parsed JSON object, which means it can be used like any regular JavaScript object. That way, the parsing is done only once, within the baseline onmessage callback for the internal websocket.
+	event_on_error: null,
+	setCallbacks: function(onopenfn = null, onclosefn = null, onmsgfn = null, onerrorfn = null){
+		connection.event_on_open = onopenfn;
+		connection.event_on_close = onclosefn;
+		connection.event_on_message = onmsgfn;
+		connection.event_on_error = onerrorfn;
+	},
+	removeCallbacks: function(){ //NOTE: Calling connection.removeCallbacks() does the same as connection.setCallbacks() with no arguments, because the default values are null.
+		connection.setCallbacks(null,null,null,null);
+	},
+	connect: function(){
 		//This could take an address as an input argument, but since we always connect to the same place, and this is an object and not a class, then we don't need an address
 		connection.socket = new WebSocket(ip.ws + "/multiplayer");
 		connection.socket.onopen = function(){
 			console.log("Socket: connection opened.");
-			if(onopenfn){
-				onopenfn();
+			
+			//call external custom callback
+			if(connection.event_on_open){
+				connection.event_on_open();
 			}
 		};
 		connection.socket.onclose = function(){
 			console.log("Socket: connection closed.");
-			if(onclosefn){
-				onclosefn();
+			
+			//call external custom callback
+			if(connection.event_on_close){
+				connection.event_on_close();
 			}
 		};
 		connection.socket.onerror = function(error){
 			console.log("Socket: network error: " + error);
-			if(onerrorfn){
-				onerrorfn(error);
+			
+			//call external custom callback
+			if(connection.event_on_error){
+				connection.event_on_error(error);
 			}
 		};
 		connection.socket.onmessage = function(message){
@@ -49,8 +69,9 @@ var connection = {
 				}
 			}
 			
-			if(onmsgfn){
-				onmsgfn(message_obj);
+			//call external custom callback
+			if(connection.event_on_message){
+				connection.event_on_message(message_obj);
 			}
 		};
 	},
