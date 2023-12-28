@@ -42,8 +42,15 @@ class OnlineMenu extends DragonScene
 		
 		this.paged_menu.object_creation_function = function(scene, data_list, obj_list, index, global_index){
 			
+			let currentButton = new Button(that, 200, 150 + 30 * index, "Unirse");
+			currentButton.setButtonFunction(function(){
+				console.log("Unirse no configurado");
+			});
+			currentButton.setCanBePressed(true);
+			
 			let current_obj = {
-				text: scene.add.text(250, 170 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0,0)
+				text: scene.add.text(100, 150 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0.5),
+				button: currentButton
 			};
 			
 			obj_list.push(current_obj);
@@ -51,12 +58,19 @@ class OnlineMenu extends DragonScene
 		
 		this.paged_menu.object_reset_function = function(scene, data_list, obj_list, index, global_index){
 			obj_list[index].text.setText(" ");
+			obj_list[index].button.setVisible(false);
 		};
 		
 		this.paged_menu.object_update_function = function(scene, data_list, obj_list, index, global_index){
 			
 			console.log("updating the element: " + index);
 			obj_list[index].text.setText("lobby: " + data_list[global_index].lobbyId /*+ " [" + data_list[global_index].playerSlots[0] + "] | [" + data_list[global_index].playerSlots[1] + "]"*/);
+			obj_list[index].button.setVisible(true);
+			obj_list[index].button.setButtonFunction(function(){
+				let current_lobby_id = data_list[global_index].lobbyId;
+				console.log("Unirse al lobby : " + current_lobby_id);
+				that.joinLobby(current_lobby_id);
+			});
 		};
 		
 		this.paged_menu.create_objects();
@@ -111,16 +125,19 @@ class OnlineMenu extends DragonScene
 		});
 	}
 	
-	startConnection()
+	joinLobby(id)
 	{
-		/*
-		localUser.connection = new WebSocket(ip.ws + "/multiplayer");
-		localUser.connection.onopen = function(){
-			this.getLobbiesList();
+		console.log("joining lobby: " + id);
+		
+		//stop the current scene
+		game.scene.stop("OnlineMenu");
+		
+		//configure the connection type to make use of a direct connection to the chosen lobby with the specified ID
+		connection.event_on_open = function(){ //open function
+			connection.joinLobby(id);
 		};
-		localUser.connection.onclose = function(){
-			this.lobbies = [];
-		};
-		*/
+		
+		//load the lobby scene
+		game.scene.start("LobbyScene");
 	}
 }

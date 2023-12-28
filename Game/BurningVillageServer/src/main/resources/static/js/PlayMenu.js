@@ -28,7 +28,14 @@ class PlayMenu extends DragonScene
 		this.button_play_mp_matchmaking.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");
-			//game.scene.start("map_test_multiplayer"); //TODO: Implement matchmaking lol
+			
+			//configure the connection type to make use of matchmaking instead of direct lobby connection
+			connection.event_on_open = function(){ //open function
+				connection.matchMaking();
+			};
+			
+			
+			//load the lobby
 			game.scene.start("LobbyScene");
 		});
 		this.button_play_mp_matchmaking.setCanBePressed(true);
