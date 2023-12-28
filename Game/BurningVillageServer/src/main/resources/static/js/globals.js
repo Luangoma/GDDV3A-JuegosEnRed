@@ -98,3 +98,10 @@ var styleText_Generic_Text = {
 	stroke: '#000',
 	strokeThickness:4
 };
+
+var styleText_PixelSansSerif_30 = {
+	fontFamily: 'pixel_sans_serif',	// Tipografia
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4,				// Grosor del contorno
+	fontSize: 30					// Tamaño del texto
+}
