@@ -141,8 +141,11 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			String lobby_id_str = node.get("lobbyId").asText();
 			String player_position_x_str = node.get("positionX").asText();
 			String player_position_y_str = node.get("positionY").asText();
+			String player_shooting_flames_str = node.get("shootingFlames").asText();
+			String player_rival_health_str = node.get("rivalHealth").asText();
 			
 			System.out.println("Player " + player_id_str + " in lobby " + lobby_id_str + " sent position: {" + player_position_x_str + ", " + player_position_y_str + "}");
+			System.out.println("Shooting fire:" + player_shooting_flames_str + ", rival health: " + player_rival_health_str);
 			break;
 		}
 		case "match-making":{

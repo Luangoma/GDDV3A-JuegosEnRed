@@ -64,6 +64,10 @@ class map_test_multiplayer extends DragonScene
 			this.houses[i].update(time, delta);
 		}
 
+		if(player1.keyboard_controls.up.isDown && player1.ammo > 0){
+			console.log("disparando");
+		}
+
 		//MANDAR INFORMACIÓN POR WEBSOCKET
 		if(connection.isConnected()){
 			console.log("Mensaje enviado desde el update()");
@@ -73,9 +77,9 @@ class map_test_multiplayer extends DragonScene
 				'playerId': '1',
 				'lobbyId': '9',
 				'positionX': '8',
-				'positionY': '9'
-				//'shootingFlames': ,
-				//'rivalHealth':
+				'positionY': '9',
+				'shootingFlames': (player1.keyboard_controls.up.isDown && player1.ammo > 0),
+				'rivalHealth': player2.health
 			}));
 			//Enviar si el dragón está disparando.
 		}
