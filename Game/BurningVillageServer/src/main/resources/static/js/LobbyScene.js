@@ -9,6 +9,18 @@ class LobbyScene extends DragonScene
 	player_1_text = null;
 	player_2_text = null;
 	
+	username_1_text = null;
+	username_2_text = null;
+	
+	ready_1_text = null;
+	ready_2_text = null;
+	
+	errorText = null;
+	
+	dragon_1_img = null;
+	dragon_2_img = null;
+	
+	
 	preload()
 	{
 		this.load.image('lobby_background','./assets/lobby_background.png');
@@ -16,18 +28,42 @@ class LobbyScene extends DragonScene
 	
 	create()
 	{
-		//establish connection with the server and start match making
-		connection.connect(function(){
-			connection.matchMaking();
-		});
+		//Good old JS hack
+		let that = this;
+		
+		//placeholder name for an unconnected user:
+		let username_unconnected = "----------"
+		
+		//text for ready status:
+		let ready_text = {
+			not_ready: "No Listo",
+			waiting: "Esperando...",
+			ready: "Listo"
+		};
 		
 		//generate the lobby background image
 		this.background = this.add.image(0,0,'lobby_background').setOrigin(0).setDisplaySize(config.width, config.height);
 		
 		
 		//text for the players:
-		player_1_text = this.add.text(250, 170 + 30 * index, "Player 1", styleText_MedievalPixel_30).setOrigin(0,0);
-		player_2_text = this.add.text(250, 170 + 30 * index, "Player 2", styleText_MedievalPixel_30).setOrigin(0,0);
+		this.player_1_text = this.add.text(config.width/4 * 1, 40 * 1, "Jugador 1 (Dragón Rojo)", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 1, "Jugador 2 (Dragón Azul)", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		
+		//text for the usernames:
+		this.player_1_text = this.add.text(config.width/4 * 1, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		
+		//text for the ready status:
+		this.ready_1_text = this.add.text(config.width/4 * 1, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.ready_2_text = this.add.text(config.width/4 * 3, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		
+		//text for errors:
+		this.errorText = this.add.text(config.width/2, config.height/2 + 210, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
+		this.errorText.visible = false;
+		
+		//image for the players:
+		this.dragon_1_img = this.add.sprite(config.width/4 * 1, config.height/2, 'dragon_red').setOrigin(.5).setScale(2);
+		this.dragon_2_img = this.add.sprite(config.width/4 * 3, config.height/2, 'dragon_blue').setOrigin(.5).setScale(2);
 		
 		//buttons
 		let buttons_height = config.height - 40;
@@ -50,5 +86,28 @@ class LobbyScene extends DragonScene
 			game.scene.start("PlayMenu");
 		});
 		this.button_back.setCanBePressed(true);
+		
+		
+		
+		
+		//Establish connection with the server and start match making.
+		//All of this is done after the entire UI has been drawn so that any error that happens during this process will be handled accordingly without breaking the UI.
+		connection.connect(
+			function(){ //open
+				connection.matchMaking();
+			},
+			function(){ //close
+				
+			},
+			function(m){ //msg
+				
+			},
+			function(e){ //error
+				that.errorText.setText("No se ha podido establecer conexión con el servidor.");
+				that.errorText.visible = true;
+			}
+		);
+		
+		
 	}
 };

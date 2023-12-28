@@ -5,24 +5,33 @@ var connection = {
 		//Devuelve true si el socket pasa al estado de OPEN.
 		return connection.socket.readyState === WebSocket.OPEN;
 	},
-	connect: function(fn = null){
+	connect: function(onopenfn = null, onclosefn = null, onmsgfn = null, onerrorfn = null){
 		//This could take an address as an input argument, but since we always connect to the same place, and this is an object and not a class, then we don't need an address
 		connection.socket = new WebSocket(ip.ws + "/multiplayer");
 		connection.socket.onopen = function(){
 			console.log("Socket: connection opened.");
-			if(fn){
-				fn();
+			if(onopenfn){
+				onopenfn();
 			}
 		};
 		connection.socket.onclose = function(){
 			console.log("Socket: connection closed.");
+			if(onclosefn){
+				onclosefn();
+			}
 		};
 		connection.socket.onerror = function(error){
 			console.log("Socket: network error: " + error);
+			if(onerrorfn){
+				onerrorfn(error);
+			}
 		};
 		connection.socket.onmessage = function(message){
 			let message_str = message.data;
 			console.log("Socket: message received: " + message_str);
+			if(onmsgfn){
+				onmsgfn(message);
+			}
 		};
 	},
 	disconnect: function(){
