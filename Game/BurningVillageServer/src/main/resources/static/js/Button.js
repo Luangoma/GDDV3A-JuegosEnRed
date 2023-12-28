@@ -69,3 +69,8 @@ Button.prototype.setText = function(new_text){
 	this.ButtonText.setText(new_text);
 	this.ButtonText.setOrigin(0.5);
 }
+
+Button.prototype.setVisible = function(new_visible){
+	this.ButtonText.visible = new_visible;
+	this.ButtonImage.visible = new_visible;
+}
