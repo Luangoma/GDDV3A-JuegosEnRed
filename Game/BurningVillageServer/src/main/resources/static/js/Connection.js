@@ -66,5 +66,9 @@ var connection = {
 	matchMaking: function(){
 		let obj = {actionType: 'match-making', playerId: localUser.user.id};
 		connection.sendObject(obj);
+	},
+	leaveLobby: function(){
+		let obj = {actionType: 'leave-lobby', playerId: localUser.user.id};
+		connection.sendObject(obj);
 	}
 };

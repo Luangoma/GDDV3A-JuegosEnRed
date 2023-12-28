@@ -50,18 +50,35 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
 		
 		sessions.remove(session.getId());
+		
+		leaveLobby(session); //this way, even if the connection is lost accidentally (an error happens, internet connection dies, etc, whatever...), the lobby is left successfully.
+		
+		System.out.println("A connection was closed (" + sessions.size() + " connections in total).");
+	}
+	
+	public void leaveLobby(WebSocketSession session) throws IOException {
+		//find the lobby in which the player is located
 		Long lobby_id = this.getLobbyWithPlayer(session.getId());
 		
 		//if the lobby exists (the id is not -1), then remove the player from the lobby. Then, if the lobby is empty, remove it from the lobbies list, because the lobby no longer needs to exist.
 		if(lobby_id >= 0) {
+			//get the lobby object from the lobbies list
 			Lobby current_lobby = this.lobbies.get(lobby_id);
+			
+			//make the player leave the lobby
 			current_lobby.removePlayerByString(session.getId());
+			
+			//send the new lobby info to all the remaining players in the lobby (which obviously does not include the player that just left the lobby)
+			for(Player p : current_lobby.getPlayers()) {
+				WebSocketSession current_session = this.sessions.get(p.getSessionId());
+				sendLobbyInfo(current_session, current_lobby);
+			}
+			
+			//if the lobby is empty, remove the lobby from the list of lobbies from the server
 			if(current_lobby.getConnectedPlayers() <= 0) {
 				this.lobbies.remove(lobby_id);
 			}
 		}
-		
-		System.out.println("A connection was closed (" + sessions.size() + " connections in total).");
 	}
 	
 	public void createLobby(WebSocketSession session, Long pid) throws IOException {
@@ -222,6 +239,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			
 			session.sendMessage(new TextMessage(ans));
 			System.out.println(ans);
+			break;
+		}
+		case "leave-lobby":{
+			this.leaveLobby(session);
 			break;
 		}
 		default:{

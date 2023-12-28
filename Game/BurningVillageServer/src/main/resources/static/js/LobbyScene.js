@@ -83,6 +83,9 @@ class LobbyScene extends DragonScene
 		this.button_back.setButtonFunction(function(){
 			console.log("Returning from the lobby menu.");
 			
+			//leave the lobby
+			connection.leaveLobby();
+			
 			//close connection with the server when leaving the lobby. The server handles the rest (removing player from lobby, removing lobby if it is left empty, etc...)
 			connection.disconnect();
 			
