@@ -219,7 +219,17 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		}
 		case "join-lobby":{
 			Long lobby_id = node.get("lobbyId").asLong();
-			this.joinLobby(session, currentPlayerId, lobby_id);
+			
+			long connected_players = this.lobbies.get(lobby_id).getConnectedPlayers();
+			long max_players = this.lobbies.get(lobby_id).getMaxPlayers();
+			
+			//only join the player to the lobby if there are enough free slots.
+			if(connected_players < max_players) {
+				this.joinLobby(session, currentPlayerId, lobby_id);
+			} else {
+				this.createLobby(session, currentPlayerId);
+			}
+			
 			break;
 		}
 		case "send-data":{

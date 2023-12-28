@@ -42,14 +42,15 @@ class OnlineMenu extends DragonScene
 		
 		this.paged_menu.object_creation_function = function(scene, data_list, obj_list, index, global_index){
 			
-			let currentButton = new Button(that, 200, 150 + 30 * index, "Unirse");
+			let currentButton = new Button(that, config.width/4 * 3, 150 + 30 * index, "Unirse");
 			currentButton.setButtonFunction(function(){
 				console.log("Unirse no configurado");
 			});
-			currentButton.setCanBePressed(true);
+			currentButton.setCanBePressed(false);
+			currentButton.setVisible(false);
 			
 			let current_obj = {
-				text: scene.add.text(100, 150 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0.5),
+				text: scene.add.text(100, 150 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5),
 				button: currentButton
 			};
 			
@@ -64,7 +65,8 @@ class OnlineMenu extends DragonScene
 		this.paged_menu.object_update_function = function(scene, data_list, obj_list, index, global_index){
 			
 			console.log("updating the element: " + index);
-			obj_list[index].text.setText("lobby: " + data_list[global_index].lobbyId /*+ " [" + data_list[global_index].playerSlots[0] + "] | [" + data_list[global_index].playerSlots[1] + "]"*/);
+			obj_list[index].text.setText("Lobby <" + data_list[global_index].lobbyId + "> : | Jugadores: " + data_list[global_index].connectedPlayers + "/" + data_list[global_index].maxPlayers + " | ");
+			obj_list[index].button.setCanBePressed(true);
 			obj_list[index].button.setVisible(true);
 			obj_list[index].button.setButtonFunction(function(){
 				let current_lobby_id = data_list[global_index].lobbyId;
