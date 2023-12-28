@@ -67,7 +67,17 @@ class map_test_multiplayer extends DragonScene
 		//MANDAR INFORMACIÓN POR WEBSOCKET
 		if(connection.isConnected()){
 			console.log("Mensaje enviado desde el update()");
-			connection.send("HI");
+			//connection.send("HI");
+			connection.send(JSON.stringify({
+				'actionType': 'send-data',
+				'playerId': '1',
+				'lobbyId': '9',
+				'positionX': '8',
+				'positionY': '9'
+				//'shootingFlames': ,
+				//'rivalHealth':
+			}));
+			//Enviar si el dragón está disparando.
 		}
 		
 		//console.log("p1: " + player1.points + ", p2: " + player2.points);
