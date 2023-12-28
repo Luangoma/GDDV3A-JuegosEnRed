@@ -88,6 +88,7 @@ class OnlineMenu extends DragonScene
 		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, "Crear");
 		this.button_create_lobby.setButtonFunction(function(){
 			console.log("Create a new lobby.");
+			that.createLobby();
 		});
 		this.button_create_lobby.setCanBePressed(true);
 		
@@ -140,6 +141,18 @@ class OnlineMenu extends DragonScene
 		};
 		
 		//load the lobby scene
+		game.scene.start("LobbyScene");
+	}
+	
+	createLobby()
+	{
+		console.log("creating a new lobby...");
+		game.scene.stop("OnlineMenu");
+		
+		connection.event_on_open = function(){
+			connection.createLobby();
+		};
+		
 		game.scene.start("LobbyScene");
 	}
 }

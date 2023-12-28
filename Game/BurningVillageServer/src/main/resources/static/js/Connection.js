@@ -95,5 +95,9 @@ var connection = {
 	joinLobby: function(id){
 		let obj = {actionType: 'join-lobby', playerId: localUser.user.id, lobbyId: id};
 		connection.sendObject(obj);
+	},
+	createLobby: function(){
+		let obj = {actionType: 'create-lobby', playerId: localUser.user.id}
+		connection.sendObject(obj);
 	}
 };
