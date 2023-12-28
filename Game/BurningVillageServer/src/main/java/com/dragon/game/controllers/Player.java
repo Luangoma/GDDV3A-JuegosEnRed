@@ -6,6 +6,7 @@ public class Player {
 	private Vector2f rotation;
 	private String name;
 	private String sessionId;
+	private boolean isReady;
 	
 	public Player() {
 		this.playerId = -1L;
@@ -13,14 +14,25 @@ public class Player {
 		this.rotation = new Vector2f();
 		this.name = new String();
 		this.sessionId = new String();
+		this.isReady = false;
 	}
 	
-	public Player(Long id, Vector2f pos, Vector2f rot, String name, String session) {
+	public Player(Long id, Vector2f pos, Vector2f rot, String name, String session, boolean isReady) {
 		this.playerId = id;
 		this.position = pos;
 		this.rotation = rot;
 		this.name = name;
 		this.sessionId = session;
+		this.isReady = isReady;
+	}
+	
+	public Player(Player p) {
+		this.playerId = p.playerId;
+		this.position = p.position;
+		this.rotation = p.rotation;
+		this.name = p.name;
+		this.sessionId = p.sessionId;
+		this.isReady = p.isReady;
 	}
 	
 	public boolean isPlayerValid() {
@@ -57,6 +69,10 @@ public class Player {
 		this.sessionId = s;
 	}
 	
+	public void setIsReady(boolean b) {
+		this.isReady = b;
+	}
+	
 	
 	//Getters:
 	public Long getPlayerId() {
@@ -77,6 +93,10 @@ public class Player {
 	
 	public String getSessionId() {
 		return this.sessionId;
+	}
+	
+	public boolean getIsReady() {
+		return this.isReady;
 	}
 	
 	

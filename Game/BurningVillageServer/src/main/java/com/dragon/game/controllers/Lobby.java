@@ -58,6 +58,12 @@ public class Lobby {
 		}
 	}
 	
+	public void setPlayerDataByIndex(int idx, Player newData) {
+		if(this.isValidIndex(idx)) {
+			this.playerSlots.set(idx, new Player(newData));
+		}
+	}
+	
 	//Remove the chosen player from the list. Uses a list index.
 	public void removePlayerByIndex(int idx) {
 		if(this.isValidIndex(idx)) {
@@ -83,7 +89,7 @@ public class Lobby {
 	}
 	
 	//Get the lobby index of a given player by their player ID string. If the player is not in the list, it will return -1.
-	private int getPlayerIndexByString(String target_player_id) {
+	public int getPlayerIndexByString(String target_player_id) {
 		int i = 0;
 		for(Player p : this.playerSlots) {
 			String s = p.getSessionId();

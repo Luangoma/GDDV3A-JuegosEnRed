@@ -137,6 +137,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		return;
 	}
 	
+	//send the lobby info that is stored within the server a certain player that is connected within a given lobby.
 	public void sendLobbyInfo(WebSocketSession session, Lobby lobby) throws IOException{		
 		ObjectNode node = this.mapper.createObjectNode();
 		
@@ -153,8 +154,40 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		System.out.println("The sent info is: " + msg);
 	}
 	
-	//TODO: implement this...
-	public void sendPlayerInfo(WebSocketSession session) {}
+	//obtain the lobby id from the lobby in which a given connection is stored.
+	public Long getLobbyIdFromSessionId(String sessionId) {
+		Long ans = -1L;
+		for(Map.Entry<Long, Lobby> entry : this.lobbies.entrySet()) {
+			Lobby current_lobby = entry.getValue();
+			Long current_key = entry.getKey();
+			if(current_lobby.hasPlayerByString(sessionId)) { //The last part of the check after the AND is completely unnecessary, but it exists in the case that the server has a hiccup and an empty lobby that is about to get deleted for being empty is somehow registered within this loop during player matchmaking, which would lead to a broken connection.
+				return current_key;
+			}
+		}
+		return ans;
+	}
+
+	//update player info in the server lobby and then communicate it to all clients within the same lobby
+	public void sendPlayerInfo(WebSocketSession session, Player newPlayerInfo) throws IOException {
+		Long lobbyId = this.getLobbyIdFromSessionId(session.getId());
+		if(lobbyId == -1L) {
+			return; //early return because the session is not inside of any lobby, so it can't really send any info to the game server.
+		}
+		
+		//obtain the lobby in which the player is connected
+		Lobby lobby = this.lobbies.get(lobbyId);
+		
+		//update the lobby info
+		int idx = lobby.getPlayerIndexByString(session.getId());
+		lobby.setPlayerDataByIndex(idx, newPlayerInfo);
+		
+		//send the new lobby info to all players
+		for(Player p : lobby.getPlayers()) {
+			WebSocketSession current_session = this.sessions.get(p.getSessionId());
+			this.sendLobbyInfo(current_session, lobby);
+		}
+		
+	}
 	
 	//Handle the received messages from the client.
 	@Override
@@ -192,7 +225,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		case "send-data":{
 			//String pos_str = subtree.get("position").asText();
 			//System.out.println("Moved to position: " + pos_str);
-			
+			/*
 			String player_id_str = node.get("playerId").asText();
 			String lobby_id_str = node.get("lobbyId").asText();
 			String player_position_x_str = node.get("positionX").asText();
@@ -205,7 +238,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			
 			System.out.println("Player " + player_id_str + " in lobby " + lobby_id_str + " sent position: {" + player_position_x_str + ", " + player_position_y_str + "}");
 			System.out.println("Shooting fire:" + player_shooting_flames_str + ", rival health: " + player_rival_health_str);
-			
+			*/
 			
 			
 			
@@ -217,10 +250,16 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			
 			/*---------------------------*/
 			
-			Long player_id = node.get("playerId").asLong();
+			Long id = node.get("playerId").asLong();
+			Vector2f pos = new Vector2f((float)node.get("positionX").asDouble(), (float)node.get("positionY").asDouble());
+			Vector2f rot = new Vector2f();
+			String name = new String();
+			String sessionStr = session.getId();
+			boolean isReady = node.get("isReady").asBoolean();
 			
-			
-			
+			Player playerData = new Player(id,pos,rot,name,sessionStr,isReady);
+
+			sendPlayerInfo(session, playerData);
 			
 			
 			
