@@ -14,14 +14,17 @@ class LobbyScene extends DragonScene
 	username_text_array = [];
 	
 	
-	ready_1_text = null;
-	ready_2_text = null;
+	//ready_1_text = null;
+	//ready_2_text = null;
+	ready_text_array = [];
 	
 	errorText = null;
 	
 	dragon_1_img = null;
 	dragon_2_img = null;
 	
+	
+	localReady = false;
 	
 	preload()
 	{
@@ -32,6 +35,7 @@ class LobbyScene extends DragonScene
 	{
 		//reset info:
 		this.username_text_array = [];
+		this.localReady = false;
 		
 		//Good old JS hack
 		let that = this;
@@ -59,8 +63,8 @@ class LobbyScene extends DragonScene
 		this.username_text_array[1] = this.add.text(config.width/4 * 3, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
 		
 		//text for the ready status:
-		this.ready_1_text = this.add.text(config.width/4 * 1, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
-		this.ready_2_text = this.add.text(config.width/4 * 3, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.ready_text_array[0] = this.add.text(config.width/4 * 1, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.ready_text_array[1] = this.add.text(config.width/4 * 3, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
 		
 		//text for errors:
 		this.errorText = this.add.text(config.width/2, config.height/2 + 210, 'DEFAULT TEXT', styleText_Generic_Text).setOrigin(.5,.5).setScale(1);
@@ -76,6 +80,15 @@ class LobbyScene extends DragonScene
 		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, "Listo");
 		this.button_create_lobby.setButtonFunction(function(){
 			console.log("Ready state changed.");
+			
+			that.localReady = !that.localReady;
+			connection.sendObject({
+				actionType: 'send-data',
+				positionX: 0,
+				positionY: 0,
+				playerId: localUser.user.id,
+				isReady: that.localReady
+			});
 		});
 		this.button_create_lobby.setCanBePressed(true);
 		
@@ -106,36 +119,47 @@ class LobbyScene extends DragonScene
 		
 		//Set scene specific callbacks for this client's conneciton:
 		connection.setCallbacks(
-			function(){ //open
-				connection.matchMaking();
-			},
+			connection.event_on_open, //keep the old on open event, which was configured on the previous scene (matchaking or join to specific lobby, depends on the button that the user pressed)
 			function(){ //close
 				
 			},
 			function(m){ //msg
 				
-				//reset all names to blank
+				//reset all status values to the default value (blank names, waiting for connection, etc...)
 				for(let i = 0; i < 2; ++i){
 					that.username_text_array[i].setText(username_unconnected);
+					that.ready_text_array[i].setText(ready_text.waiting);
 				}
 				
 				//update the names
 				if(m.players){
 					for(let i = 0; i < m.players.length; ++i){
 						let current_id = m.players[i].playerId;
-						$.ajax({
-							url: ip.http + "/users/" + current_id,
-							method: 'GET',
-							contentType: 'application/json',
-							success: function(data){
-								let current_username = data.username;
-								that.username_text_array[i].setText(current_username);
-							},
-							error: function(xhr, status, error){
-								that.username_text_array[i].setText("< Anonymous >");
-							}
-						});
+						if(current_id !== -1){
+							$.ajax({
+								url: ip.http + "/users/" + current_id,
+								method: 'GET',
+								contentType: 'application/json',
+								success: function(data){
+									let current_username = data.username;
+									that.username_text_array[i].setText(current_username);
+								},
+								error: function(xhr, status, error){
+									that.username_text_array[i].setText("< Anonymous >");
+								}
+							});
+						}
+						else
+						{
+							//the user has id = -1 which means that they are anonymous. So there is no need to perform a GET petition, as we already know that it is going to fail.
+							that.username_text_array[i].setText("< Anonymous >");
+						}
 					}
+				}
+				
+				for(let i = 0; i < m.players.length; ++i){
+					let current_ready = m.players[i].isReady;
+					that.ready_text_array[i].setText(current_ready ? ready_text.ready : ready_text.not_ready);
 				}
 				
 				//TODO: Move the name reset loop after the petition so that it can reset the names of the remaining clients (2 - players.length clients in a loop...), which will prevent the already correct names from blinking.
