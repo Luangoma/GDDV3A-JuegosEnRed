@@ -9,8 +9,10 @@ class LobbyScene extends DragonScene
 	player_1_text = null;
 	player_2_text = null;
 	
-	username_1_text = null;
-	username_2_text = null;
+	//username_1_text = null;
+	//username_2_text = null;
+	username_text_array = [];
+	
 	
 	ready_1_text = null;
 	ready_2_text = null;
@@ -28,6 +30,9 @@ class LobbyScene extends DragonScene
 	
 	create()
 	{
+		//reset info:
+		this.username_text_array = [];
+		
 		//Good old JS hack
 		let that = this;
 		
@@ -50,8 +55,8 @@ class LobbyScene extends DragonScene
 		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 1, "Jugador 2 (Dragón Azul)", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
 		
 		//text for the usernames:
-		this.player_1_text = this.add.text(config.width/4 * 1, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
-		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.username_text_array[0] = this.add.text(config.width/4 * 1, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.username_text_array[1] = this.add.text(config.width/4 * 3, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
 		
 		//text for the ready status:
 		this.ready_1_text = this.add.text(config.width/4 * 1, 40 * 3, ready_text.waiting, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
@@ -101,6 +106,29 @@ class LobbyScene extends DragonScene
 			},
 			function(m){ //msg
 				
+				//reset all names to blank
+				for(let i = 0; i < 2; ++i){
+					that.username_text_array[i].setText(username_unconnected);
+				}
+				
+				//update the names
+				if(m.players){
+					for(let i = 0; i < m.players.length; ++i){
+						let current_id = m.players[i].playerId;
+						$.ajax({
+							url: ip.http + "/users/" + current_id,
+							method: 'GET',
+							contentType: 'application/json',
+							success: function(data){
+								let current_username = data.username;
+								that.username_text_array[i].setText(current_username);
+							},
+							error: function(xhr, status, error){
+								that.username_text_array[i].setText("< Anonymous >");
+							}
+						});
+					}
+				}
 			},
 			function(e){ //error
 				that.errorText.setText("No se ha podido establecer conexión con el servidor.");

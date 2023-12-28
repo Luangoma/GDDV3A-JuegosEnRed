@@ -14,6 +14,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import ch.qos.logback.core.joran.sanity.Pair;
 
@@ -62,30 +64,43 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		System.out.println("A connection was closed (" + sessions.size() + " connections in total).");
 	}
 	
-	public void createLobby(WebSocketSession session) {
+	public void createLobby(WebSocketSession session, Long pid) throws IOException {
+		
+		//create a new lobby and configure it
 		Lobby new_lobby = new Lobby();
 		new_lobby.setLobbyId(this.currentLobbyId);
 		new_lobby.setMaxPlayers(2);
-		new_lobby.addPlayerByString(session.getId());
 		
+		//new_lobby.addPlayerByString(session.getId()); //old method used to make a manual connection, which would skip all the logic written inside of the joinlobby function...
+		
+		//add the lobby to the list of lobbies from the server
 		this.lobbies.put(this.currentLobbyId, new_lobby);
+		
+		//join the player that created the lobby to said lobby
+		this.joinLobby(session, pid, this.currentLobbyId);
 		
 		System.out.println("The player tried to create a lobby.");
 		
 		++this.currentLobbyId;
 	}
 	
-	public void joinLobby(WebSocketSession session, Long lobby_id) {
+	public void joinLobby(WebSocketSession session, Long pid, Long lobby_id) throws IOException {
 		//join the player to a lobby through the lobby ID:
 		Lobby current_lobby = this.lobbies.get(lobby_id);
-		current_lobby.addPlayerByString(session.getId());
+		current_lobby.addPlayer(session.getId(), pid);
+		
+		//notify all the players in the lobby about the new lobby info:
+		for(Player p : current_lobby.getPlayers()) {
+			WebSocketSession current_player_session = this.sessions.get(p.getSessionId());
+			this.sendLobbyInfo(current_player_session, current_lobby);
+		}
 		
 		//notify all the other players in the lobby (if they exist) that this player is ready.
 		
 		System.out.println("Player joined a lobby!");
 	}
 	
-	public void matchMaking(WebSocketSession session) {
+	public void matchMaking(WebSocketSession session, Long pid) throws IOException {
 		
 		System.out.println("A player wants to perform automatic match making.");
 		
@@ -95,15 +110,34 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			Long current_key = entry.getKey();
 			if(current_lobby.getConnectedPlayers() < current_lobby.getMaxPlayers() && current_lobby.getConnectedPlayers() != 0) { //The last part of the check after the AND is completely unnecessary, but it exists in the case that the server has a hiccup and an empty lobby that is about to get deleted for being empty is somehow registered within this loop during player matchmaking, which would lead to a broken connection.
 				//current_lobby.addPlayerByString(session.getId());
-				this.joinLobby(session, current_key);
+				this.joinLobby(session, pid, current_key);
 				return;
 			}
 		}
 		
 		//if no lobbies exist currently, then create a new one and wait afk.
-		this.createLobby(session);
+		this.createLobby(session, pid);
 		return;
 	}
+	
+	public void sendLobbyInfo(WebSocketSession session, Lobby lobby) throws IOException{		
+		ObjectNode node = this.mapper.createObjectNode();
+		
+		node.put("actionType","lobby-info");
+		node.put("lobbyId",lobby.getLobbyId());
+		
+		ArrayNode arr = this.mapper.valueToTree(lobby.getPlayers().toArray());
+		node.set("players", arr);
+		
+		String msg = node.toString(); //.asText() gives null because why not. Good old java doing things that are inconsistent because why not.
+		
+		session.sendMessage(new TextMessage(msg));
+		
+		System.out.println("The sent info is: " + msg);
+	}
+	
+	//TODO: implement this...
+	public void sendPlayerInfo(WebSocketSession session) {}
 	
 	//Handle the received messages from the client.
 	@Override
@@ -119,18 +153,23 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			action = "UNKNOWN";
 		}
 		
+		Long currentPlayerId = node.get("playerId").asLong();
+		if(currentPlayerId == null) {
+			currentPlayerId = -1L;
+		}
+		
 		//String subtreestr = node.get("data").asText();
 		//JsonNode subtree = mapper.readTree(subtreestr);
 		
 		//TODO: add null checks to all the strings down there. Just in case someone sends a hand crafted packet and everything breaks.
 		switch(action) {
 		case "create-lobby":{
-			this.createLobby(session);
+			this.createLobby(session, currentPlayerId);
 			break;
 		}
 		case "join-lobby":{
 			Long lobby_id = node.get("lobbyId").asLong();
-			this.joinLobby(session, lobby_id);
+			this.joinLobby(session, currentPlayerId, lobby_id);
 			break;
 		}
 		case "send-data":{
@@ -144,12 +183,34 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			String player_shooting_flames_str = node.get("shootingFlames").asText();
 			String player_rival_health_str = node.get("rivalHealth").asText();
 			
+			
+			
+			
 			System.out.println("Player " + player_id_str + " in lobby " + lobby_id_str + " sent position: {" + player_position_x_str + ", " + player_position_y_str + "}");
 			System.out.println("Shooting fire:" + player_shooting_flames_str + ", rival health: " + player_rival_health_str);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			/*---------------------------*/
+			
+			Long player_id = node.get("playerId").asLong();
+			
+			
+			
+			
+			
+			
 			break;
 		}
 		case "match-making":{
-			this.matchMaking(session);
+			this.matchMaking(session, currentPlayerId);
 			break;
 		}
 		case "get-server-info":{

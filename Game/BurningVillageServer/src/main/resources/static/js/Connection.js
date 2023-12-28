@@ -1,6 +1,7 @@
 //Object that represents the connection to the server for this client.
 var connection = {
 	socket: null, //this is what we usually call "var connection" in the JS world
+	lobbyInfo: {lobbyId: -1, players: []},
 	isConnected: function(){
 		//Devuelve true si el socket pasa al estado de OPEN.
 		return connection.socket.readyState === WebSocket.OPEN;
@@ -29,8 +30,27 @@ var connection = {
 		connection.socket.onmessage = function(message){
 			let message_str = message.data;
 			console.log("Socket: message received: " + message_str);
+			
+			let message_obj = JSON.parse(message_str);
+			console.log(message_obj);
+			
+			if(message_obj.actionType){
+				switch(message_obj.actionType){
+					default:{
+						console.log("Obtained unknown info: " + message_obj.actionType);
+						break;
+					}
+					case "lobby-info":{
+						console.log("Obtained lobby info");
+						connection.lobbyInfo.lobbyId = message_obj.lobbyId;
+						connection.lobbyInfo.players = message_obj.players;
+						break;
+					}
+				}
+			}
+			
 			if(onmsgfn){
-				onmsgfn(message);
+				onmsgfn(message_obj);
 			}
 		};
 	},
@@ -44,7 +64,7 @@ var connection = {
 		connection.socket.send(JSON.stringify(obj));
 	},
 	matchMaking: function(){
-		let obj = {actionType: 'match-making'};
+		let obj = {actionType: 'match-making', playerId: localUser.user.id};
 		connection.sendObject(obj);
 	}
 };

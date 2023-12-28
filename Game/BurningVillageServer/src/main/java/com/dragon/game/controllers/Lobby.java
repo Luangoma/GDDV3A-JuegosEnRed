@@ -107,6 +107,17 @@ public class Lobby {
 		return false;
 	}
 	
+	public boolean addPlayer(String s, Long id) {
+		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
+			Player p = new Player();
+			p.setSessionId(s);
+			p.setPlayerId(id);
+			this.playerSlots.add(p);
+			return true;
+		}
+		return false;
+	}
+	
 	//Remove the chosen player from the list. Uses a connection string.
 	public boolean removePlayerByString(String s) {
 		int idx = this.getPlayerIndexByString(s);
@@ -131,6 +142,10 @@ public class Lobby {
 		
 		String ans = "{\"lobbyId\": " + this.getLobbyId() + ", \"maxPlayers\": " + this.getMaxPlayers() + ", \"playerCount\": " + this.getConnectedPlayers() + ", \"playerSlots\": [" + player_slots_str + "]}";
 		return ans;
+	}
+	
+	public List<Player> getPlayers() {
+		return this.playerSlots;
 	}
 	
 }
