@@ -7,7 +7,7 @@ public class Player {
 	private String name;
 	private String sessionId;
 	private boolean isReady;
-	private int rivalHealth;
+	private int health;
 	private boolean isShooting;
 	
 	public Player() {
@@ -17,18 +17,18 @@ public class Player {
 		this.name = new String();
 		this.sessionId = new String();
 		this.isReady = false;
-		this.rivalHealth = -1;
+		this.health = -1;
 		this.isShooting = false;
 	}
 	
-	public Player(Long id, Vector2f pos, Vector2f rot, String name, String session, boolean isReady, int rivalHealth, boolean isShooting) {
+	public Player(Long id, Vector2f pos, Vector2f rot, String name, String session, boolean isReady, int health, boolean isShooting) {
 		this.playerId = id;
 		this.position = pos;
 		this.rotation = rot;
 		this.name = name;
 		this.sessionId = session;
 		this.isReady = isReady;
-		this.rivalHealth = rivalHealth;
+		this.health = health;
 		this.isShooting = isShooting;
 	}
 	
@@ -39,7 +39,7 @@ public class Player {
 		this.name = p.name;
 		this.sessionId = p.sessionId;
 		this.isReady = p.isReady;
-		this.rivalHealth = p.rivalHealth;
+		this.health = p.health;
 		this.isShooting = p.isShooting;
 	}
 	

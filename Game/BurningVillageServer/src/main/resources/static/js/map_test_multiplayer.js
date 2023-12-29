@@ -83,7 +83,7 @@ class map_test_multiplayer extends DragonScene
 				'shootingFlames': (player1.keyboard_controls.up.isDown && player1.ammo > 0),
 				'rivalHealth': player2.health
 			}));*/
-			connection.sendData(1, 9, 8,(player1.keyboard_controls.up.isDown && player1.ammo > 0),player2.health,true);
+			connection.sendData(1, 9, 8,(player1.keyboard_controls.up.isDown && player1.ammo > 0),player1.health,true);
 			//Enviar si el dragón está disparando.
 		}
 		

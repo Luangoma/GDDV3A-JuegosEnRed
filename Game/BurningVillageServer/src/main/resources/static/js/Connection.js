@@ -108,7 +108,7 @@ var connection = {
 			positionY: y,
 			rotation: rot, //iirc rot is an angle in radians
 			isReady: ready,
-			rivalHealth: rHealth,
+			health: rHealth,
 			isShooting: shooting
 		};
 		connection.sendObject(obj);
