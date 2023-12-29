@@ -87,7 +87,9 @@ class LobbyScene extends DragonScene
 				positionX: 0,
 				positionY: 0,
 				playerId: localUser.user.id,
-				isReady: that.localReady
+				isReady: that.localReady,
+				rivalHealth: 100,
+				isShooting: false
 			});
 		});
 		this.button_create_lobby.setCanBePressed(true);

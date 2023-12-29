@@ -16,7 +16,9 @@ class map_test_multiplayer extends DragonScene
 	create()
 	{
 		connection.connect();
-
+		connection.setCallbacks(null, null, function(message){
+			console.log("Mensaje recibido en map_test_multiplayer");
+		}, null);
 		enableSound(this);
 		enableInput(this);
 		
@@ -72,7 +74,7 @@ class map_test_multiplayer extends DragonScene
 		if(connection.isConnected()){
 			console.log("Mensaje enviado desde el update()");
 			//connection.send("HI");
-			connection.send(JSON.stringify({
+			/*connection.send(JSON.stringify({
 				'actionType': 'send-data',
 				'playerId': '1',
 				'lobbyId': '9',
@@ -80,7 +82,8 @@ class map_test_multiplayer extends DragonScene
 				'positionY': '9',
 				'shootingFlames': (player1.keyboard_controls.up.isDown && player1.ammo > 0),
 				'rivalHealth': player2.health
-			}));
+			}));*/
+			connection.sendData(1, 9, 8,(player1.keyboard_controls.up.isDown && player1.ammo > 0),player2.health,true);
 			//Enviar si el dragón está disparando.
 		}
 		
