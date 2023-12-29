@@ -9,10 +9,21 @@ public class Lobby {
 	private Long lobbyId;
 	private final List<Player> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
 	private long maxPlayers;
+	private boolean isInGame;
 	
 	
 	public Lobby() {
-		
+		this.lobbyId = -1L;
+		this.maxPlayers = 2;
+		this.isInGame = false;
+	}
+	
+	public void setIsInGame(boolean val) {
+		this.isInGame = val;
+	}
+	
+	public boolean getIsInGame() {
+		return this.isInGame;
 	}
 	
 	public void setMaxPlayers(long value) {
