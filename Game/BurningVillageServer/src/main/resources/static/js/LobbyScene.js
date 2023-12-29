@@ -157,12 +157,32 @@ class LobbyScene extends DragonScene
 					}
 				}
 				
+				let total_ready_players = 0;
+				
 				for(let i = 0; i < m.players.length; ++i){
 					let current_ready = m.players[i].isReady;
 					that.ready_text_array[i].setText(current_ready ? ready_text.ready : ready_text.not_ready);
+					
+					if(current_ready){
+						++total_ready_players;
+					}
 				}
 				
-				//TODO: Move the name reset loop after the petition so that it can reset the names of the remaining clients (2 - players.length clients in a loop...), which will prevent the already correct names from blinking.
+				
+				if(total_ready_players >= 2){ //hardcoded 2 should be changed in the future to the number of max players, which can be obtained from the received msg object
+					//redundant multiplayer type variable change (already performed from the outisde, but it's here just in case the users play around with the console and break things)
+					gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
+					
+					//start multiplayer match
+					game.scene.stop("LobbyScene");
+					game.scene.start("map_test_multiplayer");
+				}
+				
+				
+				
+				
+				
+				//(OPTIONAL) TODO: Move the name reset loop after the petition so that it can reset the names of the remaining clients (2 - players.length clients in a loop...), which will prevent the already correct names from blinking.
 				
 			},
 			function(e){ //error
