@@ -15,7 +15,6 @@ class map_test_multiplayer extends DragonScene
 	
 	create()
 	{
-		connection.connect();
 		connection.setCallbacks(null, null, function(message){
 			console.log("Mensaje recibido en map_test_multiplayer");
 		}, null);
