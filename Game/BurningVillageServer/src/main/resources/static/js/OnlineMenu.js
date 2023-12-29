@@ -40,21 +40,22 @@ class OnlineMenu extends DragonScene
 		//paged menu for displaying lobbies.
 		this.paged_menu = new PagedMenu(this,config.width/2,config.height/2,10,'lobby_list_background');
 		this.paged_menu.background_image.displayHeight -= 100;
-		this.paged_menu.set_elements_per_page(7);
+		this.paged_menu.set_elements_per_page(13); //set the number of lobbies that can appear in the page to 13, aka, 13 rows (each row being a lobby) will be visible in each page at a time.
 		
 		this.paged_menu.object_creation_function = function(scene, data_list, obj_list, index, global_index){
 			
-			let height_distance = 50;
+			let starting_position = {x: 80, y: 120};
+			let height_distance = 30;
 			
-			let currentBg = scene.add.image(100,150 + height_distance * index, 'background_slice').setOrigin(0,0.5);
+			let currentBg = scene.add.image(starting_position.x, starting_position.y + height_distance * index, 'background_slice').setOrigin(0,0.5);
 			currentBg.displayHeight = 25;
-			currentBg.displayWidth = 400;
+			currentBg.displayWidth = 640;
 			currentBg.setTint(index % 2 === 0 ? 0xFFFFFF : 0xAAAAAA);
 			currentBg.visible = false;
 			
-			let currentText = scene.add.text(100, 150 + height_distance * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5);
+			let currentText = scene.add.text(starting_position.x, starting_position.y + height_distance * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5);
 			
-			let currentButton = new Button(scene, config.width/4 * 3, 150 + height_distance * index, "Unirse", "SmallRockButton01");
+			let currentButton = new Button(scene, config.width/4 * 3, starting_position.y + height_distance * index, "Unirse", "SmallRockButton01", 0.4, 0.4);
 			currentButton.setButtonFunction(function(){
 				console.log("Unirse no configurado");
 			});
@@ -73,6 +74,7 @@ class OnlineMenu extends DragonScene
 		this.paged_menu.object_reset_function = function(scene, data_list, obj_list, index, global_index){
 			obj_list[index].text.setText(" ");
 			obj_list[index].button.setVisible(false);
+			obj_list[index].background.visible = false;
 		};
 		
 		this.paged_menu.object_update_function = function(scene, data_list, obj_list, index, global_index){
