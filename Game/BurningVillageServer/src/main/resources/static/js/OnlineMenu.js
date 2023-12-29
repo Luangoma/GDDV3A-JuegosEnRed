@@ -18,6 +18,7 @@ class OnlineMenu extends DragonScene
 	{
 		this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
 		this.load.image('lobby_list_background', "./assets/LobbyListBackground.png");
+		this.load.image('background_slice', './assets/progress_bar/progress_bar_default_middle.png');
 		preloadPagedMenuData(this);
 	}
 	
@@ -39,10 +40,21 @@ class OnlineMenu extends DragonScene
 		//paged menu for displaying lobbies.
 		this.paged_menu = new PagedMenu(this,config.width/2,config.height/2,10,'lobby_list_background');
 		this.paged_menu.background_image.displayHeight -= 100;
+		this.paged_menu.set_elements_per_page(7);
 		
 		this.paged_menu.object_creation_function = function(scene, data_list, obj_list, index, global_index){
 			
-			let currentButton = new Button(that, config.width/4 * 3, 150 + 30 * index, "Unirse");
+			let height_distance = 50;
+			
+			let currentBg = scene.add.image(100,150 + height_distance * index, 'background_slice').setOrigin(0,0.5);
+			currentBg.displayHeight = 25;
+			currentBg.displayWidth = 400;
+			currentBg.setTint(index % 2 === 0 ? 0xFFFFFF : 0xAAAAAA);
+			currentBg.visible = false;
+			
+			let currentText = scene.add.text(100, 150 + height_distance * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5);
+			
+			let currentButton = new Button(scene, config.width/4 * 3, 150 + height_distance * index, "Unirse", "SmallRockButton01");
 			currentButton.setButtonFunction(function(){
 				console.log("Unirse no configurado");
 			});
@@ -50,7 +62,8 @@ class OnlineMenu extends DragonScene
 			currentButton.setVisible(false);
 			
 			let current_obj = {
-				text: scene.add.text(100, 150 + 30 * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5),
+				background: currentBg,
+				text: currentText,
 				button: currentButton
 			};
 			
@@ -65,6 +78,7 @@ class OnlineMenu extends DragonScene
 		this.paged_menu.object_update_function = function(scene, data_list, obj_list, index, global_index){
 			
 			console.log("updating the element: " + index);
+			obj_list[index].background.visible = true;
 			obj_list[index].text.setText("Lobby <" + data_list[global_index].lobbyId + "> : | Jugadores: " + data_list[global_index].connectedPlayers + "/" + data_list[global_index].maxPlayers + " | ");
 			obj_list[index].button.setCanBePressed(true);
 			obj_list[index].button.setVisible(true);

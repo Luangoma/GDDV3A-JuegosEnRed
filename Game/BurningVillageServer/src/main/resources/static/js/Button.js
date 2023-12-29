@@ -51,6 +51,8 @@ function preloadButtonData(scene){
 	
 	scene.load.audio("sound_ui_hover", ["./sounds/menu/sound_ui_hover.wav"]);
 	scene.load.audio("sound_ui_click", ["./sounds/menu/sound_ui_click.wav"]);
+	
+	scene.load.image('SmallRockButton01', "./assets/SmallRockButton01.png");
 }
 
 Button.prototype.setButtonFunction = function(fn){
