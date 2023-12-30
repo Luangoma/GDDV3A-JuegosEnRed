@@ -9,6 +9,7 @@ public class Player {
 	private boolean isReady;
 	private double health;
 	private boolean isShooting;
+	private int time;
 	
 	public Player() {
 		this.playerId = -1L;
@@ -19,9 +20,10 @@ public class Player {
 		this.isReady = false;
 		this.health = -1;
 		this.isShooting = false;
+		this.time = 0;
 	}
 	
-	public Player(Long id, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting) {
+	public Player(Long id, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time) {
 		this.playerId = id;
 		this.position = pos;
 		this.rotation = rot;
@@ -30,6 +32,7 @@ public class Player {
 		this.isReady = isReady;
 		this.health = health;
 		this.isShooting = isShooting;
+		this.time = time;
 	}
 	
 	public Player(Player p) {
@@ -85,6 +88,10 @@ public class Player {
 		this.isShooting = b;
 	}
 	
+	public void setTime(int t) {
+		this.time = t;
+	}
+	
 	
 	//Getters:
 	public Long getPlayerId() {
@@ -119,5 +126,8 @@ public class Player {
 		return this.isShooting;
 	}
 	
+	public int getTime() {
+		return this.time;
+	}
 	
 }

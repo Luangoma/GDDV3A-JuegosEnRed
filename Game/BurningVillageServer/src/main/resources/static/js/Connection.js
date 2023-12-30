@@ -100,7 +100,7 @@ var connection = {
 		let obj = {actionType: 'create-lobby', playerId: localUser.user.id}
 		connection.sendObject(obj);
 	},
-	sendData: function(x = 0, y = 0, rot = 0, health = 0, shooting = false, ready = true){
+	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, shooting = false, ready = true){
 		let obj = {
 			actionType: 'send-data',
 			playerId: localUser.user.id,
@@ -110,11 +110,12 @@ var connection = {
 			rotation: rot, //iirc rot is an angle in radians
 			isReady: ready,
 			playerHealth: health,
-			isShooting: shooting
+			isShooting: shooting,
+			time: current_time
 		};
 		connection.sendObject(obj);
 	},
 	sendLobbyData: function(isReady){
-		connection.sendData(0,0,0,0,false,isReady);
+		connection.sendData(0,0,0,0,0,false,isReady);
 	}
 };
