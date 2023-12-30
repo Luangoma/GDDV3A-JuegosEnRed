@@ -330,6 +330,7 @@ Tile.prototype.update = function(time, delta){
 	if(!this.has_been_destroyed)
 	{
 		this.sprite.setTexture('casa_quemada');
+		this.destruction_sound.setVolume(gameConfig.volumeSettings.effectsVolume);
 		this.destruction_sound.play();
 		this.has_been_destroyed = true;
 	}
