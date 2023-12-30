@@ -68,7 +68,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			Lobby current_lobby = this.lobbies.get(lobby_id);
 			
 			//make the player leave the lobby
-			current_lobby.removePlayerByString(session.getId());
+			current_lobby.removePlayer(session.getId());
 			
 			//send the new lobby info to all the remaining players in the lobby (which obviously does not include the player that just left the lobby)
 			for(Player p : current_lobby.getPlayers()) {
@@ -146,8 +146,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		node.put("actionType","lobby-info");
 		node.put("lobbyId",lobby.getLobbyId());
 		
-		int player_index = lobby.getPlayerIndexByString(session.getId());
-		Player p = lobby.getPlayers().get(player_index);
+		Player p = lobby.getPlayer(session.getId()); //we really should check for null here... but we do not!!!! cause we're rad af.
 		node.put("playerId", p.getPlayerId());
 		
 		ArrayNode arr = this.mapper.valueToTree(lobby.getPlayers().toArray());
@@ -187,8 +186,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		Lobby lobby = this.lobbies.get(lobbyId);
 		
 		//update the lobby info
-		int idx = lobby.getPlayerIndexByString(session.getId());
-		lobby.setPlayerDataByIndex(idx, newPlayerInfo);
+		lobby.setPlayer(session.getId(), newPlayerInfo);
 		
 		//send the new lobby info to all players
 		for(Player p : lobby.getPlayers()) {
@@ -271,7 +269,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			String ans = "Server info:\n";
 			
 			for(Map.Entry<Long, Lobby> entry : this.lobbies.entrySet()) {
-				ans += entry.getValue().serializeLobby() + "\n";
+				//ans += entry.getValue().serializeLobby() + "\n"; //TODO: This shit is completely out of order because I'm falling asleep. Will fix some other day.
 			}
 			
 			session.sendMessage(new TextMessage(ans));

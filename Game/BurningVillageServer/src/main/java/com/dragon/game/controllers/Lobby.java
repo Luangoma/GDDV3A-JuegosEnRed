@@ -2,12 +2,14 @@ package com.dragon.game.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 //NOTE: A null string signifies that said player slot in the lobby is not occupied, thus, no player is connected on said slot, which means that it is free to use by another user.
 public class Lobby {
 	
 	private Long lobbyId;
-	private final List<Player> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
+	private final Map<String, Player> playerSlots = new ConcurrentHashMap<>(); //possible concurrency problem? use map later maybe.
 	private long maxPlayers;
 	private boolean isInGame;
 	private Long lastPlayerId = 0L;
@@ -56,44 +58,54 @@ public class Lobby {
 	}
 	
 	//Get the player session string for the player in the slot with index "idx" within this lobby. If the index is not in use by this lobby, return null so that we can tell that no player is connected in said slot.
+	/*
 	public String getPlayerByIndex(int idx) {
 		if(this.isValidIndex(idx)) {
 			return this.playerSlots.get(idx).getSessionId();
 		}
 		return null;
 	}
+	*/
 	
 	//Set the player session string for the player in the slot with index "idx" within this lobby with the chosen value string. If the index is out of bounds, then nothing happens. Maybe in the future change this to a boolean function so that it can return a result to confirm wether it has worked or not.
+	/*
 	public void setPlayerByIndex(int idx, String value) {
 		if(this.isValidIndex(idx)) {
 			//this.playerSlots.set(idx, value);
 			this.playerSlots.get(idx).setSessionId(value);
 		}
 	}
+	*/
 	
+	/*
 	public void setPlayerDataByIndex(int idx, Player newData) {
 		if(this.isValidIndex(idx)) {
 			this.playerSlots.set(idx, new Player(newData));
 		}
 	}
+	*/
 	
 	//Remove the chosen player from the list. Uses a list index.
+	/*
 	public void removePlayerByIndex(int idx) {
 		if(this.isValidIndex(idx)) {
 			this.playerSlots.remove(idx);
 		}
 	}
+	*/
 	
 	
 	//Check if a player is connected in the lobby through their lobby index.
+	/*
 	public boolean hasPlayerByIndex(int idx) {
 		return isValidIndex(idx);
 	}
+	*/
 	
 	//Check if a certain player is inside of this lobby through their connection string.
 	public boolean hasPlayerByString(String target_player_id) {
-		for(Player p : this.playerSlots) {
-			String s = p.getSessionId();
+		for(Map.Entry<String, Player> entry : this.playerSlots.entrySet()) {
+			String s = entry.getKey();
 			if(s.equals(target_player_id)) {
 				return true;
 			}
@@ -102,6 +114,7 @@ public class Lobby {
 	}
 	
 	//Get the lobby index of a given player by their player ID string. If the player is not in the list, it will return -1.
+	/*
 	public int getPlayerIndexByString(String target_player_id) {
 		int i = 0;
 		for(Player p : this.playerSlots) {
@@ -113,6 +126,7 @@ public class Lobby {
 		}
 		return -1;
 	}
+	*/
 	
 	
 	//Add a player connection to the lobby if the player is not already connected to the lobby.
@@ -129,33 +143,26 @@ public class Lobby {
 	}
 	*/
 	
-	public boolean addPlayer(String s, Long id) {
+	public void addPlayer(String s, Long id) {
 		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
 			Player p = new Player();
 			p.setSessionId(s);
 			p.setUserId(id);
 			p.setPlayerId(this.lastPlayerId);
-			this.playerSlots.add(p);
+			this.playerSlots.put(s, p);
 			
 			++this.lastPlayerId;
-			
-			return true;
 		}
-		return false;
 	}
 	
 	//Remove the chosen player from the list. Uses a connection string.
-	public boolean removePlayerByString(String s) {
-		int idx = this.getPlayerIndexByString(s);
-		if(this.isValidIndex(idx)) {
-			this.removePlayerByIndex(idx);
-			return true;
-		}
-		return false;
+	public void removePlayer(String s) {
+		this.playerSlots.remove(s);
 	}
 	
 	//Simple function to serialize the lobby into a JSON string.
 	//TODO: Use jackson instead of doing this by hand.
+	/*
 	public String serializeLobby() {
 		String player_slots_str = "";
 		
@@ -169,9 +176,20 @@ public class Lobby {
 		String ans = "{\"lobbyId\": " + this.getLobbyId() + ", \"maxPlayers\": " + this.getMaxPlayers() + ", \"playerCount\": " + this.getConnectedPlayers() + ", \"playerSlots\": [" + player_slots_str + "]}";
 		return ans;
 	}
+	*/
 	
 	public List<Player> getPlayers() {
-		return this.playerSlots;
+		List<Player> ans = new ArrayList<>(this.playerSlots.values());
+		return ans;
+	}
+	
+	public Player getPlayer(String s) {
+		return this.playerSlots.get(s);
+	}
+	
+	public void setPlayer(String s, Player p) {
+		Player new_p = new Player(p);
+		this.playerSlots.put(s, new_p);
 	}
 	
 }
