@@ -144,6 +144,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		node.put("actionType","lobby-info");
 		node.put("lobbyId",lobby.getLobbyId());
 		
+		int player_index = lobby.getPlayerIndexByString(session.getId());
+		Player p = lobby.getPlayers().get(player_index);
+		node.put("playerId", p.getPlayerId());
+		
 		ArrayNode arr = this.mapper.valueToTree(lobby.getPlayers().toArray());
 		node.set("players", arr);
 		
@@ -203,10 +207,8 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			action = "UNKNOWN";
 		}
 		
-		Long currentPlayerId = node.get("playerId").asLong();
-		if(currentPlayerId == null) {
-			currentPlayerId = -1L;
-		}
+		Long currentUserId = node.get("userId").asLong();
+		//Long currentPlayerId = node.get("playerId").asLong();
 		
 		//String subtreestr = node.get("data").asText();
 		//JsonNode subtree = mapper.readTree(subtreestr);
@@ -214,7 +216,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		//TODO: add null checks to all the strings down there. Just in case someone sends a hand crafted packet and everything breaks.
 		switch(action) {
 		case "create-lobby":{
-			this.createLobby(session, currentPlayerId);
+			this.createLobby(session, currentUserId);
 			break;
 		}
 		case "join-lobby":{
@@ -225,9 +227,9 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			
 			//only join the player to the lobby if there are enough free slots.
 			if(connected_players < max_players) {
-				this.joinLobby(session, currentPlayerId, lobby_id);
+				this.joinLobby(session, currentUserId, lobby_id);
 			} else {
-				this.createLobby(session, currentPlayerId);
+				this.createLobby(session, currentUserId);
 			}
 			
 			break;
@@ -235,7 +237,8 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		case "send-data":{
 			
 			//obtain the information from the received JSON
-			Long id = node.get("playerId").asLong();
+			Long uid = node.get("userId").asLong();
+			Long pid = node.get("playerId").asLong();
 			double positionX = node.get("positionX").asDouble();
 			double positionY = node.get("positionY").asDouble();
 			Vector2f64 pos = new Vector2f64(positionX, positionY);
@@ -248,7 +251,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			int time = node.get("time").asInt();
 			
 			//compose the data into a new Player object
-			Player playerData = new Player(id,pos,rot,name,sessionStr,isReady, health, isShooting, time);
+			Player playerData = new Player(uid,pid,pos,rot,name,sessionStr,isReady, health, isShooting, time);
 			
 			//send the player info
 			sendPlayerInfo(session, playerData);
@@ -256,7 +259,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			break;
 		}
 		case "match-making":{
-			this.matchMaking(session, currentPlayerId);
+			this.matchMaking(session, currentUserId);
 			break;
 		}
 		case "get-server-info":{

@@ -10,12 +10,14 @@ public class Lobby {
 	private final List<Player> playerSlots = new ArrayList<>(); //possible concurrency problem? use map later maybe.
 	private long maxPlayers;
 	private boolean isInGame;
+	private Long lastPlayerId = 0L;
 	
 	
 	public Lobby() {
 		this.lobbyId = -1L;
 		this.maxPlayers = 2;
 		this.isInGame = false;
+		this.lastPlayerId = 0L;
 	}
 	
 	public void setIsInGame(boolean val) {
@@ -114,6 +116,8 @@ public class Lobby {
 	
 	
 	//Add a player connection to the lobby if the player is not already connected to the lobby.
+	//WARNING: UNUSED FUNCTION DUE TO BEING AN OBSOLETE AND BADLY THOUGHT OUT PIECE OF CRAP
+	/*
 	public boolean addPlayerByString(String s) {
 		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
 			Player p = new Player();
@@ -123,13 +127,18 @@ public class Lobby {
 		}
 		return false;
 	}
+	*/
 	
 	public boolean addPlayer(String s, Long id) {
 		if(!this.hasPlayerByString(s) && this.getConnectedPlayers() < this.getMaxPlayers()) {
 			Player p = new Player();
 			p.setSessionId(s);
-			p.setPlayerId(id);
+			p.setUserId(id);
+			p.setPlayerId(this.lastPlayerId);
 			this.playerSlots.add(p);
+			
+			++this.lastPlayerId;
+			
 			return true;
 		}
 		return false;

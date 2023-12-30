@@ -1,7 +1,7 @@
 //Object that represents the connection to the server for this client.
 var connection = {
 	socket: null, //this is what we usually call "var connection" in the JS world
-	lobbyInfo: {lobbyId: -1, players: []},
+	lobbyInfo: {playerId: -1, lobbyId: -1, players: []},
 	isConnected: function(){
 		//Devuelve true si el socket pasa al estado de OPEN.
 		return connection.socket.readyState === WebSocket.OPEN;
@@ -84,25 +84,26 @@ var connection = {
 		connection.socket.send(JSON.stringify(obj));
 	},
 	matchMaking: function(){
-		let obj = {actionType: 'match-making', playerId: localUser.user.id};
+		let obj = {actionType: 'match-making', userId: localUser.user.id};
 		connection.sendObject(obj);
 	},
 	leaveLobby: function(){
-		let obj = {actionType: 'leave-lobby', playerId: localUser.user.id};
+		let obj = {actionType: 'leave-lobby', userId: localUser.user.id};
 		connection.sendObject(obj);
 	},
 	joinLobby: function(id){
-		let obj = {actionType: 'join-lobby', playerId: localUser.user.id, lobbyId: id};
+		let obj = {actionType: 'join-lobby', userId: localUser.user.id, lobbyId: id};
 		connection.sendObject(obj);
 	},
 	createLobby: function(){
-		let obj = {actionType: 'create-lobby', playerId: localUser.user.id}
+		let obj = {actionType: 'create-lobby', userId: localUser.user.id}
 		connection.sendObject(obj);
 	},
 	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, shooting = false, ready = true){
 		let obj = {
 			actionType: 'send-data',
-			playerId: localUser.user.id,
+			userId: localUser.user.id,
+			playerId: connection.lobbyInfo.playerId,
 			playerName: localUser.user.username,
 			positionX: x,
 			positionY: y,
@@ -120,5 +121,6 @@ var connection = {
 	recvLobbyData: function(msg){ //msg is an object here, it has already gone through a JSON parse in the onmessage event.
 		connection.lobbyInfo.lobbyId = msg.lobbyId;
 		connection.lobbyInfo.players = msg.players;
+		connection.lobbyInfo.playerId = msg.playerId;
 	}
 };

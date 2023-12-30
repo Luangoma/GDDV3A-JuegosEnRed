@@ -70,7 +70,7 @@ class GameMap extends DragonScene
 	{
 		//Finish the game. This implies stopping the game timer, stopping this scene and loading the game over scene.
 		console.log("GAME OVER (Scene \"" + this.scene.key + "\" has been unloaded...)");
-			
+		
 		//stop the timer
 		gameTime.stopTimer();
 		

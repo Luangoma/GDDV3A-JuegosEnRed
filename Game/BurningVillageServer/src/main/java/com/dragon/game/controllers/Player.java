@@ -1,7 +1,8 @@
 package com.dragon.game.controllers;
 
 public class Player {
-	private Long playerId;
+	private Long userId; //this determines the user ID, aka, the ID of the account in use.
+	private Long playerId; //this determines the player ID relative to the lobby, aka an "entity" ID of sorts for the player objects within a lobby.
 	private Vector2f64 position;
 	private double rotation;
 	private String name;
@@ -12,6 +13,7 @@ public class Player {
 	private int time;
 	
 	public Player() {
+		this.userId = -1L;
 		this.playerId = -1L;
 		this.position = new Vector2f64();
 		this.rotation = 0;
@@ -23,8 +25,9 @@ public class Player {
 		this.time = 0;
 	}
 	
-	public Player(Long id, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time) {
-		this.playerId = id;
+	public Player(Long uid, Long pid, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time) {
+		this.userId = uid;
+		this.playerId = pid;
 		this.position = pos;
 		this.rotation = rot;
 		this.name = name;
@@ -36,6 +39,7 @@ public class Player {
 	}
 	
 	public Player(Player p) {
+		this.userId = p.userId;
 		this.playerId = p.playerId;
 		this.position = p.position;
 		this.rotation = p.rotation;
@@ -44,6 +48,7 @@ public class Player {
 		this.isReady = p.isReady;
 		this.health = p.health;
 		this.isShooting = p.isShooting;
+		this.time = p.time;
 	}
 	
 	public boolean isPlayerValid() {
@@ -56,6 +61,10 @@ public class Player {
 	
 	
 	//Setters:
+	public void setUserId(Long id) {
+		this.userId = id;
+	}
+	
 	public void setPlayerId(Long id) {
 		this.playerId = id;
 	}
@@ -94,6 +103,10 @@ public class Player {
 	
 	
 	//Getters:
+	public Long getUserId() {
+		return this.userId;
+	}
+	
 	public Long getPlayerId() {
 		return this.playerId;
 	}
