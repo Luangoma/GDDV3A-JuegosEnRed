@@ -176,7 +176,7 @@ class LobbyScene extends DragonScene
 					
 					//start multiplayer match
 					game.scene.stop("LobbyScene");
-					game.scene.start("GameMap");
+					game.scene.start("GameMapLoader");
 				}
 				
 				
