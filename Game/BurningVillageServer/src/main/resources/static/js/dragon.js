@@ -15,7 +15,7 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.delay = 3 * 1000; //tiempo entre llamaradas en ms (N sec * 1000 = ms)
 	this.time_elapsed = 0;
 	
-	this.isShooting = false; //esta variable solo existe para ser leida de forma externa
+	this.isShooting = false; //variable that holds the flame shooting status of the dragon.
 
 	this.health = 100;	// Vida del dragon
 	
@@ -117,7 +117,8 @@ Dragon.prototype.update = function(time, delta){
 	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
 
 	//Execute Player Controls
-	if(this.health>0){
+	if(this.health>0)
+	{
 		if (this.keyboard_controls.left.isDown) //Rotate left
 		{
 			this.sprite.angle-=playerTurnSpeed * delta;
@@ -131,12 +132,15 @@ Dragon.prototype.update = function(time, delta){
 		if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
 		{
 			this.isShooting = true;
+		}
+		
+		if(this.isShooting)
+		{
 			this.spawnFlames(1);
 		}
-		else
-		{
-			this.isShooting = false;
-		}
+		
+		this.isShooting = false; //this part got extremely wonky just for multiplayer replication...
+		
 	}	
 	this.time_elapsed+=delta;
 	if(this.time_elapsed >= this.delay)
