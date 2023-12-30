@@ -153,7 +153,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		
 		String msg = node.toString(); //.asText() gives null because why not. Good old java doing things that are inconsistent because why not.
 		
-		session.sendMessage(new TextMessage(msg));
+		//sync the message sending so that SpringBoot doesn't shit itself when trying to queue responses...
+		synchronized(session) {
+			session.sendMessage(new TextMessage(msg));
+		}
 		
 		System.out.println("The sent info is: " + msg);
 	}
