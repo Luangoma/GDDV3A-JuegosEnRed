@@ -80,9 +80,11 @@ class GameMap extends DragonScene
 							
 							if(players[1])
 							{
-								players[1].sprite.x = lerpValue(players[1].sprite.x, current_player.position.x);
-								players[1].sprite.y = lerpValue(players[1].sprite.y, current_player.position.y);
-								players[1].sprite.angle = lerpValue(players[1].sprite.angle, current_player.rotation);
+								let lerp_value = 0.5;
+								
+								players[1].sprite.x = lerpValue(players[1].sprite.x, current_player.position.x, lerp_value);
+								players[1].sprite.y = lerpValue(players[1].sprite.y, current_player.position.y, lerp_value);
+								players[1].sprite.angle = lerpValue(players[1].sprite.angle, current_player.rotation, lerp_value);
 								players[1].health = current_player.health;
 								//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
 								players[1].isShooting = current_player.isShooting;

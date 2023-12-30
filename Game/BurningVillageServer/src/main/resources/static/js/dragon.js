@@ -129,17 +129,19 @@ Dragon.prototype.update = function(time, delta){
 			this.sprite.angle+=playerTurnSpeed * delta;
 		}
 		
-		if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
+		if ((this.isShooting && this.ammo > 0) || (this.keyboard_controls.up.isDown && this.ammo > 0)) //Shoot flames if the keyboard is pressed (or if the remote client is told to shoot in online mode)
 		{
 			this.isShooting = true;
+		}
+		else
+		{
+			this.isShooting = false; //this part got extremely wonky just for multiplayer replication...
 		}
 		
 		if(this.isShooting)
 		{
 			this.spawnFlames(1);
 		}
-		
-		this.isShooting = false; //this part got extremely wonky just for multiplayer replication...
 		
 	}	
 	this.time_elapsed+=delta;
