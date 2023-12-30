@@ -62,8 +62,7 @@ var connection = {
 					}
 					case "lobby-info":{
 						console.log("Obtained lobby info");
-						connection.lobbyInfo.lobbyId = message_obj.lobbyId;
-						connection.lobbyInfo.players = message_obj.players;
+						connection.recvLobbyData(message_obj);
 						break;
 					}
 				}
@@ -107,7 +106,7 @@ var connection = {
 			playerName: localUser.user.username,
 			positionX: x,
 			positionY: y,
-			rotation: rot, //iirc rot is an angle in radians
+			rotation: rot, //rot is an angle value (iirc in radians)
 			isReady: ready,
 			playerHealth: health,
 			isShooting: shooting,
@@ -117,5 +116,9 @@ var connection = {
 	},
 	sendLobbyData: function(isReady){
 		connection.sendData(0,0,0,0,0,false,isReady);
+	},
+	recvLobbyData: function(msg){ //msg is an object here, it has already gone through a JSON parse in the onmessage event.
+		connection.lobbyInfo.lobbyId = msg.lobbyId;
+		connection.lobbyInfo.players = msg.players;
 	}
 };
