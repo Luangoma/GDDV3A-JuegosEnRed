@@ -22,10 +22,10 @@ class GameMap extends DragonScene
 		
 		this.generateWorld();
 		
-		player1 = new Dragon(this, 0, 1024, 1024, this.flames);
-		player2 = new Dragon(this, 1, 800, 800, this.flames);
+		players[0] = new Dragon(this, 0, 1024, 1024, this.flames);
+		players[1] = new Dragon(this, 1, 800, 800, this.flames);
 		
-		addCamera(this,player1,player2,gameConfig.multiplayerType, gameConfig.screenSplitType);
+		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
 		
 		// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
 		// Si se hace launch en game.js no funciona.
@@ -40,9 +40,13 @@ class GameMap extends DragonScene
 	
 	update(time, delta)
 	{
-		player1.update(time, delta);
-		player2.update(time, delta);
+		//update the logic for all players
+		for(let i = 0; i < players.length; ++i)
+		{
+			players[i].update(time, delta);
+		}
 		
+		//update the logic for all houses / structures in the scene
 		for(let i = 0; i < this.houses.length; ++i)
 		{
 			this.houses[i].update(time, delta);

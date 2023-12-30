@@ -1,7 +1,8 @@
 var players = [];
+var currentPlayer = 0;
 
-var player1 = {};
-var player2 = {};
+//var player1 = {};
+//var player2 = {};
 
 var world_tiles_width = 20;
 var world_tiles_height = 20;

@@ -16,6 +16,9 @@ class ui extends Phaser.Scene
 	textoPuntuacionRoja = {};
 	puntuacionAzul = {};
 	puntuacionRoja = {};
+	
+	player1 = null;
+	player2 = null;
 
 	init()
 	{
@@ -54,7 +57,12 @@ class ui extends Phaser.Scene
 	}
 
 	create()
-	{	
+	{
+		
+		//inicializar las variables de los jugadores:
+		this.player1 = players[0];
+		this.player2 = players[1];
+		
 	
 		//BORDES DE LA PANTALLA Y CAMARA:
 		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
@@ -143,8 +151,8 @@ class ui extends Phaser.Scene
 		// TEMPORIZADOR PARA NÚMEROS DE RESPAWN 
 
 		// Definimos las posiciones de el contador de respawn para cada uno de los jugadores
-		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, player1.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
-		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, player2.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, this.player1.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, this.player2.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
 
 		// GRÁFICOS DE LOS DRAGONES
 
@@ -159,35 +167,35 @@ class ui extends Phaser.Scene
 		// Margenes para separar el texto de los graficos de los dragones
 		let marginX = 50, marginY = 200;
 		// Inicializamos el valor de los textos que mostraran el valor de la puntuación
-		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
-		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, player2.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, this.player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, this.player2.points, styleText_MedievalPixel_30).setOrigin(0.5);
 		// Puntos del jugador a mostrar en pantalla
-		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:player1.points, callbackScope: this, loop: true });
-		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:player2.points, callbackScope: this, loop: true });
+		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:this.player1.points, callbackScope: this, loop: true });
+		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:this.player2.points, callbackScope: this, loop: true });
 
 	}
 
 	update(time, delta)
 	{
 		// Cambiar la barra de vida del jugador 2. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(player2.health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
+		this.cambiarAnchoBarraAnimado(this.player2.health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
 		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(player1.health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
+		this.cambiarAnchoBarraAnimado(this.player1.health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
 		
-		if(player1.health<=0){
-			this.textoTemporizadorRespawnDer.setText(player1.respawnTime.toString().padStart(2,'0'));
+		if(this.player1.health<=0){
+			this.textoTemporizadorRespawnDer.setText(this.player1.respawnTime.toString().padStart(2,'0'));
 		} else {
 			this.textoTemporizadorRespawnDer.setText('');
 		}
-		if(player2.health<=0){
-			this.textoTemporizadorRespawnIzq.setText(player2.respawnTime.toString().padStart(2,'0'));
+		if(this.player2.health<=0){
+			this.textoTemporizadorRespawnIzq.setText(this.player2.respawnTime.toString().padStart(2,'0'));
 		} else {
 			this.textoTemporizadorRespawnIzq.setText('');
 		}
 		
 		// Actualizamos el valor de las puntuaciones 
-		this.textoPuntuacionAzul.setText(player1.points);
-		this.textoPuntuacionRoja.setText(player2.points);
+		this.textoPuntuacionAzul.setText(this.player1.points);
+		this.textoPuntuacionRoja.setText(this.player2.points);
 		
 		//actualizar el temporizador
 		this.updateTimer();

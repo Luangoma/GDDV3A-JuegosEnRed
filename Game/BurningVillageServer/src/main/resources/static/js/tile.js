@@ -361,7 +361,7 @@ Tile.prototype.update = function(time, delta){
 		}
 		
 		//replace the constant "1" with the ambient audio volume setting.
-		let distance = distanceBetweenPoints2D({x: player1.sprite.x, y: player1.sprite.y}, {x: this.sprite.x, y: this.sprite.y});
+		let distance = distanceBetweenPoints2D({x: players[currentPlayer].sprite.x, y: players[currentPlayer].sprite.y}, {x: this.sprite.x, y: this.sprite.y});
 		let distance_factor = lerpValue(1 , 0, clampValue(distance, 0, 300) / 300); //300 is some arbitrary attenuation and max audio distance value
 		this.fire_sound.setVolume(1 * distance_factor);
 		
