@@ -2,7 +2,7 @@
 var connection = {
 	socket: null, //this is what we usually call "var connection" in the JS world
 	lobbyInfo: {playerId: -1, lobbyId: -1, players: []},
-	isConnected: function(){
+	isConnected: function(){ //maybe should rename to isOpen?
 		//Devuelve true si el socket pasa al estado de OPEN.
 		return connection.socket.readyState === WebSocket.OPEN;
 	},

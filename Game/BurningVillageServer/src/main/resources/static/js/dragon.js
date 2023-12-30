@@ -14,7 +14,8 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.ammo = this.max_ammo; //cantidad de llamas que el dragon puede spawnear en una llamarada
 	this.delay = 3 * 1000; //tiempo entre llamaradas en ms (N sec * 1000 = ms)
 	this.time_elapsed = 0;
-
+	
+	this.isShooting = false; //esta variable solo existe para ser leida de forma externa
 
 	this.health = 100;	// Vida del dragon
 	
@@ -129,7 +130,12 @@ Dragon.prototype.update = function(time, delta){
 		
 		if (this.keyboard_controls.up.isDown && this.ammo > 0) //Shoot flames
 		{
+			this.isShooting = true;
 			this.spawnFlames(1);
+		}
+		else
+		{
+			this.isShooting = false;
 		}
 	}	
 	this.time_elapsed+=delta;

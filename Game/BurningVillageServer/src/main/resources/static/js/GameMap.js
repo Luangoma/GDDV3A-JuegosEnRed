@@ -1,10 +1,15 @@
 class GameMap extends DragonScene
 {
 	flames = {};
+	
 	houses = [];
 	tiles = [];
 	decor = [];
+	
 	num_houses = 60;
+	num_decor = 30;
+	
+	onlineInterval = null;
 	
 	preload()
 	{
@@ -15,27 +20,104 @@ class GameMap extends DragonScene
 	{
 		enableSound(this);
 		enableInput(this);
+		connection.removeCallbacks();
 		
 		this.setFinishedLoading(false);
 		
 		setWorldBounds(this,0,0,world_width,world_height);
 		
 		this.generateWorld();
+		this.spawnPlayers();
 		
-		players[0] = new Dragon(this, 0, 1024, 1024, this.flames);
-		players[1] = new Dragon(this, 1, 800, 800, this.flames);
-		
-		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
-		
-		// Se hace launch para que la escena UI corra de forma simultánea a esta escena (map1).
-		// Si se hace launch en game.js no funciona.
-		this.scene.launch("ui");
+		//if the multiplayer mode is online, start the online logic.
+		this.startOnlineLogic();
 		
 		this.setFinishedLoading(true);
 		
-		
 		gameTime.startTimer();
+	}
+	
+	spawnPlayers()
+	{
+		//Spawn the dragon players
+		players[0] = new Dragon(this, 0, 1024, 1024, this.flames);
+		players[1] = new Dragon(this, 1, 800, 800, this.flames);
 		
+		//add the camera (which depends on the game config and multiplayer type)
+		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
+		
+		//add the UI
+		this.scene.launch("ui");
+	}
+	
+	startOnlineLogic()
+	{
+		//reset the interval variable value to null before doing anything with it so that we can automatically not do anything in the stopOnlineLogic function when the online mode fails for some reason.
+		this.onlineInterval = null;
+		
+		//if the multiplayer mode is set to online AND the socket connection is open, proceed with the online multiplayer logic
+		if(gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE && connection.isConnected())
+		{
+			//configure the connection callbacks so that we can properly manage the incoming data messages
+			connection.setCallbacks(
+				function(){
+					//open
+				},
+				function(){
+					//close
+				},
+				function(msg){
+					//message: update the other player character's information on this client with the data received from the server.
+					//console.log(msg); //this spams a lot in the console, so enable at your own risk
+					
+					//pick the information from the player that has a playerID different from ours. (NOTE: Player ID is NOT the same as User ID)
+					//TODO: modify this in the future so that it can actually work with N player lobbies, because right now we assume that every single entry we find that does not match the client's own connection's playerID will be players[1], which is not correct for lobbies with more than 2 players.
+					for(let i = 0; i < players.length; ++i)
+					{
+						if(msg.players[i].playerId !== connection.lobbyInfo.playerId)
+						{
+							let current_player = msg.players[i];
+							
+							players[1].sprite.x = current_player.position.x;
+							players[1].sprite.y = current_player.position.y;
+							players[1].sprite.angle = current_player.rotation;
+							players[1].health = current_player.health;
+							//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
+							players[1].isShooting = current_player.isShooting;
+						}
+					}
+					
+				},
+				function(e){
+					//error
+				}
+			);
+			
+			//set up an interval that will send information to the server every 100 ms while the match is active
+			this.onlineInterval = setInterval(function(){
+				//get the current player and use that to get the data to be sent
+				console.log("sending data to the server...");
+				
+				let x = players[0].sprite.x;
+				let y = players[0].sprite.y;
+				let rot = players[0].sprite.angle;
+				let health = players[0].health;
+				let time = gameTime.currentTime;
+				let shooting = players[0].isShooting;
+				
+				connection.sendData(x,y,rot,health,time,shooting);
+				
+			}, 100);
+		}
+	}
+	
+	stopOnlineLogic()
+	{
+		//if the multiplayer type is online, then stop the online interval, aka, stop sending information to the server
+		if(gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE && this.onlineInterval)
+		{
+			clearInterval(this.onlineInterval);
+		}
 	}
 	
 	update(time, delta)
@@ -78,6 +160,9 @@ class GameMap extends DragonScene
 		//stop the timer
 		gameTime.stopTimer();
 		
+		//if the multiplayer mode is online, stop the online logic.
+		this.stopOnlineLogic();
+		
 		//stop the game scene and ui scene and then load the game over scene
 		game.scene.stop(this.scene.key); //By using this, we automatically get the key from this scene, meaning we no longer hard code stopping this scene by its configured name.
 		game.scene.stop("ui");
@@ -97,7 +182,7 @@ class GameMap extends DragonScene
 		
 		createTiles(this, this.tiles, ['grass_tile_1']);
 		//createTiles(this, this.decor, ['decor_stones_01', 'decor_stones_02', 'decor_stones_01']);
-		createDecor(this,this.decor,['decor_stones_01', 'decor_stones_02', 'decor_stones_03'], 30);
+		createDecor(this,this.decor,['decor_stones_01', 'decor_stones_02', 'decor_stones_03'], this.num_decor);
 		createHouses(this, this.tiles, this.houses, this.flames, this.num_houses);
 		
 		let castle_x = getRandomInRangeInt(0,world_tiles_width - 6); //take away 6 due to castle lenght
