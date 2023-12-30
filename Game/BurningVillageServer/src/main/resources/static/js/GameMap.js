@@ -72,18 +72,21 @@ class GameMap extends DragonScene
 					
 					//pick the information from the player that has a playerID different from ours. (NOTE: Player ID is NOT the same as User ID)
 					//TODO: modify this in the future so that it can actually work with N player lobbies, because right now we assume that every single entry we find that does not match the client's own connection's playerID will be players[1], which is not correct for lobbies with more than 2 players.
-					for(let i = 0; i < players.length; ++i)
+					for(let i = 0; i < msg.players.length; ++i)
 					{
 						if(msg.players[i].playerId !== connection.lobbyInfo.playerId)
 						{
 							let current_player = msg.players[i];
 							
-							players[1].sprite.x = current_player.position.x;
-							players[1].sprite.y = current_player.position.y;
-							players[1].sprite.angle = current_player.rotation;
-							players[1].health = current_player.health;
-							//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
-							players[1].isShooting = current_player.isShooting;
+							if(players[1])
+							{
+								players[1].sprite.x = lerpValue(players[1].sprite.x, current_player.position.x);
+								players[1].sprite.y = lerpValue(players[1].sprite.y, current_player.position.y);
+								players[1].sprite.angle = lerpValue(players[1].sprite.angle, current_player.rotation);
+								players[1].health = current_player.health;
+								//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
+								players[1].isShooting = current_player.isShooting;
+							}
 						}
 					}
 					
@@ -107,7 +110,7 @@ class GameMap extends DragonScene
 				
 				connection.sendData(x,y,rot,health,time,shooting);
 				
-			}, 100);
+			}, /*100*/ 1000 * 0.3);
 		}
 	}
 	
@@ -116,7 +119,11 @@ class GameMap extends DragonScene
 		//if the multiplayer type is online, then stop the online interval, aka, stop sending information to the server
 		if(gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE && this.onlineInterval)
 		{
+			//stop sending data to the server by clearing the interval
 			clearInterval(this.onlineInterval);
+			
+			//close the socket connection
+			connection.disconnect();
 		}
 	}
 	
