@@ -20,7 +20,7 @@ class PlayMenu extends DragonScene
 		this.button_play_sp.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
 			game.scene.stop('PlayMenu');
-			game.scene.start("LoadMap1");
+			game.scene.start("GameMapLoader");
 		});
 		this.button_play_sp.setCanBePressed(true);
 		
