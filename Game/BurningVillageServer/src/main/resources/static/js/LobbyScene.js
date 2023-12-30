@@ -82,15 +82,7 @@ class LobbyScene extends DragonScene
 			console.log("Ready state changed.");
 			
 			that.localReady = !that.localReady;
-			connection.sendObject({
-				actionType: 'send-data',
-				positionX: 0,
-				positionY: 0,
-				playerId: localUser.user.id,
-				isReady: that.localReady,
-				health: 100,
-				isShooting: false
-			});
+			connection.sendLobbyData(that.localReady);
 		});
 		this.button_create_lobby.setCanBePressed(true);
 		
@@ -134,6 +126,7 @@ class LobbyScene extends DragonScene
 				}
 				
 				//update the names
+				//NOTE: The new packets include the user names, so this info is obtained with the lobby data updates, which means it could be optimized and no longer make use of AJAX requests. Just note that in the PlayMenu.js scene, the information that is sent is with the matchmaking function from the connection object, which means that the first time the player connects, their name is NOT sent to the server, which means that either you need to send a send-data packet right after match making OR you need to send the name with the match making packet. Figure this out later because it is not critical.
 				if(m.players){
 					for(let i = 0; i < m.players.length; ++i){
 						let current_id = m.players[i].playerId;

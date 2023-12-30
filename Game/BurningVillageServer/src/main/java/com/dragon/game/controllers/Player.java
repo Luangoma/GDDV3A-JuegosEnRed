@@ -2,18 +2,18 @@ package com.dragon.game.controllers;
 
 public class Player {
 	private Long playerId;
-	private Vector2f position;
-	private Vector2f rotation;
+	private Vector2f64 position;
+	private double rotation;
 	private String name;
 	private String sessionId;
 	private boolean isReady;
-	private int health;
+	private double health;
 	private boolean isShooting;
 	
 	public Player() {
 		this.playerId = -1L;
-		this.position = new Vector2f();
-		this.rotation = new Vector2f();
+		this.position = new Vector2f64();
+		this.rotation = 0;
 		this.name = new String();
 		this.sessionId = new String();
 		this.isReady = false;
@@ -21,7 +21,7 @@ public class Player {
 		this.isShooting = false;
 	}
 	
-	public Player(Long id, Vector2f pos, Vector2f rot, String name, String session, boolean isReady, int health, boolean isShooting) {
+	public Player(Long id, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting) {
 		this.playerId = id;
 		this.position = pos;
 		this.rotation = rot;
@@ -46,11 +46,7 @@ public class Player {
 	public boolean isPlayerValid() {
 		boolean is_valid =
 				this.playerId != null &&
-				this.playerId >= 0 &&
-				this.position != null &&
-				this.rotation != null &&
-				this.name != null &&
-				this.sessionId != null
+				this.playerId >= 0
 				;
 		return is_valid;
 	}
@@ -61,11 +57,11 @@ public class Player {
 		this.playerId = id;
 	}
 	
-	public void setPosition(Vector2f position) {
+	public void setPosition(Vector2f64 position) {
 		this.position = position;
 	}
 	
-	public void setRotation(Vector2f rotation) {
+	public void setRotation(double rotation) {
 		this.rotation = rotation;
 	}
 	
@@ -81,17 +77,25 @@ public class Player {
 		this.isReady = b;
 	}
 	
+	public void setHealth(double d) {
+		this.health = d;
+	}
+
+	public void setIsShooting(boolean b) {
+		this.isShooting = b;
+	}
+	
 	
 	//Getters:
 	public Long getPlayerId() {
 		return this.playerId;
 	}
 	
-	public Vector2f getPosition() {
+	public Vector2f64 getPosition() {
 		return this.position;
 	}
 	
-	public Vector2f getRotation() {
+	public double getRotation() {
 		return this.rotation;
 	}
 	
@@ -105,6 +109,14 @@ public class Player {
 	
 	public boolean getIsReady() {
 		return this.isReady;
+	}
+	
+	public double getHealth() {
+		return this.health;
+	}
+	
+	public boolean getIsShooting() {
+		return this.isShooting;
 	}
 	
 	

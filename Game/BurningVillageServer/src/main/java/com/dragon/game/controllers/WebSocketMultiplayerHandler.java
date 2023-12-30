@@ -233,47 +233,24 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			break;
 		}
 		case "send-data":{
-			//String pos_str = subtree.get("position").asText();
-			//System.out.println("Moved to position: " + pos_str);
-			/*
-			String player_id_str = node.get("playerId").asText();
-			String lobby_id_str = node.get("lobbyId").asText();
-			String player_position_x_str = node.get("positionX").asText();
-			String player_position_y_str = node.get("positionY").asText();
-			String player_shooting_flames_str = node.get("shootingFlames").asText();
-			String player_rival_health_str = node.get("rivalHealth").asText();
 			
-			
-			
-			
-			System.out.println("Player " + player_id_str + " in lobby " + lobby_id_str + " sent position: {" + player_position_x_str + ", " + player_position_y_str + "}");
-			System.out.println("Shooting fire:" + player_shooting_flames_str + ", rival health: " + player_rival_health_str);
-			*/
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/*---------------------------*/
-			
+			//obtain the information from the received JSON
 			Long id = node.get("playerId").asLong();
-			Vector2f pos = new Vector2f((float)node.get("positionX").asDouble(), (float)node.get("positionY").asDouble());
-			Vector2f rot = new Vector2f();
-			String name = new String();
+			double positionX = node.get("positionX").asDouble();
+			double positionY = node.get("positionY").asDouble();
+			Vector2f64 pos = new Vector2f64(positionX, positionY);
+			double rot = node.get("rotation").asDouble();
+			String name = node.get("playerName").asText();
 			String sessionStr = session.getId();
 			boolean isReady = node.get("isReady").asBoolean();
-			int health = node.get("health").asInt();
+			double health = node.get("playerHealth").asDouble();
 			boolean isShooting = node.get("isShooting").asBoolean();
 			
+			//compose the data into a new Player object
 			Player playerData = new Player(id,pos,rot,name,sessionStr,isReady, health, isShooting);
-
+			
+			//send the player info
 			sendPlayerInfo(session, playerData);
-			
-			
 			
 			break;
 		}
