@@ -360,10 +360,10 @@ Tile.prototype.update = function(time, delta){
 			this.fire_sound.play();
 		}
 		
-		//replace the constant "1" with the ambient audio volume setting.
+		//NOTE: This could be optimized to not even compute or spawn the sounds in the first place if the game is muted / the volume is 0, but it is done this way so that players will still be able to hear these sounds in case that they unmute the game during a match.
 		let distance = distanceBetweenPoints2D({x: players[currentPlayer].sprite.x, y: players[currentPlayer].sprite.y}, {x: this.sprite.x, y: this.sprite.y});
 		let distance_factor = lerpValue(1 , 0, clampValue(distance, 0, 300) / 300); //300 is some arbitrary attenuation and max audio distance value
-		this.fire_sound.setVolume(1 * distance_factor);
+		this.fire_sound.setVolume(gameConfig.volumeSettings.effectsVolume * distance_factor); //set the final volume to the distance factor multiplied by the total volume
 		
 	}
 	else

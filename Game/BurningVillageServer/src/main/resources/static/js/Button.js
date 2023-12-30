@@ -21,6 +21,7 @@ function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale 
 		console.log("Botón presionado");
 		if(that.can_be_pressed)
 		{
+			that.sound_click.setVolume(gameConfig.volumeSettings.menuVolume);
 			that.sound_click.play();
 			that.buttonFunction();
 		}
@@ -29,6 +30,7 @@ function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale 
 		console.log("El puntero está encima del botón");
 		that.ButtonImage.setScale(that.scale + 0.1);
 		that.ButtonText.setScale(that.text_scale + 0.1);
+		that.sound_hover.setVolume(gameConfig.volumeSettings.menuVolume);
 		that.sound_hover.play();
 	});
 	this.ButtonImage.on('pointerout', function(pointer){
