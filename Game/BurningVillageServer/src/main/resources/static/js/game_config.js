@@ -18,7 +18,11 @@ var gameConfig = {
 		},
 		setMusicVolume: function(increment){
 			gameConfig.volumeSettings.musicVolume = clampValue(gameConfig.volumeSettings.musicVolume + increment, 0, 1);
+			if(gameConfig.music){ //if the music is not null, then set the volume accordingly.
+				gameConfig.music.setVolume(gameConfig.volumeSettings.musicVolume);
+			}
 			return gameConfig.volumeSettings.musicVolume;
 		}
-	}
+	},
+	music: null
 };

@@ -62,6 +62,17 @@ function enableSound(scene){
 function stopSound(scene){
 	game.sound.stopAll();
 	scene.sound.removeAll();
+	gameConfig.music = null; //reset the music to null
+}
+
+function playGameMusic(scene){
+	//If the game music is null, then create the data for the music and play it
+	//also check if the key is in cache so that it won't give an error if the song tries to play while it is still loading.
+	if(!gameConfig.music && scene.cache.audio.exists("CANCION_01")){
+		gameConfig.music = scene.sound.add("CANCION_01", {loop: true});
+		gameConfig.music.play();
+		gameConfig.volumeFunctions.setMusicVolume(gameConfig.volumeSettings.musicVolume);
+	}
 }
 
 function distanceBetweenPoints2D(point1, point2){

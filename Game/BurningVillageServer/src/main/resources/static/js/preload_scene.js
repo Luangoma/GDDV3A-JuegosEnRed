@@ -20,6 +20,9 @@ class PreloadScene extends DragonScene
 		preloadDragonData(this);
 		preloadTileData(this);
 		preloadFlameData(this);
+		
+		//preload game music
+		this.load.audio("CANCION_01", ["./sounds/music/CANCION_01.wav"]);
 	}
 	
 	create()
@@ -31,6 +34,9 @@ class PreloadScene extends DragonScene
 		createGameOverData(this);
 		createTileData(this);
 		createDragonData(this);
+		
+		//play the game music the first time that the game data has been loaded.
+		playGameMusic(this);
 		
 		//start the main menu scene as soon as the preloading and creation processes are finished
 		//this.scene.start("MainMenu");

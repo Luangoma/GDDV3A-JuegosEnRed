@@ -9,6 +9,7 @@ class MainMenu extends DragonScene
 	botonJugar = {};
 	botonAjustes = {};
 	botonCreditos = {};
+	
 	//botonSalir = {}; //deprecated because modern browsers don't let us close the current tab with in page scripts due to security reasons...
 	
 	preload()
@@ -24,6 +25,9 @@ class MainMenu extends DragonScene
 		//stopSound(this);
 		enableSound(this);
 		disableInput(this);
+		
+		//if the music is null, then make it play again.
+		playGameMusic(this);
 		
 		//Good old JS hack, I lost the count...
 		let that = this;
