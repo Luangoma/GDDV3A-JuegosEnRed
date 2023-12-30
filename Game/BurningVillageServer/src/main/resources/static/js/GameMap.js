@@ -98,7 +98,7 @@ class GameMap extends DragonScene
 				}
 			);
 			
-			//set up an interval that will send information to the server every 100 ms while the match is active
+			//set up an interval that will send information to the server every X ms while the match is active
 			this.onlineInterval = setInterval(function(){
 				//get the current player and use that to get the data to be sent
 				console.log("sending data to the server...");
@@ -112,7 +112,7 @@ class GameMap extends DragonScene
 				
 				connection.sendData(x,y,rot,health,time,shooting);
 				
-			}, /*100*/ 1000 * 0.3);
+			}, /*100*/ 20); //use 20 ms, as most games send packets this often, if not faster.
 		}
 	}
 	
