@@ -83,7 +83,7 @@ class LoadingScreenScene extends DragonScene
 		{
 			console.log("Entering scene : " + this.sceneToEnter);
 			//this.scene.start(this.sceneToEnter); //old system used to start the scene. This would lead to double start up. Now it simply launches the scenes and stops itself. The launched scenes are responsible for cleaning themselves up. Or, the programmer is responsible for cleaning up the scene however they see fit.
-			this.scene.stop(this.key)
+			this.scene.stop(this.scene.key)
 		}
 	}
 }
