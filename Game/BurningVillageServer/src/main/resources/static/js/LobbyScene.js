@@ -137,7 +137,10 @@ class LobbyScene extends DragonScene
 								contentType: 'application/json',
 								success: function(data){
 									let current_username = data.username;
-									that.username_text_array[i].setText(current_username);
+									if(that.username_text_array[i])
+									{
+										that.username_text_array[i].setText(current_username);
+									}
 								},
 								error: function(xhr, status, error){
 									that.username_text_array[i].setText("< Anonymous >");
@@ -167,6 +170,9 @@ class LobbyScene extends DragonScene
 				if(total_ready_players >= 2){ //hardcoded 2 should be changed in the future to the number of max players, which can be obtained from the received msg object
 					//redundant multiplayer type variable change (already performed from the outisde, but it's here just in case the users play around with the console and break things)
 					gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
+					
+					//clear the connection callbacks
+					connection.removeCallbacks();
 					
 					//start multiplayer match
 					game.scene.stop("LobbyScene");

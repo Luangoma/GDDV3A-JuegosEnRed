@@ -16,9 +16,6 @@ class ui extends Phaser.Scene
 	textoPuntuacionRoja = {};
 	puntuacionAzul = {};
 	puntuacionRoja = {};
-	
-	player1 = null;
-	player2 = null;
 
 	init()
 	{
@@ -58,10 +55,6 @@ class ui extends Phaser.Scene
 
 	create()
 	{
-		
-		//inicializar las variables de los jugadores:
-		this.player1 = players[0];
-		this.player2 = players[1];
 		
 	
 		//BORDES DE LA PANTALLA Y CAMARA:
@@ -151,8 +144,8 @@ class ui extends Phaser.Scene
 		// TEMPORIZADOR PARA NÚMEROS DE RESPAWN 
 
 		// Definimos las posiciones de el contador de respawn para cada uno de los jugadores
-		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, this.player1.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
-		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, this.player2.respawnTime, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, /*this.player1.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player1.respawnTime
+		this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, /*this.player2.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player2.respawnTime
 
 		// GRÁFICOS DE LOS DRAGONES
 
@@ -167,35 +160,55 @@ class ui extends Phaser.Scene
 		// Margenes para separar el texto de los graficos de los dragones
 		let marginX = 50, marginY = 200;
 		// Inicializamos el valor de los textos que mostraran el valor de la puntuación
-		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, this.player1.points, styleText_MedievalPixel_30).setOrigin(0.5);
-		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, this.player2.points, styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, /*this.player1.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, /*this.player2.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
 		// Puntos del jugador a mostrar en pantalla
-		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:this.player1.points, callbackScope: this, loop: true });
-		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:this.player2.points, callbackScope: this, loop: true });
+		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:players[0].points, callbackScope: this, loop: true });
+		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:players[1].points, callbackScope: this, loop: true });
 
 	}
 
 	update(time, delta)
 	{
 		// Cambiar la barra de vida del jugador 2. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(this.player2.health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
+		this.cambiarAnchoBarraAnimado(players[0].health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
 		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(this.player1.health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
+		this.cambiarAnchoBarraAnimado(players[1].health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
 		
-		if(this.player1.health<=0){
-			this.textoTemporizadorRespawnDer.setText(this.player1.respawnTime.toString().padStart(2,'0'));
+		//NOTE:
+		/*
+			Old code which would lead to a crash sometimes...
+				
+				this.player1.respawnTime.toString().padStart(2,'0')
+			
+			This is because someone forgot to add the respawnTime property in the dragon class when they added it in the flame logic file...
+			This is a VERY serious bug that has been around since almost day 1. Things worked the rest of the time due to a miracle!
+			As a matter of fact, one of the reasons WHY it did not crash before was because we kept the console open and the printing slowed
+			things down enough for this error to not show. FUCKING RACE CONDITIONS BROTHER. USE YOUR HEAD.
+			
+			PLEASE, from now on, ALWAYS declare ALL of your variables within the object.
+			This is javascript, silent errors like that will FUCK YOU IN THE ASS FOR DAYS ON END.
+			
+			And that is the reason why we use an extremely dirty string sum to obtain the final string,
+			so that JS will automatically stringify "undefined" instead of crashing and exploding the universe.
+		*/
+		
+		if(players[0].health<=0){
+			let str0 = "" + players[0].respawnTime;
+			this.textoTemporizadorRespawnDer.setText(str0.padStart(2,'0'));
 		} else {
 			this.textoTemporizadorRespawnDer.setText('');
 		}
-		if(this.player2.health<=0){
-			this.textoTemporizadorRespawnIzq.setText(this.player2.respawnTime.toString().padStart(2,'0'));
+		if(players[1].health<=0){
+			let str1 = "" + players[1].respawnTime;
+			this.textoTemporizadorRespawnIzq.setText(str1.padStart(2,'0'));
 		} else {
 			this.textoTemporizadorRespawnIzq.setText('');
 		}
 		
 		// Actualizamos el valor de las puntuaciones 
-		this.textoPuntuacionAzul.setText(this.player1.points);
-		this.textoPuntuacionRoja.setText(this.player2.points);
+		this.textoPuntuacionAzul.setText("" + players[0].points);
+		this.textoPuntuacionRoja.setText("" + players[1].points);
 		
 		//actualizar el temporizador
 		this.updateTimer();
