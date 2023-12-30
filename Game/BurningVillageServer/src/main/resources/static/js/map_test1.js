@@ -49,6 +49,10 @@ class map_test_1 extends DragonScene
 		this.scene.launch("ui");
 		
 		this.setFinishedLoading(true);
+		
+		
+		gameTime.startTimer();
+		
 	}
 	
 	update(time, delta)
@@ -61,7 +65,21 @@ class map_test_1 extends DragonScene
 			this.houses[i].update(time, delta);
 		}
 		
-		//console.log("p1: " + player1.points + ", p2: " + player2.points);
+		
+		//If the time has reached 0, then end the game AND stop the timer.
+		if(gameTime.timeHasFinished()){
+			console.log("GAME OVER");
+			
+			//stop the timer
+			gameTime.stopTimer(); //maybe the timer stopping could be handled within the startTimer function itself, checking once the time reaches 0 or being called each time the timerStart function is called, but this is what we have right now, which might be the lesser of 2 evils considering how an in game menu and a quit option could require a manual timer killing mechanism.
+			
+			//stop the game scene and ui scene and then load the game over scene
+			//TODO: Add scene shutdown support for map_test_1
+			game.scene.stop('map_test_1'); //TODO: Change this to whatever the current map name is. Need to make a Game handler class of sorts...
+			game.scene.stop("ui");
+			game.scene.start("game_over");
+		}
+		
 	}
 	
 	shutdown()

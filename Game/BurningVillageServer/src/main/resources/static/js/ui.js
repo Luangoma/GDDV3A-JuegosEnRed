@@ -129,7 +129,7 @@ class ui extends Phaser.Scene
 		graficoTemporizador.setScale(0.4);
 
 		// Tiempo en segundos de la cuenta atrás.
-		this.tiempoInicial = gameTime;
+		this.tiempoInicial = gameTime.defaultTime;
 		
 		// Texto de la interfaz donde aparece el tiempo restante. Llama a formatoTiempo() para poner el tiempo
 		// en minutos y segundos.
@@ -138,7 +138,7 @@ class ui extends Phaser.Scene
 		this.textoTemporizador.setScrollFactor(0);
 
 		//Cada 1000 ms, es decir, 1 segundo se llama a la función temporizadorTerminado. Para ello se hace en bucle.
-		this.temporizadorPartida = this.time.addEvent({ delay: 1000, callback: this.temporizadorTerminado, callbackScope: this, loop: true });
+		//this.temporizadorPartida = this.time.addEvent({ delay: 1000, callback: this.temporizadorTerminado, callbackScope: this, loop: true });
 
 		// TEMPORIZADOR PARA NÚMEROS DE RESPAWN 
 
@@ -188,6 +188,9 @@ class ui extends Phaser.Scene
 		// Actualizamos el valor de las puntuaciones 
 		this.textoPuntuacionAzul.setText(player1.points);
 		this.textoPuntuacionRoja.setText(player2.points);
+		
+		//actualizar el temporizador
+		this.updateTimer();
 	}
 
 	// Esta función cambia el tamaño de la barra de vida, pasándole un número de 0 a 1.
@@ -235,6 +238,7 @@ class ui extends Phaser.Scene
 	}
 	
 	// Esta función es llamada cada 1 segundo para actualizar el contador de tiempo restante.
+	/*
 	temporizadorTerminado()
 	{
 		// Se resta 1 segundo al tiempo inicial.
@@ -256,6 +260,16 @@ class ui extends Phaser.Scene
 
 			// Ir a la escena GAME OVER.
 		}
+	}
+	*/
+	
+	updateTimer()
+	{
+		//obtener el tiempo de la partida
+		this.tiempoInicial = gameTime.currentTime;
+		
+		//actualizar el texto del tiempo restante
+		this.textoTemporizador.setText(this.formatoTiempo(this.tiempoInicial));
 	}
 
 	//Esta función coge segundos y lo formatea en minutos y segundos (por ejemplo, 80 -> 1:20)
