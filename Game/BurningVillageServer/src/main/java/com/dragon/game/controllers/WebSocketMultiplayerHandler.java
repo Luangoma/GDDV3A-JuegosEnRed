@@ -51,8 +51,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		
 		sessions.remove(session.getId());
 		
-		leaveLobby(session); //this way, even if the connection is lost accidentally (an error happens, internet connection dies, etc, whatever...), the lobby is left successfully.
-		
+		//sync this so that lobbies cannot accidentally be left empty because all players left at the exact same moment and the lobby did not perform the number of players check properly...
+		synchronized(session) {
+			leaveLobby(session); //this way, even if the connection is lost accidentally (an error happens, internet connection dies, etc, whatever...), the lobby is left successfully.
+		}
 		System.out.println("A connection was closed (" + sessions.size() + " connections in total).");
 	}
 	
