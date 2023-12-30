@@ -4,6 +4,9 @@ class game_over extends Phaser.Scene
 	}
 
 	create(){
+		//Good old JS hack
+		let that = this;
+		
 		console.log("create");
 		//game.scene.stop('ui');
 
@@ -47,6 +50,10 @@ class game_over extends Phaser.Scene
 
 		botonContinuar.on('pointerdown', function(pointer){
 			console.log("Botón continuar pulsado");
+			
+			//stop the game sound before coming back to the main menu.
+			stopSound(that);
+			
 			// Cambiar al MainMenu.
 			game.scene.stop('game_over');
 			game.scene.start("MainMenu");

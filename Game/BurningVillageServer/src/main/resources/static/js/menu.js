@@ -21,7 +21,7 @@ class MainMenu extends DragonScene
 	
 	create()
 	{
-		stopSound(this);
+		//stopSound(this);
 		enableSound(this);
 		disableInput(this);
 		
