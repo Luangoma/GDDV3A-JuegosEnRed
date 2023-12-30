@@ -22,3 +22,5 @@ var gameTime = {
 		return gameTime.currentTime <= 0;
 	}
 };
+
+//NOTE: A benefit of using set interval instead of Phaser's time function is that now, the timer still runs even when the game is minimized, which saves us a lot of trouble and headaches with sync.
