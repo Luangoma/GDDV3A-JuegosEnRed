@@ -32,8 +32,14 @@ const LANGUAGE_DATA = {
 		key_users_connected: "Usuarios Conectados",
 		key_create: "Crear",
 		key_refresh: "Refrescar",
+		key_player: "Jugador",
 		key_players: "Jugadores",
-		key_lobby: "Sala"
+		key_lobby: "Sala",
+		key_dragon_red: "Dragón Rojo",
+		key_dragon_blue: "Dragón Azul",
+		key_ready: "Listo",
+		key_unready: "No Listo",
+		key_waiting: "Esperando..."
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -62,8 +68,14 @@ const LANGUAGE_DATA = {
 		key_users_connected: "Connected Users",
 		key_create: "Create",
 		key_refresh: "Refresh",
+		key_player: "Player",
 		key_players: "Players",
-		key_lobby: "Lobby"
+		key_lobby: "Lobby",
+		key_dragon_red: "Red Dragon",
+		key_dragon_blue: "Blue Dragon",
+		key_ready: "Ready",
+		key_unready: "Unready",
+		key_waiting: "Waiting..."
 	}
 };
 

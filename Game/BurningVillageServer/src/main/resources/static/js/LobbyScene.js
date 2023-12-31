@@ -45,9 +45,9 @@ class LobbyScene extends DragonScene
 		
 		//text for ready status:
 		let ready_text = {
-			not_ready: "No Listo",
-			waiting: "Esperando...",
-			ready: "Listo"
+			not_ready: lang("key_unready"),
+			waiting: lang("key_waiting"),
+			ready: lang("key_ready")
 		};
 		
 		//generate the lobby background image
@@ -55,8 +55,8 @@ class LobbyScene extends DragonScene
 		
 		
 		//text for the players:
-		this.player_1_text = this.add.text(config.width/4 * 1, 40 * 1, "Jugador 1 (Dragón Rojo)", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
-		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 1, "Jugador 2 (Dragón Azul)", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.player_1_text = this.add.text(config.width/4 * 1, 40 * 1, lang("key_player") + " 1 (" + lang("key_dragon_red") + ")", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		this.player_2_text = this.add.text(config.width/4 * 3, 40 * 1, lang("key_player") + " 2 (" + lang("key_dragon_blue") + ")", styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
 		
 		//text for the usernames:
 		this.username_text_array[0] = this.add.text(config.width/4 * 1, 40 * 2, username_unconnected, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
@@ -77,7 +77,7 @@ class LobbyScene extends DragonScene
 		//buttons
 		let buttons_height = config.height - 40;
 		
-		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, "Listo");
+		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, (!this.localReady) ? lang("key_ready") : lang("key_unready"));
 		this.button_create_lobby.setButtonFunction(function(){
 			console.log("Ready state changed.");
 			
@@ -86,7 +86,7 @@ class LobbyScene extends DragonScene
 		});
 		this.button_create_lobby.setCanBePressed(true);
 		
-		this.button_back = new Button(this, config.width - config.width/4 + 50, buttons_height, "Volver");
+		this.button_back = new Button(this, config.width - config.width/4 + 50, buttons_height, lang("key_return"));
 		this.button_back.setButtonFunction(function(){
 			console.log("Returning from the lobby menu.");
 			
