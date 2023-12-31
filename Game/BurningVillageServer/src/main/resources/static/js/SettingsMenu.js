@@ -50,15 +50,15 @@ class SettingsMenu extends DragonScene
 		}
 		
 		//display the volume settings objects on the screen.
-		this.volume_settings_effects = this.createVolumeSettings(config.width/2, 100, "Volumen de efectos", gameConfig.volumeFunctions.setEffectsVolume);
-		this.volume_settings_menu    = this.createVolumeSettings(config.width/2, 200, "Volumen de menú", gameConfig.volumeFunctions.setMenuVolume);
-		this.volume_settings_music   = this.createVolumeSettings(config.width/2, 300, "Volumen de música", gameConfig.volumeFunctions.setMusicVolume);
+		this.volume_settings_effects = this.createVolumeSettings(config.width/2, 100, lang("key_volume_effects"), gameConfig.volumeFunctions.setEffectsVolume);
+		this.volume_settings_menu    = this.createVolumeSettings(config.width/2, 200, lang("key_volume_menu"), gameConfig.volumeFunctions.setMenuVolume);
+		this.volume_settings_music   = this.createVolumeSettings(config.width/2, 300, lang("key_volume_music"), gameConfig.volumeFunctions.setMusicVolume);
 		
 		//display the language settings object on the screen.
-		this.language_settings = this.createLanguageSettings();
+		this.language_settings = this.createLanguageSettings(config.width/2, 400, lang("key_choose_language"));
 		
 		//Button to return to the main menu.
-        this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+        this.botonSalir = new Button(this, config.width - 150, config.height - 50, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			//stop the settings menu scene (close the settings menu)
 			game.scene.stop("SettingsMenu");
@@ -139,9 +139,60 @@ class SettingsMenu extends DragonScene
 		return volumeSettingsObject;
 	}
 	
-	createLanguageSettings()
+	createLanguageSettings(x,y,txt)
 	{
-		let languageSettingsObject = {};
+		let that = this;
+		
+		let languageSettingsObject = {
+			text: null,
+			displayText: null,
+			button_right: null,
+			button_left: null,
+			changeLanguage: null
+		};
+		
+		//change language function
+		//NOTE: Implement some kind of "wrapping clamp" or "wrap around" function that you can input the range so that things become easier to implement if a similar structure comes up in the future...
+		languageSettingsObject.changeLanguage = function(direction){
+			if(gameConfig.language+direction >= LANGUAGE.LANGUAGE_COUNT)
+			{
+				gameConfig.language = 0;
+			}
+			else
+			if(gameConfig.language+direction < 0)
+			{
+				gameConfig.language = LANGUAGE.LANGUAGE_COUNT - 1;
+			}
+			else
+			{
+				gameConfig.language+=direction;
+			}
+			this.text.setText(lang("key_language_name")); //this is kind of redudant since changing the language requires a scene reload, so it should be removed but here it is, just in case we disable temporarily the scene reloading for debug purposes.
+			
+			game.scene.stop("SettingsMenu");
+			game.scene.start("SettingsMenu", {fromGame: that.fromGame});
+		};
+		
+		
+		//text for this setting:
+		languageSettingsObject.text = this.add.text(config.width/2, y - 50, txt, styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.5);
+		
+		//left button
+		languageSettingsObject.button_left = new Button(this, x - 180, y, " ", "button_l_img");
+		languageSettingsObject.button_left.setButtonFunction(function(){
+			languageSettingsObject.changeLanguage(-1);
+		});
+		languageSettingsObject.button_left.setCanBePressed(true);
+		
+		//right button
+		languageSettingsObject.button_right = new Button(this, x + 180, y, " ", "button_r_img");
+		languageSettingsObject.button_right.setButtonFunction(function(){
+			languageSettingsObject.changeLanguage(1);
+		});
+		languageSettingsObject.button_right.setCanBePressed(true);
+		
+		//text for the language display
+		languageSettingsObject.text = this.add.text(config.width/2, y, lang("key_language_name"), styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.7);
 		
 		return languageSettingsObject;
 	}

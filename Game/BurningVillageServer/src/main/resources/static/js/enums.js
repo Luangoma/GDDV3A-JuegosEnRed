@@ -8,11 +8,6 @@ const CAMERA_SPLIT_TYPE = Object.freeze({
 	HORIZONTAL: 1
 });
 
-const LANGUAGE = Object.freeze({
-	SPANISH: 0,
-	ENGLISH: 1
-});
-
 const FORM_TYPE = Object.freeze({
 	DEFAULT: 0,
 	PASSWORD_ONLY: 1,
