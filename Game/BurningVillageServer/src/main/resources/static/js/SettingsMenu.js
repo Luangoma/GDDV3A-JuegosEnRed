@@ -7,6 +7,8 @@ class SettingsMenu extends DragonScene
 	volume_settings_menu = null;
 	volume_settings_music = null;
 	
+	language_settings = null;
+	
 	fromGame = false;
 	
 	init(data)
@@ -51,6 +53,9 @@ class SettingsMenu extends DragonScene
 		this.volume_settings_effects = this.createVolumeSettings(config.width/2, 100, "Volumen de efectos", gameConfig.volumeFunctions.setEffectsVolume);
 		this.volume_settings_menu    = this.createVolumeSettings(config.width/2, 200, "Volumen de menú", gameConfig.volumeFunctions.setMenuVolume);
 		this.volume_settings_music   = this.createVolumeSettings(config.width/2, 300, "Volumen de música", gameConfig.volumeFunctions.setMusicVolume);
+		
+		//display the language settings object on the screen.
+		this.language_settings = this.createLanguageSettings();
 		
 		//Button to return to the main menu.
         this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
@@ -132,5 +137,12 @@ class SettingsMenu extends DragonScene
 		
 		//return the object so that it can be stored in a variable from this scene
 		return volumeSettingsObject;
+	}
+	
+	createLanguageSettings()
+	{
+		let languageSettingsObject = {};
+		
+		return languageSettingsObject;
 	}
 };
