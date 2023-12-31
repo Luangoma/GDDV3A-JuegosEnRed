@@ -139,7 +139,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 		return;
 	}
 	
-	//send the lobby info that is stored within the server a certain player that is connected within a given lobby.
+	//send the lobby info that is stored within the server to a certain player that is connected within a given lobby.
 	public void sendLobbyInfo(WebSocketSession session, Lobby lobby) throws IOException{		
 		ObjectNode node = this.mapper.createObjectNode();
 		
@@ -252,9 +252,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			double health = node.get("playerHealth").asDouble();
 			boolean isShooting = node.get("isShooting").asBoolean();
 			int time = node.get("time").asInt();
+			int score = node.get("playerScore").asInt();
 			
 			//compose the data into a new Player object
-			Player playerData = new Player(uid,pid,pos,rot,name,sessionStr,isReady, health, isShooting, time);
+			Player playerData = new Player(uid,pid,pos,rot,name,sessionStr,isReady, health, isShooting, time, score);
 			
 			//send the player info
 			sendPlayerInfo(session, playerData);

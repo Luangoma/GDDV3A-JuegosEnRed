@@ -11,6 +11,7 @@ public class Player {
 	private double health;
 	private boolean isShooting;
 	private int time;
+	private int score;
 	
 	public Player() {
 		this.userId = -1L;
@@ -23,9 +24,10 @@ public class Player {
 		this.health = -1;
 		this.isShooting = false;
 		this.time = 0;
+		this.score = 0;
 	}
 	
-	public Player(Long uid, Long pid, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time) {
+	public Player(Long uid, Long pid, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time, int score) {
 		this.userId = uid;
 		this.playerId = pid;
 		this.position = pos;
@@ -36,6 +38,7 @@ public class Player {
 		this.health = health;
 		this.isShooting = isShooting;
 		this.time = time;
+		this.score = score;
 	}
 	
 	public Player(Player p) {
@@ -49,6 +52,7 @@ public class Player {
 		this.health = p.health;
 		this.isShooting = p.isShooting;
 		this.time = p.time;
+		this.score = p.score;
 	}
 	
 	public boolean isPlayerValid() {
@@ -101,6 +105,10 @@ public class Player {
 		this.time = t;
 	}
 	
+	public void setScore(int i) {
+		this.score = i;
+	}
+	
 	
 	//Getters:
 	public Long getUserId() {
@@ -143,4 +151,7 @@ public class Player {
 		return this.time;
 	}
 	
+	public int getScore() {
+		return this.score;
+	}
 }

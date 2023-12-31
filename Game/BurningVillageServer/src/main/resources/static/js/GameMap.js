@@ -88,7 +88,7 @@ class GameMap extends DragonScene
 								players[1].health = current_player.health;
 								//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
 								players[1].isShooting = current_player.isShooting;
-								players[1].points = current_player.points;
+								players[1].points = current_player.score;
 							}
 						}
 					}
