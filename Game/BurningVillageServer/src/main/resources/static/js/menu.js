@@ -55,14 +55,14 @@ class MainMenu extends DragonScene
 		*/
 		
 		//Left button Col (gameplay related)
-		this.botonTutorial = new Button(this,config.width/4, first_button_height + button_separation * 1, "Tutorial");
-		this.botonJugar    = new Button(this,config.width/4, first_button_height + button_separation * 2, "Jugar");
-		this.botonAjustes  = new Button(this,config.width/4, first_button_height + button_separation * 3, "Ajustes");
+		this.botonTutorial = new Button(this,config.width/4, first_button_height + button_separation * 1, lang("key_tutorial"));
+		this.botonJugar    = new Button(this,config.width/4, first_button_height + button_separation * 2, lang("key_play"));
+		this.botonAjustes  = new Button(this,config.width/4, first_button_height + button_separation * 3, lang("key_settings"));
 		
 		//Right button Col (account/social related)
-		this.botonCuenta   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 1, "Cuenta");
-		this.botonSocial   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 2, "Social");
-		this.botonCreditos = new Button(this, config.width - config.width/4, first_button_height + button_separation * 3, "Créditos");
+		this.botonCuenta   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 1, lang("key_account"));
+		this.botonSocial   = new Button(this, config.width - config.width/4, first_button_height + button_separation * 2, lang("key_social"));
+		this.botonCreditos = new Button(this, config.width - config.width/4, first_button_height + button_separation * 3, lang("key_credits"));
 		
 		//Interacción con los botones.
 		this.botonTutorial.setButtonFunction(function(){
