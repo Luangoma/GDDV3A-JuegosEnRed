@@ -11,6 +11,8 @@ function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale 
 	this.can_be_pressed = false;
 	this.buttonFunction = fn;
 	
+	this.isHovered = false;
+	
 	//add sounds to the scene.
 	this.sound_click = this.scene.sound.add("sound_ui_click",{loop: false});
 	this.sound_hover = this.scene.sound.add("sound_ui_hover",{loop: false});
@@ -28,6 +30,7 @@ function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale 
 	});
 	this.ButtonImage.on('pointerover', function(pointer){
 		console.log("El puntero está encima del botón");
+		that.isHovered = true;
 		that.ButtonImage.setScale(that.scale + 0.1);
 		that.ButtonText.setScale(that.text_scale + 0.1);
 		that.sound_hover.setVolume(gameConfig.volumeSettings.menuVolume);
@@ -35,6 +38,7 @@ function Button(scene, x, y, text = "Button Text", image = 'boton_vacio', scale 
 	});
 	this.ButtonImage.on('pointerout', function(pointer){
 		console.log("El puntero ya no está encima del botón");
+		that.isHovered = false;
 		that.ButtonImage.setScale(that.scale);
 		that.ButtonText.setScale(that.text_scale);
 	});
@@ -77,4 +81,8 @@ Button.prototype.setText = function(new_text){
 Button.prototype.setVisible = function(new_visible){
 	this.ButtonText.visible = new_visible;
 	this.ButtonImage.visible = new_visible;
+}
+
+Button.prototype.getIsHovered = function(){
+	return this.isHovered;
 }
