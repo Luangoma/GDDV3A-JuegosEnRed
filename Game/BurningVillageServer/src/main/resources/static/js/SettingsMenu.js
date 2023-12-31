@@ -7,6 +7,29 @@ class SettingsMenu extends DragonScene
 	volume_settings_menu = null;
 	volume_settings_music = null;
 	
+	fromGame = false;
+	
+	init(data)
+	{
+		console.log("init with this data: ");
+		console.log(data);
+		
+		//could be simplified into a ternary but I'm keeping it like this because we might add something else in the future.
+		if(data && data.fromGame && data.fromGame == true)
+		{
+			//the settings menu was opened from the gameplay scene, during a match
+			this.fromGame = true;
+			console.log("The settings menu was opened from the gameplay scene.");
+		}
+		else
+		{
+			//the settings menu was opened from the main menu
+			this.fromGame = false;
+			console.log("The settings menu was opened from the main menu scene.");
+		}
+		
+	}
+	
 	preload()
 	{
         this.load.image('menuBackgroundBlurry', 'assets/menu_background_blurry.jpg');
@@ -16,8 +39,13 @@ class SettingsMenu extends DragonScene
 	
 	create()
 	{
-		//blurry background image
-        this.background = this.add.image(0, 0, 'menuBackgroundBlurry').setOrigin(0, 0).setDisplaySize(config.width, config.height);
+		//Good old JS hack...
+		let that = this;
+		
+		//blurry background image, only visible if the menu was opened from the main menu
+		if(!this.fromGame){
+			this.background = this.add.image(0, 0, 'menuBackgroundBlurry').setOrigin(0, 0).setDisplaySize(config.width, config.height);
+		}
 		
 		//display the volume settings objects on the screen.
 		this.volume_settings_effects = this.createVolumeSettings(config.width/2, 100, "Volumen de efectos", gameConfig.volumeFunctions.setEffectsVolume);
@@ -27,8 +55,13 @@ class SettingsMenu extends DragonScene
 		//Button to return to the main menu.
         this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
 		this.botonSalir.setButtonFunction(function(){
+			//stop the settings menu scene (close the settings menu)
 			game.scene.stop("SettingsMenu");
-			game.scene.start("MainMenu");
+			
+			//load the main menu in the case that the settings menu was opened from the main menu
+			if(!that.fromGame){
+				game.scene.start("MainMenu");
+			}
 		});
 		this.botonSalir.setCanBePressed(true);
 		
