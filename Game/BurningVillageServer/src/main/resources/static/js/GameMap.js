@@ -88,6 +88,7 @@ class GameMap extends DragonScene
 								players[1].health = current_player.health;
 								//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
 								players[1].isShooting = current_player.isShooting;
+								players[1].points = current_player.points;
 							}
 						}
 					}
@@ -109,8 +110,10 @@ class GameMap extends DragonScene
 				let health = players[0].health;
 				let time = gameTime.currentTime;
 				let shooting = players[0].isShooting;
+				let score = players[0].points;
 				
-				connection.sendData(x,y,rot,health,time,shooting);
+				//console.log("Puntuación: "+score);
+				connection.sendData(x,y,rot,health,time,score,shooting);
 				
 			}, /*100*/ 20); //use 20 ms, as most games send packets this often, if not faster.
 		}

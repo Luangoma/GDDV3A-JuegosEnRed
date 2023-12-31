@@ -99,7 +99,7 @@ var connection = {
 		let obj = {actionType: 'create-lobby', userId: localUser.user.id}
 		connection.sendObject(obj);
 	},
-	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, shooting = false, ready = true){
+	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, score=0, shooting = false,  ready = true){
 		let obj = {
 			actionType: 'send-data',
 			userId: localUser.user.id,
@@ -111,12 +111,13 @@ var connection = {
 			isReady: ready,
 			playerHealth: health,
 			isShooting: shooting,
-			time: current_time
+			time: current_time,
+			playerScore: score
 		};
 		connection.sendObject(obj);
 	},
 	sendLobbyData: function(isReady){
-		connection.sendData(0,0,0,0,0,false,isReady);
+		connection.sendData(0,0,0,0,0,0,false,isReady);
 	},
 	recvLobbyData: function(msg){ //msg is an object here, it has already gone through a JSON parse in the onmessage event.
 		connection.lobbyInfo.lobbyId = msg.lobbyId;
