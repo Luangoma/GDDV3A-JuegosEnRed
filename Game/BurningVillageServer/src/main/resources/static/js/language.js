@@ -17,7 +17,16 @@ const LANGUAGE_DATA = {
 		key_choose_language: "Seleccionar Idioma",
 		key_volume_effects: "Volumen de efectos",
 		key_volume_menu: "Volumen de menú",
-		key_volume_music: "Volumen de música"
+		key_volume_music: "Volumen de música",
+		key_forum: "Foro",
+		key_users: "Usuarios",
+		key_create_account: "Crear Cuenta",
+		key_access_account: "Acceder a Cuenta",
+		key_create_account_title: "Crear una Cuenta",
+		key_access_account_title: "Acceder a una Cuenta",
+		key_match_local: "Partida Local",
+		key_match_online: "Partida Online",
+		key_lobby_list: "Lista de Salas"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -31,7 +40,16 @@ const LANGUAGE_DATA = {
 		key_choose_language: "Choose language",
 		key_volume_effects: "Effects volume",
 		key_volume_menu: "Menu volume",
-		key_volume_music: "Music volume"
+		key_volume_music: "Music volume",
+		key_forum: "Forum",
+		key_users: "Users",
+		key_create_account: "Create Account",
+		key_access_account: "Log into Account",
+		key_create_account_title: "Create an Account",
+		key_access_account_title: "Log into an Account",
+		key_match_local: "Local Match",
+		key_match_online: "Online Match",
+		key_lobby_list: "Lobbies"
 	}
 };
 

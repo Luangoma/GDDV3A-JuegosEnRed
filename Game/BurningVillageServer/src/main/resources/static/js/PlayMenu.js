@@ -16,7 +16,7 @@ class PlayMenu extends DragonScene
 	{
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
-		this.button_play_sp = new Button(this, config.width/2, config.height/5 + 100 * 0, "Partida Local", 'boton_vacio_largo');
+		this.button_play_sp = new Button(this, config.width/2, config.height/5 + 100 * 0, lang("key_match_local"), 'boton_vacio_largo');
 		this.button_play_sp.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
 			game.scene.stop('PlayMenu');
@@ -24,7 +24,7 @@ class PlayMenu extends DragonScene
 		});
 		this.button_play_sp.setCanBePressed(true);
 		
-		this.button_play_mp_matchmaking = new Button(this, config.width/2, config.height/5 + 100 * 1, "Partida Online", 'boton_vacio_largo'); //Online Matchmaking
+		this.button_play_mp_matchmaking = new Button(this, config.width/2, config.height/5 + 100 * 1, lang("key_match_online"), 'boton_vacio_largo'); //Online Matchmaking
 		this.button_play_mp_matchmaking.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");
@@ -40,7 +40,7 @@ class PlayMenu extends DragonScene
 		});
 		this.button_play_mp_matchmaking.setCanBePressed(true);
 		
-		this.button_play_mp = new Button(this, config.width/2, config.height/5 + 100 * 2, "Lista de Salas", 'boton_vacio_largo'); //Online Serverbrowser. Old name was "Lista de Servidores" but it was misleading due to the fact that it actually displays lobbies ("rooms") instead of servers. We could actually implement a real server list some other time.
+		this.button_play_mp = new Button(this, config.width/2, config.height/5 + 100 * 2, lang("key_lobby_list"), 'boton_vacio_largo'); //Online Serverbrowser. Old name was "Lista de Servidores" but it was misleading due to the fact that it actually displays lobbies ("rooms") instead of servers. We could actually implement a real server list some other time.
 		this.button_play_mp.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("PlayMenu");
@@ -48,7 +48,7 @@ class PlayMenu extends DragonScene
 		});
 		this.button_play_mp.setCanBePressed(true);
 		
-		this.button_back = new Button(this, config.width/2, config.height/5 + 100 * 3 , "Volver");
+		this.button_back = new Button(this, config.width/2, config.height/5 + 100 * 3 , lang("key_return"));
 		this.button_back.setButtonFunction(function(){
 			game.scene.stop("PlayMenu");
 			game.scene.start("MainMenu");

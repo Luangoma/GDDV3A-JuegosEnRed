@@ -27,7 +27,7 @@ class Credits extends Phaser.Scene
         let separacionTexto = 60;
 
         // Título 'Créditos'
-        this.titulo = this.add.text(xTitulo, yTitulo, 'Créditos', styleText_AncientFont_90).setOrigin(1).setScale(1);
+        this.titulo = this.add.text(xTitulo, yTitulo, lang("key_credits"), styleText_AncientFont_90).setOrigin(1).setScale(1);
 
         // Textos de los nombres.
         this.nombre1 = this.add.text(xTitulo, yTitulo + separacionTexto * 1, 'Mario López García', styleText_PixelSansSerif_18).setOrigin(1);
@@ -36,7 +36,7 @@ class Credits extends Phaser.Scene
         this.nombre4 = this.add.text(xTitulo, yTitulo + separacionTexto * 4, 'Juan Alessandro Vázquez Bustos', styleText_PixelSansSerif_18).setOrigin(1);
 
         // Botón para volver al menu principal.
-        this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+        this.botonSalir = new Button(this, config.width - 150, config.height - 50, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			game.scene.stop("Credits");
 			game.scene.start("MainMenu");

@@ -15,7 +15,7 @@ class Registro extends DragonScene
     create() {
 		
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
-		this.titulo = this.add.text(config.width/2, 40, 'Crear Cuenta', styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
+		this.titulo = this.add.text(config.width/2, 40, lang("key_create_account_title"), styleText_AncientFont_90).setOrigin(.5,0).setScale(1);
 		
 		this.loginBox = new CredentialsBox(this);
 		let that = this;
@@ -48,7 +48,7 @@ class Registro extends DragonScene
 			});
 		});
 		
-		this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+		this.botonSalir = new Button(this, config.width - 150, config.height - 50, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			game.scene.stop("Registro");
 			game.scene.start("AccountMenu");

@@ -15,7 +15,7 @@ class SocialMenu extends DragonScene
 	{
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
-		this.button_Forum = new Button(this, config.width/2, config.height/5 + 100 * 0, "Foro");
+		this.button_Forum = new Button(this, config.width/2, config.height/5 + 100 * 0, lang("key_forum"));
 		this.button_Forum.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.LOCAL;
 			game.scene.stop('SocialMenu');
@@ -23,7 +23,7 @@ class SocialMenu extends DragonScene
 		});
 		this.button_Forum.setCanBePressed(true);
 		
-		this.button_Users = new Button(this, config.width/2, config.height/5 + 100 * 1, "Usuarios");
+		this.button_Users = new Button(this, config.width/2, config.height/5 + 100 * 1, lang("key_users"));
 		this.button_Users.setButtonFunction(function(){
 			gameConfig.multiplayerType = MULTIPLAYER_TYPE.ONLINE;
 			game.scene.stop("SocialMenu");
@@ -31,7 +31,7 @@ class SocialMenu extends DragonScene
 		});
 		this.button_Users.setCanBePressed(true);
 		
-		this.button_back = new Button(this, config.width/2, config.height/5 + 100 * 2 , "Volver");
+		this.button_back = new Button(this, config.width/2, config.height/5 + 100 * 2 , lang("key_return"));
 		this.button_back.setButtonFunction(function(){
 			game.scene.stop("SocialMenu");
 			game.scene.start("MainMenu");
