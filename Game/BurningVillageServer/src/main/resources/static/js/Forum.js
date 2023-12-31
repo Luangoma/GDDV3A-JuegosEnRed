@@ -96,7 +96,7 @@ class ForumScene extends DragonScene
 		
 		
         // Botón para volver al menu anterior.
-        this.botonSalir = new Button(this, config.width - 150, config.height - 50, "Volver");
+        this.botonSalir = new Button(this, config.width - 150, config.height - 50, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			game.scene.stop("ForumScene");
 			game.scene.start("SocialMenu");

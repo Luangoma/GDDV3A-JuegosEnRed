@@ -59,7 +59,7 @@ class PlayerListScene extends DragonScene
 		this.background1 = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0,0).setDisplaySize(config.width, config.height);
 		this.background2 = this.add.image(config.width/2, config.height/2, 'pergamino').setDisplaySize(config.width - config.width/10, config.height - config.height/10);
 		
-		this.titulo = this.add.text(config.width/2, 60, 'Lista de Usuarios', styleText_AncientFont_90).setOrigin(.5,0).setScale(0.7);
+		this.titulo = this.add.text(config.width/2, 60, lang("key_users_list"), styleText_AncientFont_90).setOrigin(.5,0).setScale(0.7);
 		this.subtitulo = this.add.text(config.width/2, 120, "...", styleText_MedievalPixel_30).setOrigin(.5,0).setScale(1); //update the text in the set interval.
 		
 		//spawn the user text list on screen.
@@ -73,7 +73,7 @@ class PlayerListScene extends DragonScene
 		var check_alive_users_interval = setInterval(function(){that.updateAliveUsers();}, 1000 * 0.5); //check every half a second.
 		
 		//Button to exit this scene menu
-		this.botonSalir = new Button(this, /*config.width - 150*/ config.width/2, config.height - 50, "Volver");
+		this.botonSalir = new Button(this, /*config.width - 150*/ config.width/2, config.height - 50, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			//stop the interval
 			clearInterval(check_alive_users_interval);
@@ -232,7 +232,7 @@ class PlayerListScene extends DragonScene
 	
 	updatePlayerCountText()
 	{
-		let str = '| usuarios totales: ' + this.playersList.length + ' | usuarios conectados: ' + this.total_number_of_connected_users + ' | ';
+		let str = " | " + lang("key_users_total") + ": " + this.playersList.length + " | " + lang("key_users_connected") + ": " + this.total_number_of_connected_users + " | ";
 		this.subtitulo.setText(str);
 	}
 	

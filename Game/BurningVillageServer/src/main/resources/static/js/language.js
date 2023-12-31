@@ -26,7 +26,14 @@ const LANGUAGE_DATA = {
 		key_access_account_title: "Acceder a una Cuenta",
 		key_match_local: "Partida Local",
 		key_match_online: "Partida Online",
-		key_lobby_list: "Lista de Salas"
+		key_lobby_list: "Lista de Salas",
+		key_users_list: "Lista de Usuarios",
+		key_users_total: "Usuarios Totales",
+		key_users_connected: "Usuarios Conectados",
+		key_create: "Crear",
+		key_refresh: "Refrescar",
+		key_players: "Jugadores",
+		key_lobby: "Sala"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -49,7 +56,14 @@ const LANGUAGE_DATA = {
 		key_access_account_title: "Log into an Account",
 		key_match_local: "Local Match",
 		key_match_online: "Online Match",
-		key_lobby_list: "Lobbies"
+		key_lobby_list: "Lobbies",
+		key_users_list: "List of Users",
+		key_users_total: "Total Users",
+		key_users_connected: "Connected Users",
+		key_create: "Create",
+		key_refresh: "Refresh",
+		key_players: "Players",
+		key_lobby: "Lobby"
 	}
 };
 

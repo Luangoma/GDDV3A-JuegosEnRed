@@ -34,7 +34,7 @@ class OnlineMenu extends DragonScene
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
 		//title text
-		this.title = this.add.text(config.width/2, 5, 'Lista de Salas', styleText_AncientFont_90).setOrigin(.5,0).setScale(0.8);
+		this.title = this.add.text(config.width/2, 5, lang("key_lobby_list"), styleText_AncientFont_90).setOrigin(.5,0).setScale(0.8);
 		
 		
 		//paged menu for displaying lobbies.
@@ -81,7 +81,7 @@ class OnlineMenu extends DragonScene
 			
 			console.log("updating the element: " + index);
 			obj_list[index].background.visible = true;
-			obj_list[index].text.setText("Lobby <" + data_list[global_index].lobbyId + "> : | Jugadores: " + data_list[global_index].connectedPlayers + "/" + data_list[global_index].maxPlayers + " | ");
+			obj_list[index].text.setText(lang("key_lobby") + " <" + data_list[global_index].lobbyId + "> : | " + lang("key_players") + ": " + data_list[global_index].connectedPlayers + "/" + data_list[global_index].maxPlayers + " | ");
 			obj_list[index].button.setCanBePressed(true);
 			obj_list[index].button.setVisible(true);
 			obj_list[index].button.setButtonFunction(function(){
@@ -101,21 +101,21 @@ class OnlineMenu extends DragonScene
 		//buttons
 		let buttons_height = config.height - 40;
 		
-		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, "Crear");
+		this.button_create_lobby = new Button(this, config.width/4 - 50, buttons_height, lang("key_create"));
 		this.button_create_lobby.setButtonFunction(function(){
 			console.log("Create a new lobby.");
 			that.createLobby();
 		});
 		this.button_create_lobby.setCanBePressed(true);
 		
-		this.button_refresh = new Button(this, config.width/2, buttons_height, "Refrescar");
+		this.button_refresh = new Button(this, config.width/2, buttons_height, lang("key_refresh"));
 		this.button_refresh.setButtonFunction(function(){
 			console.log("Refreshing the lobby list.");
 			that.getLobbies();
 		});
 		this.button_refresh.setCanBePressed(true);
 		
-		this.button_back = new Button(this, config.width - config.width/4 + 50, buttons_height, "Volver");
+		this.button_back = new Button(this, config.width - config.width/4 + 50, buttons_height, lang("key_return"));
 		this.button_back.setButtonFunction(function(){
 			console.log("Returning from the lobby list.");
 			game.scene.stop("OnlineMenu");
