@@ -39,7 +39,12 @@ const LANGUAGE_DATA = {
 		key_dragon_blue: "Dragón Azul",
 		key_ready: "Listo",
 		key_unready: "No Listo",
-		key_waiting: "Esperando..."
+		key_waiting: "Esperando...",
+		key_game_over: "Fin de la Partida",
+		key_results: "Resultados",
+		key_burnt_houses: "Casas quemadas",
+		key_total: "Total",
+		key_continue: "Continuar"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -75,7 +80,12 @@ const LANGUAGE_DATA = {
 		key_dragon_blue: "Blue Dragon",
 		key_ready: "Ready",
 		key_unready: "Unready",
-		key_waiting: "Waiting..."
+		key_waiting: "Waiting...",
+		key_game_over: "Game Over",
+		key_results: "Results",
+		key_burnt_houses: "Burnt houses",
+		key_total: "Total",
+		key_continue: "Continue"
 	}
 };
 

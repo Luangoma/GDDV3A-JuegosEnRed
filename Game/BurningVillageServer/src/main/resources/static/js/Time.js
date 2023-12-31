@@ -1,6 +1,6 @@
 //Object that represents the game time
 var gameTime = {
-	defaultTime: 90, //Each game match will have a total time of 90 seconds.
+	defaultTime: 1, //Each game match will have a total time of 90 seconds.
 	currentTime: 0, //this holds the time of the currently ongoing match.
 	timer: null,
 	startTimer: function(){
