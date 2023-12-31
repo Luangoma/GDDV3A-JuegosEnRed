@@ -16,6 +16,8 @@ class ui extends Phaser.Scene
 	textoPuntuacionRoja = {};
 	puntuacionAzul = {};
 	puntuacionRoja = {};
+	
+	settingsButton = {};
 
 	init()
 	{
@@ -51,6 +53,9 @@ class ui extends Phaser.Scene
 		//this.load.image('border_camera_single', './assets/ui_border01.png'); // online
 		this.load.image('border_camera_vertical', './assets/ui_border_vertical.png'); // local (split screen vertical)
 		this.load.image('border_camera_horizontal', './assets/ui_border_horizontal.png'); // local (split screen horizontal)
+		
+		//settings button image:
+		this.load.image("settings_gear","./assets/settings_gear.png");
 	}
 
 	create()
@@ -75,7 +80,14 @@ class ui extends Phaser.Scene
 			}
 		}
 		
-	
+		
+		//Settings button (botón de ajustes)
+		this.settingsButton = new Button(this, config.width - 64, 64, " ", "settings_gear", 0.3);
+		this.settingsButton.setButtonFunction(function(){
+			console.log("SHOULD LOAD A SETTINGS MENU");
+		});
+		this.settingsButton.setCanBePressed(true);
+		
 	
 		// BARRAS DE VIDA
 
@@ -170,6 +182,17 @@ class ui extends Phaser.Scene
 
 	update(time, delta)
 	{
+		//make the settings button rotate if the user is hovering it. Otherwise, reset the angle to 0
+		if(this.settingsButton.getIsHovered())
+		{
+			this.settingsButton.ButtonImage.angle += (delta/1000) * 100;
+		}
+		else
+		{
+			this.settingsButton.ButtonImage.angle = 0;
+		}
+		
+		
 		// Cambiar la barra de vida del jugador 2. Se divide entre 100 para que sea del 0 al 1.
 		this.cambiarAnchoBarraAnimado(players[0].health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
 		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
