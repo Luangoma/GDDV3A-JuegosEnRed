@@ -22,7 +22,7 @@ class PreloadScene extends DragonScene
 		preloadFlameData(this);
 		
 		//preload game music
-		this.load.audio("CANCION_01", ["./sounds/music/CANCION_01.wav"]);
+		this.load.audio("CANCION_01", ["./sounds/music/CANCION_01.mp3"]);
 	}
 	
 	create()
