@@ -127,31 +127,33 @@ class LobbyScene extends DragonScene
 				
 				//update the names
 				//NOTE: The new packets include the user names, so this info is obtained with the lobby data updates, which means it could be optimized and no longer make use of AJAX requests. Just note that in the PlayMenu.js scene, the information that is sent is with the matchmaking function from the connection object, which means that the first time the player connects, their name is NOT sent to the server, which means that either you need to send a send-data packet right after match making OR you need to send the name with the match making packet. Figure this out later because it is not critical.
-				if(m.players){
-					for(let i = 0; i < m.players.length; ++i){
-						let current_id = m.players[i].userId; //we use the user ID because we want to look up the name of the user to display it in the lobby. The player ID is for gameplay purposes and has nothing to do with the player's account.
-						if(current_id !== -1){
-							$.ajax({
-								url: ip.http + "/users/" + current_id,
-								method: 'GET',
-								contentType: 'application/json',
-								success: function(data){
-									let current_username = data.username;
-									if(that.username_text_array[i])
-									{
-										that.username_text_array[i].setText(current_username);
-									}
-								},
-								error: function(xhr, status, error){
-									that.username_text_array[i].setText("< Anonymous >");
+				if(!m.players){
+					return; //early return if the received message does not contain the information we're looking for, aka, a message with the wrong action type and contents was sent. This could be caused by an user playing from the console with connection.sendObject() or other errors.
+				}
+				
+				for(let i = 0; i < m.players.length; ++i){
+					let current_id = m.players[i].userId; //we use the user ID because we want to look up the name of the user to display it in the lobby. The player ID is for gameplay purposes and has nothing to do with the player's account.
+					if(current_id !== -1){
+						$.ajax({
+							url: ip.http + "/users/" + current_id,
+							method: 'GET',
+							contentType: 'application/json',
+							success: function(data){
+								let current_username = data.username;
+								if(that.username_text_array[i])
+								{
+									that.username_text_array[i].setText(current_username);
 								}
-							});
-						}
-						else
-						{
-							//the user has id = -1 which means that they are anonymous. So there is no need to perform a GET petition, as we already know that it is going to fail.
-							that.username_text_array[i].setText("< Anonymous >");
-						}
+							},
+							error: function(xhr, status, error){
+								that.username_text_array[i].setText("< Anonymous >");
+							}
+						});
+					}
+					else
+					{
+						//the user has id = -1 which means that they are anonymous. So there is no need to perform a GET petition, as we already know that it is going to fail.
+						that.username_text_array[i].setText("< Anonymous >");
 					}
 				}
 				
