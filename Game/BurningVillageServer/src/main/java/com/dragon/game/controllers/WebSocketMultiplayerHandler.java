@@ -238,6 +238,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			break;
 		}
 		case "send-data":{
+			//send data to the server, update the information in the server lobbies, and then send the updated info to all the clients within the lobby.
 			
 			//obtain the information from the received JSON
 			Long uid = node.get("userId").asLong();
@@ -259,6 +260,30 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			
 			//send the player info
 			sendPlayerInfo(session, playerData);
+			
+			break;
+		}
+		case "forward-data":{
+			//obtain information from received JSON and forward it directly to all clients without updating any information in the server.
+			
+			System.out.println("Obtained information from client to be forwarded to all other clients: " + message.getPayload());
+			
+			//obtain the lobby in which the player is located:
+			Long lobbyId = this.getLobbyIdFromSessionId(session.getId());
+			if(lobbyId == -1L) {
+				break; //early return if the lobby ID is -1, aka, the player is not connected to any lobby.
+			}
+			Lobby current_lobby = this.lobbies.get(lobbyId);
+
+			//loop through all the clients within the lobby and send them a message with the same JSON the server received.
+			List<Player> current_players = current_lobby.getPlayers();
+			for(Player p : current_players) {
+				WebSocketSession current_session = this.sessions.get(p.getSessionId());
+				synchronized(session) {
+					current_session.sendMessage(new TextMessage(message.getPayload())); //send the message just as it was received.
+				}
+			}
+			
 			
 			break;
 		}

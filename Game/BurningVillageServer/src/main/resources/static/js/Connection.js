@@ -49,10 +49,10 @@ var connection = {
 		};
 		connection.socket.onmessage = function(message){
 			let message_str = message.data;
-			console.log("Socket: message received: " + message_str);
+			//console.log("Socket: message received: " + message_str); //lots of spam during multiplayer, enable at your own risk lol
 			
 			let message_obj = JSON.parse(message_str);
-			console.log(message_obj);
+			//console.log(message_obj); //again, lots of spam...
 			
 			if(message_obj.actionType){
 				switch(message_obj.actionType){
