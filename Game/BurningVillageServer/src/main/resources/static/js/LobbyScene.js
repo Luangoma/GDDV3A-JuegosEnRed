@@ -146,14 +146,14 @@ class LobbyScene extends DragonScene
 								}
 							},
 							error: function(xhr, status, error){
-								that.username_text_array[i].setText("< Anonymous >");
+								that.username_text_array[i].setText(lang("key_anonymous_username"));
 							}
 						});
 					}
 					else
 					{
 						//the user has id = -1 which means that they are anonymous. So there is no need to perform a GET petition, as we already know that it is going to fail.
-						that.username_text_array[i].setText("< Anonymous >");
+						that.username_text_array[i].setText(lang("key_anonymous_username"));
 					}
 				}
 				

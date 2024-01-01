@@ -137,7 +137,7 @@ class ForumScene extends DragonScene
 		let chat_msg_type = id === localUser.user.id ? 'my-message' : 'other-message'; //the class for the message div
 		if(id === -1){
 			chat_msg_type += " anonymous-message";
-			name = "< Anonymous User >";
+			name = lang("key_anonymous_username");
 		}
 		
 		let str = '<div class=\"message ' + chat_msg_type + '\"><div><div class=\"name\">' + stringReplaceHTMLSymbols(name) + '</div><div class=\"text\">' + this.parse_message_command(msg) + '</div></div></div>';

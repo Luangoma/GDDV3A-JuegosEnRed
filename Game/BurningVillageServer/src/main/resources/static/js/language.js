@@ -44,7 +44,10 @@ const LANGUAGE_DATA = {
 		key_results: "Resultados",
 		key_burnt_houses: "Casas quemadas",
 		key_total: "Total",
-		key_continue: "Continuar"
+		key_continue: "Continuar",
+		key_you: "Tú",
+		key_anonymous: "Anónimo",
+		key_anonymous_username: "< Usuario Anónimo >"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -85,7 +88,10 @@ const LANGUAGE_DATA = {
 		key_results: "Results",
 		key_burnt_houses: "Burnt houses",
 		key_total: "Total",
-		key_continue: "Continue"
+		key_continue: "Continue",
+		key_you: "You",
+		key_anonymous: "Anonymous",
+		key_anonymous_username: "< Anonymous User >"
 	}
 };
 
