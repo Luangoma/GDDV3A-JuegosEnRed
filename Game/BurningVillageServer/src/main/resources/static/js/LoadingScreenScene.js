@@ -45,7 +45,7 @@ class LoadingScreenScene extends DragonScene
 		
 		this.progressBar = new DragonProgressBar(this, config.width / 2 - x_len/2, config.height / 2 - y_len / 2, 0xFF0000, x_len, y_len);
 		this.progressBar.setValue(0);
-		this.progressText = this.add.text(config.width/2-x_len/4, config.height/2-100, "x", styleText_MedievalPixel_30).setOrigin(0,0);
+		this.progressText = this.add.text(config.width/2, config.height/2 - 50, "x", styleText_AncientFont_90).setOrigin(0.5).setScale(0.5);
 		
 		//iterate over all the scenes to be loaded during the loading screen and launch them.
 		for(let i = 0; i < this.scenesToLoad.length; ++i)
@@ -58,7 +58,7 @@ class LoadingScreenScene extends DragonScene
 	{
 		let inc = getRandomInRange(0,0.5);
 		this.progressBar.setValue(this.progressBar.getValue() + delta/1000 * inc);
-		this.progressText.setText("Cargando: " + Math.floor(this.progressBar.getValue() * 100) + "%");
+		this.progressText.setText(lang("key_loading") + ": " + Math.floor(this.progressBar.getValue() * 100) + "%");
 		
 		//note: this.scene.get(key) is the same as this.scene.manager.getScene(key)
 		
