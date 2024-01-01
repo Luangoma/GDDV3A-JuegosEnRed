@@ -1,7 +1,8 @@
 const LANGUAGE = Object.freeze({
 	SPANISH: 0,
 	ENGLISH: 1,
-	LANGUAGE_COUNT: 2
+	HUNGARIAN: 2,
+	LANGUAGE_COUNT: 3
 });
 
 const LANGUAGE_DATA = {
@@ -48,7 +49,8 @@ const LANGUAGE_DATA = {
 		key_you: "Tú",
 		key_anonymous: "Anónimo",
 		key_anonymous_username: "< Usuario Anónimo >",
-		key_join: "Unirse"
+		key_join: "Unirse",
+		key_loading: "Cargando"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -93,7 +95,54 @@ const LANGUAGE_DATA = {
 		key_you: "You",
 		key_anonymous: "Anonymous",
 		key_anonymous_username: "< Anonymous User >",
-		key_join: "Join"
+		key_join: "Join",
+		key_loading: "Loading"
+	},
+	HUNGARIAN: {
+		key_language_name: "Magyar",
+		key_tutorial: "Oktatóanyag",
+		key_play: "Játék",
+		key_settings: "Beállítások",
+		key_account: "Fiók",
+		key_social: "Közösségi",
+		key_credits: "jóváírások",
+		key_return: "Visszatérés",
+		key_choose_language: "Nyelv kiválasztása",
+		key_volume_effects: "Effektek hangereje",
+		key_volume_menu: "Menü hangereje",
+		key_volume_music: "Zene hangereje",
+		key_forum: "Fórum",
+		key_users: "Felhasználók",
+		key_create_account: "Fiók létrehozása",
+		key_access_account: "Jelentkezzen be a fiókba",
+		key_create_account_title: "Fiók létrehozása",
+		key_access_account_title: "Jelentkezzen be egy fiókba",
+		key_match_local: "Helyi egyezés",
+		key_match_online: "Online mérkőzés",
+		key_lobby_list: "Lobbik Listája",
+		key_users_list: "Felhasználók listája",
+		key_users_total: "Összes felhasználó",
+		key_users_connected: "Csatlakozó felhasználók",
+		key_create: "Létrehozás",
+		key_refresh: "Frissítés",
+		key_player: "Játékos",
+		key_players: "Játékosok",
+		key_lobby: "Lobbi",
+		key_dragon_red: "Vörös sárkány",
+		key_dragon_blue: "Kék sárkány",
+		key_ready: "Kész",
+		key_unready: "Nem kész",
+		key_waiting: "Várakozás...",
+		key_game_over: "A játék vége",
+		key_results: "Eredmények",
+		key_burnt_houses: "Leégett házak",
+		key_total: "Összesen",
+		key_continue: "Folytatás",
+		key_you: "Te",
+		key_anonymous: "Névtelen",
+		key_anonymous_username: "< Névtelen Felhasználó >",
+		key_join: "Csatlakozás",
+		key_loading: "Betöltés"
 	}
 };
 
@@ -106,6 +155,10 @@ function getLanguageWord(lang, key){
 		
 		case LANGUAGE.ENGLISH:
 			return LANGUAGE_DATA.ENGLISH[key];
+			break;
+		
+		case LANGUAGE.HUNGARIAN:
+			return LANGUAGE_DATA.HUNGARIAN[key];
 			break;
 		
 		default:
