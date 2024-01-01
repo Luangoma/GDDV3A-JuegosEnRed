@@ -81,8 +81,12 @@ class game_over extends Phaser.Scene
 		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
 		{
 			//online mode:
-			ans.name += connection.lobbyInfo.players[idx].name;
+			ans.name += connection.lobbyInfo.players[idx].userId === -1 ? lang("key_anonymous_username") : connection.lobbyInfo.players[idx].name;
 			ans.score = connection.lobbyInfo.players[idx].score;
+			if(connection.lobbyInfo.players[idx].playerId == connection.lobbyInfo.playerId)
+			{
+				ans.name += " (" + lang("key_you") + ")";
+			}
 		}
 		else
 		{
