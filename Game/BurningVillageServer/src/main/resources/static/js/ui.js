@@ -159,11 +159,11 @@ class ui extends Phaser.Scene
 		if(gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE){
 			this.textoTemporizadorRespawnIzq = this.add.text(config.width/2, config.height/2, /*this.player1.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player1.respawnTime
 			this.textoTemporizadorRespawnDer = this.add.text(config.width/2, config.height/2, /*this.player2.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player2.respawnTime
+			this.textoTemporizadorRespawnIzq.visible = false;
 		} else {
 			this.textoTemporizadorRespawnIzq = this.add.text(config.width/4, config.height/2, /*this.player1.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player1.respawnTime
 			this.textoTemporizadorRespawnDer = this.add.text((config.width/4)*3, config.height/2, /*this.player2.respawnTime*/ " ", styleText_MedievalPixel_30).setOrigin(0.5); //player2.respawnTime
 		}
-		
 
 		// GRÁFICOS DE LOS DRAGONES
 
