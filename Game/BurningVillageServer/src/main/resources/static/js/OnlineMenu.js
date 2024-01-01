@@ -55,7 +55,7 @@ class OnlineMenu extends DragonScene
 			
 			let currentText = scene.add.text(starting_position.x, starting_position.y + height_distance * index, " ", styleText_MedievalPixel_30).setOrigin(0, 0.5);
 			
-			let currentButton = new Button(scene, config.width/4 * 3, starting_position.y + height_distance * index, "Unirse", "SmallRockButton01", 0.4, 0.4);
+			let currentButton = new Button(scene, config.width/4 * 3, starting_position.y + height_distance * index, lang("key_join"), "SmallRockButton01", 0.4, 0.4);
 			currentButton.setButtonFunction(function(){
 				console.log("Unirse no configurado");
 			});

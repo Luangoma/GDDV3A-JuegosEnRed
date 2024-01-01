@@ -47,7 +47,8 @@ const LANGUAGE_DATA = {
 		key_continue: "Continuar",
 		key_you: "Tú",
 		key_anonymous: "Anónimo",
-		key_anonymous_username: "< Usuario Anónimo >"
+		key_anonymous_username: "< Usuario Anónimo >",
+		key_join: "Unirse"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -91,7 +92,8 @@ const LANGUAGE_DATA = {
 		key_continue: "Continue",
 		key_you: "You",
 		key_anonymous: "Anonymous",
-		key_anonymous_username: "< Anonymous User >"
+		key_anonymous_username: "< Anonymous User >",
+		key_join: "Join"
 	}
 };
 
