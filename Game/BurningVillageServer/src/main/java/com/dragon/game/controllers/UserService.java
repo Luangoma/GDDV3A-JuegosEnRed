@@ -162,7 +162,7 @@ public class UserService {
                 Long id = (Long) person.get("id");
                 String name = (String) person.get("username");
                 String password = (String) person.get("password");
-                Long score = (Long) person.get("high_score");
+                Long score = (Long) person.get("highScore");
                 
                 User user = new User(id, name, password);
                 user.setHighScore(score);

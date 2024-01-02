@@ -5,20 +5,20 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
-	private Long high_score;
+	private Long highScore;
 	
 	public User(Long id, String name, String password) {
 		this.id = id;
 		this.username = name;
 		this.password = password;
-		this.high_score = 0L;
+		this.highScore = 0L;
 	}
 	
 	public User(User other) {
 		this.id = other.id;
 		this.username = other.username;
 		this.password = other.password;
-		this.high_score = other.high_score;
+		this.highScore = other.highScore;
 	}
 	
 	public Long getId() {
@@ -34,7 +34,7 @@ public class User {
 	}
 	
 	public Long getHighScore() {
-		return this.high_score;
+		return this.highScore;
 	}
 	
 	public void setId(Long id) {
@@ -50,13 +50,13 @@ public class User {
 	}
 	
 	public void setHighScore(Long score) {
-		this.high_score = score;
+		this.highScore = score;
 	}
 	
 	public String serializeUser() {
 		String filtered_username = this.username.replace("\\", "\\\\").replace("\"", "\\\"");
 		String filtered_password = this.password.replace("\\", "\\\\").replace("\"", "\\\"");
-		String ans = "{\"id\": " + this.id + ", \"username\": \"" + filtered_username + "\", \"password\": \"" + filtered_password + "\", \"high_score\": " + this.high_score + "}";
+		String ans = "{\"id\": " + this.id + ", \"username\": \"" + filtered_username + "\", \"password\": \"" + filtered_password + "\", \"highScore\": " + this.highScore + "}";
 		return ans;
 	}
 	

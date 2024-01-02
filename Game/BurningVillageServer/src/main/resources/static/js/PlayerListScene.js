@@ -14,6 +14,7 @@ class PlayerListScene extends DragonScene
 	playersLeftSqureList = [];
 	playersBackgroundsList = [];
 	playersAliveStatusList = [];
+	playersScoresList = [];
 	users_per_page = 10;
 	
 	total_number_of_connected_users = 0;
@@ -53,6 +54,7 @@ class PlayerListScene extends DragonScene
 		this.playersLeftSqureList = [];
 		this.playersBackgroundsList = [];
 		this.playersAliveStatusList = [];
+		this.playersScoresList = [];
 		this.currentPage = 0;
 		this.obtained_any_users = false;
 		
@@ -124,7 +126,7 @@ class PlayerListScene extends DragonScene
 	{
 		let that = this;
 		$.ajax({
-			url: ip.http + "/users",
+			url: ip.http + /*"/users"*/ "/sorted_users",
 			method: 'GET',
 			contentType: 'application/json',
 			success: function(data){
@@ -159,22 +161,30 @@ class PlayerListScene extends DragonScene
 	{
 		for(let i = 0; i < this.users_per_page; ++i)
 		{
+			let x_imgs = 140;
+			let x_names = x_imgs + 40;
+			let x_scores = 550;
+			
 			//create the users backgrounds
-			let currentBg = this.add.image(200,170 + 30 * i, 'background_slice').setOrigin(0,0);
+			let currentBg = this.add.image(x_imgs,170 + 30 * i, 'background_slice').setOrigin(0,0);
 			currentBg.displayHeight = 25;
-			currentBg.displayWidth = 400;
+			currentBg.displayWidth = 520;
 			currentBg.setTint(i % 2 === 0 ? 0xFFFFFF : 0xAAAAAA);
 			currentBg.visible = false;
 			this.playersBackgroundsList.push(currentBg);
 			
 			//create the user texts
-			let currentText = this.add.text(250, 170 + 30 * i, " ", styleText_MedievalPixel_30).setOrigin(0,0);
+			let currentText = this.add.text(x_names, 170 + 30 * i, " ", styleText_MedievalPixel_30).setOrigin(0,0);
 			this.playersTextList.push(currentText);
 			
 			//create the user left side interact squares
-			let currentImage = this.add.image(200,170 + 30 * i, /*'stone_button'*/ 'status_offline').setOrigin(0,0).setScale(0.5);
+			let currentImage = this.add.image(x_imgs,170 + 30 * i, /*'stone_button'*/ 'status_offline').setOrigin(0,0).setScale(0.5);
 			currentImage.visible = false;
 			this.playersLeftSqureList.push(currentImage);
+			
+			//create the user scores text
+			let currentScoreText = this.add.text(x_scores, 170 + 30 * i, " ", styleText_MedievalPixel_30).setOrigin(0,0);
+			this.playersScoresList.push(currentScoreText);
 		}
 	}
 	
@@ -185,6 +195,7 @@ class PlayerListScene extends DragonScene
 			this.playersTextList[i].setText(" ");
 			this.playersLeftSqureList[i].visible = false;
 			this.playersBackgroundsList[i].visible = false;
+			this.playersScoresList[i].setText(" ");
 		}
 		
 		//also reset the active users list to prevent carrying on the status colors from one page to the next for a split second.
@@ -226,6 +237,7 @@ class PlayerListScene extends DragonScene
 			this.playersBackgroundsList[i].visible = true;
 			//this.playersLeftSqureList[i].setTint(0xFFFFFF); //old system, not canvas compatible.
 			this.playersLeftSqureList[i].setTexture('status_offline');
+			this.playersScoresList[i].setText(this.playersList[i + this.users_per_page * this.currentPage].highScore + " pts");
 		}
 	}
 	
