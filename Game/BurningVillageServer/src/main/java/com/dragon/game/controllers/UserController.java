@@ -28,6 +28,13 @@ public class UserController {
 		return this.userService.getAllUsers(false);
 	}
 	
+	//Get list of all users sorted by score
+	//NOTE: Is it really a good idea to make the server sort this list every time instead of sorting it on the client? I mean, it's kind of like making a search petition. The heavy lifting is done by the server. But it is such a menial task that it could be performed by the client...
+	@GetMapping(value = "/sorted_users")
+	public List<User>getAllUsersSorted() {
+		return this.userService.getAllUsersByScore();
+	}
+	
 	//Get a single user by id
 	@GetMapping(value = "/users/{id}")
 	public ResponseEntity<User>getAllUsers(@PathVariable Long id) {

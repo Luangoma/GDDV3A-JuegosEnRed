@@ -45,17 +45,35 @@ public class UserService {
 	//GET (all), GET (one), POST, PUT, DELETE
 	
 	//GET (all)
-	public List<User> getAllUsers(boolean displayPasswords){
+	public List<User> getAllUsers(boolean displayPasswords) {
 		ArrayList<User> data = new ArrayList<>(users.values()); //the list can be empty if there are no users, but will always return.
 		if(!displayPasswords) {
 			ArrayList<User> ans = new ArrayList<>();
 			for(User u : data) {
 				User new_user = new User(u.getId(), u.getUsername(), "***");
+				new_user.setHighScore(u.getHighScore());
 				ans.add(new_user);
 			}
 			return ans;
 		}
 		return data;
+	}
+	
+	//GET all ordered by score (does not display passwords, obviously)
+	public List<User> getAllUsersByScore() {
+		List<User> ans = this.getAllUsers(false);
+		
+		for(int i = 0; i < ans.size(); ++i) {
+			for(int j = 0; j < ans.size(); ++j) {
+				if(ans.get(i).getHighScore() > ans.get(j).getHighScore()) {
+					User temp = new User(ans.get(i));
+					ans.set(i, ans.get(j));
+					ans.set(j, temp);
+				}
+			}
+		}
+		
+		return ans;
 	}
 	
 	//GET (one)
@@ -144,8 +162,10 @@ public class UserService {
                 Long id = (Long) person.get("id");
                 String name = (String) person.get("username");
                 String password = (String) person.get("password");
+                Long score = (Long) person.get("high_score");
                 
                 User user = new User(id, name, password);
+                user.setHighScore(score);
                 this.addUser(user);
                 
                 this.currentId = Math.max(this.currentId, id);

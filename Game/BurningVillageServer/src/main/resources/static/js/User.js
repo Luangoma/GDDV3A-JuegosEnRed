@@ -1,6 +1,6 @@
 //Variable that holds the user account that the client is currently logged into.
 var localUser = {
-	user: {id: -1, username: 'none', password: 'none'},
+	user: {id: -1, username: 'none', password: 'none', high_score: 0},
 	logged: false,
 	
 	//deleteUser: function(username, password){//ajax...},
