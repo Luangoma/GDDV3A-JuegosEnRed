@@ -60,7 +60,8 @@ class ui extends Phaser.Scene
 
 	create()
 	{
-		
+		//JS hack
+		let that = this;
 	
 		//BORDES DE LA PANTALLA Y CAMARA:
 		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
@@ -84,7 +85,8 @@ class ui extends Phaser.Scene
 		//Settings button (botón de ajustes)
 		this.settingsButton = new Button(this, config.width - 64, 64, " ", "settings_gear", 0.3);
 		this.settingsButton.setButtonFunction(function(){
-			console.log("SHOULD LOAD A SETTINGS MENU");
+			console.log("LOAD SETTINGS MENU");
+			that.scene.launch("PauseMenu");
 		});
 		this.settingsButton.setCanBePressed(true);
 		

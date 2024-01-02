@@ -50,7 +50,9 @@ const LANGUAGE_DATA = {
 		key_anonymous: "Anónimo",
 		key_anonymous_username: "< Usuario Anónimo >",
 		key_join: "Unirse",
-		key_loading: "Cargando"
+		key_loading: "Cargando",
+		key_resume: "Reanudar",
+		key_quit: "Salir"
 	},
 	ENGLISH: {
 		key_language_name: "English",
@@ -96,7 +98,9 @@ const LANGUAGE_DATA = {
 		key_anonymous: "Anonymous",
 		key_anonymous_username: "< Anonymous User >",
 		key_join: "Join",
-		key_loading: "Loading"
+		key_loading: "Loading",
+		key_resume: "Resume",
+		key_quit: "Quit"
 	},
 	HUNGARIAN: {
 		key_language_name: "Magyar",
@@ -142,7 +146,9 @@ const LANGUAGE_DATA = {
 		key_anonymous: "Névtelen",
 		key_anonymous_username: "< Névtelen Felhasználó >",
 		key_join: "Csatlakozás",
-		key_loading: "Betöltés"
+		key_loading: "Betöltés",
+		key_resume: "Önéletrajz",
+		key_quit: "Kilépés"
 	}
 };
 

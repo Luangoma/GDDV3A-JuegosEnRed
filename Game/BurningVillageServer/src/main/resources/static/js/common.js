@@ -59,6 +59,7 @@ function enableSound(scene){
 	}
 }
 
+//note: if you accidentally stop sound after loading a scene that requires using sound between the sound disabling and enabling, then things will crash hard.
 function stopSound(scene){
 	game.sound.stopAll();
 	scene.sound.removeAll();

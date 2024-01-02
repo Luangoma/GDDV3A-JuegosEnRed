@@ -20,6 +20,7 @@ class PreloadScene extends DragonScene
 		preloadDragonData(this);
 		preloadTileData(this);
 		preloadFlameData(this);
+		preloadPauseMenuData(this);
 		
 		//preload game music
 		this.load.audio("CANCION_01", ["./sounds/music/CANCION_01.mp3"]);

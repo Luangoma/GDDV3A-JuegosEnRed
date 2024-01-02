@@ -31,6 +31,8 @@ game.scene.add("Tutorial",Tutorial);
 game.scene.add("PlayMenu",PlayMenu);
 game.scene.add("OnlineMenu",OnlineMenu);
 
+game.scene.add("PauseMenu",PauseMenu);
+
 game.scene.add("AccountMenu",AccountMenu);
 game.scene.add("UserProfile",UserProfile);
 game.scene.add("UpdateUser",UpdateUser);

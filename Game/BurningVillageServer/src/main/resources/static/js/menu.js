@@ -99,7 +99,7 @@ class MainMenu extends DragonScene
 		this.botonAjustes.setButtonFunction(function(){
 			console.log("Botón ajustes pulsado");
 			game.scene.stop("MainMenu");
-			game.scene.start("SettingsMenu");
+			game.scene.start("SettingsMenu", {fromGame: false});
 		});
 		/*
 		this.botonSalir.setButtonFunction(function(){

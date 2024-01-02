@@ -46,6 +46,7 @@ class GameMap extends DragonScene
 	
 	generateGameData()
 	{
+		stopSound(this);
 		enableSound(this);
 		enableInput(this);
 		

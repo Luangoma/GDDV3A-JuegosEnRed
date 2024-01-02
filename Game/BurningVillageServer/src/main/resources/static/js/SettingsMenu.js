@@ -44,9 +44,14 @@ class SettingsMenu extends DragonScene
 		//Good old JS hack...
 		let that = this;
 		
-		//blurry background image, only visible if the menu was opened from the main menu
-		if(!this.fromGame){
+		//blurry background image, only visible if the menu was opened from the main menu. If in game, display in game menu background.
+		if(!this.fromGame)
+		{
 			this.background = this.add.image(0, 0, 'menuBackgroundBlurry').setOrigin(0, 0).setDisplaySize(config.width, config.height);
+		}
+		else
+		{
+			this.background = this.add.image(0, 0, 'PauseMenuBackground2').setOrigin(0, 0).setDisplaySize(config.width, config.height);
 		}
 		
 		//display the volume settings objects on the screen.
@@ -58,13 +63,20 @@ class SettingsMenu extends DragonScene
 		this.language_settings = this.createLanguageSettings(config.width/2, 400, lang("key_choose_language"));
 		
 		//Button to return to the main menu.
-        this.botonSalir = new Button(this, config.width - 150, config.height - 50, lang("key_return"));
+		let boton_salir_pos_x = this.fromGame ? config.width/2      : config.width - 150;
+		let boton_salir_pos_y = this.fromGame ? config.height - 120 : config.height - 50;
+        this.botonSalir = new Button(this, boton_salir_pos_x, boton_salir_pos_y, lang("key_return"));
 		this.botonSalir.setButtonFunction(function(){
 			//stop the settings menu scene (close the settings menu)
 			game.scene.stop("SettingsMenu");
 			
 			//load the main menu in the case that the settings menu was opened from the main menu
-			if(!that.fromGame){
+			if(that.fromGame)
+			{
+				that.scene.launch("PauseMenu");
+			}
+			else
+			{
 				game.scene.start("MainMenu");
 			}
 		});
