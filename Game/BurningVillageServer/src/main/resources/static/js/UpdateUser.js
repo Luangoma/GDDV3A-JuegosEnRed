@@ -11,7 +11,7 @@ class UpdateUser extends DragonScene
     }
     create() {
         this.background = this.add.image(0, 0, 'menuBackgroundBlurry').setOrigin(0, 0).setDisplaySize(config.width, config.height);
-        this.titulo = this.add.text(config.width / 2, 40, 'Cambiar contraseña', styleText_AncientFont_90).setOrigin(.5, 0).setScale(1);
+        this.titulo = this.add.text(config.width / 2, 40, lang("key_change_password"), styleText_AncientFont_90).setOrigin(.5, 0).setScale(1);
 
         this.passwordBox = new CredentialsBox(this, FORM_TYPE.PASSWORD_DOUBLE);
         let that = this;

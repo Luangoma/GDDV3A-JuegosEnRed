@@ -62,7 +62,11 @@ const LANGUAGE_DATA = {
 		key_empty_fields: "Los campos tienen que contener un valor",
 		key_invalid_characters: "Los campos contienen caracteres no válidos",
 		key_access_account_error: "No se ha podido acceder a la cuenta",
-		key_create_account_error: "No se ha podido crear la cuenta"
+		key_create_account_error: "No se ha podido crear la cuenta",
+		key_log_out: "Salir de la Cuenta",
+		key_delete_account: "Eliminar Cuenta",
+		key_edit_account: "Editar Cuenta",
+		key_change_password: "Cambiar contraseña"
 	},
 	ENGLISH: {
 		key_language_name           :              "English"                                               ,
@@ -119,6 +123,10 @@ const LANGUAGE_DATA = {
 		key_invalid_characters      :              "The fields contain invalid characters"                 ,
 		key_access_account_error    :              "Could not access the account"                          ,
 		key_create_account_error    :              "Could not create the account"                          ,
+		key_log_out                 :              "Log out"                                               ,
+		key_delete_account          :              "Delete Account"                                        ,
+		key_edit_account            :              "Edit Account"                                          ,
+		key_change_password         :              "Change Password"                                       ,
 	},
 	HUNGARIAN: {
 		key_language_name: "Magyar",
@@ -174,7 +182,11 @@ const LANGUAGE_DATA = {
 		key_empty_fields: "A mezőknek értéket kell tartalmazniuk",
 		key_invalid_characters: "A mezők érvénytelen karaktereket tartalmaznak",
 		key_access_account_error: "Nem sikerült hozzáférni a fiókhoz",
-		key_create_account_error: "Nem sikerült fiókot létrehozni"
+		key_create_account_error: "Nem sikerült fiókot létrehozni",
+		key_log_out: "Jelentkezzen ki a Fiókból",
+		key_delete_account: "Fiók törlése",
+		key_edit_account: "Fiók szerkesztése",
+		key_change_password: "Jelszó módosítása"
 	},
 	FRENCH: {
 		key_language_name           :              "Français"                                                     ,
@@ -231,6 +243,10 @@ const LANGUAGE_DATA = {
 		key_invalid_characters      :              "Les champs contiennent des caractères invalides"              ,
 		key_access_account_error    :              "Impossible d'accéder au compte"                               ,
 		key_create_account_error    :              "Impossible de créer le compte"                                ,
+		key_log_out                 :              "Se déconnecter du compte"                                     ,
+		key_delete_account          :              "Supprimer le compte"                                          ,
+		key_edit_account            :              "Modifier le compte"                                           ,
+		key_change_password         :              "Changer le mot de passe"                                      ,
 	},
 	GERMAN: {
 		key_language_name           :              "Deutsch"                                                           ,
@@ -287,6 +303,10 @@ const LANGUAGE_DATA = {
 		key_invalid_characters      :              "Die Felder enthalten ungültige Zeichen"                            ,
 		key_access_account_error    :              "Auf das Konto konnte nicht zugegriffen werden"                     ,
 		key_create_account_error    :              "Das Konto konnte nicht erstellt werden"                            ,
+		key_log_out                 :              "Melden Sie sich vom Konto ab"                                      ,
+		key_delete_account          :              "Konto löschen"                                                     ,
+		key_edit_account            :              "Konto bearbeiten"                                                  ,
+		key_change_password         :              "Kennwort ändern"                                                   ,
 	}
 };
 

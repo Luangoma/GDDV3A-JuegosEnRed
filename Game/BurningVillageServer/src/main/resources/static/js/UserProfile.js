@@ -22,21 +22,21 @@ class UserProfile extends DragonScene
 		let vertical_button_distance = 100; //100 units of separation between buttons.
 		let vertical_button_starting_height = config.height/5 + 20;
 		
-		this.button_change_password = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 1 , "Editar Cuenta", 'boton_vacio_largo');
+		this.button_change_password = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 1 , lang("key_edit_account"), 'boton_vacio_largo');
 		this.button_change_password.setButtonFunction(function(){
 			game.scene.stop("UserProfile");
 			game.scene.start("UpdateUser");
 		});
 		this.button_change_password.setCanBePressed(true);
 
-		this.button_delete_account = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 2 , "Eliminar Cuenta", 'boton_vacio_largo');
+		this.button_delete_account = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 2 , lang("key_delete_account"), 'boton_vacio_largo');
 		this.button_delete_account.setButtonFunction(function(){
 			game.scene.stop("UserProfile");
 			game.scene.start("DeleteAccount");
 		});
 		this.button_delete_account.setCanBePressed(true);
 		
-		this.button_log_out = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 3 , "Salir de la Cuenta", 'boton_vacio_largo');
+		this.button_log_out = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 3 , lang("key_log_out"), 'boton_vacio_largo');
 		this.button_log_out.setButtonFunction(function(){
 			localUser.logOut();
 			game.scene.stop("UserProfile");
@@ -44,7 +44,7 @@ class UserProfile extends DragonScene
 		});
 		this.button_log_out.setCanBePressed(true);
 		
-		this.button_back = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 4 , "Volver");
+		this.button_back = new Button(this, config.width/2, vertical_button_starting_height + vertical_button_distance * 4 , lang("key_return"));
 		this.button_back.setButtonFunction(function(){
 			game.scene.stop("UserProfile");
 			game.scene.start("MainMenu");
