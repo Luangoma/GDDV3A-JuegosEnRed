@@ -67,12 +67,12 @@ function CredentialsBox(scene, form_type = FORM_TYPE.DEFAULT){
 			//Check if the user input is valid. Follows multiple conditions for validity are checked.
 			if(fields_contain_empty_values)
 			{
-				that.displayError("Los campos tienen que contener un valor.");
+				that.displayError(lang("key_empty_fields"));
 			}
 			else
 			if(fields_contain_invalid_characters)
 			{
-				that.displayError("Los campos contienen caracteres no válidos.");
+				that.displayError(lang("key_invalid_characters"));
 			}
 			else
 			{

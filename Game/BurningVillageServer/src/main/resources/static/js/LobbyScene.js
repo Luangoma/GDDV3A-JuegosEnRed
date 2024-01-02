@@ -189,7 +189,7 @@ class LobbyScene extends DragonScene
 				
 			},
 			function(e){ //error
-				that.errorText.setText("No se ha podido establecer conexión con el servidor.");
+				that.errorText.setText(lang("key_could_not_connect"));
 				that.errorText.visible = true;
 			}
 		);

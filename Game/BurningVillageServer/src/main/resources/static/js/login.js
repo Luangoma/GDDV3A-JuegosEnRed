@@ -43,7 +43,7 @@ class Login extends DragonScene
 				
 			}).fail(function(data, textStatus, jqXHR) {
 				console.log("the credentials given are not valid. Could not log in.");
-				that.loginBox.displayError("No se ha podido acceder a la cuenta.");
+				that.loginBox.displayError(lang("key_access_account_error"));
 			});
 		});
 		
