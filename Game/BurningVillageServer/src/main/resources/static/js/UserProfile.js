@@ -17,7 +17,7 @@ class UserProfile extends DragonScene
 	{
 		this.background = this.add.image(0,0,'menuBackgroundBlurry').setOrigin(0).setDisplaySize(config.width, config.height);
 		
-		this.titulo = this.add.text(config.width/2, 40, 'Cuenta: ' + localUser.user.username, styleText_AncientFont_90).setOrigin(.5,0).setScale(0.5);
+		this.titulo = this.add.text(config.width/2, 40, lang("key_account") + ": " + localUser.user.username, styleText_AncientFont_90).setOrigin(.5,0).setScale(0.5);
 		
 		let vertical_button_distance = 100; //100 units of separation between buttons.
 		let vertical_button_starting_height = config.height/5 + 20;
