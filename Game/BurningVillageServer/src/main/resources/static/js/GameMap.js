@@ -233,9 +233,13 @@ class GameMap extends DragonScene
 		//if the multiplayer mode is online, stop the online logic.
 		this.stopOnlineLogic();
 		
-		//stop the game scene and ui scene and then load the game over scene
+		//stop the scenes used during a game match (game scene, ui, pause menu and settings menu, etc...) and then load the game over scene
 		game.scene.stop(this.scene.key); //By using this, we automatically get the key from this scene, meaning we no longer hard code stopping this scene by its configured name.
 		game.scene.stop("ui");
+		game.scene.stop("PauseMenu"); //even if these scenes are not currently loaded because the menus are not loaded, nothing happens when this is called, which is good for us. Simpler to implement.
+		game.scene.stop("SettingsMenu");
+		
+		//finally, load and start the game over scene.
 		game.scene.start("game_over");
 	}
 	
