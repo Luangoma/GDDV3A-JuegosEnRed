@@ -13,6 +13,8 @@ class GameMap extends DragonScene
 	
 	has_generated_world = false;
 	
+	game_has_finished = false;
+	
 	preload()
 	{
 		this.load.image("world_grass","assets/WorldGrass.png");
@@ -42,6 +44,7 @@ class GameMap extends DragonScene
 		this.decor = [];
 		this.onlineInterval = null;
 		this.has_generated_world = false;
+		this.game_has_finished = false;
 	}
 	
 	generateGameData()
@@ -93,10 +96,10 @@ class GameMap extends DragonScene
 		
 		for(let i = 0; i < msg.players.length; ++i)
 		{
+			let current_player = msg.players[i];
+			
 			if(msg.players[i].playerId !== connection.lobbyInfo.playerId)
-			{
-				let current_player = msg.players[i];
-				
+			{	
 				if(players[1])
 				{
 					let lerp_value = 0.5;
@@ -105,9 +108,24 @@ class GameMap extends DragonScene
 					players[1].sprite.y = lerpValue(players[1].sprite.y, current_player.position.y, lerp_value);
 					players[1].sprite.angle = lerpValue(players[1].sprite.angle, current_player.rotation, lerp_value);
 					players[1].health = current_player.health;
-					//playyers[1].somethingsomething = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
+					//players[1].somethingsomething_timeywimeystuff = .....???? basically, for now, ignore time sync, as the setInterval does a pretty good job out of the box
 					players[1].isShooting = current_player.isShooting;
 					players[1].points = current_player.score;
+					
+					//store the name and ID of the remote client inside of the player entity that they are controlling.
+					players[1].name = current_player.name;
+					players[1].playerId = current_player.playerId;
+					players[1].userId = current_player.userId;
+				}
+			}
+			else
+			{
+				//kinda shitty way to do updates on self info but whatever.
+				if(players[0])
+				{
+					players[0].name = current_player.name;
+					players[0].playerId = current_player.playerId;
+					players[0].userId = current_player.userId;
 				}
 			}
 		}
@@ -209,6 +227,20 @@ class GameMap extends DragonScene
 		if(gameTime.timeHasFinished()){
 			this.finishGame();
 		}
+		else //online only checks. Only perform if we know that the game has not finished, aka, if the time has not reached 0 yet, we still want to check for disconnections. This is done like this to prevent the second player from seeing the lobby host leaving when the game is over as an unintended disconnection.
+		if(this.isOnline() && !this.game_has_finished && gameTime.currentTime > 1) //only enter the if statement's body if the match is in online mode AND if the game has not finished yet.
+		{
+			if(connection.lobbyInfo.players.length <= 1){
+				//if the other player has left, finish the game, and notify the game over scene that the reason for finishing was that the other player left.
+				//NOTE: if the other player leaves... aka, when only 1 player is left. This line of thinking will be useful when adding support for more than 2 players per lobby.
+				this.finishGame("game_over", {reason: "other-left"});
+			}
+			else //this else is necessary, otherwise, the finishGame would cause the game to end with a connection-lost always.
+			if(!connection.isConnected()){
+				//if the connection has been lost, finish the game, and notify the game over scene that the reason for finishing was a connection loss (connection timed out).
+				this.finishGame("game_over", {reason: "connection-lost"});
+			}
+		}
 		
 	}
 	
@@ -222,10 +254,18 @@ class GameMap extends DragonScene
 		//nothing
 	}
 	
-	finishGame()
+	finishGame(target_map = "game_over", data = {reason: "game-finished"})
 	{
+		//check if the game has already finished to prevent executing this function twice.
+		if(this.game_has_finished){
+			return; //early return to prevent executing the finishGame() function more than once in a row.
+		}
+		//set the game finished status
+		this.game_has_finished = true;
+		
+		
 		//Finish the game. This implies stopping the game timer, stopping this scene and loading the game over scene.
-		console.log("GAME OVER (Scene \"" + this.scene.key + "\" has been unloaded...)");
+		console.log("GAME OVER (Scene \"" + this.scene.key + "\" has been unloaded...) (the key \"" + data.reason + "\" has been used to trigger the game over)");
 		
 		//stop the timer
 		gameTime.stopTimer();
@@ -240,7 +280,7 @@ class GameMap extends DragonScene
 		game.scene.stop("SettingsMenu");
 		
 		//finally, load and start the game over scene.
-		game.scene.start("game_over");
+		game.scene.start(target_map, data);
 	}
 	
 	//check if this client is the "host" / "lobby leader" (the host is actually the server, obviously, what we mean by this is to check whether this client is the one responsible for generating the world or not)

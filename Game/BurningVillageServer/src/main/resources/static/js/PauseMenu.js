@@ -37,11 +37,14 @@ class PauseMenu extends DragonScene
 		//button to finish the game and return to main menu
 		this.quitButton = new Button(this, config.width/2, config.height/5 * 3 + 50, lang("key_quit"), "boton_vacio_largo");
 		this.quitButton.setButtonFunction(function(){
-			game.scene.stop("PauseMenu");
-			game.scene.stop("GameMap");
-			game.scene.stop("ui");
+			//game.scene.stop("PauseMenu");
+			//game.scene.stop("GameMap");
+			//game.scene.stop("ui");
 			stopSound(that);
-			game.scene.start("MainMenu");
+			//game.scene.start("MainMenu");
+			
+			game.scene.getScene("GameMap").finishGame("MainMenu");
+			
 		});
 		this.quitButton.setCanBePressed(true);
 		

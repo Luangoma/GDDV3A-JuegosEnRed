@@ -10,7 +10,21 @@ class game_over extends Phaser.Scene
 	
 	preload(){
 	}
-
+	
+	reason = "game-finished";
+	
+	init(data)
+	{
+		if(data && data.reason)
+		{
+			this.reason = data.reason;
+		}
+		else
+		{
+			this.reason = "game-finished";
+		}
+	}
+	
 	create(){
 		
 		this.player1 = players[0];
@@ -35,6 +49,29 @@ class game_over extends Phaser.Scene
 		// TÍTULO
 	
 		var titulo = this.add.text(config.width/2, 80, lang("key_game_over"), styleText_AncientFont_90).setOrigin(0.5).setScale(1);
+		
+		// Text to display the reason for which the game was finished
+		
+		var game_over_reason_text = this.add.text(config.width/2, 555, " ", styleText_PixelSansSerif_30_red).setOrigin(0.5).setScale(0.4);
+		
+		switch(this.reason)
+		{
+			case "game-finished":
+				game_over_reason_text.setText(" ");
+				break;
+			
+			case "connection-lost":
+				game_over_reason_text.setText(lang("key_connection_lost"));
+				break;
+			
+			case "other-left":
+				game_over_reason_text.setText(lang("key_other_left"));
+				break;
+			
+			default:
+				game_over_reason_text.setText(" ");
+				break;
+		}
 
 
 		// PUNTUACIONES
@@ -78,15 +115,42 @@ class game_over extends Phaser.Scene
 	getPlayerData(idx)
 	{
 		let ans = {name: lang("key_player") + " ", score: 0};
+		
+		if(!players[idx])
+		{
+			ans.name = "ERROR";
+			ans.score = -1;
+		}
+		else
 		if(gameConfig.multiplayerType == MULTIPLAYER_TYPE.ONLINE)
 		{
 			//online mode:
-			ans.name += connection.lobbyInfo.players[idx].userId === -1 ? lang("key_anonymous_username") : connection.lobbyInfo.players[idx].name;
-			ans.score = connection.lobbyInfo.players[idx].score;
-			if(connection.lobbyInfo.players[idx].playerId == connection.lobbyInfo.playerId)
+			
+			/*
+			//if the requested player does not exist, then return empty data to prevent a crash
+			if(idx < 0 || idx >= connection.lobbyInfo.players.length)
+			{
+				ans.name = lang("key_unconnected"); //report unconnected user as the username, because the player left the game so they are now gone. Basically kinda like l4d2 but more explicit.
+				ans.score = 0;
+			}
+			else
+			{
+				ans.name += connection.lobbyInfo.players[idx].userId === -1 ? lang("key_anonymous_username") : connection.lobbyInfo.players[idx].name;
+				ans.score = connection.lobbyInfo.players[idx].score;
+				if(connection.lobbyInfo.players[idx].playerId == connection.lobbyInfo.playerId)
+				{
+					ans.name += " (" + lang("key_you") + ")";
+				}
+			}
+			*/
+			ans.name += players[idx].userId === -1 ? lang("key_anonymous_username") : players[idx].name;
+			ans.score = players[idx].points;
+			if(players[idx].playerId == connection.lobbyInfo.playerId)
 			{
 				ans.name += " (" + lang("key_you") + ")";
 			}
+			
+			//if(!connection.lobbyInfo.players[idx]) {//add a text that says disconnected or something... maybe? it's just eyecandy...}
 		}
 		else
 		{

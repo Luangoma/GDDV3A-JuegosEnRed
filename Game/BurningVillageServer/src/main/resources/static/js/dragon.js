@@ -21,6 +21,12 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	
 	this.respawnTime = 0; //this variable has given me a headache trying to debug an error in the UI when playing multiplayer. People, you should ALWAYS fucking define the variables of your objects before you use them, even if JS uses prototypes and will add it later on, because you never know when you'll hit an edge case where you read a property that does not exist...
 	
+	
+	//placeholders for online data holding. These do nothing in "single player" (local multiplayer).
+	this.name = "none";
+	this.playerId = -1;
+	
+	//create the dragon data
 	this.createDragon(start_x, start_y);
 }
 

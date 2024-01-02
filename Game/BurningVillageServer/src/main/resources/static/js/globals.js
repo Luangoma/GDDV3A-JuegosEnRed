@@ -102,3 +102,11 @@ var styleText_PixelSansSerif_30 = {
 	strokeThickness: 4,				// Grosor del contorno
 	fontSize: 30					// Tamaño del texto
 }
+
+var styleText_PixelSansSerif_30_red = {
+	fontFamily: 'pixel_sans_serif',
+	color: '#ff0000',               // Tipografia
+	stroke: 0x000,					// Color del contorno
+	strokeThickness: 4,				// Grosor del contorno
+	fontSize: 30					// Tamaño del texto
+}
