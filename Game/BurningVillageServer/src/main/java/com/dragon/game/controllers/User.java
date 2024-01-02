@@ -53,6 +53,12 @@ public class User {
 		this.highScore = score;
 	}
 	
+	public void updateHighScore(Long score) {
+		if(this.highScore < score) {
+			this.highScore = score;
+		}
+	}
+	
 	public String serializeUser() {
 		String filtered_username = this.username.replace("\\", "\\\\").replace("\"", "\\\"");
 		String filtered_password = this.password.replace("\\", "\\\\").replace("\"", "\\\"");

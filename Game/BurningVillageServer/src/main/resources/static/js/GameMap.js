@@ -67,10 +67,17 @@ class GameMap extends DragonScene
 	
 	spawnPlayers()
 	{
-		//Note: Red dragon has id 0, and blue dragon has id 1. Assign the dragon id (originally called player_id, not to be confused with the real player id variable playerId) based on wether they are the lobby leader or not.
-		let self_id  = this.isLobbyLeader() ? 0 : 1;
-		let other_id = this.isLobbyLeader() ? 1 : 0;
+		//starting values for the dragon ids
+		let self_id  = 0;
+		let other_id = 1;
 		
+		//if playing an online match, change the dragon ids according to the order in which the players joined the lobby, otherwise, keep the default values for single player.
+		if(this.isOnline())
+		{
+			//Note: Red dragon has id 0, and blue dragon has id 1. Assign the dragon id (originally called player_id, not to be confused with the real player id variable playerId) based on wether they are the lobby leader or not.
+			self_id  = this.isLobbyLeader() ? 0 : 1;
+			other_id = this.isLobbyLeader() ? 1 : 0;
+		}
 		
 		//Spawn the dragon players
 		players[0] = new Dragon(this, self_id  , 1024, 1024, this.flames);

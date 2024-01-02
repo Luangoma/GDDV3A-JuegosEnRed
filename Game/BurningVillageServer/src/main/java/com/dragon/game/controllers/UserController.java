@@ -140,6 +140,15 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
+	@PutMapping(value = "/users/update_score/{id}/{pwd}/{score}")
+	public void updateUserScore(@PathVariable Long id, @PathVariable String pwd, @PathVariable Long score) {
+		User user = this.userService.getUserById(id);
+		if(user.getPassword().equals(pwd)) {
+			userService.updateUserScore(id, score);
+			this.userService.writeUsersToFile();
+		}
+	}
+	
 	//checks if an user is null and if the credentials are valid.
 	private boolean checkUserCredentials(User user, String pwd) {
 		if(user == null || !user.getPassword().equals(pwd)) {

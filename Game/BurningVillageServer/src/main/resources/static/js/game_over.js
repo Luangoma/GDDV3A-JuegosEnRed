@@ -27,6 +27,9 @@ class game_over extends Phaser.Scene
 	
 	create(){
 		
+		this.updateScore();
+		
+		
 		this.player1 = players[0];
 		this.player2 = players[1];
 		
@@ -193,6 +196,25 @@ class game_over extends Phaser.Scene
 		console.log(puntos);
 		return puntos;
 
+	}
+	
+	updateScore()
+	{
+		let that = this;
+		if(gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE && localUser.user.id !== -1)
+		{
+			$.ajax({
+				url: ip.http + "/users/update_score/" + localUser.user.id + "/" + localUser.user.password + "/" + that.calcularPuntosCasasQuemadas(players[0].points),
+				method: "PUT",
+				contentType: 'application/json',
+				success: function(data){
+					console.log("sucessfully updated player score in server");
+				},
+				error: function(xhr, status, error){
+					console.log("could not update player score in server");
+				}
+			});
+		}
 	}
 
 };

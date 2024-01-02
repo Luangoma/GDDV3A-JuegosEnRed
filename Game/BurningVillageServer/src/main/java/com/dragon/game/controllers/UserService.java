@@ -119,6 +119,14 @@ public class UserService {
 		return null; //check for null later in the REST API controller and return a 404.
 	}
 	
+	//PUT score
+	public void updateUserScore(Long id, Long new_score) {
+		if(users.containsKey(id)) {
+			User u = users.get(id);
+			u.updateHighScore(new_score);
+		}
+	}
+	
 	//DELETE
 	public void deleteUser(Long id) {
 		users.remove(id);
