@@ -15,6 +15,8 @@ class GameMap extends DragonScene
 	
 	game_has_finished = false;
 	
+	world_obj = null;
+	
 	preload()
 	{
 		this.load.image("world_grass","assets/WorldGrass.png");
@@ -45,6 +47,7 @@ class GameMap extends DragonScene
 		this.onlineInterval = null;
 		this.has_generated_world = false;
 		this.game_has_finished = false;
+		this.world_obj = null;
 	}
 	
 	generateGameData()
@@ -133,10 +136,17 @@ class GameMap extends DragonScene
 	
 	handleWorldData(msg)
 	{
-		if(msg.houses && !this.has_generated_world){
+		if(msg.petition === "ask-for-world")
+		{
+			this.sendWorld();
+		}
+		else
+		if(msg.houses && !this.has_generated_world)
+		{
 			console.log("supposedly i have generated the houses....................");
 			createHousesFromShortList(this, this.tiles, this.houses, this.flames, msg.houses);
 			this.spawnPlayers();
+			this.has_generated_world = true;
 		}
 	}
 	
@@ -151,6 +161,9 @@ class GameMap extends DragonScene
 		//if the multiplayer mode is set to online AND the socket connection is open, proceed with the online multiplayer logic
 		if(this.isOnline() && this.isConnected())
 		{
+			//Good old JS hack yet again...
+			let that = this;
+			
 			//configure the connection callbacks so that we can properly manage the incoming data messages
 			connection.setCallbacks(
 				function(){
@@ -177,6 +190,17 @@ class GameMap extends DragonScene
 				//get the current player and use that to get the data to be sent
 				//console.log("sending data to the server..."); //lots of spam during mp, enable at your own risk.
 				
+				//ask for the world if the world has not been generated and we are not the lobby leaders
+				if(!that.has_generated_world)
+				{
+					let obj = {
+						actionType: 'forward-data',
+						userId: localUser.user.id,
+						petition: 'ask-for-world'
+					};
+					connection.sendObject(obj);
+				}
+				else
 				if(players.length > 0) //only send the data if the players exist (this is done because the connection already starts data during the world sharing process)
 				{
 					let x = players[0].sprite.x;
@@ -241,7 +265,6 @@ class GameMap extends DragonScene
 				this.finishGame("game_over", {reason: "connection-lost"});
 			}
 		}
-		
 	}
 	
 	shutdown()
@@ -348,9 +371,8 @@ class GameMap extends DragonScene
 			//if the client is online, then we already know that it is the lobby leader because of the previos check, so we then send the data of the generated world. The world will be generated when we get back a response from the server with the exact same message as a form of confirmation that the other clients got the message as well.
 			if(this.isOnline())
 			{
-				console.log("BEFORE SENDING WORLD DATA----------------------------------------------------");
-				connection.sendObject(obj);
-				console.log("AFTER SENDING WORLD DATA----------------------------------------------------");
+				//store the generated world obj, but do not generate it yet. Await response from remote client.
+				this.world_obj = obj;
 			}
 			else
 			{
@@ -368,5 +390,14 @@ class GameMap extends DragonScene
 		//console.log("castle spawned at : " + castle_x + "," + castle_y);
 	}
 	
+	//send the world obj to the remote clients.
+	sendWorld()
+	{
+		console.log("BEFORE SENDING WORLD DATA----------------------------------------------------");
+		if(this.world_obj){
+			connection.sendObject(this.world_obj);
+		}
+		console.log("AFTER SENDING WORLD DATA----------------------------------------------------");
+	}
 	
 };
