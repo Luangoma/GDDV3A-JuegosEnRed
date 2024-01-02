@@ -279,7 +279,7 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			List<Player> current_players = current_lobby.getPlayers();
 			for(Player p : current_players) {
 				WebSocketSession current_session = this.sessions.get(p.getSessionId());
-				synchronized(session) {
+				synchronized(current_session) {
 					current_session.sendMessage(new TextMessage(message.getPayload())); //send the message just as it was received.
 				}
 			}
