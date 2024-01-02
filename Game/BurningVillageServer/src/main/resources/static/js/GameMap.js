@@ -67,9 +67,14 @@ class GameMap extends DragonScene
 	
 	spawnPlayers()
 	{
+		//Note: Red dragon has id 0, and blue dragon has id 1. Assign the dragon id (originally called player_id, not to be confused with the real player id variable playerId) based on wether they are the lobby leader or not.
+		let self_id  = this.isLobbyLeader() ? 0 : 1;
+		let other_id = this.isLobbyLeader() ? 1 : 0;
+		
+		
 		//Spawn the dragon players
-		players[0] = new Dragon(this, 0, 1024, 1024, this.flames);
-		players[1] = new Dragon(this, 1, 800, 800, this.flames);
+		players[0] = new Dragon(this, self_id  , 1024, 1024, this.flames);
+		players[1] = new Dragon(this, other_id , 800, 800, this.flames);
 		
 		//add the camera (which depends on the game config and multiplayer type)
 		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
