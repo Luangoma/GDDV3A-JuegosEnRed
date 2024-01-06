@@ -1,6 +1,6 @@
 function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.scene = new_scene;
-	this.player_id = new_player_id;
+	this.player_id = new_player_id; //0: red, 1: blue. This variable should be renamed to dragonId or dragonSkin or whatever...
 	
 	this.player_velocity = 200;
 	this.player_turn_speed = 0.1;

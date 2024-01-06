@@ -180,12 +180,35 @@ class ui extends Phaser.Scene
 		// Margenes para separar el texto de los graficos de los dragones
 		let marginX = 50, marginY = 200;
 		// Inicializamos el valor de los textos que mostraran el valor de la puntuación
-		this.textoPuntuacionAzul = this.add.text(config.width-marginX, config.height-marginY, /*this.player1.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
-		this.textoPuntuacionRoja = this.add.text(marginX, config.height-marginY, /*this.player2.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionAzul = this.add.text(marginX, config.height-marginY, /*this.player1.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
+		this.textoPuntuacionRoja = this.add.text(config.width-marginX, config.height-marginY, /*this.player2.points*/ " ", styleText_MedievalPixel_30).setOrigin(0.5);
 		// Puntos del jugador a mostrar en pantalla
-		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:players[0].points, callbackScope: this, loop: true });
-		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:players[1].points, callbackScope: this, loop: true });
+		this.puntuacionAzul = this.time.addEvent({ delay: 1000, callback:this.getBlueDragon().points, callbackScope: this, loop: true });
+		this.puntuacionRoja = this.time.addEvent({ delay: 1000, callback:this.getRedDragon().points, callbackScope: this, loop: true });
 
+	}
+	
+	//this function gets the dragon with the given ID, with 0 being the red dragon and 1 being the blue dragon, and any other color corresponding to any other dragon added in the future, if we add more dragons with their own color enum...
+	getDragon(id)
+	{
+		for(let i = 0; i < players.length; ++i)
+		{
+			if(players[i].player_id === id)
+			{
+				return players[i];
+			}
+		}
+		return null;
+	}
+	
+	getRedDragon()
+	{
+		return this.getDragon(0);
+	}
+	
+	getBlueDragon()
+	{
+		return this.getDragon(1);
 	}
 
 	update(time, delta)
@@ -202,9 +225,9 @@ class ui extends Phaser.Scene
 		
 		
 		// Cambiar la barra de vida del jugador 2. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(players[0].health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
+		this.cambiarAnchoBarraAnimado(this.getBlueDragon().health/100, this.barraIzquierdaAzul, this.barraMedioAzul, this.barraDerechaAzul);
 		// Cambiar la barra de vida del jugador 1. Se divide entre 100 para que sea del 0 al 1.
-		this.cambiarAnchoBarraAnimado(players[1].health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
+		this.cambiarAnchoBarraAnimado(this.getRedDragon().health/100, this.barraIzquierdaRoja, this.barraMedioRoja, this.barraDerechaRoja);
 		
 		//NOTE:
 		/*
@@ -224,6 +247,7 @@ class ui extends Phaser.Scene
 			so that JS will automatically stringify "undefined" instead of crashing and exploding the universe.
 		*/
 		
+		//kind of a gypsy solution, but basically, we're keeping players[i] as a way to choose the text, because we know that players[0] will always be the red dragon in local MP and we also know that only one of the texts will be displayed during online MP, and since only the text for the self player is shown, and players[0] is always the self player for any client, then we leverage this to make this shitty and ugly solution that works... we're running out of time here, and I can't be a one man army anymore bruh. Specially when I'm fixing someone else's shit...
 		if(players[0].health<=0){
 			let str0 = "" + players[0].respawnTime;
 			this.textoTemporizadorRespawnDer.setText(str0.padStart(2,'0'));
@@ -238,8 +262,8 @@ class ui extends Phaser.Scene
 		}
 		
 		// Actualizamos el valor de las puntuaciones 
-		this.textoPuntuacionAzul.setText("" + players[0].points);
-		this.textoPuntuacionRoja.setText("" + players[1].points);
+		this.textoPuntuacionAzul.setText("" + this.getBlueDragon().points);
+		this.textoPuntuacionRoja.setText("" + this.getRedDragon().points);
 		
 		//actualizar el temporizador
 		this.updateTimer();
