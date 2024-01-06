@@ -79,9 +79,15 @@ class GameMap extends DragonScene
 			other_id = this.isLobbyLeader() ? 1 : 0;
 		}
 		
+		//choose random x and y coords for both dragon characters
+		let p0x = getRandomInRangeInt(0, (world_tiles_width  - 1) * world_tile_size);
+		let p0y = getRandomInRangeInt(0, (world_tiles_height - 1) * world_tile_size);
+		let p1x = getRandomInRangeInt(0, (world_tiles_width  - 1) * world_tile_size);
+		let p1y = getRandomInRangeInt(0, (world_tiles_height - 1) * world_tile_size);
+		
 		//Spawn the dragon players
-		players[0] = new Dragon(this, self_id  , 1024, 1024, this.flames);
-		players[1] = new Dragon(this, other_id , 800, 800, this.flames);
+		players[0] = new Dragon(this, self_id  , p0x, p0y, this.flames);
+		players[1] = new Dragon(this, other_id , p1x, p1y, this.flames);
 		
 		//add the camera (which depends on the game config and multiplayer type)
 		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);

@@ -1,4 +1,4 @@
-
+var world_tile_size = 128;
 
 var world_tiles_width = 20;
 var world_tiles_height = 20;
