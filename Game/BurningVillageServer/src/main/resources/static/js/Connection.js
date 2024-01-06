@@ -125,3 +125,41 @@ var connection = {
 		connection.lobbyInfo.playerId = msg.playerId;
 	}
 };
+
+
+
+//External functions related to connection and online mode (originally built into GameMap.js, now copied here due to them being required in other files as well...
+
+function isOnline()
+{
+	return gameConfig.multiplayerType === MULTIPLAYER_TYPE.ONLINE;
+}
+
+function isConnected()
+{
+	return connection.isConnected();
+}
+
+function isLobbyLeader()
+{
+	//early return if we are offline.
+	if(!isOnline() || !isConnected())
+	{
+		return false;
+	}
+	
+	//find self player ID within this lobby
+	let self_id = connection.lobbyInfo.playerId;
+	
+	//find smallest player ID within this lobby
+	let smallest_id = connection.lobbyInfo.players[0].playerId;
+	for(let i = 0; i < connection.lobbyInfo.players.length; ++i)
+	{
+		if(connection.lobbyInfo.players[i].playerId < smallest_id)
+		{
+			smallest_id = connection.lobbyInfo.players[i].playerId;
+		}
+	}
+	
+	return smallest_id === self_id;
+}
