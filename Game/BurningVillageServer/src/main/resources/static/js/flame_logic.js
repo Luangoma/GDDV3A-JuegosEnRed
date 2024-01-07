@@ -3,7 +3,7 @@ function blazeHouse(flame, house) {
     //flame.disableBody(true, true);
     //house.play.anim("animacionFuegoStart");
 }
-
+var aux;
 // playerSprite: sprite del jugador que recibe llamas, flame: llamas del rival, y player: jugador que recibe llamas
 function damageEnemy(playerSprite, flame, player) { 
     player.health -= 1;
@@ -16,8 +16,9 @@ function damageEnemy(playerSprite, flame, player) {
         console.log("Killing dragon");
 		let oponent_player = flame.owner;
 		oponent_player.max_ammo = 200;		// El dragón que mató a su oponente tendrá fuego ilimitado mientras este reaparece
+		aux = player.cosmetic;		// Nos guardamos el nº de cosmetico del dragón
+		player.setCosmeticBodyId(0);	// El dragón deja temporalmente de utilizar capa
 		playerSprite.disableBody(true, true); 	// Ocultamos y deshabilitamos el dragón
-
 		player.respawnTime = 10;		// Sirve de contador del tiempo restante para reaparecer
 		if(player.player_id==0) {
 			deadCountdown0 = player.scene.time.addEvent({
@@ -30,6 +31,7 @@ function damageEnemy(playerSprite, flame, player) {
 					} else {		// Si se ha acabado el tiempo
 						player.health=100;
 						playerSprite.enableBody(true, 500, 500, true, true);	// Rehabilitamos el dragón en la posición 500 500 (elegir una)
+						player.setCosmeticBodyId(aux); // Rehabilitamos el aspecto devolviendo el valor del nº de sprite que utilizaba al cosmetico del dragón
 						oponent_player.max_ammo = 60;		// Quitamos el bonus al dragón que lo mató
 						deadCountdown0.remove();
 						console.log("Se ha eliminado el deadcount del dragon jugador con id: "+player.player_id);
