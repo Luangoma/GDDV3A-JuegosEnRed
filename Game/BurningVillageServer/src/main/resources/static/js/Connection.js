@@ -118,7 +118,7 @@ var connection = {
 		connection.sendObject(obj);
 	},
 	sendLobbyData: function(isReady){
-		connection.sendData(0,0,0,0,0,0,false,isReady);
+		connection.sendData(0,0,0,0,0,0,false,playerCosmetics.body,isReady);
 	},
 	recvLobbyData: function(msg){ //msg is an object here, it has already gone through a JSON parse in the onmessage event.
 		connection.lobbyInfo.lobbyId = msg.lobbyId;
