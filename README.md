@@ -501,6 +501,46 @@ Cuando ambos jugadores pulsen el boton listo, la partida dará comienzo.
 - **Puntución**: Cada dragón envía su puntuación a su adversario para que esta se muestre en ambos clientes
 - **Tiempo**: Se transmite el tiempo restante de la partida (gameTime.currentTime)
 
+
+## Protocolo utilizado sobre WebSockets:
+
+Los mensajes enviados por WebSockets entre el cliente y el servidor son mensajes codificados en JSON.
+
+La comunicación se realiza sobre WebSockets en la dirección ws://address/multiplayer
+
+Los mensajes en formato JSON están compuestos por una serie de campos que permiten determinar qué tipo de acción e información quiere realizar el cliente al comunicarse con el servidor.
+
+Se ha creado una función que permite estructurar mensajes y objetos JSON en cadenas que puedan ser comprendidas por el servidor.
+
+Los mensajes contienen un campo "actionType", que contiene un string que determina el tipo de acción que el cliente quiere realizar al comunicarse con el servidor.
+Los tipos de acciones disponibles para el cliente son:
+	
+- **"create-lobby":** Permite enviar un mensaje de solicitud para crear una nueva sala en el servidor.
+	
+- **"join-lobby":** Permite enviar un mensaje de solicitud para conectarse a una sala existente con una ID específica.
+	
+- **"send-data":** Permite enviar un mensaje con datos del estado de la partida y relevantes sobre el cliente (nombre, ID de jugador, ID de usuario, vida, posición, rotación, etc...). El mensaje es enviado al servidor, los datos son procesados y almacenados en el servidor, actualizando la información de la sala en la que se encuentre conectado el jugador. Posteriormente, el mensaje es retransmitido a todos los clientes que estén conectados en la misma sala. Este tipo de mensaje es utilizado cuando se necesita transmitir información principal y relevante tanto para el servidor como para los clientes (jugadores conectados y su estado).
+	
+- **"forward-data":** Permite enviar un mensaje a todos los clientes conectados a la misma sala sin ser procesado por el servidor. El servidor simplemente actúa como intermediario y le envía el mensaje a los clientes sin realizar ningún tipo de procesado. Este tipo de mensaje es utilizado para comunicar información que no debe de ser almacenada en el servidor pero si que es relevante comunicarla entre los clientes.
+	
+- **"match-making":** Permite enviar un mensaje de solicitud al servidor para realizar una conexión a una sala por match making automatizado. El servidor, al recibir el mensaje del cliente, buscará una sala apropiada con slots libres para conectar al cliente. Si no existe ninguna sala a la que se pueda conectar el jugador, se creará una nueva sala y se le conectará al jugador a dicha sala.
+	
+- **"get-server-info":** Permite enviar un mensaje al servidor de solicitud para obtener la información de todas las salas que existen en el servidor. El servidor le devuelve al cliente un mensaje con todas las salas y la información de dichas salas.
+	
+- **"leave-lobby":** Permite enviar una notificación al servidor de que el usuario ha decidido abandonar una sala deliberadamente. Es utilizado para notificar una desconexión realizada a propósito. En caso de haber un error en la conexión, el servidor lo detectará sin haber recibido este mensaje, lo que permite al servidor diferenciar entre desconexiones deliberadas y desconexiones accidentales.
+
+El servidor también puede enviarle mensajes al cliente. Estos mensajes también tienen un campo JSON "actionType". De esta manera, el cliente puede determinar el tipo de acción que ha de realizar al recibir el mensaje del servidor.
+	
+- **"lobby-info":** Cuando el cliente recibe este tipo de mensaje, automáticamente actualiza en memoria la información del lobby con todos los datos de los clientes conectados a la misma sala (nombres, posiciones, vidas, puntuaciones, rotaciones, etc...)
+	
+- **"forward-data":** Cuando el cliente recibe este tipo de mensaje, el receptor es responsable de analizar la información obtenida para saber cómo procesar los datos recibidos. El procesado se hace analizando el campo "petition", que contiene el tipo de petición o información que los clientes quieren comunicar directamente al resto de clientes.
+		
+Los tipos de mensajes que se pueden obtener por forward-data dependen de la situación. El caso más notable es "ask-for-world". Este tipo de mensaje contiene la información del mundo, lo que permite sincronizar el mapa en los clientes al jugar en multijugador online.
+
+La conexión en el lado del cliente tiene una serie de funciones en su API pública que permite realizar todas estas acciones de forma automática sin necesidad de componer todos los mensajes de forma manual.
+
+
+
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
 - **Imagen del menú inicial y menú de créditos:**
