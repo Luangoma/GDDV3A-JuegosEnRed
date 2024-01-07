@@ -21,7 +21,14 @@
  	- Usuario de GitHub: Sandro808
     
 ## Video demostrativo
-<iframe width="848" height="480" src="https://www.youtube.com/embed/c5TNxFbuQyQ" title="JuegosEnRed_BurningVillageTheDragonsFlame_VideoDemostrativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+<iframe width="848" height="480" src="https://www.youtube.com/embed/c5TNxFbuQyQ" title="JuegosEnRed_BurningVillageTheDragonsFlame_VideoDemostrativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Plataformas
+'Burning Village: The Dragon's Flame' está disponible en las siguientes plataformas:
+- **itch.io:** <https://sandro808.itch.io/burning-village-the-dragons-flame>
+- **Gamejolt:** <https://gamejolt.com/games/dragonsFlame/867660>
+- **Newgrounds:** <https://www.newgrounds.com/portal/view/913289>
+- **idev.games:** <https://idev.games/game/burning-village-the-dragon-s-flame>
 
 ## Instrucciones
 ### Paso 1: Descarga de Eclipse STS
@@ -354,38 +361,41 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 El mapa de navegación por el juego ha sido actualizado. Acontinuación se mostrará el nuevo flujo:
 ![Figura 8, diagrama de flujo actualizado (19/12/23)](./Designs/NavigationDiagram/InterfaceNavigation2.png)  
 
-Se ha diseñado el UML del servidor, encargado de organizar y gestionar las acciones relacionadas con los usuarios y el foro.
+Se ha diseñado el UML del servidor, encargado de organizar y gestionar las acciones relacionadas con los usuarios y el foro que usan la API REST.  
 ![Figura 9, escena in-game del menú.](./Designs/UML/APIRest_UML2.png)  
+
+Se ha diseñado el UML del servidor que implementa la funcionalidad del multijugador aplicando websockets.  
+![Figura 10, escena in-game del menú.](./Designs/UML/Websockets_UML1.png)  
 
 Se han añadido las escenas al juego, son las siguientes:  
 Menú Principal:  
-![Figura 10, escena in-game del menú.](./Designs/Screenshots/1-menu.png)  
+![Figura 11, escena in-game del menú.](./Designs/Screenshots/1-menu.png)  
 Créditos:  
-![Figura 11, escena in-game de los creditos.](./Designs/Screenshots/14-creditos.png)  
+![Figura 12, escena in-game de los creditos.](./Designs/Screenshots/14-creditos.png)  
 Partida:  
-![Figura 12, escena in-game de la partida.](./Designs/Screenshots/12-partida.png)  
+![Figura 13, escena in-game de la partida.](./Designs/Screenshots/12-partida.png)  
 Game Over:  
-![Figura 13, escena in-game al acabar la partida.](./Designs/Screenshots/13-gameover.png)  
+![Figura 14, escena in-game al acabar la partida.](./Designs/Screenshots/13-gameover.png)  
 Tutorial:  
-![Figura 14, escena in-game del menú del tutorial.](./Designs/Screenshots/2-tutorial.png)  
+![Figura 15, escena in-game del menú del tutorial.](./Designs/Screenshots/2-tutorial.png)  
 Menú de acciones de cuenta:  
-![Figura 15, escena in-game del menú de cuenta (cuando el usuario no ha accedido a una cuenta).](./Designs/Screenshots/3-cuentabotones.png)  
+![Figura 16, escena in-game del menú de cuenta (cuando el usuario no ha accedido a una cuenta).](./Designs/Screenshots/3-cuentabotones.png)  
 Creación de cuenta:  
-![Figura 16, escena in-game del menú de creación de cuenta.](./Designs/Screenshots/4-crearcuenta.png)  
+![Figura 17, escena in-game del menú de creación de cuenta.](./Designs/Screenshots/4-crearcuenta.png)  
 Acceso a cuenta:  
-![Figura 17, escena in-game del menú de acceso a cuenta.](./Designs/Screenshots/5-login.png)  
+![Figura 18, escena in-game del menú de acceso a cuenta.](./Designs/Screenshots/5-login.png)  
 Menú de cuenta de usuario:  
-![Figura 18, escena in-game del menú de cuenta (cuando el usuario ha accedido a una cuenta).](./Designs/Screenshots/6-menucuenta.png)  
+![Figura 19, escena in-game del menú de cuenta (cuando el usuario ha accedido a una cuenta).](./Designs/Screenshots/6-menucuenta.png)  
 Cambiar contraseña:  
-![Figura 19, escena in-game del menú para cambiar la contraseña.](./Designs/Screenshots/7-cambiarpass.png)  
+![Figura 20, escena in-game del menú para cambiar la contraseña.](./Designs/Screenshots/7-cambiarpass.png)  
 Borrar cuenta:  
-![Figura 20, escena in-game del menú para borrar la cuenta.](./Designs/Screenshots/8-borrarcuenta.png)  
+![Figura 21, escena in-game del menú para borrar la cuenta.](./Designs/Screenshots/8-borrarcuenta.png)  
 Menú Social:  
-![Figura 21, escena in-game del menú Social.](./Designs/Screenshots/9-social.png)  
+![Figura 22, escena in-game del menú Social.](./Designs/Screenshots/9-social.png)  
 Chat del Foro de usuarios:  
-![Figura 22, escena in-game del chat del foro de usuarios.](./Designs/Screenshots/10-chat.png)  
+![Figura 23, escena in-game del chat del foro de usuarios.](./Designs/Screenshots/10-chat.png)  
 Tabla de Usuarios:  
-![Figura 23, escena in-game de la lista de usuarios registrados en el servidor.](./Designs/Screenshots/11-tablausers.png)  
+![Figura 24, escena in-game de la lista de usuarios registrados en el servidor.](./Designs/Screenshots/11-tablausers.png)  
 
 ## Recursos de creación propia
 Se han creado recursos propios como sprites para el desarrollo del juego.
