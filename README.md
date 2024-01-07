@@ -21,7 +21,10 @@
  	- Usuario de GitHub: Sandro808
     
 ## Video demostrativo
-<iframe width="848" height="480" src="https://www.youtube.com/embed/c5TNxFbuQyQ" title="JuegosEnRed_BurningVillageTheDragonsFlame_VideoDemostrativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+![Video demostrativo](./Designs/Videos/video_demostrativo.mp4)
+
+Link a YouTube: https://youtu.be/c5TNxFbuQyQ
 
 ## Plataformas
 'Burning Village: The Dragon's Flame' está disponible en las siguientes plataformas:
