@@ -29,6 +29,8 @@
 - **Gamejolt:** <https://gamejolt.com/games/dragonsFlame/867660>
 - **Newgrounds:** <https://www.newgrounds.com/portal/view/913289>
 - **idev.games:** <https://idev.games/game/burning-village-the-dragon-s-flame>
+- **indiedb:** <https://www.indiedb.com/games/burning-village-the-dragons-flame>
+
 
 ## Instrucciones
 ### Paso 1: Descarga de Eclipse STS
