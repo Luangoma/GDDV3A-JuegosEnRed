@@ -21,6 +21,11 @@ class PreloadScene extends DragonScene
 		preloadTileData(this);
 		preloadFlameData(this);
 		preloadPauseMenuData(this);
+		preloadCosmeticsData(this);
+		
+		//preload the stone arrow buttons.
+		this.load.image('stone_button_right', './assets/StoneButton02.png');
+		this.load.image('stone_button_left', './assets/StoneButton03.png');
 		
 		//preload game music
 		this.load.audio("CANCION_01", ["./sounds/music/CANCION_01.mp3"]);

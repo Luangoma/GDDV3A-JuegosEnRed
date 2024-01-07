@@ -99,7 +99,7 @@ var connection = {
 		let obj = {actionType: 'create-lobby', userId: localUser.user.id}
 		connection.sendObject(obj);
 	},
-	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, score=0, shooting = false,  ready = true){
+	sendData: function(x = 0, y = 0, rot = 0, health = 0, current_time = 0, score=0, shooting = false, cosmetic_body = 0, ready = true){
 		let obj = {
 			actionType: 'send-data',
 			userId: localUser.user.id,
@@ -112,7 +112,8 @@ var connection = {
 			playerHealth: health,
 			isShooting: shooting,
 			time: current_time,
-			playerScore: score
+			playerScore: score,
+			cosmeticBodyId: cosmetic_body
 		};
 		connection.sendObject(obj);
 	},

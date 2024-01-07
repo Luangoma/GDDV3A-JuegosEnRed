@@ -254,9 +254,10 @@ public class WebSocketMultiplayerHandler extends TextWebSocketHandler {
 			boolean isShooting = node.get("isShooting").asBoolean();
 			int time = node.get("time").asInt();
 			int score = node.get("playerScore").asInt();
+			Long cosmetic_body = node.get("cosmeticBodyId").asLong();
 			
 			//compose the data into a new Player object
-			Player playerData = new Player(uid,pid,pos,rot,name,sessionStr,isReady, health, isShooting, time, score);
+			Player playerData = new Player(uid,pid,pos,rot,name,sessionStr,isReady, health, isShooting, time, score, cosmetic_body);
 			
 			//send the player info
 			sendPlayerInfo(session, playerData);

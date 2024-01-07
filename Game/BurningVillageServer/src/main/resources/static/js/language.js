@@ -66,7 +66,9 @@ const LANGUAGE_DATA = {
 		key_log_out: "Salir de la Cuenta",
 		key_delete_account: "Eliminar Cuenta",
 		key_edit_account: "Editar Cuenta",
-		key_change_password: "Cambiar contraseña"
+		key_change_password: "Cambiar contraseña",
+		key_cosmetics: "Atuendo",
+		key_customization: "Personalización"
 	},
 	ENGLISH: {
 		key_language_name           :              "English"                                               ,
@@ -127,6 +129,8 @@ const LANGUAGE_DATA = {
 		key_delete_account          :              "Delete Account"                                        ,
 		key_edit_account            :              "Edit Account"                                          ,
 		key_change_password         :              "Change Password"                                       ,
+		key_cosmetics               :              "Cosmetics"                                             ,
+		key_customization           :              "Customization"                                         ,
 	},
 	HUNGARIAN: {
 		key_language_name: "Magyar",
@@ -186,7 +190,9 @@ const LANGUAGE_DATA = {
 		key_log_out: "Jelentkezzen ki a Fiókból",
 		key_delete_account: "Fiók törlése",
 		key_edit_account: "Fiók szerkesztése",
-		key_change_password: "Jelszó módosítása"
+		key_change_password: "Jelszó módosítása",
+		key_cosmetics: "Viselet",
+		key_customization: "Testreszabás"
 	},
 	FRENCH: {
 		key_language_name           :              "Français"                                                     ,
@@ -247,6 +253,8 @@ const LANGUAGE_DATA = {
 		key_delete_account          :              "Supprimer le compte"                                          ,
 		key_edit_account            :              "Modifier le compte"                                           ,
 		key_change_password         :              "Changer le mot de passe"                                      ,
+		key_cosmetics               :              "Tenue"                                                        ,
+		key_customization           :              "Personnalisation"                                             ,
 	},
 	GERMAN: {
 		key_language_name           :              "Deutsch"                                                           ,
@@ -307,6 +315,8 @@ const LANGUAGE_DATA = {
 		key_delete_account          :              "Konto löschen"                                                     ,
 		key_edit_account            :              "Konto bearbeiten"                                                  ,
 		key_change_password         :              "Kennwort ändern"                                                   ,
+		key_cosmetics               :              "Kleidung"                                                          ,
+		key_customization           :              "Anpassung"                                                         ,
 	}
 };
 

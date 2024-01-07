@@ -13,6 +13,8 @@ public class Player {
 	private int time;
 	private int score;
 	
+	private Long cosmeticBodyId;
+	
 	public Player() {
 		this.userId = -1L;
 		this.playerId = -1L;
@@ -25,9 +27,10 @@ public class Player {
 		this.isShooting = false;
 		this.time = 0;
 		this.score = 0;
+		this.cosmeticBodyId = 0L;
 	}
 	
-	public Player(Long uid, Long pid, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time, int score) {
+	public Player(Long uid, Long pid, Vector2f64 pos, double rot, String name, String session, boolean isReady, double health, boolean isShooting, int time, int score, Long cosmeticBody) {
 		this.userId = uid;
 		this.playerId = pid;
 		this.position = pos;
@@ -39,6 +42,7 @@ public class Player {
 		this.isShooting = isShooting;
 		this.time = time;
 		this.score = score;
+		this.cosmeticBodyId = cosmeticBody;
 	}
 	
 	public Player(Player p) {
@@ -53,6 +57,7 @@ public class Player {
 		this.isShooting = p.isShooting;
 		this.time = p.time;
 		this.score = p.score;
+		this.cosmeticBodyId = p.cosmeticBodyId;
 	}
 	
 	public boolean isPlayerValid() {
@@ -109,6 +114,10 @@ public class Player {
 		this.score = i;
 	}
 	
+	public void setCosmeticBodyId(Long id) {
+		this.cosmeticBodyId = id;
+	}
+	
 	
 	//Getters:
 	public Long getUserId() {
@@ -153,5 +162,9 @@ public class Player {
 	
 	public int getScore() {
 		return this.score;
+	}
+	
+	public Long getCosmeticBodyId() {
+		return this.cosmeticBodyId;
 	}
 }

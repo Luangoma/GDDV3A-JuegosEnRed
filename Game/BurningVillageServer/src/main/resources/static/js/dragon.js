@@ -26,6 +26,10 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.name = "none";
 	this.playerId = -1;
 	
+	//image and data for the clothes/cosmetics:
+	this.cosmetic = 0;
+	this.cosmetic_sprite = null;
+	
 	//create the dragon data
 	this.createDragon(start_x, start_y);
 }
@@ -81,6 +85,8 @@ Dragon.prototype.createDragon = function(start_x, start_y){
 			this.sprite.anims.play('flyingDragon');
 			break;
 	}
+	
+	this.cosmetic_sprite = this.scene.add.sprite(this.sprite.x, this.sprite.y, cosmetics.body[playerCosmetics.body]);
 	
 	let player_ref = this.sprite;
 	player_ref.setBounce(0.2);
@@ -158,6 +164,12 @@ Dragon.prototype.update = function(time, delta){
 		this.time_elapsed -= this.delay;
 		this.ammo = this.max_ammo;
 	}
+	
+	//update the cosmetics position and visuals:
+	this.cosmetic_sprite.x = this.sprite.x;
+	this.cosmetic_sprite.y = this.sprite.y;
+	this.cosmetic_sprite.angle = this.sprite.angle;
+	this.cosmetic_sprite.setTexture(cosmetics.body[this.cosmetic]);
 	
 };
 

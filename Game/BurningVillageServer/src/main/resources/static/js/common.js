@@ -126,3 +126,11 @@ function enableInput(scene) {
 function disableInput(scene) {
 	setInputEnabled(scene,false);
 }
+
+//this does not exactly do what an usual wrap around implementation would do (it would use a mod operation imo), but since this is JS, we cannot guarantee that the numbers will always be integers so it's implemented in a way that it is sort of the opposite of a clamp function. The "real deal" could also be obtained by adding / subtracting the whole range of max - min, so that's an alternative that could be implemented in the future in the case that we want to wrap around values with a remainder greater than 1.
+function wrapAroundValue(value, min = 0, max = 1){
+	ans = value;
+	ans = ans < min ? max : ans;
+	ans = ans > max ? min : ans;
+	return ans;
+}

@@ -1,7 +1,9 @@
 class SettingsMenu extends DragonScene
 {
 	background = null;
+	
 	botonSalir = null;
+	button_cosmetics = {};
 	
 	volume_settings_effects = null;
 	volume_settings_menu = null;
@@ -61,6 +63,9 @@ class SettingsMenu extends DragonScene
 		
 		//display the language settings object on the screen.
 		this.language_settings = this.createLanguageSettings(config.width/2, 400, lang("key_choose_language"));
+		
+		//button to display the cosmetics menu (only visible from the main menu, which means that cosmetics are only editable from the main menu and not in game).
+		this.button_cosmetics = this.createCosmeticsButton(config.width/2, config.height-120);
 		
 		//Button to return to the main menu.
 		let boton_salir_pos_x = this.fromGame ? config.width/2      : config.width - 150;
@@ -207,5 +212,22 @@ class SettingsMenu extends DragonScene
 		languageSettingsObject.text = this.add.text(config.width/2, y, lang("key_language_name"), styleText_PixelSansSerif_30).setOrigin(0.5).setScale(0.7);
 		
 		return languageSettingsObject;
+	}
+	
+	createCosmeticsButton(x,y)
+	{
+		//early return where nothing is created in the case that we are entering from the main menu.
+		if(this.fromGame){
+			return null;
+		}
+		
+		let ans = new Button(this, x, y, lang("key_cosmetics"), 'boton_vacio_largo');
+		ans.setButtonFunction(function(){
+			game.scene.stop("SettingsMenu");
+			game.scene.start("CosmeticsMenu");
+		});
+		ans.setCanBePressed(true);
+		
+		return ans;
 	}
 };

@@ -89,6 +89,10 @@ class GameMap extends DragonScene
 		players[0] = new Dragon(this, self_id  , p0x, p0y, this.flames);
 		players[1] = new Dragon(this, other_id , p1x, p1y, this.flames);
 		
+		//set the default cosmetics for the dragons as the ones configured by the local client (will be overwritten in online mp by whatever each client has selected, will be kept in local mp so that both dragons will have the chosen cosmetics by the local player):
+		players[0].cosmetic = playerCosmetics.body;
+		players[1].cosmetic = playerCosmetics.body;
+		
 		//add the camera (which depends on the game config and multiplayer type)
 		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
 		
@@ -137,6 +141,9 @@ class GameMap extends DragonScene
 					players[1].name = current_player.name;
 					players[1].playerId = current_player.playerId;
 					players[1].userId = current_player.userId;
+					
+					//update the cosmetics:
+					players[1].cosmetic = current_player.cosmeticBodyId;
 				}
 			}
 			else
@@ -147,6 +154,8 @@ class GameMap extends DragonScene
 					players[0].name = current_player.name;
 					players[0].playerId = current_player.playerId;
 					players[0].userId = current_player.userId;
+					
+					players[0].cosmetic = current_player.cosmeticBodyId;
 				}
 			}
 		}
@@ -228,9 +237,10 @@ class GameMap extends DragonScene
 					let time = gameTime.currentTime;
 					let shooting = players[0].isShooting;
 					let score = players[0].points;
+					let cosmetic_body = playerCosmetics.body;
 					
 					//console.log("Puntuación: "+score);
-					connection.sendData(x,y,rot,health,time,score,shooting);
+					connection.sendData(x,y,rot,health,time,score,shooting, cosmetic_body);
 				}
 				
 			}, /*100*/ 20); //use 20 ms, as most games send packets this often, if not faster.

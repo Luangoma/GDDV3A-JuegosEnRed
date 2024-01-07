@@ -39,6 +39,8 @@ game.scene.add("UpdateUser",UpdateUser);
 game.scene.add("MP_WarningScene", MP_WarningScene);
 game.scene.add("LobbyScene", LobbyScene);
 
+game.scene.add("CosmeticsMenu", CosmeticsMenu);
+
 game.scene.add("SettingsMenu",SettingsMenu);
 
 //game.scene.start("MainMenu");
