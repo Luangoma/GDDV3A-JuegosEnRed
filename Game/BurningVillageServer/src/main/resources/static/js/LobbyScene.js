@@ -143,6 +143,10 @@ class LobbyScene extends DragonScene
 					that.ready_text_array[i].setText(ready_text.waiting);
 				}
 				
+				//reset the cosmetics:
+				that.dragon_1_clothes_img.setTexture("cosmetic_none");
+				that.dragon_2_clothes_img.setTexture("cosmetic_none");
+				
 				
 				//early return if the received message does not contain the information we're looking for, aka, a message with the wrong action type and contents was sent. This could be caused by an user playing from the console with connection.sendObject() or other errors.
 				if(!m.players){
@@ -166,6 +170,14 @@ class LobbyScene extends DragonScene
 					//if the user has connected for the first time, display connecting until the first update packet with the name is sent.
 					let current_id = m.players[i].userId;
 					that.username_text_array[i].setText(current_id !== -1 ? (m.players[i].name.length === 0 ? (lang("key_connecting") + "...") : m.players[i].name) : lang("key_anonymous_username"));
+				}
+				
+				//update the cosmetics according to the playerdata:
+				if(connection.lobbyInfo.players && connection.lobbyInfo.players[0]){
+					that.dragon_1_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[0].cosmeticBodyId]);
+				}
+				if(connection.lobbyInfo.players && connection.lobbyInfo.players[1]){
+					that.dragon_2_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[1].cosmeticBodyId]);
 				}
 				
 				
@@ -202,38 +214,4 @@ class LobbyScene extends DragonScene
 		
 		
 	}
-	
-	/*
-	update(time, delta)
-	{
-		//reset the cosmetics:
-		this.dragon_1_clothes_img.setTexture("cosmetic_none");
-		this.dragon_2_clothes_img.setTexture("cosmetic_none");
-		
-		//only perform certain updates if the socket is connected
-		if(isConnected()){
-			//update the cosmetics according to the playerdata:
-			if(connection.lobbyInfo.players && connection.lobbyInfo.players[0]){
-				this.dragon_1_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[0].cosmeticBodyId]);
-			}
-			if(connection.lobbyInfo.players && connection.lobbyInfo.players[1]){
-				this.dragon_2_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[1].cosmeticBodyId]);
-			}
-		}
-	}
-	*/
-	
-	/*
-	update(time, delta)
-	{
-		//reset the cosmetics:
-		this.dragon_1_clothes_img.setTexture("cosmetic_none");
-		this.dragon_2_clothes_img.setTexture("cosmetic_none");
-		
-		//only perform certain updates if the socket is connected
-		if(isConnected()){
-			this.updateOnlineInfo();
-		}
-	}
-	*/
 };
