@@ -464,16 +464,16 @@ Automáticamente dicho usuario cierra su sesión, y si escribe en el chat será 
   - El contenido del post que simplemente es la cadena de texto en la que se puede embeber codigo html incluyendo imágenes. 
   - Si se envía un post sin tener una sesión activa, el id de su autor será -1 y se mostrará como mensaje de un usuario anónimo.
 
-# Fase 4: Estado del desarrollo (07/12/23)
+# Fases 4 y 5: Estado del desarrollo (07/12/23)
 | Funcion                            | Estado de la implementacion | Fase de finalización | Comentarios |
 | ---------------------------------- | --------------------------- | -------------------- | ----------- |
 | Nivel                              | Implementado                | - Fase 4             |             |
 | Matchmaking                        | Implementado                | - Fase 4             |             |
 | Sistema de creación de salas online| Implementado                | - Fase 4             |             |
-| Cosméticos, personalización        | Implementado                | - Fase 4             |             |
+| Cosméticos, personalización        | Implementado                | - Fase 5             |             |
 | Buscar partida                     | Implementado                | - Fase 4             |             |
-| Música                             | Implementado                | - Fase 4             |             |
-| Ajustes                            | Implementado                | - Fase 4             |	        |
+| Música                             | Implementado                | - Fase 5             |             |
+| Ajustes                            | Implementado                | - Fase 5             |	        |
 | Sonidos                            | Implementado                | - Fase 4             |             |
 
 ## Pantalla de emparejamiento automática
