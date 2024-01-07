@@ -133,11 +133,19 @@ Dragon.prototype.createDragon = function(start_x, start_y){
 
 Dragon.prototype.update = function(time, delta){
 	
+	//KNOWN ISSUE: Phaser 3's arcade physics run on a fixed step, which means that the update method is NOT called every single frame, which means that things will look jittery af if the position is updated on the update method... fuck phaser's terribly flawed design.
+	
 	//update the cosmetics position and visuals:
 	//the values should be lerped because otherwise the movement looks kind of jittery due to the nature of the update function (does not run every single tick/frame like one would expect from a regular game engine, figures, this is JS after all...)
 	this.cosmetic_sprite.x = this.sprite.x;
 	this.cosmetic_sprite.y = this.sprite.y;
 	this.cosmetic_sprite.angle = this.sprite.angle;
+	
+	/*
+	this.cosmetic_sprite.x = lerpValue(this.cosmetic_sprite.x, this.sprite.x, delta / 1000 * 10);
+	this.cosmetic_sprite.y = lerpValue(this.cosmetic_sprite.y, this.sprite.y, delta / 1000 * 10);
+	this.cosmetic_sprite.angle = lerpValue(this.cosmetic_sprite.angle, this.sprite.angle, delta/1000*10);
+	*/
 	
 	
 	//Update player movement
