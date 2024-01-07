@@ -154,6 +154,7 @@ Dragon.prototype.update = function(time, delta){
 	playerForwardVector = getForwardVector(this.sprite);
 	this.sprite.setVelocityX(playerForwardVector.y*playerVelocity);
 	this.sprite.setVelocityY(-playerForwardVector.x*playerVelocity);
+	this.cosmetic_sprite.visible = this.health>0;
 
 	//Execute Player Controls
 	if(this.health>0)
@@ -182,7 +183,7 @@ Dragon.prototype.update = function(time, delta){
 			this.spawnFlames(1);
 		}
 		
-	}	
+	}
 	this.time_elapsed+=delta;
 	if(this.time_elapsed >= this.delay)
 	{
