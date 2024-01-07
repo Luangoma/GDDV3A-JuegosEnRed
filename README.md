@@ -256,6 +256,7 @@ Ahora se proporcionará una lista de elementos y las posibles opciones que tendr
 * Botón Jugar: Dirige a la escena de Búsqueda de partida. También se puede usar el botón Barra espaciadora o Enter del teclado para acceder a la misma opción.
 * Botón Ajustes: Dirige a la escena Ajustes, donde configurar la experiencia jugable.
 * Botón Créditos: Dirige a la escena Créditos.
+* Botón Tutorial: Contiene la información necesaria para comprender el funcionamiento y los controles del juego.
 * Botón Salir: Permite al jugador salir del juego, después de una confirmación. También se puede usar el botón Escape del teclado para acceder a la misma opción.
 
 ## Buscar partida
@@ -278,9 +279,8 @@ A continuación se mostrará un boceto de la escena Partida.
 Ahora se proporcionará una lista de elementos y las posibles opciones que tendrá dicha sección:
 * Marcador: Muestra los puntos ganados de cada jugador
 * Cronómetro: Indica el tiempo restante de la partida. Al llegar a cero, la partida termina y se comparan los puntos de los jugadores para decidir el estado de victoria.
-* Vida: Indica la vida restante del jugador
+* Barra de vida: Indica la vida restante del jugador
 * Botón Pausa: Pausa la partida para acceder a un menú rápido de opciones entre las que se encuentran las opciones de ajustes y salir de partida. Si el jugador sale de partida, contará como victoria para el contrincante y derrota para el que la selecciona. Durante la pausa, el juego no se detiene.
-* Corazones: Muestra la vida que le queda al jugador. Al llegar a cero, el jugador muere y no puede jugar durante un periodo corto de tiempo (10 segundos).
 
 
 
@@ -461,6 +461,42 @@ Automáticamente dicho usuario cierra su sesión, y si escribe en el chat será 
   - El contenido del post que simplemente es la cadena de texto en la que se puede embeber codigo html incluyendo imágenes. 
   - Si se envía un post sin tener una sesión activa, el id de su autor será -1 y se mostrará como mensaje de un usuario anónimo.
 
+# Fase 4: Estado del desarrollo (07/12/23)
+| Funcion                            | Estado de la implementacion | Fase de finalización | Comentarios |
+| ---------------------------------- | --------------------------- | -------------------- | ----------- |
+| Nivel                              | Implementado                | - Fase 4             |             |
+| Matchmaking                        | Implementado                | - Fase 4             |             |
+| Sistema de creación de salas online| Implementado                | - Fase 4             |             |
+| Cosméticos, personalización        | Implementado                | - Fase 4             |             |
+| Buscar partida                     | Implementado                | - Fase 4             |             |
+| Música                             | Implementado                | - Fase 4             |             |
+| Ajustes                            | Implementado                | - Fase 4             |	        |
+| Sonidos                            | Implementado                | - Fase 4             |             |
+
+## Pantalla de emparejamiento automática
+Cualquier usuario registrado o no (como anónimo)  puede utilizar la funcion **matchmaking**
+Accesible desde Jugar -> Partida Online -> Listo
+
+Aparecerá una pantalla de sala de espera, hasta que otro jugador acceda al mismo sitio. 
+En este momento, aparecerán ambos jugadores y la partida dará comienzo en el momento en el que ambos pulsen el boton listo.
+
+## Pantalla de creación de salas
+
+Cualquier usuario registrado o no (como anónimo)  puede **crear y unirse a salas** de juego.
+Se puede acceder desde Jugar -> Lista de Salas -> crear o unirse
+
+Si un jugador ya ha creado una sala, aparecerá entre las salas disponibles para unirse.
+Si se prefiere se puede crear una sala nueva con la opción 'crear' u unirse a una creada.
+Una vez dentro de una sala el funcionamiento es similar al de emparejamiento automático. 
+Cuando ambos jugadores pulsen el boton listo, la partida dará comienzo.
+
+## Actualización en tiempo real de los datos para el correcto funcionamiento de la partidas online
+
+- **Posición y rotación de los dragones**: La posición [x,y] de los dragones se gestiona enviando periodicamente la posición de cada dragón al servidor y seteando estas en cada cliente. La rotación consiste en un valor en radianes que también se actualiza periodicamente en cada cliente.
+- **Llamaradas de los dragones**: Se ha modificado la forma de lanzar llamas de los dragones. Ahora al pulsar el boton se lanzan toda las llamas de la munición máxima de golpe. De esta forma solo se debe gestionar con el servidor si el dragón ha pulsado la tecla disparo, y reproducir el lanzamiento de las llamas en el otro cliente, saliendo en la dirección correcta en todo momento gracias a la actualización de posición y rotación del punto anterior.
+- **Salud de los dragones**: Cada dragón recibe periodicamente la salud de su contrincante y envía la suya.
+- **Puntución**: Cada dragón envía su puntuación a su adversario para que esta se muestre en ambos clientes
+- **Tiempo**: Se transmite el tiempo restante de la partida (gameTime.currentTime)
 
 ## Recursos externos utilizados
 Para el desarrollo del juego se han utilizado algunos recursos externos:
