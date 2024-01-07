@@ -179,7 +179,8 @@ public class Lobby {
 	*/
 	
 	public List<Player> getPlayers() {
-		List<Player> ans = new ArrayList<>(this.playerSlots.values());
+		//List<Player> ans = new ArrayList<>(this.playerSlots.values());
+		List<Player> ans = this.getPlayersSorted();
 		return ans;
 	}
 	
@@ -190,6 +191,28 @@ public class Lobby {
 	public void setPlayer(String s, Player p) {
 		Player new_p = new Player(p);
 		this.playerSlots.put(s, new_p);
+	}
+	
+	//custom sorting function to sort players by playerId, from smaller to bigger (which is the same as ordering by insertion order).
+	//This is required because, since we now use a concurrent map, the order is completely lost, thus, we need to handle this manually.
+	public List<Player> getPlayersSorted() {
+		List<Player> ans = new ArrayList<>(this.playerSlots.values());
+		
+		for(int i = 0; i < ans.size(); ++i) {
+			for(int j = 0; j < ans.size(); ++j) {
+				
+				Long player_i = ans.get(i).getPlayerId();
+				Long player_j = ans.get(j).getPlayerId();
+				
+				if(player_i < player_j) {
+					Player temp = ans.get(i);
+					ans.set(i, ans.get(j));
+					ans.set(j, temp);
+				}
+			}
+		}
+		
+		return ans;
 	}
 	
 }
