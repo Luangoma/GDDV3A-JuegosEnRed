@@ -23,8 +23,12 @@ class LobbyScene extends DragonScene
 	dragon_1_img = null;
 	dragon_2_img = null;
 	
+	dragon_1_clothes_img = null;
+	dragon_2_clothes_img = null;
 	
 	localReady = false;
+	
+	lobby_interval = null;
 	
 	preload()
 	{
@@ -74,6 +78,10 @@ class LobbyScene extends DragonScene
 		this.dragon_1_img = this.add.sprite(config.width/4 * 1, config.height/2, 'dragon_red').setOrigin(.5).setScale(2);
 		this.dragon_2_img = this.add.sprite(config.width/4 * 3, config.height/2, 'dragon_blue').setOrigin(.5).setScale(2);
 		
+		//image for the players' clothes:
+		this.dragon_1_clothes_img = this.add.sprite(config.width/4 * 1, config.height/2, 'cosmetic_none').setOrigin(.5).setScale(2);
+		this.dragon_2_clothes_img = this.add.sprite(config.width/4 * 3, config.height/2, 'cosmetic_none').setOrigin(.5).setScale(2);
+		
 		//buttons
 		let buttons_height = config.height - 40;
 		
@@ -99,6 +107,9 @@ class LobbyScene extends DragonScene
 			//clean up when disconnecting by setting the scene specific callbacks to null
 			connection.removeCallbacks();
 			
+			//clear the interval
+			clearInterval(that.lobby_interval);
+			
 			//go back to the play menu
 			game.scene.stop("LobbyScene");
 			game.scene.start("PlayMenu");
@@ -111,9 +122,16 @@ class LobbyScene extends DragonScene
 		//WebSocket stuff:
 		//NOTE: All of this is done after the entire UI has been drawn so that any error that happens during this process will be handled accordingly without breaking the UI.
 		
+		let old_on_open_callback = connection.event_on_open; //keep the old on open event, which was configured on the previous scene (matchaking or join to specific lobby, depends on the button that the user pressed)
+		
 		//Set scene specific callbacks for this client's conneciton:
 		connection.setCallbacks(
-			connection.event_on_open, //keep the old on open event, which was configured on the previous scene (matchaking or join to specific lobby, depends on the button that the user pressed)
+			/*function(){ //open
+				//NOTE: Cannot do it this way because sendLobbyData will overwrite the playerId and other data, because it sends whatever exists before resolving the matchmaking or whatever connection method is used... GG JS and the good old async nature of... fucking everything. This has led us to the gypsy af solution of using the lobby interval. Noice.
+				old_on_open_callback();
+				connection.sendLobbyData(false); //send the lobby data once to update the username and other information the first time the client connects to the lobby.
+			},*/
+			connection.event_on_open,
 			function(){ //close
 				
 			},
@@ -125,47 +143,29 @@ class LobbyScene extends DragonScene
 					that.ready_text_array[i].setText(ready_text.waiting);
 				}
 				
-				//update the names
-				//NOTE: The new packets include the user names, so this info is obtained with the lobby data updates, which means it could be optimized and no longer make use of AJAX requests. Just note that in the PlayMenu.js scene, the information that is sent is with the matchmaking function from the connection object, which means that the first time the player connects, their name is NOT sent to the server, which means that either you need to send a send-data packet right after match making OR you need to send the name with the match making packet. Figure this out later because it is not critical.
+				
+				//early return if the received message does not contain the information we're looking for, aka, a message with the wrong action type and contents was sent. This could be caused by an user playing from the console with connection.sendObject() or other errors.
 				if(!m.players){
-					return; //early return if the received message does not contain the information we're looking for, aka, a message with the wrong action type and contents was sent. This could be caused by an user playing from the console with connection.sendObject() or other errors.
+					return;
 				}
 				
-				for(let i = 0; i < m.players.length; ++i){
-					let current_id = m.players[i].userId; //we use the user ID because we want to look up the name of the user to display it in the lobby. The player ID is for gameplay purposes and has nothing to do with the player's account.
-					if(current_id !== -1){
-						$.ajax({
-							url: ip.http + "/users/" + current_id,
-							method: 'GET',
-							contentType: 'application/json',
-							success: function(data){
-								let current_username = data.username;
-								if(that.username_text_array[i])
-								{
-									that.username_text_array[i].setText(current_username);
-								}
-							},
-							error: function(xhr, status, error){
-								that.username_text_array[i].setText(lang("key_anonymous_username"));
-							}
-						});
-					}
-					else
-					{
-						//the user has id = -1 which means that they are anonymous. So there is no need to perform a GET petition, as we already know that it is going to fail.
-						that.username_text_array[i].setText(lang("key_anonymous_username"));
-					}
-				}
+				//update the names and other information...
 				
+				//start with 0 ready players
 				let total_ready_players = 0;
-				
+				//iterate over all of the players in the received message and perform different operations with said data:
 				for(let i = 0; i < m.players.length; ++i){
+					//change the ready status of the players and change the amount of ready players
 					let current_ready = m.players[i].isReady;
 					that.ready_text_array[i].setText(current_ready ? ready_text.ready : ready_text.not_ready);
-					
 					if(current_ready){
 						++total_ready_players;
 					}
+					
+					//get the user id and then change the username text based on the userid and name variables (if the user id is -1, then use the anon uname, otherwise, use the name from the name variable)
+					//if the user has connected for the first time, display connecting until the first update packet with the name is sent.
+					let current_id = m.players[i].userId;
+					that.username_text_array[i].setText(current_id !== -1 ? (m.players[i].name.length === 0 ? (lang("key_connecting") + "...") : m.players[i].name) : lang("key_anonymous_username"));
 				}
 				
 				
@@ -176,17 +176,13 @@ class LobbyScene extends DragonScene
 					//clear the connection callbacks
 					connection.removeCallbacks();
 					
+					//clear the interval
+					clearInterval(that.lobby_interval);
+					
 					//start multiplayer match
 					game.scene.stop("LobbyScene");
 					game.scene.start("GameMapLoader");
 				}
-				
-				
-				
-				
-				
-				//(OPTIONAL) TODO: Move the name reset loop after the petition so that it can reset the names of the remaining clients (2 - players.length clients in a loop...), which will prevent the already correct names from blinking.
-				
 			},
 			function(e){ //error
 				that.errorText.setText(lang("key_could_not_connect"));
@@ -197,6 +193,47 @@ class LobbyScene extends DragonScene
 		//Establish connection with the server and start match making.
 		connection.connect();
 		
+		//periodically send information to the other clients: (update every 0.5 seconds)
+		this.lobby_interval = setInterval(function(){
+			if(connection.isConnected()){
+				connection.sendLobbyData(that.localReady);
+			}
+		},1000 * 0.5);
+		
 		
 	}
+	
+	/*
+	update(time, delta)
+	{
+		//reset the cosmetics:
+		this.dragon_1_clothes_img.setTexture("cosmetic_none");
+		this.dragon_2_clothes_img.setTexture("cosmetic_none");
+		
+		//only perform certain updates if the socket is connected
+		if(isConnected()){
+			//update the cosmetics according to the playerdata:
+			if(connection.lobbyInfo.players && connection.lobbyInfo.players[0]){
+				this.dragon_1_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[0].cosmeticBodyId]);
+			}
+			if(connection.lobbyInfo.players && connection.lobbyInfo.players[1]){
+				this.dragon_2_clothes_img.setTexture(cosmetics.body[connection.lobbyInfo.players[1].cosmeticBodyId]);
+			}
+		}
+	}
+	*/
+	
+	/*
+	update(time, delta)
+	{
+		//reset the cosmetics:
+		this.dragon_1_clothes_img.setTexture("cosmetic_none");
+		this.dragon_2_clothes_img.setTexture("cosmetic_none");
+		
+		//only perform certain updates if the socket is connected
+		if(isConnected()){
+			this.updateOnlineInfo();
+		}
+	}
+	*/
 };

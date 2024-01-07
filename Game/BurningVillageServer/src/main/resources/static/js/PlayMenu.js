@@ -32,6 +32,7 @@ class PlayMenu extends DragonScene
 			//configure the connection type to make use of matchmaking instead of direct lobby connection
 			connection.event_on_open = function(){ //open function
 				connection.matchMaking();
+				//connection.sendLobbyData(false);
 			};
 			
 			

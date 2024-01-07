@@ -7,6 +7,8 @@ const LANGUAGE = Object.freeze({
 	LANGUAGE_COUNT: 5
 });
 
+//TODO: The key "unready" really should be named "not_ready", because unready would make more sense only for the unready button option, which we do not have implemented as of now... unready does not mean the same as not ready in the current context we are using it, but whatever. Fix this later...
+
 const LANGUAGE_DATA = {
 	SPANISH: {
 		key_language_name: "Español",
@@ -68,7 +70,8 @@ const LANGUAGE_DATA = {
 		key_edit_account: "Editar Cuenta",
 		key_change_password: "Cambiar contraseña",
 		key_cosmetics: "Atuendo",
-		key_customization: "Personalización"
+		key_customization: "Personalización",
+		key_connecting: "Conectándose"
 	},
 	ENGLISH: {
 		key_language_name           :              "English"                                               ,
@@ -131,6 +134,7 @@ const LANGUAGE_DATA = {
 		key_change_password         :              "Change Password"                                       ,
 		key_cosmetics               :              "Cosmetics"                                             ,
 		key_customization           :              "Customization"                                         ,
+		key_connecting              :              "Connecting"                                            ,
 	},
 	HUNGARIAN: {
 		key_language_name: "Magyar",
@@ -192,7 +196,8 @@ const LANGUAGE_DATA = {
 		key_edit_account: "Fiók szerkesztése",
 		key_change_password: "Jelszó módosítása",
 		key_cosmetics: "Viselet",
-		key_customization: "Testreszabás"
+		key_customization: "Testreszabás",
+		key_connecting: "Csatlakozás"
 	},
 	FRENCH: {
 		key_language_name           :              "Français"                                                     ,
@@ -255,6 +260,7 @@ const LANGUAGE_DATA = {
 		key_change_password         :              "Changer le mot de passe"                                      ,
 		key_cosmetics               :              "Tenue"                                                        ,
 		key_customization           :              "Personnalisation"                                             ,
+		key_connecting              :              "De liaison"                                                   ,
 	},
 	GERMAN: {
 		key_language_name           :              "Deutsch"                                                           ,
@@ -317,6 +323,7 @@ const LANGUAGE_DATA = {
 		key_change_password         :              "Kennwort ändern"                                                   ,
 		key_cosmetics               :              "Kleidung"                                                          ,
 		key_customization           :              "Anpassung"                                                         ,
+		key_connecting              :              "Verbinden"                                                         ,
 	}
 };
 

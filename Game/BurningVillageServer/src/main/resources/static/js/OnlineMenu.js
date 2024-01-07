@@ -154,6 +154,7 @@ class OnlineMenu extends DragonScene
 		//configure the connection type to make use of a direct connection to the chosen lobby with the specified ID
 		connection.event_on_open = function(){ //open function
 			connection.joinLobby(id);
+			//connection.sendLobbyData(false);
 		};
 		
 		//load the lobby scene
