@@ -27,7 +27,7 @@ function Dragon(new_scene, new_player_id, start_x, start_y, flames_group){
 	this.playerId = -1;
 	
 	//image and data for the clothes/cosmetics:
-	this.cosmetic = 0;
+	this.cosmetic = -1;
 	this.cosmetic_sprite = null;
 	
 	//create the dragon data
@@ -64,6 +64,15 @@ function createDragonData(scene){
 	});
 }
 
+Dragon.prototype.setCosmeticBodyId = function(id){
+	if(this.cosmetic === id){
+		return; //early return to prevent changing any information if the id is already the same (that way, we prevent wasting resources, as well as the animation getting stuck in the first frame if this information is updated on the update function, aka, updated every single frame.)
+	}
+	this.cosmetic = id;
+	this.cosmetic_sprite.setTexture(cosmetics.body[this.cosmetic]);
+	this.cosmetic_sprite.anims.play("flying_" + cosmetics.body[this.cosmetic]);
+};
+
 Dragon.prototype.createDragon = function(start_x, start_y){
 	
 	//create the physics sprite for the player and play the flying animation
@@ -87,6 +96,7 @@ Dragon.prototype.createDragon = function(start_x, start_y){
 	}
 	
 	this.cosmetic_sprite = this.scene.add.sprite(this.sprite.x, this.sprite.y, cosmetics.body[playerCosmetics.body]);
+	this.cosmetic_sprite.anims.play('flying_cosmetic_none');
 	
 	let player_ref = this.sprite;
 	player_ref.setBounce(0.2);
@@ -122,6 +132,13 @@ Dragon.prototype.createDragon = function(start_x, start_y){
 
 
 Dragon.prototype.update = function(time, delta){
+	
+	//update the cosmetics position and visuals:
+	//the values should be lerped because otherwise the movement looks kind of jittery due to the nature of the update function (does not run every single tick/frame like one would expect from a regular game engine, figures, this is JS after all...)
+	this.cosmetic_sprite.x = this.sprite.x;
+	this.cosmetic_sprite.y = this.sprite.y;
+	this.cosmetic_sprite.angle = this.sprite.angle;
+	
 	
 	//Update player movement
 	let playerVelocity = this.player_velocity; //something something phaser doesn't handle delta time in velocity and acceleration for some reason :(
@@ -164,12 +181,6 @@ Dragon.prototype.update = function(time, delta){
 		this.time_elapsed -= this.delay;
 		this.ammo = this.max_ammo;
 	}
-	
-	//update the cosmetics position and visuals:
-	this.cosmetic_sprite.x = this.sprite.x;
-	this.cosmetic_sprite.y = this.sprite.y;
-	this.cosmetic_sprite.angle = this.sprite.angle;
-	this.cosmetic_sprite.setTexture(cosmetics.body[this.cosmetic]);
 	
 };
 

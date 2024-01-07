@@ -90,8 +90,8 @@ class GameMap extends DragonScene
 		players[1] = new Dragon(this, other_id , p1x, p1y, this.flames);
 		
 		//set the default cosmetics for the dragons as the ones configured by the local client (will be overwritten in online mp by whatever each client has selected, will be kept in local mp so that both dragons will have the chosen cosmetics by the local player):
-		players[0].cosmetic = playerCosmetics.body;
-		players[1].cosmetic = playerCosmetics.body;
+		players[0].setCosmeticBodyId(playerCosmetics.body);
+		players[1].setCosmeticBodyId(playerCosmetics.body);
 		
 		//add the camera (which depends on the game config and multiplayer type)
 		addCamera(this,players[0],players[1],gameConfig.multiplayerType, gameConfig.screenSplitType);
@@ -143,7 +143,7 @@ class GameMap extends DragonScene
 					players[1].userId = current_player.userId;
 					
 					//update the cosmetics:
-					players[1].cosmetic = current_player.cosmeticBodyId;
+					players[1].setCosmeticBodyId(current_player.cosmeticBodyId);
 				}
 			}
 			else
@@ -155,7 +155,7 @@ class GameMap extends DragonScene
 					players[0].playerId = current_player.playerId;
 					players[0].userId = current_player.userId;
 					
-					players[0].cosmetic = current_player.cosmeticBodyId;
+					players[0].setCosmeticBodyId(current_player.cosmeticBodyId);
 				}
 			}
 		}

@@ -40,6 +40,7 @@ class PreloadScene extends DragonScene
 		createGameOverData(this);
 		createTileData(this);
 		createDragonData(this);
+		createCosmeticsData(this);
 		
 		//play the game music the first time that the game data has been loaded.
 		playGameMusic(this);
