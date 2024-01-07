@@ -27,7 +27,10 @@ const cosmetics = {
 		"cape_07",
 		"cape_08",
 		"cape_09",
-		"cape_10"
+		"cape_10",
+		"cape_11",
+		"cape_12",
+		"cape_13"
 	]
 };
 
