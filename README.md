@@ -21,7 +21,14 @@
  	- Usuario de GitHub: Sandro808
     
 ## Video demostrativo
-<iframe width="848" height="480" src="https://www.youtube.com/embed/c5TNxFbuQyQ" title="JuegosEnRed_BurningVillageTheDragonsFlame_VideoDemostrativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+<iframe width="848" height="480" src="https://www.youtube.com/embed/c5TNxFbuQyQ" title="JuegosEnRed_BurningVillageTheDragonsFlame_VideoDemostrativo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Plataformas
+'Burning Village: The Dragon's Flame' está disponible en las siguientes plataformas:
+- **itch.io:** <https://sandro808.itch.io/burning-village-the-dragons-flame>
+- **Gamejolt:** <https://gamejolt.com/games/dragonsFlame/867660>
+- **Newgrounds:** <https://www.newgrounds.com/portal/view/913289>
+- **idev.games:** <https://idev.games/game/burning-village-the-dragon-s-flame>
 
 ## Instrucciones
 ### Paso 1: Descarga de Eclipse STS
